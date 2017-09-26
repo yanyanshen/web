@@ -1,0 +1,243 @@
+[ 2017-09-01T12:21:35+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkAdmin.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+ERR: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-01T12:21:42+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-09-01T12:21:44+08:00 ] 127.0.0.1 /index.php/Admin/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+ERR: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+
+[ 2017-09-01T12:22:20+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-09-01T12:22:21+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-09-01T12:22:24+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-09-01T12:22:24+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-09-01T12:22:25+08:00 ] 127.0.0.1 /index.php/Admin/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0050s ]
+NOTIC: [8] Undefined index: validate F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1128 行.
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.0000s ]
+
+[ 2017-09-01T12:22:30+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkAdmin.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0080s ]
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-09-01T12:25:42+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkAdmin.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0040s ]
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.0000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-09-01T12:25:50+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-09-01T12:25:51+08:00 ] 127.0.0.1 /index.php/Admin/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0060s ]
+NOTIC: [8] Undefined index: validate F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1128 行.
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' AND `password` = '21232f297a57a5a743894a0e4a801fc3' LIMIT 1   [ RunTime:0.0000s ]
+SQL: UPDATE `xueches_admin` SET `online`='1',`lastlogin`='1504239951',`lastip`='127.0.0.1',`login_num`='6' WHERE `id` = 1 [ RunTime:0.0470s ]
+ERR: 1146:Table 'xueches.xueches_admin_log' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `xueches_admin_log`
+ERR: 1146:Table 'xueches.xueches_admin_log' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `xueches_admin_log`
+
+[ 2017-09-01T12:26:21+08:00 ] 127.0.0.1 /index.php/Admin/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0040s ]
+NOTIC: [8] Undefined index: validate F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1128 行.
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' AND `password` = '21232f297a57a5a743894a0e4a801fc3' LIMIT 1   [ RunTime:0.0010s ]
+SQL: UPDATE `xueches_admin` SET `online`='1',`lastlogin`='1504239981',`lastip`='127.0.0.1',`login_num`='7' WHERE `id` = 1 [ RunTime:0.0320s ]
+SQL: SHOW COLUMNS FROM `xueches_admin_log` [ RunTime:0.0030s ]
+SQL: INSERT INTO `xueches_admin_log` (`ntime`) VALUES ('1504239981') [ RunTime:0.0250s ]
+
+[ 2017-09-01T12:27:47+08:00 ] 127.0.0.1 /index.php/Admin/Admin/changeInfo.html?pid=17
+ERR: 非法操作:changeInfo
+
+[ 2017-09-01T12:27:48+08:00 ] 127.0.0.1 /index.php/Admin/Message/index.html?pid=49
+ERR: 无法加载控制器:Message
+
+[ 2017-09-01T12:27:49+08:00 ] 127.0.0.1 /index.php/Admin/Message/sendMessage.html?pid=50
+ERR: 无法加载控制器:Message
+
+[ 2017-09-01T12:28:23+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/index.html?pid=20
+ERR: 1054:Unknown column 'priority' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_auth_rule` ORDER BY path,priority asc 
+
+[ 2017-09-01T12:28:25+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/add.html?pid=21
+ERR: 非法操作:add
+
+[ 2017-09-01T12:28:27+08:00 ] 127.0.0.1 /index.php/Admin/AuthGroup/add.html?pid=19
+ERR: 非法操作:add
+
+[ 2017-09-01T12:28:29+08:00 ] 127.0.0.1 /index.php/Admin/Admin/add.html?pid=16
+ERR: 非法操作:add
+
+[ 2017-09-01T12:28:30+08:00 ] 127.0.0.1 /index.php/Admin/Admin/add.html?pid=16
+ERR: 非法操作:add
+
+[ 2017-09-01T12:28:31+08:00 ] 127.0.0.1 /index.php/Admin/Admin/add.html?pid=16
+ERR: 非法操作:add
+
+[ 2017-09-01T12:30:05+08:00 ] 127.0.0.1 /index.php/Admin/Admin/operate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0060s ]
+SQL: SELECT `permissions` FROM `xueches_admin` WHERE `permissions` = 1 AND `username` = 'admin' LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT * FROM `xueches_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0010s ]
+
+[ 2017-09-01T12:30:13+08:00 ] 127.0.0.1 /index.php/Admin/Admin/operate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0050s ]
+SQL: SELECT `permissions` FROM `xueches_admin` WHERE `permissions` = 1 AND `username` = 'admin' LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT * FROM `xueches_admin` WHERE `id` = 3 LIMIT 1   [ RunTime:0.0010s ]
+SQL: UPDATE `xueches_admin` SET `status`='0' WHERE `id` = 3 [ RunTime:0.0510s ]
+
+[ 2017-09-01T12:30:23+08:00 ] 127.0.0.1 /index.php/Admin/Admin/operate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0070s ]
+SQL: SELECT `permissions` FROM `xueches_admin` WHERE `permissions` = 1 AND `username` = 'admin' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `xueches_admin` WHERE `id` = 3 LIMIT 1   [ RunTime:0.0000s ]
+SQL: UPDATE `xueches_admin` SET `status`='1' WHERE `id` = 3 [ RunTime:0.0490s ]
+
+[ 2017-09-01T12:30:48+08:00 ] 127.0.0.1 /index.php/Admin/Admin/add.html?pid=16
+ERR: 非法操作:add
+
+[ 2017-09-01T12:32:25+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/index.html?pid=20
+ERR: 1054:Unknown column 'priority' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_auth_rule` ORDER BY path,priority asc 
+
+[ 2017-09-01T12:32:45+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/add.html?pid=21
+ERR: 非法操作:add
+
+[ 2017-09-01T12:32:46+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/add.html?pid=21
+ERR: 非法操作:add
+
+[ 2017-09-01T12:32:47+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/index.html?pid=20
+ERR: 1054:Unknown column 'priority' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_auth_rule` ORDER BY path,priority asc 
+
+[ 2017-09-01T12:33:46+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/index.html?pid=20
+ERR: 1054:Unknown column 'priority' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_auth_rule` ORDER BY path,priority asc 
+
+[ 2017-09-01T12:33:47+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/add.html?pid=21
+ERR: 非法操作:add
+
+[ 2017-09-01T12:34:08+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/index.html
+ERR: 1054:Unknown column 'priority' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_auth_rule` ORDER BY path,priority asc 
+
+[ 2017-09-01T12:36:22+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/getRuleByPid.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xueches_auth_rule` [ RunTime:0.0080s ]
+SQL: SELECT * FROM `xueches_auth_rule` WHERE `pid` = 0  [ RunTime:0.0010s ]
+
+[ 2017-09-01T12:37:05+08:00 ] 127.0.0.1 /index.php/Admin/AuthRule/del.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `xueches_auth_rule` [ RunTime:0.0080s ]
+SQL: SELECT * FROM `xueches_auth_rule` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `xueches_auth_rule` WHERE `path` LIKE '1%'  [ RunTime:0.0010s ]
+SQL: DELETE FROM `xueches_auth_rule` WHERE `path` LIKE '1%' [ RunTime:0.0240s ]
+
+[ 2017-09-01T13:09:28+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkAdmin.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0040s ]
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-09-01T13:10:18+08:00 ] 127.0.0.1 /index.php/Admin/Login/chkVerify.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-09-01T13:10:18+08:00 ] 127.0.0.1 /index.php/Admin/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xueches_admin` [ RunTime:0.0050s ]
+NOTIC: [8] Undefined index: validate F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1185 行.
+NOTIC: [8] Undefined index: auto F:\WWW\xctest\ThinkPHP\Library\Think\Model.class.php 第 1128 行.
+SQL: SELECT * FROM `xueches_admin` WHERE `username` = 'admin' AND `password` = '21232f297a57a5a743894a0e4a801fc3' LIMIT 1   [ RunTime:0.0010s ]
+SQL: UPDATE `xueches_admin` SET `online`='1',`lastlogin`='1504242618',`lastip`='127.0.0.1',`login_num`='8' WHERE `id` = 1 [ RunTime:0.0320s ]
+SQL: SHOW COLUMNS FROM `xueches_admin_log` [ RunTime:0.0040s ]
+SQL: INSERT INTO `xueches_admin_log` (`ntime`) VALUES ('1504242618') [ RunTime:0.0250s ]
+

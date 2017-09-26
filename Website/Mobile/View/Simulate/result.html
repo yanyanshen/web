@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>考试成绩</title>
+    <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/Exam/theory_study')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">考试成绩</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_box">
+        <div class="main">
+            <div class="result-box">
+                <div class="result">
+                    <div class="result-head">
+                        <img src=" __STATIC__/theory_study/images/header1.jpg">
+                    </div>
+                    <h1 class="result-name">{$nickname}</h1>
+                    <div class="result-score">
+                        <ul>
+                            <li class="score">{$score}</li>
+                            <li class="time">用时：{$minute}:{$second}</li>
+                        </ul>
+                    </div>
+                    <div class="level">
+                        <if condition="$score lt 90 ">
+                            <img src=" __STATIC__/theory_study/images/result02.png">
+                        </if>
+                        <if condition="$score egt 90 and $score lt 93">
+                            <img src=" __STATIC__/theory_study/images/result03.png">
+                        </if>
+                        <if condition="$score egt 93 and $score lt 98 ">
+                            <img src=" __STATIC__/theory_study/images/result04.png">
+                        </if>
+                        <if condition="$score egt 98 ">
+                            <img src=" __STATIC__/theory_study/images/result05.png">
+                        </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="foot_theoryStudy">
+        <ul>
+            <li class="foot_option ">
+                <button class="check_error" ms="{$ms}" mt="{$mt}">
+                    <img src=" __STATIC__/theory_study/images/checkWorry.png">
+                    <p>查看错题 <span style="color: red">({$count})</span></p>
+                </button>
+            </li>
+            <li class="foot_option">
+                <button onclick="toshare()">
+                    <img src=" __STATIC__/theory_study/images/share.png">
+                    <p>分享</p>
+                </button>
+            </li>
+            <li class="foot_option again" ms="{$ms}" mt="{$mt}">
+                <button>
+                    <img src=" __STATIC__/theory_study/images/again.png">
+                    <p>重考</p>
+                </button>
+            </li>
+        </ul>
+    </footer>
+</div>
+<div class="am-share">
+    <h3 class="am-share-title">分享</h3>
+    <ul class="am-share-sns">
+        <li><a href="#"> <i class="share-icon-weibo"></i> <span>微信好友</span> </a> </li>
+        <li><a href="#"> <i class="share-icon-weibo"></i> <span>QQ好友</span> </a> </li>
+        <li><a href="#"> <i class="share-icon-weibo"></i> <span>QQ空间</span> </a> </li>
+        <li><a href="#"> <i class="share-icon-weibo"></i> <span>新浪微博</span> </a> </li>
+    </ul>
+    <div class="am-share-footer"><button class="share_btn">取消</button></div>
+</div>
+<script type="text/javascript">
+    function toshare(){
+        $(".am-share").addClass("am-modal-active");
+        if($(".sharebg").length>0){
+            $(".sharebg").addClass("sharebg-active");
+        }else{
+            $("body").append('<div class="sharebg"></div>');
+            $(".sharebg").addClass("sharebg-active");
+        }
+        $(".sharebg-active,.share_btn").click(function(){
+            $(".am-share").removeClass("am-modal-active");
+            setTimeout(function(){
+                $(".sharebg-active").removeClass("sharebg-active");
+                $(".sharebg").remove();
+            },300);
+        })
+    }
+    $(".check_error").click(function(){
+        var mt = $(this).attr('mt');
+        var ms = $(this).attr('ms');
+        location = "{:U('Mobile/Simulate/check_error')}?mt="+mt+"&ms="+ms;
+    });
+    $(".again").click(function(){
+        var mt = $(this).attr('mt');
+        var ms = $(this).attr('ms');
+        location.href = "{:U('Mobile/Simulate/simulate')}?mt="+mt+"&ms="+ms;
+    })
+</script>
+</body>
+</html>

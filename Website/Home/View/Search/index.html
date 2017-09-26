@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>搜索页</title>
+   <meta name="keywords" content="我要去学车，学车，驾照，考驾照，拿证，驾驶证，去哪学车，去学车，驾证">
+   <meta name="description" content="我要去学车网-全国驾考学车平台，优质服务，专业指导，让天下没有难考的驾照！">
+   <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/main.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/cityselect.css">
+    <script src="__STATIC__/index/js/jquery.js"></script>
+   <script src="__STATIC__/index/js/img_play.js"></script>
+   <script src="__STATIC__/index/js/city.js"></script>
+   <script src="__STATIC__/index/js/click.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/cityselect.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
+</head>
+<body>
+<div class="top_box">
+   <div class="top_center">
+      <a href="">关于我们</a>
+      <a href="">学车指南</a>
+      <a href="">订单中心</a>
+      <a href="" style="color: #ff5a00;">注册</a>
+      <a href="" style="color: #ff5a00;">亲，请登录！</a>
+   </div>
+   <div class="clearfix"></div>
+</div>
+
+<div class="logo_box">
+    {$Think.session.city)}
+<div class="logo_center">
+   <div class="logo_left">
+      <img class="logo_image" src="__STATIC__/index/images/logo_01.png">
+      <img class="logo_line" src="__STATIC__/index/images/logo02.png">
+      <img class="gps" src="__STATIC__/index/images/gps.png">
+       <div class="demo" style="width:100px;float: left;margin:28px auto;">
+           <input type="text" class="cityinput" value="{$Think.session.city}" id="citySelect" autoComplete='off' placeholder="">
+       </div>
+       <script type="text/javascript">
+           var test=new Vcity.CitySelector({input:'citySelect'});
+       </script>
+   </div>
+   <div class="logo_right">
+      <ul>
+         <li><a href="">首页</a></li>
+         <li><a href="">报名学车</a></li>
+         <li><a href="">理论学习</a></li>
+         <li><a href="">行业资讯</a></li>
+         <li><a href="">软件下载</a></li>
+         <li><a href="">关于我们</a></li>
+      </ul>
+   </div>
+   <div class="clearfix"></div>
+</div>
+</div>
+<div class="search_box" style="margin-top: 100px">
+    <div class="search_bg">
+        <div id="search_input">
+            <div id="search_main">
+                <form action="{:U('Home/Search/index')}" method="post">
+                    <select id="sort" name="condition">
+                        <if condition="$condition eq 1">
+                            <option value="1" selected>驾校</option>
+                            <option value="2" >位置</option>
+                            <else/>
+                            <option value="1" >驾校</option>
+                            <option value="2" selected>位置</option>
+                        </if>
+                    </select>
+                    <input type="text" value="" id="lng" name="lng"/>
+                    <input type="text" value="" id="lat" name="lat"/>
+                    <input id="search1" style="margin-top: 20px;float: left" type="text"  name="k" value="{$k?$k:广源驾校}"  />
+                    <input id="submit" type="submit" value=""/>
+                </form>
+
+            </div>
+        </div>
+        <div id="search_school">
+            <ul>
+                <li id="search_name">上海市中心驾校</li>
+                <li id="search_name">上海广源驾校</li>
+                <li id="search_name">上海华程驾校</li>
+                <li id="search_name">上海五汽驾校</li>
+                <li id="search_name">上海新星驾校</li>
+            </ul>
+        </div>
+        <div id="l-map" style="display: none"></div>
+        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;margin-top: 100px"></div>
+    </div>
+</div>
+<div class="main_box">
+   <div class="main_box2">
+      <div class="main2">
+         <div class="main2_top">
+            <h1>排行榜</h1>
+            <div class="main2_top2">
+               <img src="__STATIC__/index/images/27.png">
+               <h2>选择适合自己的学车导师</h2>
+               <img src="__STATIC__/index/images/27.png">
+               <div class="clearfix"></div>
+            </div>
+         </div>
+
+         <div class="main2_bottom">
+            <div class="main2_bottom1">
+               <div class="main2_bt1">
+                  <h1>驾校</h1>
+               </div>
+               <div class="main2_bb1">
+                   <volist name="schools" id="schools" empty="$empty" key="k">
+                       <div class="main2_school">
+                           <if condition="$k gt 4">
+                               <div class="number_box"><div class="number4">{$k}</div></div>
+                                <else/>
+                               <div class="number_box"><div class="number{$k}">{$k}</div></div>
+                           </if>
+                           <div class="name_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}">{$schools.schools_name}</a></div>
+                           <div class="cost_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}">{$schools.schools_price}/起</a></div>
+                           <div class="human_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}"><span style="color:#ff5a00; font-size: 14px;">{$schools.schools_num}</span>人已报名</a></div>
+                       </div>
+                   </volist>
+                  <div class="more"><a href="">查看更多</a></div>
+               </div>
+            </div>
+
+            <div class="main2_bottom2">
+               <div class="main2_bt2">
+                  <h1>教练</h1>
+               </div>
+               <div class="main2_bb2">
+                   <volist name="coachs" id="coachs" key="k" empty="$empty">
+                      <div class="main2_teacher">
+                          <if condition="$k gt 4">
+                              <div class="number_box1"><div class="number4">{$k}</div></div>
+                              <else/>
+                              <div class="number_box1"><div class="number{$k}">{$k}</div></div>
+                          </if>
+                         <div class="head_portrait"><div class="head"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div></div>
+                         <div class="teacher_box">
+                            <div class="teacher1">
+                               <a href="" class="name_teacher">{$coachs.coachs_name}</a>
+                               <img src="__STATIC__/index/images/5_07.png" class="star">
+                            </div>
+                            <div class="teacher2">
+                               <a href="" class="cost_teacher">{$coachs.coachs_price}元/起</a>
+                               <a href="" class="apply_teacher"><span style="color:#ff5a00; font-size: 16px; font-family:"微软雅黑";>{$coachs.coachs_num}</span>人已报名</a>
+                            </div>
+                         </div>
+                      </div>
+                   </volist>
+                  <div class="more"><a href="">查看更多</a></div>
+               </div>
+            </div>
+
+            <div class="main2_bottom3">
+               <div class="main2_bt3">
+                  <h1>指导员</h1>
+               </div>
+               <div class="main2_bb3">
+                   <volist name="offers" id="offers" key="k" empty="$empty">
+                       <div class="main2_teacher">
+                           <if condition="$k gt 4">
+                               <div class="number_box1"><div class="number4">{$k}</div></div>
+                               <else/>
+                               <div class="number_box1"><div class="number{$k}">{$k}</div></div>
+                           </if>
+                           <div class="head_portrait"><div class="head"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div></div>
+                           <div class="teacher_box">
+                               <div class="teacher1">
+                                   <a href="" class="name_teacher">{$offers.offers_name}</a>
+                                   <img src="__STATIC__/index/images/5_07.png" class="star">
+                               </div>
+                               <div class="teacher2">
+                                   <a href="" class="cost_teacher">{$offers.offers_price}元/起</a>
+                                   <a href="" class="apply_teacher">已教学员<span style="color:#ff5a00; font-size: 16px; font-family:"微软雅黑";>{$offers.offers_num}</span>人</a>
+                               </div>
+                           </div>
+                       </div>
+                   </volist>
+                  <div class="more"><a href="">查看更多</a></div>
+               </div>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+
+      </div>
+
+   </div>
+
+   <div class="main_box1">
+      <div class="main1">
+         <div class="main1_top">
+            <h1>培训课程</h1>
+            <div class="main1_top1">
+            <img src="__STATIC__/index/images/27.png">
+            <h2>选择适合自己的驾考模式</h2>
+            <img src="__STATIC__/index/images/27.png">
+            <div class="clearfix"></div>
+            </div>
+         </div>
+
+         <div class="main1_bottom">
+            <div class="main1_bottom1">
+               <img src="__STATIC__/index/images/course1.png">
+               <h1>驾考全包</h1>
+               <a href="">VIP班</a>
+               <a href="">速成班</a>
+               <a href="">周末班</a>
+               <a href="">周一到周五班</a>
+               <a href="">周一到周日班</a>
+            </div>
+            <div class="main1_bottom2">
+               <img src="__STATIC__/index/images/course2.png">
+               <h1>计时培训</h1>
+               <a href="">VIP班</a>
+               <a href="">速成班</a>
+               <a href="">周末班</a>
+               <a href="">周一到周五班</a>
+               <a href="">周一到周日班</a>
+            </div>
+            <div class="main1_bottom3">
+               <img src="__STATIC__/index/images/course3.png">
+               <h1>自学直考</h1>
+               <a href="">VIP班</a>
+               <a href="">速成班</a>
+               <a href="">周末班</a>
+               <a href="">周一到周五班</a>
+               <a href="">周一到周日班</a>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+   </div>
+
+
+   <div class="main_box3_1">
+      <div class="main3_1">
+
+         <div class="main3_1_top">
+            <h1>热门驾校</h1>
+            <div class="main3_1_top3">
+               <img src="__STATIC__/index/images/27.png">
+               <h2>一流服务、专业高效</h2>
+               <img src="__STATIC__/index/images/27.png">
+               <div class="clearfix"></div>
+            </div>
+         </div>
+         <div class="main3_1_bottom">
+            <div class="hot_10">
+                <volist name="hots" id="hots" key="k" empty="$empty" offset="0" length="10">
+                    <div class="main3_school">
+                        <if condition="$k lt 4">
+                            <div class="number_box3"><div class="number{$k}_1">{$k}</div></div>
+                            <else/>
+                            <div class="number_box3"><div class="number4_1">{$k}</div></div>
+                        </if>
+
+                        <div class="name_school3">
+                            <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotLeft['id']))}">{$hots.schools_name}</a>
+                        </div>
+                    </div>
+                </volist>
+               <div class="clearfix"></div>
+            </div>
+            <div class="hot_box">
+               <div class="hot_left">
+                   <volist name="hotsRight" id="hotsRight" empty="$empty" offset="10" length="8">
+                       <div id="hot_school">
+                           <div class="hot_school_top">
+                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_name">{$hotsRight.schools_name}</a>
+                               <p class="hot_s_jz">{$hotsRight.type_name}照</p>
+                               <p class="hot_s_h">￥{$hotsRight.schools_price}</p>
+                               <p class="hot_s_n">￥{$hotsRight.schools_nowprice}</p>
+                               <div class="clearfix"></div>
+                           </div>
+                           <div class="hot_school_bottom">
+                               <p class="hot_s_t">已有{$hotsRight.schools_num}名学员报名</p>
+                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_b">详情>></a>
+                               <div class="clearfix"></div>
+                           </div>
+                       </div>
+                   </volist>
+               </div>
+               <div class="hot_right">
+                   <volist name="hotsRight1" id="hotsRight" empty="$empty" offset="18" length="26">
+                       <div id="">
+                           <div class="hot_school_top">
+                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_name">{$hotsRight.schools_name}</a>
+                               <p class="hot_s_jz">{$hotsRight.type_name}照</p>
+                               <p class="hot_s_h">￥{$hotsRight.schools_price}</p>
+                               <p class="hot_s_n">￥{$hotsRight.schools_nowprice}</p>
+                               <div class="clearfix"></div>
+                           </div>
+                           <div class="hot_school_bottom">
+                               <p class="hot_s_t">已有{$hotsRight.schools_num}名学员报名</p>
+                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_b">详情>></a>
+                               <div class="clearfix"></div>
+                           </div>
+                       </div>
+                   </volist>
+               </div>
+            </div>
+            <div class="hot_image">
+               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
+               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
+               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
+               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
+               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
+               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+
+      </div>
+   </div>
+
+</div>
+
+
+
+<div class="fix_box">
+   <div class="fix1">
+       <div class="fix1_box">
+           <img src="__STATIC__/index/images/fix202_11.png">
+           <!--<a href="">在线客服</a>-->
+           <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1967176003&site=qq&menu=yes">
+               在线客服
+           </a>
+       </div>
+      <div class="fix1_box">
+         <img src="__STATIC__/index/images/fix201_14.png">
+         <a href="">马上报名</a>
+      </div>
+      <div class="fix1_box">
+         <img src="__STATIC__/index/images/fix201_14.png">
+         <a href="">拨打热线</a>
+      </div>
+   </div>
+   <h1>400-8040-517</h1>
+   <div class="fix2">
+      <img src="__STATIC__/index/images/fix2_17.png">
+   </div>
+    <div class="fix_box2">
+        <img id="pack" src="__STATIC__/index/images/packUp.png">
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+
+
+
+    var map = new BMap.Map("l-map");
+
+    var localSearch = new BMap.LocalSearch(map);
+    localSearch.enableAutoViewport(); //允许自动调节窗体大小
+        var keyword = document.getElementById("search1").value;
+        localSearch.setSearchCompleteCallback(function (searchResult) {
+            var poi = searchResult.getPoi(0);
+            document.getElementById("lng").value = poi.point.lng;  //获取经度和纬度，将结果显示在文本框中
+            document.getElementById("lat").value = poi.point.lat; //获取经度和纬度，将结果显示在文本框中
+            map.centerAndZoom(poi.point, 13);
+
+
+
+        });
+        localSearch.search(keyword);
+
+
+ /*   function G(id) {
+        return document.getElementById(id);
+    }
+
+
+    var city=$("#citySelect").val();
+    map.centerAndZoom(city,11);                   // 初始化地图,设置城市和地图级别。
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+            {"input" : "search1"
+                ,"location" : map
+            });
+
+    ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+    function setPlace(){
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun(){
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }*/
+</script>
+
+

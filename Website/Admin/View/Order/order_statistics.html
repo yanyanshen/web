@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>订单统计报表</title>
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+    <style>
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+    </style>
+</head>
+<body>
+    <div class="div_head" style="background-color: rgb(129, 191, 249);">
+        <span>
+            <span style="float: left;font-weight: bolder;color: #ffffff">订单统计报表</span>
+        </span>
+    </div>
+    <div class="div_search" style="height: 30px;background-color:  rgb(129, 191, 249)">
+        <span style="float:left;color: #ffffff;font-weight: bolder;width: 100%">
+            <form action="{:U('Admin/Order/order_statistics')}" id='form1' method="get">
+                城市：<select name="cityname" id="">
+                        <volist name="city" id="city">
+                            <option value="{$city['id']}" {$cityname==$city['id']?'selected':''}>{$city['cityname']}</option>
+                        </volist>
+                      </select>
+                时间：<input type="text" onClick="WdatePicker()" value="{$create_time?$create_time:''}" name="create_time"/>
+                至 <input type="text" value="{$create_time1?$create_time1:''}"  onClick="WdatePicker()" name="create_time1"/>
+                <input value="查询" style="padding: 0 15px" type="submit"/>
+            </form>
+        </span>
+    </div>
+    <div style="font-size: 13px; margin: 10px 5px;">
+    <table class="table_a" style="border:1px solid  rgb(129, 191, 249);" width="100%">
+        <tbody>
+            <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff;height: 30px">
+                <th width="6%">时间</th>
+                <th width="6%">下单量</th>
+                <th width="6%">成单量</th>
+                <th width="6%">成单率</th>
+                <th width="6%">支付宝</th>
+            </tr>
+            <tr>
+                <td style="text-align: center">{$create_time} ~ {$create_time1}</td>
+                <td>{$order_statistics['order_num']}</td>
+                <td>{$order_statistics['completed_num']}</td>
+                <td>{$order_statistics['completed_lv']}</td>
+                <td>{$order_statistics['pay_type']}</td>
+            </tr>
+            <tr style="height: 20px"><td colspan="6"></td></tr>
+        <tr style="height: 20px;border: 1px solid rgb(129, 191, 249)">
+            <td style="text-align: center">合计：</td>
+            <td>下单总数：{$order_statistics['order_num']?$order_statistics['order_num']:0}</td>
+            <td>成单总数：{$order_statistics['completed_num']?$order_statistics['completed_num']:0}</td>
+            <td>成单转化率：{$order_statistics['completed_lv']?$order_statistics['completed_lv']:0}</td>
+            <td>支付宝支付订单数：{$order_statistics['pay_type']?$order_statistics['pay_type']:0}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

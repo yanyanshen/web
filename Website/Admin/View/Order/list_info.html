@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>订单详情</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+       	 <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+          <link rel="stylesheet" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		  <link rel="stylesheet" href="__STATIC__/ment/bootstrap/css/bootstrap-select.min.css">
+		  <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+		  <script src="__STATIC__/ment/js/bootstrap.min.js"></script>
+		  <script src="__STATIC__/ment/js/bootstrap-select.min.js"></script>
+		  <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+        <script>
+        	$("document").ready(function(){
+        		$("#class").change(function(){
+        			$.post(
+        				"{:U('returnprices')}", {class_name:$("#class option:selected").val()},function(data,status){
+        					data1=eval("("+data+")");
+        					//alert(data);
+        					//循环前先清空
+        					$("#advanceprice").text('100');
+        					$("#off").text(data1['officeprice']);
+        					$("#who").text(data1['wholeprice']);
+        					$("#advanceprice").text(data1['advanceprice']);
+        					$("#whole1").text(data1['whole1']);
+        			});
+        		});
+        		 $("input:text").not("[readonly]").css("background",'#F0F0F0');
+        	});
+ 		</script>
+        <style>
+            .table_a{border:2px solid rgba(39, 164, 237, 0.22);width:100%;border-radius: 15px}
+            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+            input{  margin-bottom: 8px;  }
+            div.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
+            div.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+
+        </style>
+    </head>
+    <body>
+        <div class="div_head" style="background-color: rgb(129, 191, 249);">
+            <span>
+                <span style="float:left;color:#ffffff;font-weight: bolder">订单详情</span>
+                <span style="margin-right: 8px;font-weight: bold">
+                    <a style="text-decoration: none;color:red;font-weight: bolder" href="{:U('order_list')}">【返回】</a>
+                </span>
+            </span>
+        </div>
+        <div style="font-size: 13px;margin: 10px 5px">
+            <form action="{:U('cencel_order')}" method="post">
+                <input type="hidden" name="id" value="{$id}"/>
+                <input type="hidden" name="pid" value="{$pid}"/>
+                <table class="table_a">
+                    <tr>
+                        <td style="font-weight: bolder" colspan='8'>订单概况</td>
+                    </tr>
+                    <tr>
+                        <td width="1" style="background-color: rgb(233,233,233);font-weight: bolder;">订单号:</td>
+                        <td width="12%">{$list['ordcode']}</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 4%">订单类型:</td>
+                        <td width="12%">
+                            <if condition="$list['order_type'] eq 1">驾校订单</if>
+                            <if condition="$list['order_type'] eq 2">教练订单</if>
+                            <if condition="$list['order_type'] eq 3">指导员订单</if>
+                            <if condition="$list['order_type'] eq 4">预约订单</if>
+                            <if condition="$list['order_type'] eq 5">人工订单</if>
+                        </td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 4%">订单状态:</td>
+                        <td width="12%">
+                            <if condition="$list['status'] eq 1">待支付
+                                <elseif condition="$list['status'] eq 2"/>
+                                待评价
+                                <elseif condition="$list['status'] eq 3"/>
+                                待确认
+                                <elseif condition="$list['status'] eq 4"/>
+                                已完成
+                                <elseif condition="$list['status'] eq 5"/>
+                                已取消
+                            </if>
+                        </td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 4%">下次回访:</td>
+                        <td width="12%">
+                            <if condition="$list['return_time'] eq '0'">
+                                未设置
+                                <else/>
+                                {$list['return_time']}
+                            </if>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 5%">下单时间:</td>
+                        <td width="12%">{:date('Y-m-d H:i:s',$list['create_time'])}</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width:5%">支付方式:</td>
+                        <td width="12%">
+                            <if condition="$list['pay_type'] eq 1">支付宝
+                                <elseif condition="$list['pay_type'] eq 2"/>微信
+                                <else/>未支付
+                            </if>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">支付状态:</td>
+                        <td width="12%">{$list['status']==1?'待支付':'已支付'}</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">跟单客服:</td>
+                        <td width="12%">
+                            <select name="customer"  disabled>
+                                <volist name="customers" id="v">
+                                    <option value="{$v.username}" {$v['username']==$list['customer']?'selected':""}>{$v.username}</option>
+                                </volist>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                            <notempty name="order_log">
+                                <input onclick="order_log()" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="button" value='操作日志' />　
+                                <else/>
+                                <a href="javascript:alert('暂无权限')" style="padding:6px 7px;color:#000000;text-decoration:none;background-color:rgb(189, 206, 238);border-radius: 3px;border:none" >操作日志</a>
+                            </notempty>
+                            <input style="margin-left: 16%;background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="submit" value='发送短信' />　
+                            <input style="margin-left: 26%;background-color:rgb(189, 206, 238);border-radius: 3px ;border:none" type="submit" value='发送短信凭证' />
+                            <if condition="$list['status'] eq 1">
+                                <input  style="float: right;margin-right: 2%;background-color:rgb(189, 206, 238);border-radius: 3px;border:none"  type="button" value='未付款' />
+                                <elseif condition="$list['status'] eq 2"/>
+                                <input style="float: right;margin-right: 2%;background-color:rgb(189, 206, 238);border-radius: 3px;border:none"  type="button" value='还未确认付款' />
+                                <elseif condition="$list['status'] eq 3"/>
+                                <input style="float: right;margin-right: 2%;background-color:rgb(189, 206, 238);border-radius: 3px;border:none"  type="submit" value='取消订单' />
+                                <else/>
+                                <input style="float: right;margin-right: 2%;background-color:rgb(189, 206, 238);border-radius: 3px;border:none"  type="button" value='已完成' />
+                            </if>
+                        </td>
+                    </tr>
+                </table>
+            </form><br>
+ <!-- ------------------------------------form2------------------------------------------------ -->
+            <form action="{:U('stu_update')}" method="post">
+                <table class="table_a">
+                    <tr>
+                        <input type="hidden" name="id" value="{$id}"/>
+                        <td colspan='8'>用户信息</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">客户姓名:</td>
+                        <td width="12%">{$user.truename}</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">客户电话:</td>
+                        <td>{$user.account}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">学员信息:</td>
+                        <td  colspan="3">
+                            <volist name="stu" id="stu">
+                                <span style="color: #000000" >
+                                    姓名:{$stu['name']}
+                                    &nbsp;&nbsp;&nbsp;
+                                    电话:{$stu['tel']}</span>
+                                <span style="margin: 20px;padding: 3px 0;border:1px solid red;background-color: #0000ff"></span>
+                            </volist>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">所在位置:</td>
+                        <td colspan="3">{$list.address}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">备注信息:</td>
+                        <td colspan="3">{$list.inform}</td>
+                    </tr>
+                    <tr>
+                        <td colspan='8'>
+                            <notempty name="stu_update">
+                                <input  value='{$stu_update.title}' style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="button" onclick="stu_update()" />
+                                <else/>
+                                <a href="javascript:alert('暂无权限');" style="padding:6px 7px;text-decoration:none;color:#000000;background-color:rgb(189, 206, 238);border-radius: 3px;border:none">修改学员信息</a>
+                            </notempty>
+                        </td>
+                    </tr>
+            	  </table>
+            </form><br>
+            <!-- ------------------------------------form3------------------------------------------------ -->
+            <form action="{:U('class_update')}" method="post" id="form3">
+                <input type="hidden" value="{$pid}" name="pid"/>
+                <table class="table_a">
+                    <tr>
+					    <input type="hidden" name="id" value="{$id}"/>
+						<td colspan='14'>意向课程</td>
+					</tr>
+					<tr>
+						<td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">已报驾校:</td>
+						<td width="12%">
+                            {$list.s_nickname} -- {$list.trainaddress}
+						</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;;width: 6%">已选基地:</td>
+                        <td width="12%">
+                            <select name="trainaddress" id="train" style="width: 150px;height: 30px">
+                                <option value='517基地'>517基地</option>
+                                <volist name='train' id='v'>
+                                    <option value="{$v.trname}" {$list['trainaddress']==$v['trname']?'selected':''}>{$v.trname}</option>
+                                </volist>
+                            </select>
+                        </td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">联系人/电话:</td>
+                        <td><input type="text" name="connect" value="{$list.connect}"/></td>
+					</tr>
+					<tr>
+					    <td style="background-color: rgb(233,233,233);font-weight: bolder;;width: 6%">已报课程:</td>
+						<td width="12%">
+							<select name="class_name" id="class" style="width: 150px;height: 30px">
+                                <option value="0">C照全包</option>
+								<volist name='class' id='v'>
+									<option value="{$v.id}" {$list['class_name']==$v['name']?'selected':''}>{$v.name}</option>
+								</volist>
+							</select>
+						</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;;width: 6%">全包价:</td>
+                        <td width="16%"><span id='who'>{$price['wholeprice']==''?6000:$price['wholeprice']}</span>元
+                            （预收<span id="advanceprice">{$price['advanceprice']==''?100:$price['advanceprice']}</span>元，
+                            驾校实地支付 <span id="whole1">{$price['whole1']}</span>元）</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;;width: 6%">门市价:</td>
+						<td><span id='off'>{$price['officeprice']==''?7500:$price['officeprice']}</span>元</td>
+					</tr>
+					<tr>
+                		<td colspan='14'>
+                            <notempty name="class_update">
+                                <input onclick="update_class()" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="button" value='{$class_update["title"]}' />
+                                <else/>
+                                <a href="javascript:alert('暂无权限')" style="padding:6px 7px;text-decoration:none;color:#000000;background-color:rgb(189, 206, 238);border-radius: 3px;border:none">确认课程修改</a>
+                            </notempty>
+                        </td>
+               		</tr>
+				</table>
+			</form><br/>
+<!-- ------------------------------------form4------------------------------------------------ -->
+			<form action="?" method="post" id="form4">
+			    <input type="hidden" name="id" value="{$id}"/>
+			    <input type="hidden" name="pid" value="{$pid}"/>
+                <table class="table_a">
+					<tr><td  colspan='10' >支付信息</td></tr>
+					<tr>
+						<td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">支付方式/地点:</td>
+						<td width="12%">
+                            <select name="pay_type" style="height: 30px">
+                                <option value="0" >未支付</option>
+                                <option value="1" {$list['pay_type']==1?'selected':''}>支付宝</option>
+                                <option value="2" {$list['pay_type']==2?'selected':''}>微信</option>
+                                <option value="3" {$list['pay_type']==3?'selected':''}>现金</option>
+                            </select>/
+                            <select name="pay_address" style="height: 30px">
+                                <option value="0" >请选择</option>
+                                <option value="1" {$list['pay_address']==1?'selected':''}>手机端</option>
+                                <option value="2" {$list['pay_address']==2?'selected':''}>PC端</option>
+                                <option value="3" {$list['pay_address']==3?'selected':''}>门店</option>
+                                <option value="4" {$list['pay_address']==4?'selected':''}>其他</option>
+                            </select>
+                        </td>
+						<td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">订单状态:</td>
+						<td width="16%">
+                            <select name="status" style="width: 150px;height: 30px">
+                                <option value="1" {$list['status']==1?'selected':''}>待支付</option>
+                                <option value="2" {$list['status']==2?'selected':''}>已支付</option>
+                                <option value="3" {$list['status']==3?'selected':''}>待评价</option>
+                                <option value="4" {$list['status']==4?'selected':''}>已完成</option>
+                                <option value="5" {$list['status']==5?'selected':''}>取消</option>
+                            </select>
+                        </td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">报名方式</td>
+                        <td>
+                            <select name="type" style="width: 150px;height: 30px">
+                                <option value="0" {$list['type']==0?'selected':''}>请选择</option>
+                                <option value="1" {$list['type']==1?'selected':''}>全款</option>
+                                <option value="2" {$list['type']==2?'selected':''}>预付款</option>
+                            </select>
+                        </td>
+					</tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">报名人数:</td>
+                        <td>{$list['num']}</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">报名费用:</td>
+                        <td>{$Think.session.price}元/人</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">报名费小计:</td>
+                        <td>{$Think.session.price}元/人</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">优惠:</td>
+                        <td>{$list['sale_price']}元</td>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">优惠小计:</td>
+                        <td colspan="3">{$list['sale_price']}元</td>
+                    </tr>
+					<tr>
+						<td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">应付总金额:</td>
+						<td colspan="5"><input type="text" name="price" value="{$list['price']}" />（可修改）</td>
+					</tr>
+                    <tr>
+                        <td style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">实际支付金额:</td>
+                        <td colspan="5"><input type="text" name="total_fee" value="{$list['total_fee']}"/>（可修改）</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" onclick="submitYouFrom('{:U("zhifu")}')"  style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" value='修改支付方式' />
+                        </td>
+                        <td colspan="4">
+                            <if condition="$list['status'] eq 1">
+                                <input type="button" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" value='待付款' />
+                                <elseif condition="$list['status'] eq 2"/>
+                                <input type="button" onclick="submitYouFrom('{:U("zhifu?t=1")}')"  style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" value='确认收款' />
+                                <elseif condition="$list['status'] eq 3"/>
+                                <input type="button" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" value='待评价' />
+                                <elseif condition="$list['status'] eq 4"/>
+                                <input type="button" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" value='已完成' />
+                                <elseif condition="$list['status'] eq 5"/>
+                                <input type="button"  style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" value='取消订单' />
+                            </if>
+                        </td>
+                        <script type="text/javascript" language="javascript">
+                            function submitYouFrom(path){
+                                $('#form4').attr('action',path);
+                                $('#form4').submit();
+                            }
+                        </script>
+                    </tr>
+				</table>
+			</form><br/>
+			<!-- ------------------------------------form5------------------------------------------------ -->
+        	<form action="{:U('#')}" method="post">
+                <table class="table_a">
+					<tr>
+						<td colspan=10>来源信息</td>
+					</tr>
+					<tr>
+						<td  style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">来源:</td>
+						<td  width="12%">{$order_source}</td>
+						<td  style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">竞价关键字:</td>
+						<td  width="16%"></td>
+						<td  style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">搜索词:</td>
+						<td></td>
+						<td  style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">referee:</td>
+						<td   width="12%"></td>
+						<td  style="background-color: rgb(233,233,233);font-weight: bolder;width: 6%">下单站点:</td>
+						<td></td>
+					</tr>
+				</table>
+			</form>
+            <br>
+		<!-- ------------------------------------form6------------------------------------------------ -->
+			<form action="{:U('returndate')}" method="post">
+                <input type="hidden" name="ordcode" value="{$list.ordcode}"/>
+                <input type="hidden" name="id" value="{$list.id}"/>
+				<div class="left1"  style="width: 20%">
+                    <table class="table_a">
+						<tr>
+							<td>
+								添加回访记录
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<textarea name="content" id="" cols="60%" rows="7"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								设置回访日期: <input   id='input1' onClick="WdatePicker()" name="return_time"/>　
+                                <input type="submit" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="text" value="添加"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+			<div class="right1" style="width: 66%">
+                    <table class="table_a">
+						<tr>
+							<td colspan=5>全部跟单记录</td>
+						</tr>
+						<tr>
+							<td width="4%">序号</td>
+							<td width="10%">跟单时间</td>
+							<td width="20%">详情</td>
+							<td width="10%">下次回访日期</td>
+							<td width="6%">回访人</td>
+						</tr>
+						<volist name='jilu' id='v'>
+							<tr> 
+								<td  style="border:1px solid rgb(189, 206, 238);">{$v.id}</td>
+								<td  style="border:1px solid rgb(189, 206, 238);">{$v.create_time}</td>
+								<td  style="border:1px solid rgb(189, 206, 238);">{$v.content}</td>
+								<td  style="border:1px solid rgb(189, 206, 238);">{$v.return_time}</td>
+								<td  style="border:1px solid rgb(189, 206, 238);">{$v.operator}</td>
+							</tr>
+						</volist>
+					</table>
+				</div>
+       </div>
+             <div style="margin:0 auto;width:100%;clear:both;text-align:center;margin-bottom: 3%">
+             </div>
+    </body>
+</html>
+<script>
+    function stu_update(){
+        layer.open({
+            type: 2,
+            title:'修改学员信息',
+            skin: 'layui-layer-rim', //加上边框
+            area: ['630px', '600px'], //宽高
+            content:"{:U('Admin/Order/stu_update')}"
+        });
+        var validate=$('#stu_update').validate({
+            rules:{
+                name:{required:true},
+                tel:{required:true, tel:true}
+            },
+            messages:{
+                name:{required:'客户名称不能为空！'},
+                tel:{required:'联系方式不能为空！'}
+            },
+            success:function(div){
+                div.addClass('ok').text('通过验证')
+            },
+            validClass:'ok',
+            errorElement:'div'
+        });
+        jQuery.validator.addMethod("tel", function(value, element) {
+            var mobileReg = /^1[34578]{1}[0-9]{9}$/;
+            return this.optional(element) || (mobileReg.test(value));
+        }, "请正确填写您的手机号");
+    }
+    function order_log(){
+        layer.open({
+            type: 2,
+            title:'操作日志',
+            skin: 'layui-layer-rim', //加上边框
+            area: ['800px', '600px'], //宽高
+            content:"{:U('Admin/Order/order_log')}"
+        });
+}
+    function update_class(){
+        $.post("{:U('Admin/Order/update_class')}",$("#form3").serialize(),function(res){
+            if(res.status == 1) {
+                alert('更新成功');
+                location.href = res.url;
+            }else{
+                alert('未做修改')
+            }
+        },'json')
+    }
+
+</script>

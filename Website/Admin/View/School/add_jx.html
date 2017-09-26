@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>添加驾校</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/js/webuploader/webuploader.css" />
+        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
+        <style type="text/css">
+            span.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
+            span.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+
+            label{padding: 10px 40px 10px 0;}
+            li{ margin-top: 20px;list-style: none;}
+            .dfinput{margin-left: 10px;
+                border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
+                width: 340px;padding: 10px 0 10px 5px}
+            b{color: red}
+        </style>
+    </head>
+        <script language="javascript">
+        $(function(){
+            var validate=$('#form1').validate({
+                rules:{
+                    account:{required:true},
+                    pass:{required:true, rangelength:[5,32]},
+                    nickname:{required:true},
+                    fullname:{required:true},
+                    address:{required:true}
+                },
+                messages:{
+                    account:{required:'驾校账号不能为空！'},
+                    pass:{required:'密码不能为空！', rangelength:'密码长度必须在5到12位之间！'},
+                    nickname:{required:'简称不能为空!'},
+                    fullname: {required: '全称不能为空'},
+                    address:{required:'地址不能为空'}
+                },
+                success:function(span){
+                    span.addClass('ok').text('通过验证')
+                },
+                validClass:'ok',
+                errorElement:'span'
+            });
+
+
+
+
+            $("#add_jx").click(function(){
+                    if(validate.form()){
+                        $("#add_jx").attr('disabled',true);
+                        $('#form1').ajaxSubmit(function(res){
+                                if(res.status==1){
+                                    $('.uploadBtn').click();
+                                    setTimeout(function() {
+                                        alert('编辑成功');
+                                        location.href="{:U('Admin/School/jx_list')}";
+                                    },3000);
+                                }else{
+                                    alert('驾校名称已存在,请重新编辑');
+                                    location.href="{:U('Admin/School/add_jx')}";
+                                }
+                            },'json');
+                            return false;
+                        }
+            });
+        });
+    </script>
+    <body>
+        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-size: 15px">
+            驾校添加
+            <a style="text-decoration: none;font-weight: bolder;color: red" href="{:U('jx_list',array('pid'=>$get['pid']))}">【返回】</a>
+        </div>
+        <div style="font-size: 13px;margin: 10px 5px">
+            <form action="{:U('Admin/School/add_jx')}" method="post" enctype="multipart/form-data" id="form1">
+                <input type="hidden" name="type" value="{$get['type']}"/>
+                <ul style="margin-left: 10px;padding: 0">
+                    <li>
+                        <label>驾校账号<b>*</b></label>
+                        <input class="dfinput" type="text" name="account" />
+                    </li>
+                    <li>
+                        <label>登录密码<b>*</b></label>
+                        <input type="text" class="dfinput" name="pass" value="244ac348537069c3bfe9d633349b7334" />
+                        <span style="color:red;">{$errorInfo.pass|default=""}(默认为517xueche)</span>
+                    </li>
+                    <li>
+                        <label>所在城市<b>*</b></label>
+                        <select name="cityid"  onchange="change(this)" class="dfinput" style="width: 345px">
+                            <volist name="city" id='v'>
+                                <option value="{$v.cityname}">{$v.cityname}</option>
+                            </volist>
+                        </select>
+                    </li>
+                    <li>
+                        <label>驾校简称<b>*</b></label>
+                        <input type="text" name="nickname" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label>计时培训<b>*</b></label>
+                        <input type="radio" style="margin-left: 10px" name='timing' value=1 />支持　
+                        <input type="radio" name='timing' value=0 />不支持
+                    </li>
+                    <li>
+                        <label>驾校全称<b>*</b></label>
+                        <input type="text" id="keyword" name="fullname" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label>驾校地址<b>*</b></label>
+                        <input type="text" name="address" value="" class="dfinput" id="address"/>
+                        <input type="button" value="定位" onclick="searchByStationName();" />
+                        <div id="container" style="position: absolute;display:none;width: 400px;height: 300px;top: 200px;border: 1px solid gray;
+                            overflow:hidden;">
+                        </div>
+                    </li>
+                    <li>
+                        <label>驾校电话<b>*</b></label>
+                        <input type="text" name="phone" value="" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label>总学员数<b>*</b></label>
+                        <input type="text" name="allcount"  class="dfinput"/>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 54px 10px 0">优先级<b>*</b></label>
+                        <input type="text" name="order" class="dfinput" value="" />(数字，优先级越大排名越靠前)
+                    </li>
+                    <li>
+                        <label style="padding: 10px 54px 10px 0">评论数<b>*</b></label>
+                        <input type="text" name="evalutioncount" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 54px 10px 0">好评数<b>*</b></label>
+                        <input type="text" name="praisecount" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 70px 10px 0">签名<b>*</b></label>
+                        <input type="text" class="dfinput" name="signature"/>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 70px 10px 0">评分<b>*</b></label>
+                        <input type="text" name="score" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 30px 10px 0;">已通过人数<b>*</b></label>
+                        <input type="text" name="passedcount" class="dfinput"/>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 0px 10px 0;">联系人/联系方式<b>*</b></label>
+                        <input type="text" name="connectteacher" class="dfinput"/>（姓名 空格 手机号）
+                    </li>
+                    <li>
+                        <label>驾校简介<b>*</b></label><br>
+                        <textarea class="dfinput" name="introduction" style="margin-left:120px;" cols="80" rows="12"></textarea>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 32px 10px 0">驾校logo<b>*</b></label>
+                        <div class="usercity"  style="margin-left:120px;border:3px dashed #e6e6e6;width:500px;height:200px;position: relative;margin-bottom: 15px">
+                            <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
+                            <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
+                            <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 32px 10px 0">简介logo<b>*</b></label>
+                        <div class="uploader-list-container vocation" style="width: 500px;margin-left: 120px">
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder">
+                                    <div id="filePicker-2"></div>
+                                    <p>或将照片拖到这里，单次最多可选10张</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="filePicker2"></div>
+                                    <div class="uploadBtn" style="display: none">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label style="padding: 10px 120px 10px 0"></label>
+                        <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff "  type="submit" id="add_jx" value="确认编辑">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </body>
+</html>
+<script>
+
+    var uploadUrl = '{:U("uploadMulPic")}';
+//    var listUrl = '{:U("index")}';
+var map = new BMap.Map("container");
+    var change = function(sel){
+        var city=sel.value;
+        var map = new BMap.Map("container");
+        map.centerAndZoom(city, 12);
+    };
+var localSearch = new BMap.LocalSearch(map);
+localSearch.enableAutoViewport(); //允许自动调节窗体大小
+function searchByStationName() {
+    var keyword = document.getElementById("keyword").value;
+    localSearch.setSearchCompleteCallback(function (searchResult) {
+        var poi = searchResult.getPoi(0);
+        document.getElementById("address").value = poi.address;  //获取经度和纬度，将结果显示在文本框中
+    });
+    localSearch.search(keyword);
+}
+
+    function previewImage(file,pre,imag) {
+        var MAXWIDTH  = 200;
+        var MAXHEIGHT = 230;
+        var div = document.getElementById(pre);
+        if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
+            $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
+            return false;
+        }else{
+            $('#'+pre).next('span').css({"color":"green","font-weight":"bold"}).text('');
+        }
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            file.blur();
+            var src = document.selection.createRange().text;
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        }
+
+        $(file).next('label').css({margin:0,top:0,position:'absolute',background:'rgba(0,0,0,0.4)',color:'#fff',fontSize:'14px'}).html('重新选择主图');
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+
+</script>

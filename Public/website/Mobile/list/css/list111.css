@@ -1,0 +1,60 @@
+.rr,.dr,.mr,.er,.or{
+    font-size: 12px;
+    width: 90.8%;
+    margin: 0 auto;
+}
+.rl-school{
+    height: 30px;
+    border-bottom: 1px solid #eee;
+}
+.rr_img{
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin-top: 10px;
+    margin-left: 2px;
+}
+.rr_img img{
+    width: 100%;
+    height: auto;
+}
+.rr a{
+    margin-left: 10%;
+    float: left;
+    font-size: 12px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 30px;
+}
+.dr a{
+    margin-left: 10%;
+    float: left;
+    font-size: 12px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 30px;
+}
+.mr a{
+    margin-left: 10%;
+    float: left;
+    font-size: 12px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 30px;
+}
+.er a{
+    margin-left: 10%;
+    float: left;
+    font-size: 12px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 30px;
+}
+.or a{
+    margin-left: 10%;
+    float: left;
+    font-size: 12px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 30px;
+}
+.rr_box,.dr_box,.mr_box,.er_box,.or_box{
+    width: 20%;
+    float: left;
+    margin: 0 auto;
+}

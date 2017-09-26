@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>试题添加</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        label.error{  font-size: 14px;  font-weight: bold;  color: #fa7124;  }
+        label.ok{  font-size: 14px;  font-weight: bold;  color: green;  }
+
+        label{padding: 10px 20px 10px 0;}
+        b{color: red}
+        li{ margin-top: 15px;list-style: none;}
+        .dfinput{margin-left: 10px;
+            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px}
+    </style>
+</head>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+    试题添加
+    <a style="text-decoration: none;color:#ff143f" href="{:U('exam_list')}">【返回】</a>
+</div>
+<div style="font-size: 13px;margin: 10px 5px">
+    <form action="{:U('Admin/Exam/add_exam')}" id="form1" method="post">
+        <ul style="margin-left: 10px;padding: 0">
+            <input type="hidden" name="subject" value="{$subject_info['subject']}"/>
+            <input type="hidden" name="chapter" value="{$subject_info['chapter']}"/>
+            <if condition="$subject_info['subject'] eq 1 and $subject_info['chapter'] eq 6">
+                <li>
+                    <label>科目类型<b>*</b></label>
+                    <select class="dfinput" name="subject" style="width: 300px" disabled>
+                        <option value="1" {$subject_info['subject']==1?selected:''}>科一</option>
+                        <option value="2" {$subject_info['subject']==2?selected:''}>科四</option>
+                    </select>
+                    <input type="radio" value="1" name="lunshi"/>轮式
+                    <span style="color: #fa7124;font-weight: bold"> ( * 如果考轮式就选词按钮)</span>
+                </li>
+                <else/>
+                <li>
+                    <label>科目类型<b>*</b></label>
+                    <select class="dfinput" name="subject" style="width: 347px" disabled>
+                        <option value="1" {$subject_info['subject']==1?selected:''}>科一</option>
+                        <option value="2" {$subject_info['subject']==2?selected:''}>科四</option>
+                    </select>
+                </li>
+            </if>
+            <li>
+                <label>章节名称<b>*</b></label>
+                <input type="text" class="dfinput"   value="城市{$subject_info['title']}" readonly/>
+            </li>
+            <if condition="$subject_info['chapter'] eq 5 and ($subject_info['id'] eq 5)">
+                <li>
+                    <label style="padding: 10px 46px 10px 0">城市<b>*</b></label>
+                    <select class="dfinput" name="cityid" style="width: 155px;padding: 7px 0 10px 5px" id="city">
+                        <option value="0">请选择城市</option>
+                        <volist name="province" id="province">
+                            <option value="{$province['id']}" cityname="{$province['province']}">{$province['province']}</option>
+                        </volist>
+                    </select>
+                    <input id="cityname" name="cityname" type="text" style="width: 170px;" class="dfinput" placeholder="请选择城市" value="" readonly/>
+                    <script>
+                       $("#city").change(function(){
+                           var province = $("#city option:selected").attr('cityname');
+                           $('#cityname').val(province);
+                       });
+                    </script>
+                </li>
+            </if>
+            <li>
+                <label style="padding: 10px 46px 10px 0;">问题<b>*</b></label>
+                <input name="question"  type="text" class="dfinput" placeholder="请填写问题" />
+            </li>
+            <li>
+                <label style="padding: 10px 22px 10px 0;">图片/视频<b>*</b></label>
+                <input type="radio" name="img" value="0" checked/> 否
+                <input type="radio" name="img" value="1" style="margin-left:35px"/> 图片
+                <input type="radio" name="img" value="2" style="margin-left:35px"/> 视频
+                <span id="image" style="color: #fa7124;font-weight: bold"> ( * 默认是无图片无视频)</span>
+                <div class="usercity dfinput"  style="margin:25px 90px 10px 90px; border-radius: 3px;width:345px;height:130px;position: relative;display: none">
+                    <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
+                    <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
+                    <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                </div>
+                <script>
+                    $("input[name='img']").click(function(){
+                        var val = $('input[name="img"]:checked').val();
+                        if(val == 0){
+                            $('.usercity').hide();
+                        }else if(val == 1){
+                            $('.usercity').show();
+                            $('.usercity label').text('请选择主题');
+                        }else if(val == 2){
+                            $('.usercity').show();
+                            $('.usercity label').text('请选择视频');
+                        }
+                    });
+                </script>
+            </li>
+            <li id="ifmul">
+                <label style="padding-right: 26px">试题类型<b>*</b></label>
+                <input type="radio" name="ifmul" value="0" checked/> 单选
+                <input type="radio" name="ifmul" value="1" style="margin-left:22px"/> 多选
+                <input type="radio" name="ifmul" value="2" style="margin-left:35px"/> 判断
+                <span style="color: #fa7124;font-weight: bold"> ( * 默认是单选)</span>
+                <script>
+                    $("input[name='ifmul']").click(function(){
+                        var val = $('input[name="ifmul"]:checked').val();
+                        if(val == 2){
+                            $('input[name="answer"]').attr('placeholder','只能填写一个选项');
+                            $("#select").html('');
+                        }else{
+                            if(val == 1){
+                                $('input[name="answer"]').attr('placeholder','最多填写4个选项');
+                            }else if(val == 0){
+                                $('input[name="answer"]').attr('placeholder','只能填写一个选项');
+                            }
+                            var str = '';
+                            str += '<div style="margin-left: 85px;margin-top: 15px">';
+                            str += '<input class="dfinput" type="text" name="s3" value="" placeholder="C选项"/>';
+                            str += '</div>';
+                            str += '<div style="margin-left: 85px;margin-top: 15px">';
+                            str += '<input class="dfinput" type="text" name="s4" value="" placeholder="D选项"/>';
+                            str += '</div>';
+                            $("#select").html(str);
+                        }
+                    });
+                </script>
+            </li>
+            <li>
+                <label style="padding-right: 24px">试题选项<b>*</b></label>
+                <input class="dfinput" type="text" name="s1" value="" placeholder="A选项"/>
+                <div style="margin-left: 84px;margin-top: 15px">
+                    <input class="dfinput" type="text" name="s2" value="" placeholder="B选项"/>
+                </div>
+                <div id="select">
+                    <div style="margin-left: 84px;margin-top: 15px">
+                        <input class="dfinput" type="text" name="s3" value="" placeholder="C选项"/>
+                    </div>
+                    <div style="margin-left: 84px;margin-top: 15px">
+                        <input class="dfinput" type="text" name="s4" value="" placeholder="D选项"/>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label style="padding: 10px 47px 10px 0;">答案<b>*</b></label>
+                <input name="answer"  type="text" class="dfinput" placeholder="只能填写一个答案" />
+            </li>
+            <li>
+                <label>试题解析<b>*</b></label>
+                <div style="margin-left: 84px;">
+                    <textarea class="dfinput" name="analysis" id=""  rows="6"></textarea>
+                </div>
+            </li>
+            <li>
+                <label style="padding: 10px 92px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
+                <a href="{:U('Admin/Exam/exam')}" style="margin-left: 40px;padding: 9px 25px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff ">Excel表格导入</a>
+            </li>
+        </ul>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function(){
+        var validate=$('#form1').validate({
+            rules:{
+                cityname:{required:true},
+                question:{required:true},
+                s1:{required:true},
+                s2:{required:true},
+                s3:{required:true},
+                s4:{required:true},
+                answer:{required:true},
+                analysis:{required:true}
+            },
+            messages:{
+                cityname:{required:' * 请选择城市'},
+                question:{required:' * 请填写问题'},
+                s1:{required:' * 请填写'},
+                s2:{required:' * 请填写'},
+                s3:{required:' * 请填写'},
+                s4:{required:' * 请填写'},
+                answer:{required:' * 请填写答案'},
+                analysis:{required:' * 请填写解析'}
+            },
+            success:function(label){
+                label.addClass('ok').text(' * 通过验证');
+            },
+            validClass:'ok',
+            errorElement:'label'
+        });
+        $('.btn').click(function(){
+            $('#form1').submit();
+        });
+        $('#form1').submit(function(){
+            if(validate.form()){
+                $("#form1").ajaxSubmit(function(res){
+                    if(res.status==1){
+                        layer.msg(res.info,{time:2000,icon:6},function(){
+                            window.location.href="{:U('Admin/Exam/chapter_list')}";
+                        })
+                    }else{
+                        layer.msg(res.info,{time:3000,icon:5},function(){
+                            window.location.href="{:U('Admin/Exam/chapter_list')}";
+                        })
+                    }
+                },'json');
+                return false;
+            }
+        })
+    });
+
+    //图片上传预览    IE是用了滤镜。
+    function previewImage(file,pre,imag)
+    {
+        var MAXWIDTH  = 200;
+        var MAXHEIGHT = 100;
+        var div = document.getElementById(pre);
+        if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
+            //$(this).prev('span').text('图片格式无效！');
+            $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
+            return false;
+        }else{
+            $('#'+pre).next('span').css({"color":"green","font-weight":"bold"}).text('');
+        }
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            };
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            file.blur();
+            var src = document.selection.createRange().text;
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        }
+
+        $(file).next('label').css({margin:0,top:0,position:'absolute',background:'rgba(0,0,0,0.4)',color:'#fff',fontSize:'14px'}).html('重新选择主图');
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+</script>

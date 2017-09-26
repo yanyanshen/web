@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+    <title></title>
+</head>
+
+<body style="margin: 0px;">
+<img style="-webkit-user-select: none" src="http://www.517xc.cn/index.php/Index/weixinpay_qrcode">
+<input type="hidden" id='out_trade_no' name="out_trade_no" value="{$out_trade_no}"/>
+</body>
+<script type="text/javascript" src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+        setInterval("ajaxstatus()", 3000);
+    });
+
+    function ajaxstatus() {
+        var out_trade_no=$("#out_trade_no").val();
+
+       if (out_trade_no) {
+           $.post('{:U("getOrderStatusByNo")}',{'out_trade_no': out_trade_no},function(res){
+               if(res.info==99){
+                   window.location.href = '{:U("paySuccess")}'; //页面跳转
+               }else{
+                   console.log('订单错误');
+               }
+           })
+        }
+    }
+</script>
+</html>

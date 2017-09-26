@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>添加课程</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+        <style type="text/css">
+            input{
+                margin-bottom: 8px;
+            }
+            span.error{
+                /*position: absolute;*/
+                font-size: 14px;
+                font-weight: bold;
+                color: #FF0000;
+            }
+            span.ok{
+                /*position: absolute;*/
+                font-size: 14px;
+                font-weight: bold;
+                color: #38D63B;
+            }
+            #changePwd{
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <script>
+        $(function(){
+            var validate=$('#form1').validate({
+                rules:{
+                    cartype:{required:true},
+                    name:{required:true},
+                    way:{required:true},
+                    officeprice:{required:true},
+                    wholeprice:{required:true},
+                    include:{required:true},
+                    advanceprice:{required:true},
+                    class_type:{required:true}
+                },
+                messages:{
+                    cartype:{required:'此项不能为空！'},
+                    name:{required:'此项不能为空！'},
+                    way:{required:'此项不能为空!'},
+                    officeprice: {required: '此项不能为空'},
+                    wholeprice:{required:'此项不能为空'},
+                    include:{required:'此项不能为空'},
+                    advanceprice:{required:'预付款不能为空'},
+                    class_type:{required:'班别不能为空'}
+                },
+                success:function(span){
+                    span.addClass('ok').text('通过验证')
+                },
+                validClass:'ok',
+                errorElement:'span'
+            });
+
+            $("#submit").click(function(){
+                if(validate.form()){
+                    $("#submit").attr('disabled',true);
+                    $.post('{:U("Admin/TrainClass/save_class")}',$("#form1").serialize(),function(res){
+                        if(res.info==1){
+                            alert('保存成功');
+                            location.href=res.url;
+                        }else{
+                            alert('保存失败');
+                            location.href='';
+                        }
+                    },'json');
+                    return false;
+                }
+
+            });
+
+        });
+    </script>
+    <body>
+
+        <div class="div_head">
+            <span>
+                <span style="float:left">当前位置是：系统管理-》添加驾校课程</span>
+                <span style="float:right;margin-right: 8px;font-weight: bold">
+                    <a style="text-decoration: none" href="{:U('class_Manage?id='.$id.'&t='.$t.'&p='.$p)}">【返回】</a>
+                </span>
+            </span>
+        </div>
+        <div></div>
+        <form action="#" method="post" id="form1">
+        <div style="font-size: 13px;margin: 10px 5px">
+            <table border="1" width="100%" class="table_a">
+                <tr>
+                <input type="hidden" name='type_id' value="{$id}"/>
+                 <input type="hidden" name='type' value="{$type}"/>
+                    <td colspan='2'>
+                        <if condition="$type eq 'jx'">驾校：</if>
+                        <if condition="$type eq 'jl'">教练：</if>
+                        <if condition="$type eq 'zd'">指导员：</if>
+                        {$nickname}
+                    </td>
+                </tr>
+               	<tr ><td width="5%">课程名</td>
+                    <td><input type="text" name="name"/></td>
+                </tr>
+               	<tr >
+                    <td>车型</td>
+                    <td><input type="text" name="cartype"/></td>
+                </tr>
+                <tr >
+                    <td>驾照类型</td>
+                    <td>
+                        <select name="jztype" >
+                            <volist name="jztype" id="v">
+                                <option value="{$v.id}" style="width: 20px;">{$v.jztype}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+               	<tr >
+                    <td>练车方式</td>
+                    <td><input type="text" name="way"/>(多人一车/一人一车/四人学车)</td>
+                </tr>
+                <tr >
+                    <td>接送方式</td>
+                    <td>
+                        <input type="radio" name="shuttle_way" value="0" checked/>不接送
+                        <input type="radio" name="shuttle_way" value="1"/>接送
+                    </td>
+                </tr>
+                <tr >
+                    <td>学车课时</td>
+                    <td>
+                        科二：<input type="text" name="class_time2" value="0" />课时&nbsp;(请填写0-30)</br>
+                        科三：<input type="text" name="class_time3" value="0"/>课时&nbsp;(请填写0-30)
+                    </td>
+                </tr>
+               	<tr >
+                    <td>官方价</td>
+                    <td><input type="text" name="officeprice"/>(元)</td>
+                </tr>
+               	<tr ><td>全款价</td>
+                    <td><input type="text" name="wholeprice"/>(元)</td>
+                </tr>
+               	<tr >
+                    <td>预付费</td>
+                    <td><input type="text"  name="advanceprice"/>(元)</td>
+                </tr>
+               	<tr >
+                    <td>等待时间</td>
+                    <td><input type="text" name="waittime"/>(天)</td>
+                </tr>
+               	<tr >
+                    <td>班别</td>
+                    <td><input type="text" name="class_type"/>(例如 平时班)</td>
+                </tr>
+               	<tr>
+                    <td>费用包含</td>
+                    <td>
+                        <textarea name="include" cols="30" rows="10">    教材费、办证费、IC卡费、理科术科培训费燃油费、车辆及人员使用费、经营管理等费用，以及科目一、科目二、科目三考试费、一次补考费</textarea>
+                    </td>
+                </tr>
+                <!--<tr >-->
+                    <!--<td>设为本周特价</td>-->
+                    <!--<td>-->
+                        <!--<input type="radio" name="week" value="1"/>是-->
+                        <!--<input type="radio" name="week" value="0"/>否-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr >-->
+                    <!--<td>设为热搜</td>-->
+                    <!--<td>-->
+                        <!--<input type="radio" name="hot" value="1"/>是-->
+                        <!--<input type="radio" name="hot" value="0"/>否-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr >-->
+                    <!--<td>设为计时培训</td>-->
+                    <!--<td>-->
+                        <!--<input type="radio" name="timing" value="1"/>是-->
+                        <!--<input type="radio" name="timing" value="0"/>否-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr >-->
+                    <!--<td>设为推荐驾校</td>-->
+                    <!--<td>-->
+                        <!--<input type="radio" name="recommand" value="1"/>是-->
+                        <!--<input type="radio" name="recommand" value="0"/>否-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <tr>
+        			<td colspan='2'>
+        				<input type="submit" id="submit" value="添加"/>
+        			</td>
+        		</tr>
+        	</table>
+        </div>
+       </form>
+    </body>
+</html>

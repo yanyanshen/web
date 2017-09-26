@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>推荐列表</title>
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        #page a,#page span{
+            display: inline-block;
+            width:15px;
+            height:15px ;
+            padding: 5px;
+            margin: 2px;
+            text-decoration: none;
+            text-align: center;
+            line-height: 15px;
+            background: #f0ead8;
+            color:#000000;
+            border: 1px solid #c2d2d7;
+        }
+        #page a:hover{
+            background:#F27602;
+            color:#FF0000;
+        }
+        #page span{
+            background:#F27602;
+            color:#FF0000;
+            font-weight: bold;
+        }
+        #page{
+            float: right;
+        }
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);;font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        .table_a tr:hover{background-color: rgb(82, 249, 56)  }
+    </style>
+</head>
+<body>
+<div class="div_head" style="background-color:  rgb(129, 191, 249)">
+    <span>
+        <span style="float: left;color: #ffffff">推荐列表</span>
+        <span style="float:right;color: #ffffff;margin-right: 1%">总计：{$count}</span>
+    </span>
+</div>
+<div class="div_search" style="background-color:  rgb(129, 191, 249)">
+    <span style="float:left;color: #ffffff;">
+        <form action="{:U('Admin/School/jx_list')}" id='form' method="get">
+            城市：<select name="cityid" >
+            <option value="0">请选择</option>
+            <volist name='city' id='v'>
+                <option value="{$v.id}" {$v['id']==$cityid?selected:''}>{$v.cityname}</option>
+            </volist>
+        </select>
+            驾校简称：<input type="text" name='nickname' value="{$nickname?$nickname:''}" />
+            驾校账号：<input type="text" name='account' value="{$account?$account:''}"/>
+            <input value="查询" type="submit" id='btn'/>
+            <input value="清空全部" type="reset" id=''/>
+        </form>
+    </span>
+</div>
+<div style="font-size: 13px; margin: 10px 5px;">
+    <table class="table_a" style="border:1px solid  rgb(129, 191, 249);" width="100%">
+        <tbody>
+            <tr style="font-weight: bold;height:36px;background-color:  rgb(129, 191, 249);color:#ffffff">
+                <th width="2%">排序</th>
+                <th width="5%">账号</th>
+                <th width="5%">驾校简称</th>
+                <th width="4%">头像</th>
+                <th width="4%">城市</th>
+                <th width="8%">地址</th>
+                <th width="4%">进驻基地</th>
+                <th width="4%">开设课程</th>
+                <th width="5%">学员</th>
+                <th width="5%">教练</th>
+                <th width="3%">地标</th>
+                <th width="3%">评分</th>
+                <th width="8%">驾校联系人</th>
+            </tr>
+            <volist name='jx_list'  id='v' key="k" empty="$empty">
+                <tr>
+                    <td>
+                        <input type="text" value="{$v.recommand}" id="pri{$v.school_id}" onchange="setPriority(this,{$v.school_id})" style="width: 50px;"/>
+                    </td>
+                    <td>{$v.account}</td>
+                    <td>{$v.nickname}<br>
+                        <span style="color: #20c318">
+                            类型：<if condition="$v.type eq 'jx'">驾校</if>
+                            <if condition="$v.type eq 'jl'">教练</if>
+                            <if condition="$v.type eq 'zd'">指导员</if>
+                        </span>
+                    </td>
+                    <td>
+                        <if condition="$v['picname'] neq ''">
+                            <img src="{$http}/Uploads/School_logo/{$v['picurl']}{$v['picname']}" alt="" style="border-radius:50%" width="50" height="50" />
+                            <else/>
+                            <img src="{$http}/Uploads/default_logo/517.png" alt="" style="border-radius:50%" width="50" height="50" />
+                        </if>
+                    </td>
+                    <td>{$v.cityname}</td>
+                    <td>{$v.address}</td>
+                    <td><a href="{:U('TrainAddress/train_Address',array('id'=>$v['school_id'],'type'=>$v['type']))}">查看</a></td>
+                    <td>
+                        <a href="{:U('Admin/TrainClass/train_class',array('id'=>$v['school_id'],'type'=>$v['type']))}">{$v.class_num}个课程</a>
+                    </td>
+                    <td>2个学员</td>
+                    <td>2个教练</td>
+                    <td>
+                        <a href="{:U('LandMark/see_land?id='.$v['school_id'].'&type='.$v['type'])}">查看</a>
+                    </td>
+                    <td>{$v.score}</td>
+                    <td>{$v.connectteacher}</td>
+                </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div id="page" style="float: left">
+        {$page}
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    function setPriority(nav,id){
+        var priority=$(nav).val();
+        $.post("{:U('Admin/School/setPriority')}",{'recommand':priority,'id':id},function(res){
+            if(res.status==1){
+                layer.tips(res.info, '#pri'+id, {
+                    tips: [2, '#3EAFE0']
+                });
+                location.href="";
+            }
+        },'json')
+    }
+</script>

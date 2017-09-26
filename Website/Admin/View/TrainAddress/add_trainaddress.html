@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>添加基地</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.form.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
+        <style type="text/css">
+            span.error{  font-size: 13px;  font-weight: bold;  color: #FF0000;}
+            span.ok{  font-size: 13px;  font-weight: bold;  color: #38D63B;  }
+
+            label{padding: 10px 20px 10px 0;}
+            li{ margin-top: 30px;list-style: none;}
+            .dfinput{
+                border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
+                width: 340px;padding: 10px 0 10px 5px}
+            b{color: red}
+        </style>
+    </head>
+    <script>
+        $(function(){
+            var validate=$('#form1').validate({
+                rules:{
+                    trname:{
+                        required:true
+                    },
+                    address:{
+                        required:true
+                    }
+                },
+                messages:{
+                    trname:{
+                        required:'基地名称不能为空！'
+                    },
+                    address:{
+                        required:'地址不能为空'
+                    }
+                },
+                success:function(span){
+                    span.addClass('ok').text('通过验证')
+                },
+                validClass:'ok',
+                errorElement:'span'
+            });
+            $(window).keydown(function(event){
+                if(event.keyCode==13){
+                    $('#form1').submit();
+                }
+            });
+
+            $("#submit").click(function(){
+                if(validate.form()){
+                    $(this).attr('disabled',true);
+                    $('#form1').ajaxSubmit(function(res){
+                        if(res.status==1){
+                            alert('编辑成功');
+                                    location.href=res.url;
+                        }else{
+                            alert('编辑失败，请重新编辑');
+                            location.href=res.url;
+                        }
+                    },'json');
+                    return false;
+                }
+            });
+        });
+    </script>
+    <body>
+        <div class="div_head" style="background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bolder">基地{$btn?$btn:'添加'}</div>
+       <div style="font-size: 13px;margin: 10px 5px;" >
+            <div style="width:40%;">
+                 <form action="{:U('Admin/TrainAddress/add_trainaddress')}" method="post" id="form1" enctype="multipart/form-data">
+                     <ul style="margin-left: 10px;padding: 0">
+                         <li>
+                             <input type="hidden"  name="id" value="{$id?$id:''}"/>
+                             <label style="padding: 10px 45px 10px 0">城市<b>*</b></label>
+                             <select name="cityid" id="cityid" class="dfinput" style="width:345px;">
+                                 <volist name="citys" id="v">
+                                     <option value="{$v['id']}" {$v['id']==$cityid?selected:''}>{$v['cityname']}</option>
+                                 </volist>
+                             </select>
+                         </li>
+                         <li>
+                             <label>基地名称<b>*</b></label>
+                             <input type="text" name="trname" class="dfinput" id="keyword" value="{$trname?$trname:''}" placeholder="请填写基地名称" />
+                         </li>
+                         <li>
+                             <label>基地地址<b>*</b></label>
+                             <input type="text" name="address" class="dfinput"  value="{$address?$address:''}" placeholder="请填写基地地址" />
+                         </li>
+                         <li>
+                             <input style="margin:0px 83px;width: 137px;height: 35px;line-height: 19px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="submit" id="submit" value="{$btn?$btn:'添加'}"/>
+                         </li>
+                     </ul>
+                </form>
+            </div>
+            <div></div>
+        </div>
+    </body>
+</html>
+<script>
+
+var change  =   function(sel){
+    var cityname=sel.options[sel.selectedIndex].text;
+    $("#cityname").val(cityname);
+};
+var cityname=$("#cityid option:selected").text();
+$("#cityname").val(cityname);
+
+//实例化百度地图
+    var map = new BMap.Map("container");
+    var city =$("#cityname").val();//获取所选的当前的城市名称
+    map.centerAndZoom(city, 12);
+
+    var localSearch = new BMap.LocalSearch(map);
+    localSearch.enableAutoViewport(); //允许自动调节窗体大小
+    function searchByStationName() {
+        var keyword = document.getElementById("keyword").value;
+        if(keyword==''){
+            alert('请填写基地名称');
+        }
+        localSearch.setSearchCompleteCallback(function (searchResult) {
+            var poi = searchResult.getPoi(0);
+            document.getElementById("address").value = poi.address;  //将地址显示在文本框中
+        });
+        localSearch.search(keyword);
+    }
+
+
+    //前端validate验证
+
+
+
+</script>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>全真模考</title>
+    <link href="__STATIC__/theory_study/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/Exam/theory_study')}">
+                    <img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">全真模考</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_box">
+        <div class="main">
+            <div class="theory_study">
+                <div class="admission">
+                    <div class="ad">准考证</div>
+                    <div class="user_head">
+                        <img src="__STATIC__/theory_study/images/header1.jpg">
+                    </div>
+                    <div class="name">{$nickname}</div>
+                    <ul class="ul_box">
+                        <li>考试科目<span>科目{$ms==1?'一':'二'}理论考试</span></li>
+                        <li>考试题库<span>
+                            {$Think.session.city}
+                            <if condition="$mt eq '1'">C1/C2/C3(通用)</if>
+                            <if condition="$mt eq 2">A1/A3/B1</if>
+                            <if condition="$mt eq 3">A2/B2</if>
+                            <if condition="$mt eq 4">M</if>
+                        </span></li>
+                        <li>考试标准<span>{$ms==1?'100题，45分钟':'50题，30分钟'}</span></li>
+                        <li>合格标准<span>满分100分，90分及格</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="foot_theoryStudy">
+        <div class="apply_submit">
+            <input type="submit" ms="{$ms}" mt="{$mt}"   name="btn2" id="btn2" value="点击考试">
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
+<script>
+    $("#btn2").click(function(){
+        var mt = $(this).attr('mt');
+        var ms = $(this).attr('ms');
+        location.href = "{:U('Mobile/Simulate/simulate')}?mt="+mt+"&ms="+ms;
+    })
+</script>

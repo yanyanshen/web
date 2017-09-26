@@ -1,0 +1,91 @@
+[ 2017-08-06T22:24:07+08:00 ] 211.161.244.65 /index.php/Consult/studyNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` = '上海市' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_consult` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 4,4   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 4,4   [ RunTime:0.0003s ]
+
+[ 2017-08-06T22:24:11+08:00 ] 211.161.244.65 /index.php/Consult/studyNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` = '上海市' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_consult` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 8,4   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 8,4   [ RunTime:0.0002s ]
+
+[ 2017-08-06T22:24:13+08:00 ] 211.161.244.65 /index.php/Consult/studyNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000071s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` = '上海市' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_consult` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 12,4   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 12,4   [ RunTime:0.0003s ]
+
+[ 2017-08-06T22:24:29+08:00 ] 211.161.244.65 /index.php/Login/checkPhone.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000058s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000123s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE `account` = '18736199128' LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000037s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000077s ]
+
+[ 2017-08-06T22:24:29+08:00 ] 211.161.244.65 /index.php/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `xueches_user` WHERE `account` = '18736199128' AND `pass` = 'fcea920f7412b5da7be0cf42b8c93759' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `xueches_user` SET `lasttime`='1502029469',`lastip`='211.161.244.65' WHERE `id` = 434 [ RunTime:0.0003s ]
+
+[ 2017-08-06T22:24:58+08:00 ] 211.161.244.65 /index.php/Order/confirm_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000055s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000117s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2017-08-06T22:26:29+08:00 ] 211.161.244.65 /index.php/Exam/chapter_practice.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+NOTIC: [8] Undefined index: mc /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 102 行.
+NOTIC: [8] Undefined index: cancel /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 111 行.
+SQL: SHOW COLUMNS FROM `xueches_exam_collect` [ RunTime:0.0007s ]
+SQL: SELECT `questionid` FROM `xueches_exam_collect` WHERE `userid` = 434 LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2017-08-06T22:26:30+08:00 ] 211.161.244.65 /index.php/Exam/chapter_practice.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+NOTIC: [8] Undefined index: mc /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 102 行.
+NOTIC: [8] Undefined index: cancel /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 111 行.
+SQL: SHOW COLUMNS FROM `xueches_exam_collect` [ RunTime:0.0008s ]
+SQL: SELECT `questionid` FROM `xueches_exam_collect` WHERE `userid` = 434 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-08-06T22:26:33+08:00 ] 211.161.244.65 /index.php/Exam/chapter_practice.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+NOTIC: [8] Undefined index: mc /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 102 行.
+NOTIC: [8] Undefined index: cancel /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 111 行.
+SQL: SHOW COLUMNS FROM `xueches_exam_collect` [ RunTime:0.0005s ]
+SQL: SELECT `questionid` FROM `xueches_exam_collect` WHERE `userid` = 434 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-08-06T22:26:34+08:00 ] 211.161.244.65 /index.php/Exam/chapter_practice.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000105s ]
+NOTIC: [8] Undefined index: mc /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 102 行.
+NOTIC: [8] Undefined index: cancel /home/webgen/xctest/Website/Mobile/Controller/ExamController.class.php 第 111 行.
+SQL: SHOW COLUMNS FROM `xueches_exam_collect` [ RunTime:0.0006s ]
+SQL: SELECT `questionid` FROM `xueches_exam_collect` WHERE `userid` = 434 LIMIT 1   [ RunTime:0.0002s ]
+

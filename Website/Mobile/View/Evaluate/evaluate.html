@@ -1,0 +1,113 @@
+﻿<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>评价订单</title>
+    <link href="__STATIC__/evaluate/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/evaluate/css/evaluate.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__STATIC__/evaluate/css/style.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/evaluate/starability-minified/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/evaluate/starability-minified/htmleaf-demo.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/evaluate/starability-minified/starability-all.min.css"/>
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
+</head>
+<body>
+<div id="pagewrap">
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/User/order_center')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">评价订单</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="main_box">
+        <div class="main">
+            <div class="evaluate_box">
+                <form class="form_box" id="form1">
+                    <input type="hidden" value="{$oid}"  name="oid"/>
+                    <textarea id="t" name="content" class="evaluate_input">请输入评价信息</textarea>
+                    <div class="htmleaf-container">
+                        <fieldset class="starability-fade star_evaluate">
+                            <legend>星级评分</legend>
+                            <input type="radio" id="rate5-5" name="score" value="5" />
+                            <label for="rate5-5" title="Amazing">5 分</label>
+                            <input type="radio" id="rate4-5" name="score" value="4" />
+                            <label for="rate4-5" title="Very good">4 分</label>
+                            <input type="radio" id="rate3-5" name="score" value="3" />
+                            <label for="rate3-5" title="Average">3 分</label>
+                            <input type="radio" id="rate2-5" name="score" value="2" />
+                            <label for="rate2-5" title="Not good">2 分</label>
+                            <input type="radio" id="rate1-5" name="score" value="1" />
+                            <label for="rate1-5" title="Terrible">1 分</label>
+                        </fieldset>
+                    </div>
+                    <div class="submit_box">
+                        <input type="button" class="submit_eval cd-popup-trigger" value="提交评价"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var t = document.getElementById('t');
+    t.onfocus = function(){
+        if(this.innerHTML == '请输入评价信息'){this.innerHTML = ''}
+    };
+    t.onblur = function(){
+        if(this.innerHTML == ''){
+            this.innerHTML = '请输入评价信息'
+        }
+    };
+    jQuery(document).ready(function($){
+        //查看弹出
+        $('.cd-popup-trigger').on('click', function(event){
+            $.post("{:U('Mobile/Evaluate/evaluate')}",$('#form1').serialize(),function(res){
+                if(res.status == 0){
+                    layer.open({
+                        content: res.info
+                        ,style: "background-color:#E7F0FA; color:white;font-size:16px; border:none;" //自定风格
+                        ,time: 2
+                    });
+                }else{
+                    layer.open({
+                        content: res.info
+                        ,style: "background-color:#E7F0FA; color:white;font-size:16px; border:none;" //自定风格
+                        ,time: 2
+                        ,end: function(){
+                            location.href = res.url;
+                        }
+                    });
+                }
+            },'json');
+        });
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+/***************************************************************
+header头部
+****************************************************************/
+
+.header_box{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 1000px;
+    height: 50px;
+    margin:0 auto;
+}
+.back{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+}
+.back img{
+    width: 100%;
+    height: auto;
+}
+.header_text{
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 24px;
+}
+.main_box{
+    width: 100%;
+}
+.main{
+    width: 1000px;
+    margin:0 auto;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .header {
+        width: 100%;
+    }
+
+    .main {
+        width: 100%;
+    }
+}
+
+
+
+
+/***************************************************************
+评价订单
+****************************************************************/
+.evaluate_box{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    margin-bottom: 65px;
+}
+.evaluate_input{
+    height: 160px;
+    width: 90%;
+    background-color: #f9f9f9;
+    color: #999;
+    border: none;
+    border-radius: 6px;
+    margin-top: 16px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    line-height: 24px;
+}
+.star_evaluate{
+    margin-left: auto;
+    margin-right: auto;
+}
+.star_evaluate legend{
+    font-family: "Microsoft YaHei";
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 60px;
+    padding-top: 10px;
+    color: #555;
+    text-align: center;
+}
+.submit_box{
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 160px;
+    height: 46px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.submit_eval{
+    width: 160px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #fa7124;
+    color: #fff;
+    font-family: "Microsoft YaHei";
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 46px;
+}
+.form_box{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,135 @@
+.header_box{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 1000px;
+    height: 50px;
+    margin:0 auto;
+}
+.back{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+}
+.back img{
+    width: 100%;
+    height: auto;
+}
+.header_text{
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 24px;
+}
+.main_box{
+    width: 100%;
+}
+.main{
+    width: 1000px;
+    margin:0 auto;
+}
+.set_box{
+    width: 100%;
+    background: #fff;
+    margin-top: 8px;
+}
+.password{
+    height: 50px;
+    border-bottom: 1px solid #eee;
+}
+.paw_img{
+    float: left;
+    width: 26px;
+    height: 26px;
+    margin-top: 12px;
+    margin-left: 8px;
+}
+.paw_img img{
+    width: 100%;
+    height: auto;
+}
+.set_password{
+    float: left;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    line-height: 50px;
+    margin-left: 8px;
+    width: 76%;
+}
+.paw_back{
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin-top: 15px;
+    margin-right: 4px;
+}
+.paw_back img{
+    width: 100%;
+    height: auto;
+}
+.login_out{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+.button_box{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+.button_box button{
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    width: 200px;
+    height: 40px;
+    background: #fff;
+    border: none;
+    border-radius: 4px;
+    color: #fa7124;
+}
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .header {
+        width: 100%;
+    }
+    .main {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

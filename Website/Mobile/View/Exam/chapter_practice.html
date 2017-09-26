@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>章节练习</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__STATIC__/chapter_practice/css/mui.min.css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
+    <style>
+        .options li{
+            cursor: pointer;border-bottom: 1px solid #eee;
+        }
+    </style>
+    <script>
+        //获取浏览器页面可见高度和宽度
+        var _PageHeight = document.documentElement.clientHeight,
+                _PageWidth = document.documentElement.clientWidth;
+        //计算loading框距离顶部和左部的距离（loading框的宽度�?15px，高度为61px
+        var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
+                _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
+        //在页面未加载完毕之前显示的loading Html自定义内�?
+        var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:'
+                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;">' +
+                '<div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:'
+                + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 30px;font-size:14px; background: #fff url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: #696969; font-family:\'Microsoft YaHei\';">页面加载中，请稍等...</div></div>';
+        //呈现loading效果
+        document.write(_LoadingHtml);
+        window.onload = function () {
+            var loadingMask = document.getElementById('loadingDiv');
+            loadingMask.parentNode.removeChild(loadingMask);
+        };
+    </script>
+</head>
+<body>
+<div class="header_box">
+    <div class="header">
+        <ul>
+            <li class="back" style="border: none">
+                    <a href="{:U('Mobile/Exam/chapter',array('mt'=>$Think.session('mt'),'ms'=>$ms,'mc'=>$mc))}">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </a>
+            </li>
+            <li class="header_text" style="border: none">
+                {$title}
+            </li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+</div>
+<div id="loadingDiv" class="mui-content" style="z-index: 0;margin-top: 10px">
+      <div class="mui-slider">
+        <div class="mui-slider-group "  style="margin-bottom: 50%;">
+            <volist name="chapter" id="chap" empty="$empty" key="k">
+                <div class="mui-slider-item" style="background-color: white">
+                    <div class="title_{$chap.id}"  answer="{$chap.answer}">
+                        <p style="font-size: 14px;width: 90%;margin-left: 2%">{$k}.{$chap.question}
+                            <if condition="$chap.ifmul eq 0">单选</if>
+                            <if condition="$chap.ifmul eq 1">多选</if>
+                            <if condition="$chap.ifmul eq 2">判断</if>
+                            </p>
+                    </div>
+                    <div class="img" style="width: 50%" >
+                        <if condition="$chap.image neq '0'">
+                            <img src="{$http}/Uploads{$chap.image}">
+                        </if>
+                    </div>
+                    <div class="options">
+                        <if condition="$chap.ifmul eq 1">
+                            <form action="" id="form_{$chap.id}">
+                                <input type="hidden" name="answer" value="{$chap.answer}"/>
+                                <ul>
+                                    <li class="select_A" gid="{$chap.id}" >
+                                        <label>
+                                            <input type="checkbox" class="mA_{$chap.id}" style="display: none" value="mA_{$chap.id}" name="ms[]"/>
+                                            <img id="mA_{$chap.id}" style="width: 20px;height:20px;display: inline-block;position: absolute;"    src="__STATIC__/chapter_practice/images/abcd_01.png" alt=""/>
+                                        </label>
+                                        <span style="margin-left: 7%;font-size: 16px">{$chap.s1}</span>
+
+                                    </li>
+                                    <li style="margin-top: 2%;"   class="select_B" gid="{$chap.id}" >
+                                        <label>
+                                            <input type="checkbox" class="mB_{$chap.id}" style="display: none"  value="mB_{$chap.id}" name="ms[]"/>
+                                            <img id="mB_{$chap.id}" style="width: 20px;height:20px;display: inline-block;position: absolute;"   src="__STATIC__/chapter_practice/images/abcd_02.png" alt=""/>
+                                        </label>
+                                        <span style="margin-left: 7%;font-size: 15px">{$chap.s2}</span>
+                                    </li>
+                                    <li  style="margin-top: 2%;"  class="select_C" gid="{$chap.id}">
+                                        <label>
+                                            <input type="checkbox" class="mC_{$chap.id}" style="display: none"  value="mC_{$chap.id}" name="ms[]"/>
+                                            <img  id="mC_{$chap.id}"   style="width: 20px;height:20px;display: inline-block;position: absolute;"  src="__STATIC__/chapter_practice/images/abcd_03.png" alt=""/>
+                                        </label>
+                                        <span style="margin-left: 7%;font-size: 15px">{$chap.s3}</span>
+                                    </li>
+                                    <li  style="margin-top: 2%;"  class="select_D"  gid="{$chap.id}" >
+                                        <label>
+                                            <input type="checkbox" class="mD_{$chap.id}" style="display: none"  value="mD_{$chap.id}" name="ms[]"/>
+                                            <img id="mD_{$chap.id}" style="width: 20px;height:20px;display: inline-block;position: absolute;"  src="__STATIC__/chapter_practice/images/abcd_04.png" alt=""/>
+                                            <span style="margin-left: 7%;font-size: 15px">{$chap.s4}</span>
+                                        </label>
+                                    </li>
+                                    <div id="button_{$chap.id}" style="float: right;margin-top: 2%">
+                                        <input type="button" class="button" gid="{$chap.id}" value="提交" style=""/>
+                                    </div>
+                                    <div id="analysism_{$chap.id}" style="width: 90%;margin-top:8%;display: none">
+                                        <label style="font-size: 14px">答案 <span style="color: red">{$chap.answer}</span></label>
+                                        <p>
+                                            {$chap.analysis}
+                                        </p>
+                                    </div>
+                                </ul>
+                            </form>
+                            <else/>
+                            <ul>
+                                <li class="select_A" gid="{$chap.id}" style="cursor: pointer;border-bottom: 1px solid #eee" >
+                                    <label>
+                                        <img id="sA_{$chap.id}" style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"    src="__STATIC__/chapter_practice/images/abcd_01.png" alt=""/>
+                                        {$chap.s1}
+                                    </label>
+                                </li>
+                                <li   class="select_B" gid="{$chap.id}" style="cursor: pointer">
+                                    <label>
+                                        <img id="sB_{$chap.id}" style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_02.png" alt=""/>
+                                        {$chap.s2}
+                                    </label>
+                                </li>
+                                <if condition="$chap.ifmul eq 0" >
+                                    <li  class="select_C" gid="{$chap.id}" style="cursor: pointer">
+                                        <label>
+                                            <img  id="sC_{$chap.id}"   style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"  src="__STATIC__/chapter_practice/images/abcd_03.png" alt=""/>
+                                            {$chap.s3}
+                                        </label>
+                                    </li>
+                                    <li class="select_D"  gid="{$chap.id}" >
+                                        <label>
+                                            <img id="sD_{$chap.id}" style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"  src="__STATIC__/chapter_practice/images/abcd_04.png" alt=""/>
+                                            {$chap.s4}
+                                        </label>
+                                    </li>
+                                </if>
+                            </ul>
+                            <div id="analysis_{$chap.id}" style="width: 90%;margin-top:8%;display: none">
+                                <label style="font-size: 14px">答案 <span style="color: red">{$chap.answer}</span></label>
+                                <p>
+                                    {$chap.analysis}
+                                </p>
+                            </div>
+                        </if>
+                    </div>
+                </div>
+            </volist>
+        </div>
+          <footer id="foot_theoryStudy" style="z-index: 1000;margin-bottom: 0;">
+              <ul  class="mui-slider-indicator" >
+                  <li class="foot_option">
+                      <if condition="$mc eq 1">
+                          <button class="button2">
+                              <img src="__STATIC__/theory_study/images/collection.png">
+                              <p>取消收藏</p>
+                          </button>
+                          <else/>
+                          <button class="button1">
+                              <img src="__STATIC__/theory_study/images/collection.png">
+                              <p>收藏</p>
+                          </button>
+                      </if>
+
+                  </li>
+                  <li class="foot_option">
+                      <button class="button3">
+                          <img src="__STATIC__/theory_study/images/collection.png">
+                          <p>解析</p>
+                      </button>
+                  </li>
+                  <li class=" foot_option">
+                      <button>
+                          <img src="__STATIC__/theory_study/images/plan.png">
+                          <div  style="line-height:  5px" class="mui-number">
+                              <span class="k">1</span> / {$count}
+                          </div>
+                      </button>
+                  </li>
+              </ul>
+          </footer>
+    </div>
+</div>
+</body>
+<script src="__STATIC__/chapter_practice/js/mui.min.js"></script>
+<script>
+
+    $(".select_A").click(function(){
+        var id=$(this).attr('gid');
+        var analysis = '#analysis_'+ id;
+        $(analysis).show();
+        var title='.title_'+id;
+        var answer=$(title).attr('answer');
+        idName='s'+answer+'_'+$(this).attr('gid');
+        if(answer.length==1){
+            if(answer=='A'){
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='B'){
+                $('#sA_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='C'){
+                $('#sA_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='D'){
+                $('#sA_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }
+
+            $.post('{:U("Mobile/Exam/one_judge")}',{id:id,user_answer:'A'},function(res){
+            },'json');
+        }else{
+            var checkbox = $('.mA_'+id);
+            if(checkbox.data('waschecked')==true){
+                checkbox.prop('checked',false);
+                checkbox.data('waschecked',false);
+                $('#mA_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_01.png')
+            }
+            else{
+                checkbox.prop('checked',true);
+                checkbox.data('waschecked',true);
+                $('#mA_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_05.png')
+            }
+        }
+    });
+
+    $(".select_B").click(function(){
+        var id=$(this).attr('gid');
+        var analysis = '#analysis_'+ id;
+        $(analysis).show();
+        var title='.title_'+id;
+        var answer=$(title).attr('answer');
+        idName='s'+answer+'_'+$(this).attr('gid');
+        if(answer.length==1){
+            if(answer=='B'){
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='A'){
+                $('#sB_'+id).attr("src",'__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='C'){
+                $('#sB_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='D'){
+                $('#sB_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }
+        }else{
+            var checkbox = $('.mB_'+id);
+            if(checkbox.data('waschecked')==true){
+                checkbox.prop('checked',false);
+                checkbox.data('waschecked',false);
+                $('#mB_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_02.png')
+            }else{
+                checkbox.prop('checked',true);
+                checkbox.data('waschecked',true);
+                $('#mB_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_05.png')
+            }
+        }
+
+        $.post('{:U("Mobile/Exam/one_judge")}',{id:id,user_answer:'B'},function(res){
+        },'json');
+
+    });
+
+    $(".select_C").click(function(){
+        var id=$(this).attr('gid');
+        var analysis = '#analysis_'+ id;
+        $(analysis).show();
+        var title='.title_'+id;
+        var answer=$(title).attr('answer');
+        idName='s'+answer+'_'+$(this).attr('gid');
+        if(answer.length == 1){
+            if(answer=='B'){
+                $('#sC_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='A'){
+                $('#sC_'+id).attr("src",'__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='C'){
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='D'){
+                $('#sC_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }
+        }else{
+            var checkbox = $('.mC_'+id);
+            if(checkbox.data('waschecked')==true){
+                checkbox.prop('checked',false);
+                checkbox.data('waschecked',false);
+                $('#mC_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_03.png')
+            }else{
+                checkbox.prop('checked',true);
+                checkbox.data('waschecked',true);
+                $('#mC_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_05.png')
+            }
+        }
+
+        $.post('{:U("Mobile/Exam/one_judge")}',{id:id,user_answer:'C'},function(res){
+        },'json');
+
+
+    });
+
+    $(".select_D").click(function(){
+        var id=$(this).attr('gid');
+        var analysis = '#analysis_'+ id;
+        $(analysis).show();
+        var title='.title_'+id;
+        var answer=$(title).attr('answer');
+        idName='s'+answer+'_'+$(this).attr('gid');
+        if(answer.length == 1){
+            if(answer=='B'){
+                $('#sD_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='A'){
+                $('#sD_'+id).attr("src",'__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='C'){
+                $('#sD_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_07.png');
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }else if(answer=='D'){
+                document.getElementById(idName).src='__STATIC__/chapter_practice/images/abcd_06.png';
+            }
+        }else{
+            var checkbox = $('.mD_'+id);
+            if(checkbox.data('waschecked')==true){
+                checkbox.prop('checked',false);
+                checkbox.data('waschecked',false);
+                $('#mD_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_04.png')
+            }else{
+                checkbox.prop('checked',true);
+                checkbox.data('waschecked',true);
+                $('#mD_'+id).attr('src','__STATIC__/chapter_practice/images/abcd_05.png')
+            }
+        }
+
+        $.post('{:U("Mobile/Exam/one_judge")}',{id:id,user_answer:'D'},function(res){
+        },'json');
+
+    });
+
+    $('.button').click(function(){
+        var id = $(this).attr('gid');
+        $.post('{:U("Mobile/Exam/judge")}',$("#form_"+id).serialize(),function(res) {
+            if(res.info=='请选择答案'){
+                layer.open({
+                    content: res.info
+                    ,skin: 'msg'
+                    ,icon:2
+                    ,style: "background-color:#DAEAD3; font-color:white; border:none;" //自定风格
+                    ,time: 2 //2秒后自动关闭
+                });
+            }else if(res.info=='回答错误'){
+                layer.open({
+                    content:res.info
+                    ,skin:'msg'
+                    ,icon:3
+                    ,style:"background-color:#DAEAD3;border:none"
+                    ,time:2
+                });
+                $("#analysism_"+id).show();
+            }else if(res.info=='回答正确'){
+                layer.open({
+                    content:res.info
+                    ,skin:'msg'
+                    ,icon:2
+                    ,style:"background-color:#DAEAD3;border:none"
+                    ,time:2
+                });
+                $("#analysism_"+id).show();
+            }
+        },'json')
+    });
+/*沈艳艳 收藏*/
+    $(".button1").click(function(){
+        var k=$(".k").text();
+        $.post('{:U("Mobile/Exam/chapter_practice")}',{k:k},function(res){
+            layer.open({
+                content:res.info
+                ,skin:'msg'
+                ,icon:3
+                ,style:"background-color:#DAEAD3;border:none"
+                ,time:2
+            })
+        },'json');
+    });
+
+    /*沈艳艳取消收藏*/
+    $(".button2").click(function(){
+        var k=$(".k").text();
+        $.post('{:U("Mobile/Exam/chapter_practice")}',{k:k,cancel:1},function(res){
+            layer.open({
+                content:res.info
+                ,skin:'msg'
+                ,icon:3
+                ,style:"background-color:#DAEAD3;border:none"
+                ,time:2
+            })
+        },'json');
+    });
+
+    /*沈艳艳试题分析*/
+    $(".button3").click(function(){
+        var k=$(".k").text();
+        $.post('{:U("Mobile/Exam/chapter_practice")}',{k:k,analysis:1},function(res){
+            var id = res.info;
+            if(res.url == 1){
+                var analysis = "#analysism_"+id;
+            }else{
+                var analysis = "#analysis_"+id;
+            }
+            $(analysis).toggle();
+        },'json');
+    });
+    mui.init();
+
+</script>
+</html>

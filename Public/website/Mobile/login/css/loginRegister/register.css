@@ -1,0 +1,82 @@
+.register{
+    width: 1000px;
+    background: #fff;
+    height: 50px;
+    margin-top: 20px;
+}
+.name_text{
+    margin-left: 20px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    color: #555;
+}
+.name_input{
+    margin-left: 20px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+}
+.call_text{
+    margin-left: 20px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    color: #555;
+}
+.call_input{
+    margin-left: 26px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+}
+.code_text{
+    margin-left: 20px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    color: #555;
+}
+.code_input{
+    margin-left: 6px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    width: 100px;
+}
+.password_text{
+    margin-left: 20px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    color: #555;
+}
+.password_input{
+    margin-left: 20px;
+    line-height: 50px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    width: 200px;
+}
+
+.submit_box{
+    float: right;
+}
+.submit{
+    width:120px;
+    margin-right: 10px;
+    margin-top: 10px;
+    height: 30px;
+    background: #fa7124;
+    border-radius: 6px;
+    color: #ffffff;
+    font-family:"Î¢ÈíÑÅºÚ";
+    font-size: 13px;
+}
+
+
+
+
+
+
+

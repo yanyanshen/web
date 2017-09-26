@@ -1,0 +1,453 @@
+[ 2017-08-07T13:31:13+08:00 ] 101.81.119.26 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0005s ]
+
+[ 2017-08-07T13:31:15+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000041s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000091s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T13:31:16+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000050s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000102s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T13:31:56+08:00 ] 116.226.143.229 /index.php/Login/checkPhone.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0007s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE `account` = '18736199128' LIMIT 1   [ RunTime:0.0007s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000059s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000118s ]
+
+[ 2017-08-07T13:31:56+08:00 ] 116.226.143.229 /index.php/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000041s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `xueches_user` WHERE `account` = '18736199128' AND `pass` = 'fcea920f7412b5da7be0cf42b8c93759' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `xueches_user` SET `lasttime`='1502083916',`lastip`='116.226.143.229' WHERE `id` = 434 [ RunTime:0.0002s ]
+
+[ 2017-08-07T13:34:43+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '434' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=1 ) ORDER BY create_time desc  [ RunTime:0.0007s ]
+
+[ 2017-08-07T13:34:44+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000071s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '434' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=2 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T13:34:44+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000072s ]
+
+[ 2017-08-07T13:34:45+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '434' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=1 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T13:34:48+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000096s ]
+
+[ 2017-08-07T13:35:02+08:00 ] 116.226.143.229 /index.php/Order/confirm_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000048s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000093s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE `id` = 112 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-08-07T13:35:10+08:00 ] 116.226.143.229 /index.php/Order/confirm_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000088s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2017-08-07T13:51:48+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0007s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T13:51:50+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000069s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T13:51:51+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000101s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:17:30+08:00 ] 116.226.143.229 /index.php/Login/checkPhone.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000048s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000098s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0007s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE `account` = '18736199128' LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000041s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000079s ]
+
+[ 2017-08-07T17:17:30+08:00 ] 116.226.143.229 /index.php/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000079s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0005s ]
+SQL: SELECT * FROM `xueches_user` WHERE `account` = '18736199128' AND `pass` = 'fcea920f7412b5da7be0cf42b8c93759' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `xueches_user` SET `lasttime`='1502097450',`lastip`='116.226.143.229' WHERE `id` = 434 [ RunTime:0.0003s ]
+
+[ 2017-08-07T17:17:54+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000085s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:17:57+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:17:59+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000072s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:18:25+08:00 ] 101.81.119.26 /index.php/Order/pay.html
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+ [ SQL语句 ] : UPDATE `xueches_school` SET `student_num`=student_num+1 WHERE ( id= )
+
+[ 2017-08-07T17:18:57+08:00 ] 220.181.108.105 /index.php/Order/pay.html
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+ [ SQL语句 ] : UPDATE `xueches_school` SET `student_num`=student_num+1 WHERE ( id= )
+
+[ 2017-08-07T17:26:34+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000079s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:26:36+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0007s ]
+
+[ 2017-08-07T17:26:38+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0007s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 21,7   [ RunTime:0.0009s ]
+
+[ 2017-08-07T17:29:32+08:00 ] 101.81.119.26 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:29:34+08:00 ] 101.81.119.26 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000072s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0005s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:32:06+08:00 ] 116.226.143.229 /index.php/User/login_out.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000032s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000072s ]
+
+[ 2017-08-07T17:32:12+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000039s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000087s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0016s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 7,7   [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:32:15+08:00 ] 116.226.143.229 /index.php/List/pull.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000102s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` LIKE '%上海市%' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0007s ]
+SQL: SELECT DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.recommand,s.allcount,s.type FROM xueches_school s,xueches_trainclass tc,xueches_type type WHERE ( s.id=tc.type_id and type.id=tc.jztype and s.cityid = 1 and s.nickname like '%驾校%' ) LIMIT 14,7   [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:33:42+08:00 ] 116.226.143.229 /index.php/Login/checkPhone.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE `account` = '15138275766' LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000041s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000079s ]
+
+[ 2017-08-07T17:33:54+08:00 ] 116.226.143.229 /index.php/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `xueches_user` WHERE `account` = '15138275766' AND `pass` = 'ca6a480318e46c5e9b44103939cb16f0' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `xueches_user` SET `lasttime`='1502098434',`lastip`='116.226.143.229' WHERE `id` = 447 [ RunTime:0.0002s ]
+
+[ 2017-08-07T17:40:25+08:00 ] 116.226.143.229 /index.php/Order/delete_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000056s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000100s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: UPDATE `xueches_order` SET `status`='5',`create_time`='1502098825' WHERE `id` = 121 AND `userid` = 447 [ RunTime:0.0004s ]
+
+[ 2017-08-07T17:40:27+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000119s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0011s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=1 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:40:28+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=2 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:40:28+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000032s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000084s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=3 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:40:29+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000032s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=4 ) ORDER BY create_time desc  [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:40:30+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000032s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000081s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=2 ) ORDER BY create_time desc  [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:40:30+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000029s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000068s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=3 ) ORDER BY create_time desc  [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:40:30+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000069s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=1 ) ORDER BY create_time desc  [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:40:31+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000061s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000115s ]
+
+[ 2017-08-07T17:40:31+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000096s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=1 ) ORDER BY create_time desc  [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:40:32+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000072s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=2 ) ORDER BY create_time desc  [ RunTime:0.0005s ]
+
+[ 2017-08-07T17:40:33+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=3 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:40:33+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000071s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=4 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:40:34+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT o.*,s.statusname,s.memberstatus,s.adminstatus,sc.nickname,sc.picurl,sc.picname,sc.type,sc.id as sid FROM xueches_order o,xueches_order_status s,xueches_school sc WHERE o.userid = '447' AND (  o.status=s.id ) AND (  o.school_id=sc.id ) AND (  o.status=1 ) ORDER BY create_time desc  [ RunTime:0.0006s ]
+
+[ 2017-08-07T17:40:34+08:00 ] 116.226.143.229 /index.php/User/order_center.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000042s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000099s ]
+
+[ 2017-08-07T17:53:51+08:00 ] 101.81.119.26 /index.php/Consult/studyNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000084s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` = '上海市' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_consult` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 4,4   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 4,4   [ RunTime:0.0003s ]
+
+[ 2017-08-07T17:53:54+08:00 ] 101.81.119.26 /index.php/Consult/studyNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0005s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` = '上海市' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_consult` [ RunTime:0.0003s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 8,4   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 8,4   [ RunTime:0.0002s ]
+
+[ 2017-08-07T17:53:56+08:00 ] 101.81.119.26 /index.php/Consult/studyNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000090s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_citys` WHERE `cityname` = '上海市' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_consult` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 12,4   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `xueches_consult` WHERE `cityid` = 1 ORDER BY flag desc LIMIT 12,4   [ RunTime:0.0003s ]
+

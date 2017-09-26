@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>预约报名记录</title>
+    <link href="__STATIC__/user/user_center/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/user/user_center/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/user/user_center/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/user/user_center/css/order_apply.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/User/user_center')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">预约报名记录</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="main_box">
+        <div class="main">
+            <div class="list_box">
+                <volist name="apply_info" id="v" empty="$empty">
+                    <div class="list_apply">
+                        <ul>
+                            <li class="li_name">{$v['truename']}</li>
+                            <li class="li_sex">{$v['sex']==0?'男':'女'}</li>
+                            <li class="li_num">{$v['phone']}</li>
+                            <li class="li_date">{:date('Y.m.d',$v['time'])}</li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <div class="address">地址：<span class="address_span">{$v['address']}</span></div>
+                    </div>
+                </volist>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

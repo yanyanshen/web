@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>百科</title>
+    <link href="css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="css/baike-detail.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+<body>
+<style type="text/css">
+    .bdsharebuttonbox a { width: 30px!important; height: 30px!important; margin: 0 auto 10px!important; float: none!important; padding: 0!important; display: block; }
+    .bdsharebuttonbox a img { width: 30px; height: 30px; }
+    .bdsharebuttonbox .bds_tsina { background: url(images/gbRes_6.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_qzone { background: url(images/gbRes_4.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_tqq { background: url(images/gbRes_5.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_weixin { background: url(images/gbRes_2.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_sqq { background: url(images/gbRes_3.png) no-repeat center center/30px 30px; }
+    .bd_weixin_popup .bd_weixin_popup_foot { position: relative; top: -12px; }
+</style>
+
+<div class="login_box">
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href=""><img src="images/back.png"></a></li>
+                <li class="header_text">百科-科目二</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="main_box">
+        <div class="main">
+            <div class="studyNew">
+                <div class="new">
+                    <h1 class="title">科目二学车技巧视频教学</h1>
+                    <ul>
+                        <li class="dates">2017.05.26</li>
+                        <li class="view">浏览量：26413人</li>
+                        <div class="clearfix"></div>
+                    </ul>
+                    <video width="100%" height="240" controls="controls" src="images/kemuer01.mp4"></video>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一方面，驾校数量众多，学车费用水涨船高；另一方面，由于驾校准入门槛较低，整体市 场呈现出“小、弱、散”的格局，管理模式和标准化都很欠缺。东方时尚通过将酒店式的 服务理念移植到驾驶培训中，对整个培训进行体系化、规模化、流程化、标准化升级，对 驾校场地进行园区化改造，直击行业痛点，在北京地区实现了学员绝对数和市占率的快速 提升。
+                        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以北京地区东方时尚的招生人数为例，2012 年北京地区受理学员约 15.59 万人，市 占率为 19.96%，2015 年已达 17.35 万人，市占率约为 25%，基本呈上升趋势，实现了学员 绝对数和市占率的双重提升。
+                    </p>
+                    <div class="gb_resLay">
+                        <div class="gb_res_t"><span>分享到</span><i></i></div>
+                        <div class="bdsharebuttonbox">
+                            <ul class="gb_resItms">
+                                <li> <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin" ></a>微信好友 </li>
+                                <li> <a title="分享到QQ好友" href="#" class="bds_sqq" data-cmd="sqq" ></a>QQ好友 </li>
+                                <li> <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone" ></a>QQ空间 </li>
+                                <li> <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq" ></a>腾讯微博 </li>
+                                <li> <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina" ></a>新浪微博 </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var ShareURL = "";
+    $(function () {
+        $(".bdsharebuttonbox a").mouseover(function () {
+            ShareURL = $(this).attr("data-url");
+        });
+    });
+
+    function SetShareUrl(cmd, config) {
+        if (ShareURL) {
+            config.bdUrl = ShareURL;
+        }
+        return config;
+    }
+
+    window._bd_share_config = {
+        "common": {
+            onBeforeClick: SetShareUrl, "bdSnsKey": {}, "bdText": ""
+            , "bdMini": "2", "bdMiniList": false, "bdPic": "http://assets.jq22.com/plugin/2017-05-24-18-14-49.png", "bdStyle": "0", "bdSize": "24"
+        }, "share": {}
+    };
+
+    with (document) 0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
+            + ~(-new Date() / 36e5)];
+</script>
+
+
+</body>
+</html>

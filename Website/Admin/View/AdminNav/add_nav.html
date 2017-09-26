@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>添加菜单</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        lable.error{font-size: 14px;font-weight: bold;color: #FF0000;}
+        lable.ok{font-size: 14px;font-weight: bold;color: #38D63B;}
+        label{padding: 10px 20px 10px 0}
+        li{margin-top: 20px;list-style: none}
+        .dfinput{margin-left: 10px;border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;width: 340px;padding: 10px 0 10px 15px}
+        b{color: red}
+    </style>
+</head>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+    添加菜单
+    <a style="text-decoration: none;color:#ff143f" href="{:U('index')}">【返回】</a>
+</div>
+<div style="font-size: 13px;margin: 10px 5px">
+    <form action="{:U('Admin/AdminNav/add_nav')}" id="form1" method="post">
+        <input name="pid" type="hidden" class="dfinput" value="{$pid|default=0}"/>
+        <ul style="padding: 0">
+            <li><label>上级菜单<b>*</b></label>
+                <input type="text" class="dfinput" placeholder="{$pname|default='上级菜单'}"  readonly/>
+            </li>
+            <li><label>菜单名称<b>*</b></label>
+                <input name="navname" type="text" class="dfinput" placeholder="请填写菜单名称" />
+            </li>
+            <li><label>菜单链接<b>*</b></label>
+                <input name="navurl"  class="dfinput" placeholder="请填写菜单链接" />
+            </li>
+            <li><label style="padding: 10px 8px 10px 0">菜单优先级<b>*</b></label>
+                <input name="priority" class="dfinput" placeholder="请填写菜单优先级" />
+            </li>
+            <li>
+                <label style="padding: 10px 90px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(37,168,249);border: none;border-radius: 4px;color: #ffffff " type="submit" class="btn" value="确定"/>
+            </li>
+        </ul>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function(){
+        var validate=$('#form1').validate({
+            rules:{
+                navname:{
+                    required:true
+                },
+                navurl:{
+                    required:true
+                }
+            },
+            messages:{
+                navname:{required:' * 菜单名称不能为空！'},
+                navurl:{required:' * 菜单链接不能为空！'}
+            },
+            success:function(lable){
+                lable.addClass('ok').text(' * 通过验证');
+            },
+            validClass:'ok',
+            errorElement:'lable'
+        });
+        //异步提交表单
+        $('#form1').submit(function(){
+            if(validate.form()){
+                $.post("{:U('Admin/AdminNav/add_nav')}",$('#form1').serialize(),function(res){
+                if(res.status==1){
+                    layer.msg(
+                            res.info,
+                            {icon:1},
+                            function(){
+                                location.href=res.url;
+                            }
+                    );
+                }else{
+                    layer.msg(res.info);
+                }
+            });
+            return false;
+            }
+        });
+    })
+</script>

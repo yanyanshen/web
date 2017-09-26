@@ -1,0 +1,250 @@
+/***************************************************************
+headerͷ��
+****************************************************************/
+
+.header_box{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 1000px;
+    height: 50px;
+    margin:0 auto;
+}
+.back{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+}
+.back img{
+    width: 100%;
+    height: auto;
+}
+.header_text{
+    font-family: "΢���ź�";
+    font-size: 18px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+.sort{
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin-right: 10px;
+}
+.sort input{
+    font-family: "΢���ź�";
+    font-size: 14px;
+    line-height: 50px;
+    float: left;
+    background-color: transparent;
+}
+.sort img{
+    margin-top: 16px;
+}
+
+
+
+.main_box{
+    width: 100%;
+}
+.main{
+    width: 1000px;
+    margin:0 auto;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .header {
+        width: 100%;
+    }
+
+    .main {
+        width: 100%;
+    }
+}
+
+
+
+
+/***************************************************************
+����ѧϰ��ҳ��
+****************************************************************/
+.theory_study{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    margin-top: 10px;
+}
+.simulation{
+    width: 100%;
+    margin: 0 auto;
+}
+.simulation_a{
+    padding-top: 20px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+.simulation img{
+    width: 100%;
+    height: auto;
+}
+.simulation_a h2{
+    font-family: "΢���ź�";
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+}
+.study_box{
+    padding-top: 50px;
+    width: 100%;
+}
+.study_box li{
+    width: 25%;
+    margin: 0 auto;
+    float: left;
+}
+.study_box img{
+    width: 60%;
+    height: 60%;
+    margin: 0 auto;
+}
+.study_box h2{
+    font-family: "΢���ź�";
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+
+/***************************************************************
+�½���ϰҳ��
+****************************************************************/
+.chapter_box{
+    width: 100%;
+}
+.chapter_img{
+    float: left;
+    width: 8px;
+    height: 8px;
+    background: #fa7124;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+.chapter_h{
+    float: left;
+}
+.chapter_box h2{
+    font-family: "΢���ź�";
+    font-size: 14px;
+    line-height: 24px;
+}
+.chapter_box li{
+    border-bottom: 1px solid #eee;
+}
+
+
+/***************************************************************
+foot�ײ�
+****************************************************************/
+.foot_box{
+    width:40%;
+    float:left;
+    background: #fa7124;
+    border-radius: 4px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 6px;
+}
+.foot_box p{
+    font-family: "΢���ź�";
+    font-size: 14px;
+    color:#fff;
+    text-align: center;
+    line-height:14px;
+}
+
+
+
+
+/***************************************************************
+ѡ��������͡�ѡ���Ŀ
+****************************************************************/
+.subject_sort{
+    width: 100%;
+    height: 100%;
+}
+.subject{
+    width: 100%;
+    margin-top: 10px;
+    background: #fff;
+}
+.subject li{
+    border-bottom: 1px solid #eee;
+}
+.subject_box{
+    margin-left: 20px;
+}
+.subject_box input{
+    margin-left: 20px;
+}
+.subject_box label{
+    font-family: "΢���ź�";
+    font-size: 12px;
+    line-height: 50px;
+    width: 320px;
+}
+.subject_top{
+    font-family: "΢���ź�";
+    font-size: 14px;
+    font-weight: bold;
+    color: #fa7124;
+    padding-left: 20px;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0;
+}
+.subject_box li{
+    height: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

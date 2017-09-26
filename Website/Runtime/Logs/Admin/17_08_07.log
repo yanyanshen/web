@@ -1,0 +1,368 @@
+[ 2017-08-07T09:02:07+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:02:09+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000069s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 26  [ RunTime:0.0004s ]
+
+[ 2017-08-07T09:02:11+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000095s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 74  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:02:14+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 170  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:28:28+08:00 ] 101.81.119.26 /index.php/Admin/Order/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+ERR: 非法操作:returncounty
+
+[ 2017-08-07T09:29:49+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000114s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:29:52+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 26  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:29:54+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 74  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:29:56+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 118  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:29:58+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000105s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 170  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:29:59+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000091s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 308  [ RunTime:0.0004s ]
+
+[ 2017-08-07T09:30:05+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 1  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:30:07+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000069s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 308  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:31:40+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:31:42+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000032s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000087s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 16  [ RunTime:0.0003s ]
+
+[ 2017-08-07T09:31:44+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 60  [ RunTime:0.0004s ]
+
+[ 2017-08-07T09:31:46+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 118  [ RunTime:0.0004s ]
+
+[ 2017-08-07T09:31:48+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T12:57:30+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0007s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 13524829792 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: cityid /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 96 行.
+SQL: INSERT INTO `xueches_user` (`truename`,`sex`,`phone`,`cityid`,`lastupdate`,`address`,`jz_type`,`account`,`ntime`,`pass`) VALUES ('测试','0','13524829792',NULL,'艳艳','上海市杨浦区 四平路','C1照全包','13524829792','1502081850','6e8c6ae2fb2918a76c41a3fd5be8ae64') [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170807ebbca40c741d61' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: INSERT INTO `xueches_order` (`userid`,`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('442','20170807ebbca40c741d61','13524829792','10','0','1502081850',NULL,'上海市 杨浦 四平路','C1照全包','商桥','0','13524829792','7','0','2','0','2017-08-07','0') [ RunTime:0.0027s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0052s ]
+SQL: UPDATE `xueches_school` SET `student_num`=student_num+1 WHERE ( id = 0 ) [ RunTime:0.0002s ]
+
+[ 2017-08-07T13:18:10+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html
+ERR: 1054:Unknown column 'o.id' in 'field list'
+ [ SQL语句 ] : SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,o.school_id as nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM `xueches_order` WHERE ( school_id = 0 ) 
+
+[ 2017-08-07T14:16:00+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 0  [ RunTime:0.0002s ]
+
+[ 2017-08-07T14:16:03+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000050s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000100s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 0  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:17:53+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 0  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:17:58+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000042s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000083s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 0  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:19:00+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 0  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:19:02+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000054s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000103s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 0  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:19:35+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0004s ]
+
+[ 2017-08-07T14:19:37+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000030s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000068s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 26  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:28:27+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:31:13+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000048s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000088s ]
+
+[ 2017-08-07T14:31:59+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000048s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000088s ]
+
+[ 2017-08-07T14:32:07+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000048s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000087s ]
+
+[ 2017-08-07T14:32:30+08:00 ] 116.226.143.229 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:33:32+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000086s ]
+SQL: SHOW COLUMNS FROM `xueches_citys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`cityname` FROM `xueches_citys` WHERE ( flag=1 )  [ RunTime:0.0003s ]
+SQL: SELECT `cityname` FROM `xueches_citys` WHERE `id` = 15 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`countyname` FROM `xueches_countys` WHERE ( cityid=15 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0004s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 13524829793 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: INSERT INTO `xueches_user` (`truename`,`sex`,`phone`,`cityid`,`lastupdate`,`address`,`jz_type`,`account`,`ntime`,`pass`) VALUES ('wwwww','0','13524829793','15','艳艳','13524829793','C1照全包','13524829793','1502087612','c137249b3f5f0d50f2b2ddeb36535652') [ RunTime:0.0003s ]
+SQL: SELECT `cityname` FROM `xueches_citys` WHERE `id` = 15 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170807d8d457b6237393' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 128 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: INSERT INTO `xueches_order` (`userid`,`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`cityname`,`countyname`,`s_nickname`,`school_id`) VALUES ('443','20170807d8d457b6237393','13524829793','30','0','1502087612',NULL,'杭州市 126 123','C1照全包','121','0','13524829792','7','517基地','1','0','2017-08-07','杭州市','126','517驾校','0') [ RunTime:0.0034s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: UPDATE `xueches_school` SET `student_num`=student_num+1 WHERE ( id = 0 ) [ RunTime:0.0002s ]
+
+[ 2017-08-07T14:35:04+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 16  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:35:07+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000089s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0004s ]
+
+[ 2017-08-07T14:35:40+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:35:47+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000057s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000142s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 1  [ RunTime:0.0004s ]
+
+[ 2017-08-07T14:36:39+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 15  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:36:41+08:00 ] 101.81.119.26 /index.php/Admin/LandMark/returncounty.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000032s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_countys` [ RunTime:0.0005s ]
+SQL: SELECT `id`,`countyname`,`cityid` FROM `xueches_countys` WHERE `cityid` = 60  [ RunTime:0.0003s ]
+
+[ 2017-08-07T14:40:46+08:00 ] 101.81.119.26 /index.php/Admin/Order/order_list.html?cityname=%E6%9D%AD%E5%B7%9E%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname =杭州市 ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname =杭州市 ) LIMIT 1  
+
+[ 2017-08-07T14:42:05+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E6%9D%AD%E5%B7%9E%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname = 杭州市 ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname = 杭州市 ) LIMIT 1  
+
+[ 2017-08-07T14:42:35+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E6%9D%AD%E5%B7%9E%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname like '%杭州市%' ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname like '%杭州市%' ) LIMIT 1  
+
+[ 2017-08-07T14:43:06+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E4%B8%8A%E6%B5%B7%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname like '%上海市%' ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname like '%上海市%' ) LIMIT 1  
+
+[ 2017-08-07T14:44:17+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E6%9D%AD%E5%B7%9E%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname like '%杭州市%' ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname like '%杭州市%' ) LIMIT 1  
+
+[ 2017-08-07T14:48:37+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E4%B8%8A%E6%B5%B7%E5%B8%82&order_type=1&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE ( and ) LIMIT 1  
+
+[ 2017-08-07T14:50:19+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E4%B8%8A%E6%B5%B7%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname like '%上海市%' ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname like '%上海市%' ) LIMIT 1  
+
+[ 2017-08-07T14:50:43+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html?cityname=%E6%9D%AD%E5%B7%9E%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and  cityname like '%杭州市%' ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (   and  cityname like '%杭州市%' ) LIMIT 1  
+
+[ 2017-08-07T15:15:04+08:00 ] 101.81.119.26 /index.php/Admin/Order/order_list?cityname=%E6%9D%AD%E5%B7%9E%E5%B8%82&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&s_nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: 1054:Unknown column '杭州市' in 'where clause'
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM `xueches_order` WHERE (    cityname =杭州市 ) LIMIT 1  
+
+[ 2017-08-07T15:45:54+08:00 ] 116.226.143.229 /index.php/Admin/Order/returndate.html
+ERR: 1054:Unknown column '20170807d8d457b6237393' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_customer` WHERE ( ordcode=20170807d8d457b6237393 ) LIMIT 1  
+
+[ 2017-08-07T16:04:09+08:00 ] 116.226.143.229 /index.php/Admin/Order/returndate.html
+ERR: 1054:Unknown column '20170807d8d457b6237393' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `xueches_customer` WHERE ( ordcode=20170807d8d457b6237393 ) LIMIT 1  
+
+[ 2017-08-07T16:06:19+08:00 ] 116.226.143.229 /index.php/Admin/Order/returndate.html
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+ [ SQL语句 ] : UPDATE `xueches_order` SET `customer`='未华',`return_time`=NULL WHERE ( id= )
+

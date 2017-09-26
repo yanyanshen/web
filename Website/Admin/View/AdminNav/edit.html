@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑菜单</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        input{margin-bottom: 6px;}
+        lable.error{font-size: 14px;font-weight: bold;color: #FF0000;}
+        lable.ok{font-size: 14px;font-weight: bold;color: #38D63B;}
+        label{padding: 10px 20px 10px 0}
+        li{margin-top: 20px;list-style: none}
+        .dfinput{margin-left: 10px;border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;width: 340px;padding: 10px 0 10px 15px}
+        b{color: red}
+    </style>
+</head>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);">
+    <span>
+        <span style="float:left;font-weight: bolder;color: #ffffff;">编辑菜单</span>
+        <span style="margin-right: 8px;font-weight: bold">
+            <a style="text-decoration: none;color: #ffffff;" href="{:U('AdminNav/index')}">【返回】</a>
+        </span>
+    </span>
+</div>
+<div style="font-size: 13px;margin: 10px 5px">
+    <form action="{:U('Admin/AdminNav/edit')}" id="form1" method="post">
+        <input name="id" type="hidden" class="dfinput" value="{$id}"/>
+        <ul>
+            <li><label>菜单名称<b>*</b></label>
+                <input type="text" name="navname" class="dfinput" value="{$navname}"/>
+            </li>
+            <li><label>菜单链接<b>*</b></label>
+                <input name="navurl"  class="dfinput" value="{$navurl}" />
+            </li>
+            <li>
+                <label style="padding: 10px 90px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(60,149,200);border: none;border-radius: 4px;color: #ffffff " type="submit" class="btn" value="确定编辑"/>
+            </li>
+        </ul>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function(){
+        var validate=$('#form1').validate({
+            rules:{
+                navname:{
+                    required:true
+                },
+                navurl:{
+                    required:true
+                }
+            },
+            messages:{
+                navname:{required:' * 菜单名称不能为空！'},
+                navurl:{required:' * 菜单链接不能为空！'}
+            },
+            success:function(lable){
+                lable.addClass('ok').text(' * 通过验证');
+            },
+            validClass:'ok',
+            errorElement:'lable'
+        });
+        //异步提交表单
+        $('#form1').submit(function(){
+            $(this).attr('disabled',true);
+            if(validate.form()){
+                $.post("{:U('Admin/AdminNav/edit')}",$('#form1').serialize(),function(res){
+                if(res.status==1){
+                    layer.msg(
+                        res.info,
+                        {icon:1},
+                        function(){
+                            location.href=res.url;
+                        }
+                    );
+                }else{
+                    layer.msg(res.info);
+                }
+            });
+            return false;
+            }
+        });
+    })
+</script>

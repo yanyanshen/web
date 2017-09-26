@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>我要去学车—首页</title>
+    <link href="__STATIC__/Index/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/Index/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/Index/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/Index/css/banner.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/Index/css/cityPicker.css" rel="stylesheet" type="text/css">
+    <script src="__STATIC__/Index/js/banner.js"></script>
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/Index/js/Marquee.js"></script>
+</head>
+<body>
+<div id="pagewrap">
+    <div class="addWrap">
+        <div class="swipe" id="mySwipe">
+            <div class="swipe-wrap">
+                <volist name="info" id="v" empty="$empty">
+                    <div>
+                        <a href="{$http}{:U($v['href'])}">
+                            <img class="img-responsive" src="{$http}/Uploads/Slideshow_logo/{$v.picurl}{$v.picname}" width="400" height="143.75"/>
+                        </a>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <ul id="position">
+            <li class="cur"></li>
+            <li class=""></li>
+            <li class=""></li>
+            <li class=""></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var bullets = document.getElementById('position').getElementsByTagName('li');
+        var banner = Swipe(document.getElementById('mySwipe'), {
+            auto: 2000,
+            continuous: true,
+            disableScroll:false,
+            callback: function(pos) {
+                var i = bullets.length;
+                while (i--) {
+                    bullets[i].className = ' ';
+                }
+                bullets[pos].className = 'cur';
+            }
+        });
+    </script>
+
+    <div id="header_box2">
+        <div id="header2">
+            <input type="text" class="city" style="" value="{$Think.session.city}" readonly>
+            <script type="text/javascript" src="__STATIC__/Index/js/cityPicker.js"></script>
+            <script type="text/javascript">
+                $(".city").CityPicker();
+            </script>
+            <div class="search_box" style="border-radius: 5px;margin-right: 5%;width:55%">
+                <if condition="$Think.session.k eq ''">
+                    <input class="search" type="text" name="k" value="" placeholder="请输入驾校或街道" />
+                    <else/>
+                    <input class="search" type="text" name="k" value="{$Think.session.k}" placeholder="请输入驾校或街道" />
+                </if>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <script>
+            $(".search_box").click(function(){
+                location.href = "{:U('Mobile/List/pull')}"
+            })
+        </script>
+    </div>
+
+    <div id="content">
+        <div id="options">
+            <div class="option1">
+                <a href="{:U('Mobile/List/pull')}">
+                    <img src="__STATIC__/Index/images/index_icon01.png">
+                </a>
+                <p>驾考全包</p>
+            </div>
+            <div class="option1">
+                <a href="{:U('Mobile/List/pull')}">
+                    <img src="__STATIC__/Index/images/index_icon02.png">
+                </a>
+                <p>计时培训</p>
+            </div>
+            <div class="option1">
+                <a href="">
+                    <img src="__STATIC__/Index/images/index_icon03.png">
+                </a>
+                <p>自学直考</p>
+            </div>
+            <div class="option1">
+                <if condition="$Think.session.mid eq ''">
+                    <a href="{:U('Mobile/Login/login')}">
+                        <img src="__STATIC__/Index/images/index_icon04.png">
+                    </a>
+                    <else/>
+                    <a href="{:U('Mobile/Exam/theory_study')}">
+                        <img src="__STATIC__/Index/images/index_icon04.png">
+                    </a>
+                </if>
+                <p>理论学习</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="demopage">
+            <div class="demopage_img"><img src="__STATIC__/Index/images/517.png"></div>
+            <div class="marquee_box">
+                <div id="marquee">
+                    <ul>
+                        <li>
+                            <p class="marquee_hot">惊爆</p><a href="" title="普及30个一线城市">普及30个一线城市</a>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <p class="marquee_hot">热门</p>
+                            <a href="" title="合作1800所A级驾校">合作1800所A级驾校</a>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <p class="marquee_hot">爆棚</p><a href="" title="百万学员的选择">百万学员的选择</a>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="demopage_text">
+                    <p>报名即送大礼包！</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                $('#marquee').kxbdSuperMarquee({
+                    isEqual:false,
+                    distance:30,
+                    time:3,
+                    direction:'up'
+                });
+            });
+        </script>
+
+
+        <div id="weekPrice">
+            <div class="w-school">
+                <div class="wp">
+                    <img src="__STATIC__/Index/images/Lowest%20price.png">
+                    <p>本周特价</p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div id="weekPrice_box">
+                <volist name="week_list" id="v" offset="0" length="1" empty="$empty">
+                    <div id="weekPrice_box1">
+                        <ul>
+                            <li>
+                                <a href="{:U('Mobile/Detail/index',array('id'=>$v['school_id']))}">{$v.nickname}</a></li>
+                            <li><h1>￥{$v.wholeprice}</h1></li>
+                            <li><h2>￥{$v.officeprice}</h2></li>
+                            <li><p>{$v.introduction}</p></li>
+                            <li>
+                                <a href="{:U('Mobile/Detail/index',array('id'=>$v['school_id']))}">
+                                    <img src="{$http}/Uploads/School_logo/{$v.picurl}{$v.picname}">
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    </volist>
+
+                    <div id="weekPrice_box2" >
+                        <volist name="week_list1" id="data2" offset="1"  empty="$empty">
+                        <div class="wp_school1" style="margin-top: 10px">
+                            <ul class="wps_ul">
+                                <li><a href="{:U('Mobile/Detail/index',array('id'=>$data2['school_id']))}">{$data2.nickname}</a></li>
+                                <li><h1>￥{$data2.wholeprice}</h1></li>
+                                <li><h2>￥{$data2.officeprice}</h2></li>
+                                <li><p>{$data2.introduction}</p></li>
+                            </ul>
+                            <a href="{:U('Mobile/Detail/index',array('id'=>$data2['school_id']))}" class="wps_img">
+                                <img src="{$http}/Uploads/School_logo/{$data2.picurl}{$data2.picname}">
+                            </a>
+                            <div class="clearfix"></div>
+                        </div>
+                        </volist>
+                    </div>
+
+
+                <div class="clearfix"></div>
+            </div>
+            <div id="more-school">
+                <div class="more">
+                    <a href="{:U('Mobile/List/pull')}">更多驾校</a>
+                    <img src="__STATIC__/Index/images/more.png">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="hot">
+            <div class="hot-school">
+                <div class="hs">
+                    <img src="__STATIC__/Index/images/index_icon07.png">
+                    <p>热门驾校</p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div id="hot_box">
+                <volist name="hot_list" id="data" empty="$empty">
+                    <div id="hot_box1">
+                        <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">
+                            <img src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
+                        </a>
+                        <a>{$data.nickname}</a>
+                        <p style="color: #fa7124;">￥{$data.wholeprice}</p>
+                        <p>{$data.allcount}人已报名</p>
+                    </div>
+                </volist>
+                <div class="clearfix"></div>
+            </div>
+            <div id="more-school">
+                <div class="more">
+                    <a href="{:U('Mobile/List/pull')}">更多驾校</a>
+                    <img src="__STATIC__/Index/images/more.png">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="recomment">
+            <div class="r-school">
+                <div class="rs">
+                    <img src="__STATIC__/Index/images/index_icon06.png">
+                    <p>推荐驾校</p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div id="r_box">
+                <volist name="jx_list" id="data" empty="$empty">
+                    <div id="r_box1">
+                        <div id="r_main">
+                            <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">{$data.nickname}</a>
+                            <div class="clearfix"></div>
+                            <ul id="rm">
+                                <li class="money">￥{$data.wholeprice}</li>
+                                <li class="num">{$data.allcount}人已报名</li>
+                            </ul>
+                            <button><a style="color:#ffffff" href="{:U('Mobile/Order/choose_course',array('id'=>$data['school_id']))}">马上报名</a></button>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="r_img">
+                            <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">
+                                 <img src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </volist>
+
+
+            </div>
+            <div id="more-school">
+                <div class="more">
+                    <a href="{:U('Mobile/List/pull')}">更多驾校</a>
+                    <img src="__STATIC__/Index/images/more.png">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="new">
+            <div class="n-school">
+                <div class="ns">
+                    <img src="__STATIC__/Index/images/index_icon08.png">
+                    <p>驾考资讯</p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div id="n_box">
+                <volist name="consult" id="v" empty="$empty">
+                    <div id="n_box1">
+                        <div id="n_main">
+                            <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$v['id']))}">{$v.title|mb_substr=0,20,utf8}...</a>
+                            <ul id="nm">
+                                <li class="date">{:date('Y/m/d',$v['time'])}</li>
+                                <li class="num">{$v.touch_count}</li>
+                                <li class="eye">
+                                    <img src="__STATIC__/Index/images/eye.png">
+                                </li>
+                                <div class="clearfix"></div>
+                            </ul>
+                        </div>
+                        <div id="n_img">
+                            <img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </volist>
+            </div>
+            <div id="more-school">
+                <div class="more">
+                    <a href="{:U('Mobile/Consult/studyNew')}">更多资讯</a>
+                    <img src="__STATIC__/Index/images/more.png">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer id="footer">
+        <ul>
+            <li class="foot">
+                <a href="{:U('Mobile/Index/index')}">
+                    <img src="__STATIC__/Index/images/icon-footer01-a.png">
+                    <p>首页</p>
+                </a>
+            </li>
+            <li class="foot">
+                <a href="">
+                    <img src="__STATIC__/Index/images/icon-footer2-a.png">
+                    <p>语言</p>
+                </a>
+            </li>
+            <li class="foot">
+                <a href="{:U('Mobile/List/pull')}">
+                    <img src="__STATIC__/Index/images/icon-footer3-a.png">
+                    <p>驾校</p>
+                </a>
+            </li>
+            <li class="foot">
+                <a href="{:U('Mobile/Cyclope/baike')}">
+                    <img src="__STATIC__/Index/images/icon-footer4-a.png">
+                    <p>百科</p>
+                </a>
+            </li>
+            <li class="foot">
+                <if condition="$Think.session.mid eq ''">
+                    <a href="{:U('Mobile/Login/login')}">
+                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                        <p>我的</p>
+                    </a>
+                    <else/>
+                    <a href="{:U('Mobile/User/user_center')}">
+                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                        <p>我的</p>
+                    </a>
+                </if>
+
+            </li>
+        </ul>
+    </footer>
+
+    <div class="call_box">
+        <a href="tel:4008040517"><img src="__STATIC__/Index/images/phone.png"></a>
+    </div>
+    <div class="sms_box">
+        <a href=""><img src="__STATIC__/Index/images/sms.png"></a>
+        <!--<a href="sms:18688888888">发短信</a>-->
+    </div>
+
+    <include file="public/footer"/>
+
+
+</div>
+
+
+</body>
+</html>

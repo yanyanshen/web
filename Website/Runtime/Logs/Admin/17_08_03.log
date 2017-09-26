@@ -1,0 +1,1361 @@
+[ 2017-08-03T09:04:28+08:00 ] 116.226.143.229 /index.php/Admin/Order/order_list.html
+ERR: syntax error, unexpected '>'
+
+[ 2017-08-03T09:08:42+08:00 ] 116.226.143.229 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:08:45+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=0&order_type=0&ordcode=&cityid=0&pay_type=0&customer=&class_name=0&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000106s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:08:45+08:00 ] 116.226.143.229 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=0&order_type=0&ordcode=&cityid=0&pay_type=0&customer=&class_name=0&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000038s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000095s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:08:46+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=0&order_type=0&ordcode=&cityid=0&pay_type=0&customer=&class_name=0&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000062s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000140s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:09:04+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:09:05+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:09:05+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000070s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:09:05+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000085s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:09:26+08:00 ] 101.81.119.26 /index.php/Admin/Admin/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+ERR: 无法加载控制器:Admin
+
+[ 2017-08-03T09:09:50+08:00 ] 101.81.119.26 /index.php/Admin/Order/pull.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+ERR: 非法操作:pull
+
+[ 2017-08-03T02:10:23+01:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0004s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:10:36+01:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:10:37+01:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000042s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000085s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:10:38+01:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000045s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000101s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T09:11:16+08:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+
+[ 2017-08-03T09:11:21+08:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000040s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000090s ]
+
+[ 2017-08-03T09:11:50+08:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0005s ]
+
+[ 2017-08-03T02:12:55+01:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000095s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:14:15+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000040s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:14:20+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000047s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000104s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0004s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:14:21+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:14:21+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:15:17+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?nickname=&tel=&name=&status=&order_type=&ordcode=&cityid=&pay_type=&customer=&class_name=&trainaddress=&create_time1=&create_time2=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0004s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.class_name like '%%' ) ORDER BY id desc  [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 108 行.
+
+[ 2017-08-03T02:54:19+01:00 ] 101.81.119.26 /index.php/Admin/Order/push.html?cityid=0&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: Invalid character found in sheet title
+
+[ 2017-08-03T02:55:06+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?cityid=0&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+ERR: Invalid character found in sheet title
+
+[ 2017-08-03T03:21:15+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?cityid=0&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000039s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000080s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+
+[ 2017-08-03T03:21:15+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?cityid=0&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+
+[ 2017-08-03T03:21:16+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?cityid=0&order_type=0&status=0&pay_type=0&create_time1=&create_time2=&customer=&ordcode=&nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000044s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000099s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id ) ORDER BY id desc  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+
+[ 2017-08-03T03:33:29+01:00 ] 116.226.143.229 /index.php/Admin/Order/push.html?cityid=0&order_type=0&status=0&pay_type=1&create_time1=&create_time2=&customer=&ordcode=&nickname=&tel=&name=&class_name=0&trainaddress=&notify_time1=&notify_time2=&return_time1=&return_time2=
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000089s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0004s ]
+SQL: SELECT o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,o.name,s.nickname,o.userid,o.customer,o.sex,o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time FROM xueches_order o,xueches_school s WHERE ( o.school_id = s.id  and  o.pay_type =1 ) ORDER BY id desc  [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+NOTIC: [8] Undefined index: pay_time /home/webgen/xctest/Website/Common/Common/function.php 第 135 行.
+
+[ 2017-08-03T11:20:54+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000042s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000081s ]
+
+[ 2017-08-03T11:21:00+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000054s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000100s ]
+
+[ 2017-08-03T11:21:02+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='923' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='923' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000063s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000113s ]
+
+[ 2017-08-03T11:21:25+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000039s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000083s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1257' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1257' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000074s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000128s ]
+
+[ 2017-08-03T11:21:32+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000055s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000121s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0005s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000070s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000159s ]
+
+[ 2017-08-03T11:21:39+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1968' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1968' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000042s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000080s ]
+
+[ 2017-08-03T11:21:42+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000102s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1949' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1949' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000047s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000087s ]
+
+[ 2017-08-03T11:21:45+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000088s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1951' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1951' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000048s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000099s ]
+
+[ 2017-08-03T11:21:48+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1954' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1954' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000076s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000128s ]
+
+[ 2017-08-03T11:21:51+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000082s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1955' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1955' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000046s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000086s ]
+
+[ 2017-08-03T11:21:57+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1949' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1949' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000064s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000109s ]
+
+[ 2017-08-03T11:22:02+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000042s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000083s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='936' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='936' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000054s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000110s ]
+
+[ 2017-08-03T11:22:16+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000085s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='972' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='972' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000041s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000078s ]
+
+[ 2017-08-03T11:22:21+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000049s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000106s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='5' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='5' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (6) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000048s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000087s ]
+
+[ 2017-08-03T11:22:32+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000054s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000118s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000047s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000086s ]
+
+[ 2017-08-03T11:22:33+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000072s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='955' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='955' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000037s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000074s ]
+
+[ 2017-08-03T11:22:40+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000053s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000119s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='961' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0005s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='961' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000065s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000129s ]
+
+[ 2017-08-03T11:22:45+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0005s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000060s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000121s ]
+
+[ 2017-08-03T11:22:47+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000032s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000071s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1965' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1965' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000038s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000077s ]
+
+[ 2017-08-03T11:23:27+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000079s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='2' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='2' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (57) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000046s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000087s ]
+
+[ 2017-08-03T11:23:29+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000071s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='936' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='936' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000041s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000078s ]
+
+[ 2017-08-03T11:23:31+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000056s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000119s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0005s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000046s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000085s ]
+
+[ 2017-08-03T11:23:33+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000085s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1951' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1951' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000043s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000084s ]
+
+[ 2017-08-03T11:23:34+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='926' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='926' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000042s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000079s ]
+
+[ 2017-08-03T11:23:50+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='0' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='0' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000038s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000075s ]
+
+[ 2017-08-03T13:33:39+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000040s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000088s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000040s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000082s ]
+
+[ 2017-08-03T13:33:44+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000056s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000109s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='926' )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='926' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000044s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000099s ]
+
+[ 2017-08-03T15:54:29+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000041s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000079s ]
+
+[ 2017-08-03T15:54:38+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000042s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000078s ]
+
+[ 2017-08-03T15:55:37+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000040s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000094s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000060s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000100s ]
+
+[ 2017-08-03T15:55:41+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000043s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000096s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000042s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000080s ]
+
+[ 2017-08-03T15:56:20+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000078s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000056s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000108s ]
+
+[ 2017-08-03T15:56:31+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000057s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000111s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000065s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000111s ]
+
+[ 2017-08-03T15:58:19+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000052s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000109s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 136 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000047s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000085s ]
+
+[ 2017-08-03T15:59:36+08:00 ] 116.226.143.229 /index.php/Admin/Order/list_info/id/101.html
+ERR: 1054:Unknown column 'phone' in 'field list'
+ [ SQL语句 ] : SELECT `id`,`ordcode`,`order_type`,`name`,`status`,`return_time`,`create_time`,`pay_type`,`name`,`tel`,`address`,`class_name`,`trainaddress`,`price`,`total_fee`,`customer`,`userid`,`inform`,`num`,`type`,`school_id`,`phone`,`connect` FROM `xueches_order` WHERE ( id=101 ) LIMIT 1  
+
+[ 2017-08-03T16:00:35+08:00 ] 116.226.143.229 /index.php/Admin/Order/returnclass.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000059s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000111s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='2' )  [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000054s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000109s ]
+
+[ 2017-08-03T16:00:38+08:00 ] 116.226.143.229 /index.php/Admin/Order/returnclass.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000064s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000108s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='3' )  [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000044s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000084s ]
+
+[ 2017-08-03T16:00:48+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000053s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000109s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000065s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000122s ]
+
+[ 2017-08-03T16:00:51+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000054s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000115s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000042s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000080s ]
+
+[ 2017-08-03T16:00:54+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000043s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000094s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000052s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000091s ]
+
+[ 2017-08-03T16:01:08+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000070s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000112s ]
+
+[ 2017-08-03T16:02:01+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000046s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000096s ]
+
+[ 2017-08-03T16:02:04+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000045s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000091s ]
+
+[ 2017-08-03T16:02:09+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000085s ]
+NOTIC: [8] Undefined property: stdClass::$id /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 139 行.
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000038s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000077s ]
+
+[ 2017-08-03T16:08:50+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000038s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000087s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000068s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000136s ]
+
+[ 2017-08-03T16:10:18+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000048s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000088s ]
+
+[ 2017-08-03T16:12:18+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000040s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000081s ]
+
+[ 2017-08-03T17:04:17+08:00 ] 101.81.119.26 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000059s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000126s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000061s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000126s ]
+
+[ 2017-08-03T17:04:49+08:00 ] 101.81.119.26 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000094s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736199128 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `xueches_user` SET `truename`='测试',`sex`='1',`phone`='18736199128',`cityid`='1',`lastupdate`='艳艳',`address`='18736199128',`jz_type`='B1' WHERE ( account = 18736199128 ) [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='201708033d98c767a9ec0f' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: UPDATE `xueches_school` SET `student_num`=student_num+1 WHERE ( id = 1 ) [ RunTime:0.0164s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+ERR: 1364:Field 'ordcode' doesn't have a default value
+ [ SQL语句 ] : INSERT INTO `xueches_order` (`order_type`,`trainaddress`,`class_name`,`type`,`price`,`total_fee`,`pay_type`,`order_source`,`customer_inform`,`return_time`) VALUES ('1','广源基地','B1','2','100','0','0','14','18736199128','2017-08-03')
+ERR: 1364:Field 'ordcode' doesn't have a default value
+ [ SQL语句 ] : INSERT INTO `xueches_order` (`order_type`,`trainaddress`,`class_name`,`type`,`price`,`total_fee`,`pay_type`,`order_source`,`customer_inform`,`return_time`) VALUES ('1','广源基地','B1','2','100','0','0','14','18736199128','2017-08-03')
+
+[ 2017-08-03T17:08:07+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000102s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736199128 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `xueches_user` SET `truename`='测试',`sex`='1',`phone`='18736199128',`cityid`='1',`lastupdate`='艳艳',`address`='18736199128',`jz_type`='B1' WHERE ( account = 18736199128 ) [ RunTime:0.0008s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803e94b6284fc5afb' ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:09:41+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198888 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: INSERT INTO `xueches_user` (`truename`,`sex`,`phone`,`cityid`,`lastupdate`,`address`,`jz_type`,`account`,`ntime`,`pass`) VALUES ('18736198888','1','18736198888','1','艳艳','18736198888','B1','18736198888','1501751381','ca7be993ced832cbd02f786eb780ef94') [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='201708030f24d773de82bb' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: INSERT INTO `xueches_order` (`userid`,`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('440','201708030f24d773de82bb','18736198888','100','0','1501751381',NULL,'18736198888','B1','18736199128','1','18736198888','14','广源基地','2','0','2017-08-03','1') [ RunTime:0.0029s ]
+SQL: SHOW COLUMNS FROM `xueches_school` [ RunTime:0.0006s ]
+SQL: UPDATE `xueches_school` SET `student_num`=student_num+1 WHERE ( id = 1 ) [ RunTime:0.0022s ]
+
+[ 2017-08-03T17:13:31+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198888 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='2017080379259cf47a669a' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:17:43+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='201708033b792559c209a7' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:18:12+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000037s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000079s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0008s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803cbb12ac2498cf3' ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: INSERT INTO `xueches_order` (`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('20170803cbb12ac2498cf3','18736198889','100','0','1501751892',NULL,'18736198889','B1','18736199128','1','18736198889','14','广源基地','2','0','2017-08-03','1') [ RunTime:0.0028s ]
+
+[ 2017-08-03T17:18:14+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000031s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000071s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='2017080325a947ec0ab407' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: INSERT INTO `xueches_order` (`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('2017080325a947ec0ab407','18736198889','100','0','1501751894',NULL,'18736198889','B1','18736199128','1','18736198889','14','广源基地','2','0','2017-08-03','1') [ RunTime:0.0026s ]
+
+[ 2017-08-03T17:18:23+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000036s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803f18e3ef5c1986e' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0004s ]
+SQL: INSERT INTO `xueches_order` (`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('20170803f18e3ef5c1986e','18736198889','100','0','1501751903',NULL,'18736198889','B1','18736199128','1','18736198889','14','广源基地','2','0','2017-08-03','1') [ RunTime:0.0028s ]
+
+[ 2017-08-03T17:18:31+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000077s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0009s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='2017080374ceff83d31fe1' ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: INSERT INTO `xueches_order` (`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('2017080374ceff83d31fe1','18736198889','100','0','1501751911',NULL,'18736198889','B1','18736199128','1','18736198889','14','广源基地','2','0','2017-08-03','1') [ RunTime:0.0030s ]
+
+[ 2017-08-03T17:18:43+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000033s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000073s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0007s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0007s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803e7f850b0d8eb3c' ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: INSERT INTO `xueches_order` (`ordcode`,`name`,`price`,`total_fee`,`create_time`,`inform`,`address`,`class_name`,`customer_inform`,`sex`,`tel`,`order_source`,`trainaddress`,`type`,`pay_type`,`return_time`,`school_id`) VALUES ('20170803e7f850b0d8eb3c','18736198889','100','0','1501751923',NULL,'18736198889','B1','18736199128','1','18736198889','14','广源基地','2','0','2017-08-03','1') [ RunTime:0.0024s ]
+
+[ 2017-08-03T17:19:57+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000076s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000147s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0008s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803607b992b6a3cda' ) LIMIT 1   [ RunTime:0.0011s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:22:06+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000045s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000117s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0007s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803ee31ef44cfa559' ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:22:23+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='201708036c0cc8e17d8b32' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:23:09+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000076s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736198889 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0006s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803be54155dfb7a27' ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+
+[ 2017-08-03T17:25:46+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000049s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000102s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='2' )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0004s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='2' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (57) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000043s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000081s ]
+
+[ 2017-08-03T17:25:50+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000035s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000074s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000043s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000090s ]
+
+[ 2017-08-03T17:26:32+08:00 ] 116.226.143.229 /index.php/Admin/Order/returntrain
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000034s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000075s ]
+SQL: SHOW COLUMNS FROM `xueches_trainclass` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`name` FROM `xueches_trainclass` WHERE ( type_id='1' )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `xueches_train` [ RunTime:0.0003s ]
+SQL: SELECT `trainaddress_id` FROM `xueches_train` WHERE ( type_id='1' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `xueches_trainaddress` [ RunTime:0.0003s ]
+SQL: SELECT `id`,`trname` FROM `xueches_trainaddress` WHERE ( id in (1,2,3,4
+) )  [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000056s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000095s ]
+
+[ 2017-08-03T17:27:20+08:00 ] 116.226.143.229 /index.php/Admin/Order/add_order.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000058s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000126s ]
+SQL: SHOW COLUMNS FROM `xueches_user` [ RunTime:0.0006s ]
+SQL: SELECT `id` FROM `xueches_user` WHERE ( account = 18736199128 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `xueches_order` [ RunTime:0.0005s ]
+SQL: SELECT `ordcode` FROM `xueches_order` WHERE ( ordcode='20170803e99d938162df77' ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: order_inform /home/webgen/xctest/Website/Admin/Controller/OrderController.class.php 第 117 行.
+

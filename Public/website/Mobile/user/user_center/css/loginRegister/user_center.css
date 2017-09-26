@@ -1,0 +1,122 @@
+.user_top{
+    padding-top: 20px;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.user_header{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    overflow: hidden;
+    margin-left:auto;
+    margin-right: auto;
+}
+.user_header img{
+    width: auto;
+    height: 100%;
+}
+.user_name{
+    text-align: center;
+}
+.user_name h1{
+    font-size: 14px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 24px;
+}
+.user_tel{
+    text-align: center;
+    padding-bottom: 10px;
+}
+.user_tel h2{
+    font-size: 14px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 14px;
+}
+.user_order{
+    margin-top: 10px;
+    width: 100%;
+    height: 152px;
+    background: #fff;
+}
+.order_center{
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    margin-left: auto;
+    margin-right: auto;
+}
+.order_img{
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    float: left;
+    margin-top: 14px;
+    margin-left: 16px;
+}
+.order_img img{
+    width: 100%;
+    height: auto;
+}
+.order_back{
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    float: right;
+    margin-top: 17px;
+    margin-right: 8px;
+}
+.order_back img{
+    width: 100%;
+    height: auto;
+}
+.order_center a{
+    float: left;
+    line-height: 50px;
+    margin-left: 10px;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    width: 70%;
+}
+.user_bottom{
+    margin-top: 10px;
+    width: 100%;
+    height: 153px;
+    background: #fff;
+}
+.user_set{
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+    margin-bottom: 65px;
+}
+
+
+.foot_box{
+    width:40%;
+    float:left;
+    background: #fa7124;
+    border-radius: 4px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 6px;
+}
+.foot_box p{
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    color:#fff;
+    text-align: center;
+    line-height:14px;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>选择培训课程</title>
+    <link href="__STATIC__/order/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/order/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/order/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/order/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+    <form action="{:U('Mobile/Order/apply_order')}" method="post">
+        <input type="hidden" value="{$id}" name="id"/>
+        <div class="header_box" style="position: fixed;left: 0;top: 0;">
+            <div class="header">
+                <ul>
+                    <li class="back"><a href="{$url}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                    <li class="header_text">选择培训课程</li>
+                    <li class="sort">
+                        <a href="javascript:;" style="color: #fa7124;">
+                        </a>
+                        <input type="submit" style="color: #fa7124;" value="完成" />
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="main_box" style="margin-top: 60px;">
+            <div class="main">
+                <div class="subject_sort">
+                    <div class="subject">
+                        <h1 class="subject_top">培训课程</h1>
+                        <ul class="subject_box">
+                            <volist name="info" id="v">
+                                <li>
+                                    <input type="radio" value="{$v.id}"  checked="checked"  name="sub_button">
+                                    <label >
+                                        {$v.name}
+                                        <!--<if condition="$v.week eq 1">-->
+                                            <!--（本周特价）-->
+                                        <!--</if>-->
+                                        <!--<if condition="$v.recommand eq 1">-->
+                                            <!--（推荐）-->
+                                        <!--</if>-->
+                                        <!--<if condition="$v.hot eq 1">-->
+                                            <!--（热门）-->
+                                        <!--</if>-->
+                                    </label>
+                                </li>
+                            </volist>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function() {
+        $('label').click(function(){
+            var radioId = $(this).attr('name');
+            $('label').removeAttr('class') && $(this).attr('class', 'checked');
+            $('input[type="radio"]').removeAttr('checked') && $('#' + radioId).attr('checked', 'checked');
+        });
+    });
+</script>

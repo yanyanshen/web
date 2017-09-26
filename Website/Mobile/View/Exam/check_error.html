@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>错题查看</title>
+    <link href="__STATIC__/theory_study/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
+
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__STATIC__/chapter_practice/css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/chapter_practice/css/app.css" />
+    <style>
+        ul li{  border-bottom:1px solid #e8e8e8;  }
+    </style>
+    <script>
+        //获取浏览器页面可见高度和宽度
+        var _PageHeight = document.documentElement.clientHeight,
+                _PageWidth = document.documentElement.clientWidth;
+        //计算loading框距离顶部和左部的距离（loading框的宽度15px，高度为61px?
+        var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
+                _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
+        //在页面未加载完毕之前显示的loading Html自定义内?
+        var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:'
+                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;">' +
+                '<div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:'
+                + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 30px;font-size:14px; background: #fff url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: #696969; font-family:\'Microsoft YaHei\';">页面加载中，请稍等...</div></div>';
+        //呈现loading效果
+        document.write(_LoadingHtml);
+        window.onload = function () {
+            var loadingMask = document.getElementById('loadingDiv');
+            loadingMask.parentNode.removeChild(loadingMask);
+        };
+    </script>
+</head>
+<body>
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back" style="border: none"><a href="{:U('Mobile/Exam/wrong_topic',array('mt'=>$mt,'ms'=>$ms))}">
+<img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">查看我的错题</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="mui-content">
+        <div class="mui-slider">
+            <div class="mui-slider-group">
+                <volist name="chapter" id="chap" empty="$empty" key="k">
+                    <div class="mui-slider-item">
+                        <div class="title_{$chap.id}"  answer="{$chap.answer}">
+                            <p style="font-size: 14px;width: 90%;margin-left: 2%">{$k}.{$chap.question}
+                                <if condition="$chap.ifmul eq 0">单选</if>
+                                <if condition="$chap.ifmul eq 1">多选</if>
+                                <if condition="$chap.ifmul eq 2">判断</if>
+                            </p>
+                        </div>
+                        <div class="img" style="width: 50%" >
+                            <if condition="$chap.image neq '0'">
+                                <img src="{$http}/Uploads{$chap.image}">
+                            </if>
+                        </div>
+                        <div class="options">
+                            <if condition="$chap.ifmul eq 1">
+                                    <ul>
+                                        <li >
+                                            <label>
+                                                <if condition="in_array('A',$chap['arr'])">
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_05.png" alt=""/>
+                                                    <else/>
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_01.png" alt=""/>
+                                                </if>
+                                                <span style="font-size: 15px">{$chap.s1}</span>
+                                            </label>
+                                        </li>
+                                        <li style="margin-top: 2%" >
+                                            <label>
+                                                <if condition="in_array('B',$chap['arr'])">
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_05.png" alt=""/>
+                                                    <else/>
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_02.png" alt=""/>
+                                                </if>
+                                                <span style="font-size: 15px">{$chap.s2}</span>
+                                            </label>
+                                        </li>
+                                        <li  style="margin-top: 2%">
+                                            <label>
+                                                <if condition="in_array('C',$chap['arr'])">
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_05.png" alt=""/>
+                                                    <else/>
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_03.png" alt=""/>
+                                                </if>
+                                                <span style="font-size: 15px">{$chap.s3}</span>
+                                            </label>
+                                        </li>
+                                        <li style="font-size: 15px">
+                                            <label>
+                                                <if condition="in_array('D',$chap['arr'])">
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_05.png" alt=""/>
+                                                    <else/>
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle"    src="__STATIC__/chapter_practice/images/abcd_04.png" alt=""/>
+                                                </if>
+                                                <span style="font-size: 15px">{$chap.s4}</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                <else/>
+                                <ul>
+                                    <li >
+                                        <label>
+                                            <if condition="$chap.user_answer eq 'A'">
+                                                <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_07.png" alt=""/>
+                                                <else/>
+                                                <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_01.png" alt=""/>
+                                            </if>
+                                            {$chap.s1}
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            <if condition="$chap.user_answer eq 'B'">
+                                                <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_07.png" alt=""/>
+                                                <else/>
+                                                <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_02.png" alt=""/>
+                                            </if>
+                                            {$chap.s2}
+                                        </label>
+                                    </li>
+                                    <if condition="$chap.ifmul eq 0">
+                                        <li>
+                                            <label>
+                                                <if condition="$chap.user_answer eq 'C'">
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_07.png" alt=""/>
+                                                    <else/>
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_03.png" alt=""/>
+                                                </if>
+                                                {$chap.s3}
+                                            </label>
+                                        </li>
+                                        <li  >
+                                            <label>
+                                                <if condition="$chap.user_answer eq 'D'">
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_07.png" alt=""/>
+                                                    <else/>
+                                                    <img style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_04.png" alt=""/>
+                                                </if>
+                                                {$chap.s4}
+                                            </label>
+                                        </li>
+                                    </if>
+                                    <div style="width: 90%;margin-top:6%;display: none">
+                                        <label style="font-size: 14px">答案 <span style="color: red">{$chap.answer}</span></label>
+                                        <p>
+                                            {$chap.analysis}
+                                        </p>
+                                    </div>
+                                </ul>
+                            </if>
+                            <div id="analysism_{$chap.id}" style="width: 90%;margin-top:6%;">
+                                <label style="font-size: 14px">答案 <span style="color: red">{$chap.answer}</span></label>
+                                <p>{$chap.analysis}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+        <footer id="foot_theoryStudy">
+            <ul  class="mui-slider-indicator" >
+                <li class="foot_option">
+                    <button class="button">
+                        <img src="__STATIC__/theory_study/images/collection.png">
+                        <p>收藏</p>
+                    </button>
+                </li>
+                <li class="foot_option" style="border: none">
+                    <button></button>
+                </li>
+                <li class="foot_option" style="border:none">
+                    <button>
+                        <img src="__STATIC__/theory_study/images/plan.png">
+                        <div class="mui-number" style="line-height: 5px">
+                            <span class="k">1</span> / {$count}
+                        </div>
+                    </button>
+                </li>
+            </ul>
+        </footer>
+    </div>
+</div>
+</body>
+</html>
+<script src="__STATIC__/chapter_practice/js/mui.min.js"></script>
+
+<script>
+    $(".button").click(function(){
+        var k=$(".k").text();
+        $.post('{:U("Mobile/Exam/check_error")}',{k:k},function(res){
+            layer.open({
+                content:res.info
+                ,skin:'msg'
+                ,icon:3
+                ,style:"background-color:#DAEAD3;border:none"
+                ,time:2
+            })
+        },'json');
+    });
+
+    mui.init();
+</script>

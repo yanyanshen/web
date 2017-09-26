@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>驾校详情</title>
+<link href="__STATIC__/detail/css/main.css" rel="stylesheet" type="text/css">
+<link href="__STATIC__/detail/css/media-queries.css" rel="stylesheet" type="text/css">
+<link href="__STATIC__/detail/css/initialize.css" rel="stylesheet" type="text/css">
+<link href="__STATIC__/detail/css/details.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+<script src="__STATIC__/detail/js/Marquee.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#marquee_information2').kxbdSuperMarquee({
+                isEqual:false,
+                distance:18,
+                time:3,
+                direction:'up'
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="pagewrap">
+	<div id="header_box">
+		<ul id="header">
+			<li id="header_logo"><a href="index.html"><img src="{$http}/__STATIC__/detail/images/logo.png"></a></li>
+			<li id="header_text"><h1>为改变驾校而生</h1></li>
+            <li id="header_phone"><a href=""><img src="{$http}/__STATIC__/detail/images/phone.png"></a></li>
+			<li id="header_number"><a href="tel:4008040517">400-8040-517</a></li>
+			<div class="clearfix"></div>
+		</ul>
+	</div>
+    <div class="header_box1">
+        <div class="header2">
+            <ul>
+                <li class="header_back">
+                    <a href="{:U('Mobile/Index/index')}">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </a>
+                </li>
+                <li class="header_detail">
+                    <if condition="$info.type eq 'jx'">
+                        驾校详情
+                    </if>
+                    <if condition="$info.type eq 'zd'">
+                        指导员详情
+                    </if>
+                    <if condition="$info.type eq 'jl'">
+                        教练详情
+                    </if>
+                </li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="content_moble">
+        <div id="content_mt">
+            <div id="top_m1">
+                <div class="top_m1_img">
+                    <if condition="$info.type eq 'jx'">
+                        <img src="{$http}/Uploads/School_logo/{$info.picurl}/{$info.picname}"/>
+                    </if>
+                    <if condition="$info.type eq 'zd'">
+                        <img src="{$http}/Uploads/guider_logo/{$info.picurl}/{$info.picname}"/>
+                    </if>
+                    <if condition="$info.type eq 'jl'">
+                        <img src="{$http}/Uploads/Coach_logo/{$info.picurl}/{$info.picname}"/>
+                    </if>
+                </div>
+                <ul class="top_m1_text">
+                    <li id="tbt_mn">{$info.nickname}</li>
+                    <li id="tbt_mm">￥{$classprice}</li>
+                    <li id="tbt_mnum">{$info.allcount}人已报名</li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div id="top_m2">
+                <p style="font-weight: normal;color: #646464;margin-left: 10px">地址：{$info.address}</p>
+                <div class="topm2">
+                    <span>驾校</span>官方报名电话：{$info.phone}
+                </div>
+                <if condition="$info.type neq 'jx'">
+                    <ul  style="width: 240px;margin-left: auto;margin-right: auto;">
+                        <li style="float: left;margin-left: 20px;font-weight: normal">年龄：{$info.age}</li><br>
+                        <li style="float: left;margin-left: 20px;font-weight: normal">教龄：{$info.teachage}</li>
+                        <li style="float: left;margin-left: 20px;font-weight: normal">驾龄：{$info.driverage}</li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </if>
+            </div>
+            <div id="top_m3">
+                <div class="top-m3">
+                    <ul class="like_box">
+                        <li class="like_img"><img src="{$http}/__STATIC__/detail/images/like.png"></li>
+                        <li class="like_text">共有{$info.evalutioncount}条评假</li>
+                        <div class="clearfix"></div>
+                    </ul>
+                    <div class="shuffling">
+                        <div class="shuffling_img"><img src="{$http}/__STATIC__/detail/images/information.png"></div>
+                        <div class="shuffling_text">
+                            <div id="marquee_information2">
+                                <ul>
+                                    <li>冯先生一天前报了上海市中心驾校</li>
+                                    <li>冯先生一天前报了上海市中心驾校</li>
+                                    <li>冯先生一天前报了上海市中心驾校</li>
+                                    <li>冯先生一天前报了上海市中心驾校</li>
+                                    <li>冯先生一天前报了上海市中心驾校</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div id="top_m2">
+            <div class="topm2" style="border: none;font-weight: normal">
+                <ul>
+                    <li>计时培训<span>
+                        <if condition="$info.timing eq 1">
+                            支持计时
+                            <else/>
+                            不支持计时
+                        </if>
+                        </span></li>
+                    <if condition="$info.type neq 'jx'">
+                        <empty name="$info.school_id">
+                            <li>所属驾校：<span>�</span></li>
+                            <else/>
+                            <li>所属驾校：<span>{$info.school_id}</span></li>
+                        </empty>
+                    </if>
+                </ul>
+            </div>
+        </div>
+        <div id="content_mc">
+            <div class="course_bm">
+                <div class="course_tbm">
+                    <div class="course_tm">
+                        <h1>培训课程</h1>
+                    </div>
+                </div>
+                <div class="course_tablem">
+                    <table width="94%" border=0 bgcolor="#dcdcdc" cellspacing=0 cellpadding=0 id="coursem">
+                    <tr>
+                        <td>
+                            <table width="100%" border=0 cellspacing=1 cellpadding=10>
+                                <tr bgcolor="#f5f5f5">
+                                    <th align="center" style="width: 25%">培训课程</th>
+                                    <th align="center" style="width: 20%;">班别</th>
+                                    <th align="center" style="width: 18%;">官方价</th>
+                                    <th align="center" style="width: 17%;">优惠价</th>
+                                    <th align="center">报名学车</th>
+                                </tr>
+                                <volist name="class" id="v" empty="$empty">
+                                    <tr bgcolor="#FFFFFF">
+                                        <td align="center" style="padding: 0;margin:0">
+                                            <a href="{:U('Mobile/Detail/course_details',array('id'=>$v['id']))}" class="course_name">
+                                                {$v.name}
+                                                <if condition="$v.week eq 1">
+                                                    <br>（本周特价）
+                                                </if>
+                                                <if condition="$v.recommand eq 1">
+                                                    <br>（推荐）
+                                                </if>
+                                                <if condition="$v.hot eq 1">
+                                                    <br>（热门）
+                                                </if>
+                                            </a>
+                                        </td>
+                                        <td align="center" style="padding: 0;margin:0">{$v.class_type}</td>
+                                        <td align="center" style="padding: 0;margin:0">{$v.officeprice}</td>
+                                        <td align="center" class="course_money" style="padding: 0;margin:0">{$v.wholeprice}</td>
+                                        <td align="center">
+                                            <div class="course_apply">
+                                                <a href="{:U('Mobile/Order/apply_order',array('sub_button'=>$v['id']))}">报名</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </volist>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div id="content_mi">
+                <div id="introduce_bm">
+                    <div class="course_tbm">
+                        <div class="course_tm">
+                            <h1>培训课程</h1>
+                        </div>
+                    </div>
+                    <div id="introduce_tm">
+                        <div id="introduce_m">
+                            <p>{$info.introduction}</p>
+                            <volist name="picinfo" id="data">
+                                <if condition="$data.type eq 'jx'">
+                                    <img src="{$http}/Uploads/School_logo/{$data.picurl}/{$data.picname}"/>
+                                </if>
+
+                                <if condition="$data.type eq 'zd'">
+                                    <img src="{$http}/Uploads/guider_logo/{$data.picurl}/{$data.picname}"/>
+                                </if>
+                                <if condition="$data.type eq 'jl'">
+                                    <img src="{$http}/Uploads/Coach_logo/{$data.picurl}/{$data.picname}"/>
+                                </if>
+                            </volist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div id="content_me">
+            <div id="eval_bm">
+                <div class="course_tbm">
+                    <div class="course_tm">
+                        <h1>学员评价</h1>
+                    </div>
+                </div>
+                <div id="eval_mm">
+                    <div id="eval_tm">
+                        <ul>
+                            <li class="eval_score_m">5.0</li>
+                            <li class="eval_star_m"><img src="{$http}/__STATIC__/detail/images/start.png"></li>
+                            <li class="eval_num_m"><span>{$evaluate_count}</span>条学员评价</li>
+                        </ul>
+                    </div>
+                    <div id="eval_bottom">
+                        <volist name="evaluate" id="data" empty="$empty">
+                            <div id="eval_m" style="margin-top: 10px">
+                                <div class="eval_name">
+                                    <h1 class="eval_left">{$data['truename']}</h1>
+                                    <ul class="eval_right">
+                                        <li class="eval_date">{$data['ntime']}</li>
+                                        <li class="eval_img">
+                                            <if condition="$data['score'] eq 1">
+                                                <img width="84" height="14" src="__STATIC__/detail/images/start1.png">
+                                                <elseif condition="$data['score'] eq 2"/>
+                                                <img width="84" height="14" src="__STATIC__/detail/images/start2.png">
+                                                <elseif condition="$data['score'] eq 3"/>
+                                                <img width="84" height="14" src="__STATIC__/detail/images/start3.png">
+                                                <elseif condition="$data['score'] eq 4"/>
+                                                <img width="84" height="14" src="__STATIC__/detail/images/start4.png">
+                                                <elseif condition="$data['score'] eq 5"/>
+                                                <img src="__STATIC__/detail/images/start.png">
+                                            </if>
+                                        </li>
+                                        <li class="eval_s">{$data['score']}.0</li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <notempty name="data['reply']">
+                                    <div class="eval_text">
+                                        <if condition="$data['ucontent'] neq ''">
+                                            <p style="border-bottom: none;padding:0">{$data['content']}</p>
+                                            <p style="border-bottom: 0;padding:0"> <span style="color: #FA7124">追加内容【{$data['untime']}】</span> {$data['ucontent']}</p>
+                                            <else/>
+                                            <p style="border-bottom: none;margin: 0">{$data['content']}</p>
+                                        </if>
+                                        <div style="border-bottom: 1px solid #eee;">
+                                            <volist name="data['reply']" id="v">
+                                                <p style="border: 0;margin:0"><span style="color: #FA7124">驾校回复【{$v['ntime']}】</span> {$v['content']}</p>
+                                            </volist>
+                                        </div>
+                                    </div>
+                                    <else/>
+                                    <div class="eval_text">
+                                        <if condition="$data['ucontent'] neq ''">
+                                            <p style="border-bottom: none;padding:0">内容：{$data['content']}</p>
+                                            <p style="border-bottom: none"><span style="color:#fa7124">追加内容【{$data['untime']}】</span>{$data['ucontent']}</p>
+                                            <else/>
+                                            <p>{$data['content']}</p>
+                                        </if>
+                                    </div>
+                                </notempty>
+                            </div>
+                        </volist>
+                    </div>
+                    <div class="look_more"><div class="lm"><a href="{:U('Mobile/Detail/evaluate',array('id'=>$id))}">查看更多</a></div></div>
+                </div>
+            </div>
+    </div>
+    <footer id="footer">
+        <ul>
+            <li class="foot_box">
+                <a href="{:U('Mobile/Order/choose_course',array('id'=>$id))}">
+                    <p>马上报名</p>
+                </a>
+               </li>
+            <li class="foot_box">
+                <a href="">
+                    <p>免费咨询</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <div class="call_box">
+        <a href="tel:4008040517">
+            <img src="{$http}/__STATIC__/detail/images/phone.png">
+        </a>
+    </div>
+    <div class="sms_box">
+        <a href="sms:17752364125"><img src="{$http}/__STATIC__/detail/images/sms.png"></a>
+        <!--<a href="sms:18688888888">发短信</a>-->
+    </div>
+    <include file="public/footer"/>
+</div>
+</div>
+</body>
+</html>

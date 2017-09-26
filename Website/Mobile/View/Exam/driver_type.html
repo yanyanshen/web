@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>驾照类型</title>
+    <link href="__STATIC__/theory_study/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+    <form action="{:U('Mobile/Exam/theory_study')}" method="post">
+        <div class="header_box" style="position: fixed;left: 0;top: 0;">
+            <div class="header">
+                <ul>
+                    <li class="back">
+                        <a href="{:U('Mobile/Exam/theory_study')}">
+                           <img src="__PUBLIC__/public/images/back.png">                        </a>
+                    </li>
+                    <li class="header_text">驾照类型</li>
+                    <li class="sort">
+                        <input type="submit" value="完成">
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="main_box" style="margin-top: 60px;">
+            <div class="main">
+                <div class="subject_sort">
+                    <div class="subject">
+                        <h1 class="subject_top">考试科目</h1>
+                        <ul class="subject_box">
+                            <li>
+                                <input type="radio" value="科目一" name="sub_button" checked>
+                                <label>科目一</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="科目二"  name="sub_button">
+                                <label>科目二</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="科目三" name="sub_button">
+                                <label>科目三</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="科目四" name="sub_button">
+                                <label>科目四</label>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                    <div class="subject">
+                        <h1 class="subject_top">驾照类型</h1>
+                        <ul class="subject_box">
+                            <volist name="type" id="type" empty="$empty">
+                                <li>
+                                    <if condition="$type.id eq 1">
+                                        <input type="radio" value="{$type.jztype}" name="sub_button1" checked>
+                                        <else/>
+                                        <input type="radio" value="{$type.jztype}" name="sub_button1">
+                                    </if>
+                                    <label>{$type.jztype}</label>
+                                </li>
+                            </volist>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

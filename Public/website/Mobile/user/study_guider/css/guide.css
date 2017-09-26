@@ -1,0 +1,164 @@
+.header_box{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 1000px;
+    height: 50px;
+    margin:0 auto;
+}
+.back{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+}
+.back img{
+    width: 100%;
+    height: auto;
+}
+.header_text{
+    font-family: " Microsoft YaHei";
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 24px;
+}
+.main_box{
+    width: 100%;
+}
+.main{
+    width: 1000px;
+    margin:0 auto;
+}
+.guide_box{
+    width: 100%;
+    background: #fff;
+}
+.guide{
+    border-bottom: 1px solid #eee;
+}
+.guide>li{
+    width: 100%;
+}
+.list{
+    border-bottom: 1px solid #eee;
+}
+.img{
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+.img>img{
+    width: 100%;
+    height: auto;
+}
+.list a{
+    width: 70%;
+    line-height: 40px;
+    font-family: " Microsoft YaHei";
+    font-size: 14px;
+    color: #646464;
+    margin-left: 10px;
+}
+.guide_text>p{
+    line-height:20px;
+    font-family:" Microsoft YaHei";
+    font-size:14px;
+}
+.guide_text>h1{
+    font-family:" Microsoft YaHei";
+    font-size:16px;
+    line-height:24px;
+    font-weight: bold;
+    text-align: center;
+}
+.guide_text>h2{
+    font-family:" Microsoft YaHei";
+    font-size:14px;
+    line-height:20px;
+    font-weight: bold;
+}
+.guide_text>a{
+    color:#ff5a00;
+}
+.guide_text{
+    padding-top: 1px;
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.guide_img{
+    padding-top: 1px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.guide_img img{
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+
+
+/****************************************************
+µ×²¿
+****************************************************/
+.apply_submit{
+    width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#btn2{
+    width: 160px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 16px;
+    margin-top: 7px;
+    color: #fff;
+    border-radius: 4px;
+    background: #fa7124;
+}
+@media screen and (max-width: 1000px) {
+    .header {
+        width: 100%;
+    }
+    .main {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

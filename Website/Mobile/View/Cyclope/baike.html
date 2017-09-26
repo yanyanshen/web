@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>百科</title>
+    <link href="__STATIC__/cyclope/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/cyclope/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/cyclope/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/cyclope/css/baike.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back">
+                    <a href="{:U('Mobile/Index/index')}">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </a>
+                </li>
+                <li class="header_text">百科</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_box">
+        <div class="main">
+            <div class="baike-box">
+                <div class="hot-topic">
+                    <ul><li>热门话题</li></ul>
+                    <a href="{:U('Mobile/Cyclope/baike_detail')}">
+                        <div class="topic1">
+                            <div class="topic-img"><img src="__STATIC__/cyclope/images/vedio01.png"></div>
+                            <p>“老司机”带带我</p>
+                        </div>
+                    </a>
+
+                    <div class="topic1">
+                        <div class="topic-img"><img src="__STATIC__/cyclope/images/vedio02.png"></div>
+                        <p>堵在路上是怎样的</p>
+                    </div>
+                    <div class="topic1">
+                        <div class="topic-img"><img src="__STATIC__/cyclope/images/vedio03.png"></div>
+                        <p>路考堵车怎么办？</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="hot-sort1">
+                    <ul><li>热门分类</li></ul>
+                    <a href="{:U('Mobile/Cyclope/kemu')}?kemu=1">
+                        <div class="sort-h">
+                            <div class="sort-img"><img src="__STATIC__/cyclope/images/baike01.png"></div>
+                            <p>科目一</p>
+                        </div>
+                    </a>
+                    <a href="{:U('Mobile/Cyclope/kemu')}?kemu=2">
+                        <div class="sort-h">
+                            <div class="sort-img"><img src="__STATIC__/cyclope/images/baike02.png"></div>
+                            <p>科目二</p>
+                        </div>
+                    </a>
+                    <a href="{:U('Mobile/Cyclope/kemu')}?kemu=3">
+                        <div class="sort-h">
+                            <div class="sort-img"><img src="__STATIC__/cyclope/images/baike03.png"></div>
+                            <p>科目三</p>
+                        </div>
+                    </a>
+                    <a href="{:U('Mobile/Cyclope/kemu')}?kemu=4">
+                        <div class="sort-h">
+                            <div class="sort-img"><img src="__STATIC__/cyclope/images/baike04.png"></div>
+                            <p>科目四</p>
+                        </div>
+                    </a>
+                    <div class="sort-h">
+                        <div class="sort-img"><img src="__STATIC__/cyclope/images/baike05.png"></div>
+                        <p>学车趣事</p>
+                    </div>
+                    <div class="sort-h">
+                        <div class="sort-img"><img src="__STATIC__/cyclope/images/baike06.png"></div>
+                        <p>学车技巧</p>
+                    </div>
+                    <div class="sort-h">
+                        <div class="sort-img"><img src="__STATIC__/cyclope/images/baike07.png"></div>
+                        <p>教练秘诀</p>
+                    </div>
+                    <div class="sort-h">
+                        <div class="sort-img"><img src="__STATIC__/cyclope/images/baike08.png"></div>
+                        <p>新手上路</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <ul>
+            <li class="foot">
+                <a href="{:U('Mobile/Index/index')}">
+                    <img src="__STATIC__/cyclope/images/icon-footer1-a.png">
+                    <p>首页</p>
+                </a>
+            </li>
+            <li class="foot">
+                <a href="">
+                    <img src="__STATIC__/cyclope/images/icon-footer2-a.png">
+                    <p>语言</p>
+                </a>
+            </li>
+            <li class="foot">
+                <a href="{:U('Mobile/List/pull')}">
+                    <img src="__STATIC__/cyclope/images/icon-footer3-a.png">
+                    <p>驾校</p>
+                </a>
+            </li>
+            <li class="foot">
+                <a href="">
+                    <img src="__STATIC__/cyclope/images/icon-footer04-a.png">
+                    <p style="color: #fa7124; font-weight: bold;">百科</p>
+                </a>
+            </li>
+            <li class="foot">
+                <if condition="$Think.session.mid eq ''">
+                    <a href="{:U('Mobile/Login/login')}">
+                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                        <p>我的</p>
+                    </a>
+                    <else/>
+                    <a href="{:U('Mobile/User/user_center')}">
+                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                        <p>我的</p>
+                    </a>
+                </if>
+            </li>
+        </ul>
+    </footer>
+</div>
+
+</body>
+</html>

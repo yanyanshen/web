@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>驾考资讯</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        #page a,#page span{
+            display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
+            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
+        }
+        #page a:hover{background:#F27602;color:#FF0000;}
+        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
+        #page{ float: left; }
+
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
+        .table_a tr:hover{background-color: rgb(82, 249, 56);}
+    </style>
+</head>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-size: 15px;font-weight: bolder;color: #ffffff">
+    资讯列表
+    <a href="{:U('Admin/Consult/consult')}" style="text-decoration: none;color:red;">【资讯添加】</a>
+    <span style="float: right;margin-right: 1%;color: #ffffff">总计：{$count}</span>
+</div>
+<div style="font-size: 13px;margin: 10px 5px ;" >
+    <table class="table_a" style="border:1px solid rgb(129, 191, 249);width: 100%">
+        <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);height: 35px;color: #ffffff;">
+            <td width="8%">序号</td>
+            <td width="10%">图片</td>
+            <td width="15%">资讯标题</td>
+            <td width="15%">资讯内容</td>
+            <td width="15%">点击量</td>
+            <td width="15%">城市</td>
+            <td width="10%">添加时间</td>
+            <td width="20%">状态</td>
+        </tr>
+        <volist name="info" id="v" key="k" empty="$empty">
+            <tr>
+                <td>
+                    <input type="text" value="{$v.order1}" id="pri{$v.id}" onchange="setPriority(this,{$v.id})" style="width: 50px;"/>
+                </td>
+                <td><img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
+                <td>{$v['title']}</td>
+                <td>{$v['content']}</td>
+                <td>{$v['touch_count']}</td>
+                <td>{$v['cityname']}</td>
+
+                <td>{$v['ntime']}</td>
+                <td>
+                    首页咨询
+                    <input class="consult" type="button" gid="{$v['id']}" value="取消"/>
+                </td>
+            </tr>
+        </volist>
+    </table>
+    <div id="page">{$page}</div>
+</div>
+</body>
+</html>
+
+
+<script>
+    $(".consult").click(function(){
+        var id=$(this).attr('gid');
+        $(this).attr('disabled',true);
+        $.post("{:U('Admin/Consult/statusUpdate')}",{id:id},function(res){
+            if(res.info==1){
+                location.href='';
+            }else{
+                location.href='';
+            }
+        })
+    })
+
+    var setPriority = function(nav,id){
+        var priority = $(nav).val();
+        $.post('{:U("Admin/Consult/setPriority")}',{'order1':priority,'id':id},function(res){
+            if(res.status==1){
+                layer.tips(res.info, '#pri'+id, {
+                    tips: [2, '#3EAFE0']
+                });
+                location.href="";
+            }
+        },'json')
+    }
+</script>

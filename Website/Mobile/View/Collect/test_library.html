@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>æˆ‘çš„é¢˜åº“</title>
+    <link href="__STATIC__/theory_study/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/Exam/theory_study')}">
+                    <img src="__PUBLIC__/public/images/back.png"></a>
+                </li>
+                <li class="header_text">æˆ‘çš„é¢˜åº“</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_box">
+        <div class="main">
+            <div class="theory_study">
+                <div class="chapter_box">
+                    <ul>
+                        <volist name="sub" id="sub" >
+                            <if condition="$sub.chapter lt 5">
+                                <li>
+                                    <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
+                                            <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}é¢?</h2>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                            </if>
+                            <if condition="$sub.chapter eq 5 and $sub.num neq 0 and $sub.subject eq 1">
+                                <li>
+                                    <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
+                                        <h2 class="chapter_h" >{$sub.chapter}. {$Think.session.city}{$sub.title}({$sub.num}é¢?</h2>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                            </if>
+
+                            <if condition="$sub.chapter eq 5 and $sub.num neq 0 and $sub.subject eq 2">
+                                <li>
+                                    <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
+                                        <h2 class="chapter_h" >{$sub.chapter}.{$sub.title}({$sub.num}é¢?</h2>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                            </if>
+
+                            <if condition="$sub.chapter eq 6 and $sub.num neq 0">
+                                <li>
+                                    <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
+                                        <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}é¢?</h2>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                            </if>
+                            <if condition="$sub.chapter eq 7 and $sub.num neq 0">
+                                <li>
+                                    <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
+                                        <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}é¢?</h2>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                            </if>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

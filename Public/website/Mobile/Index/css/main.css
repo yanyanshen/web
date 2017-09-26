@@ -1,0 +1,716 @@
+@charset "utf-8";
+/* CSS Document */
+/*#pagewrap*/
+#pagewrap{
+    margin: 0 auto;
+}
+/*header头部*/
+#header_box{
+    width:100%;
+    margin:0 auto;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+#header{
+    width:100%;
+    height:50px;
+    margin:0 auto;
+    background: #fff;
+}
+#header_logo{
+    width:10%;
+    float:left;
+}
+#header_logo img{
+    width:auto;
+    height:40px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+#header_text{
+    width:40%;
+    float:left;
+}
+#header_text h1{
+    font-family:"楷体";
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+}
+#header_search{
+    width:40%;
+    float:left;
+    background: #eee;
+    height:30px;
+    margin-top: 10px;
+    border-radius: 15px;
+}
+#header_search #sort{
+    background: #eee;
+    height:30px;
+    border-radius: 15px;
+    margin-left: 10px;
+}
+#header_search #search{
+    background: #eee;
+    height:30px;
+}
+#header_search #submit{
+    background: #fff;
+    height:20px;
+    width:40px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+#header_phone{
+    width:10%;
+    float:right;
+}
+#header_phone img{
+    width:auto;
+    height:30px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+
+#header_box2{
+    position:absolute;
+    left: 0;
+    top:0;
+    width:100%;
+    margin:0 auto;
+}
+#header2{
+    width:100%;
+    height:50px;
+    margin:0 auto;
+}
+.city{
+    float: left;
+    margin-top: 10px;
+    line-height: 30px;
+    width:24%;
+    background: none;
+    color: #fff;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 6px;
+}
+.search_box{
+    margin-top: 10px;
+    width:68%;
+    height: 30px;
+    border-radius: 15px;
+    float: left;
+    background: #fff;
+}
+.search{
+    padding-left: 10px;
+    color: #c8c8c8;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    line-height: 30px;
+    border-radius: 15px;
+    float: left;
+}
+.submit{
+    float: right;
+    background-image: url(../images/search_02.png);
+    background-color: #ffffff;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+
+
+
+
+
+/*content主要内容区*/
+
+#content{
+    width:100%;
+    margin:0 auto;
+}
+
+/*分类区*/
+#options{
+    width: 100%;
+}
+.option1{
+    width: 25%;
+    float:left;
+    background: #fff;
+    padding-top: 15px;
+}
+.option1 img{
+    width:40px;
+    height:40px;
+    margin:0 auto;
+}
+.option1 p{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    text-align: center;
+}
+
+/*热区内容滚动*/
+.demopage_img{
+    width: 50px;
+    height: 40px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.demopage_img img{
+    width:100%;
+    height: auto;
+}
+.marquee_box{
+    float: left;
+}
+.marquee_hot{
+    background:#f3083a;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    color: #ffffff;
+    height:18px;
+    width: 32px;
+    line-height: 18px;
+    float: left;
+    text-align: center;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+.demopage{
+    width:100%;
+    margin-top: 10px;
+    background:#fff;
+
+}
+.demopage_text p{
+    margin-left: 16px;
+    margin-top: 0;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #d13f38;
+    margin-bottom: 6px;
+}
+#marquee{
+    margin-left: -4px;
+    margin-top: 4px;
+    width:100%;
+    height:30px;
+    overflow:hidden;
+}
+#marquee ul li{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    height:30px;
+    padding:0 20px;
+    line-height:30px;
+    overflow:hidden;
+}
+#marquee a{
+    font-family: "微软雅黑";
+    font-size: 14px;
+}
+
+
+/*热门驾校*/
+#hot{
+    width: 100%;
+    background: #fff;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.hot-school{
+    height: 50px;
+    border-bottom: 1px solid #eee;
+}
+.hs{
+    width:100px;
+    margin: 0 auto;
+}
+.hot-school img{
+    width:24px;
+    height:auto;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+.hot-school p{
+    font-family: "微软雅黑";
+    float: left;
+    font-size: 16px;
+    line-height: 18px;
+}
+#hot_box1{
+    width: 30%;
+    margin-left: 1.3%;
+    margin-right: 1.3%;
+    margin-top: 10px;
+    float: left;
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+#hot_box1 img{
+    margin: 0 auto;
+    width: 80px;
+    height: 53px;;
+}
+#hot_box1 a{
+    font-size: 12px;
+    font-family: "微软雅黑";
+    color: #323232;
+    font-weight: bold;
+    margin-left: 10px;
+    line-height: 24px;
+}
+#hot_box1 p{
+    font-family: "微软雅黑";
+    line-height: 4px;
+    margin-left: 10px;
+    margin-top: 4px;
+}
+#more-school{
+    width:100%;
+    margin-top: 20px;
+}
+.more{
+    width: 70px;
+    margin:0 auto;
+}
+.more a{
+    font-family: "微软雅黑";
+    color: #999;
+    line-height: 20px;
+    float: left;
+}
+.more img{
+    float: left;
+}
+
+/*本周特价*/
+#weekPrice{
+    width: 100%;
+    background: #fff;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.w-school{
+    height: 50px;
+    border-bottom: 1px solid #eee;
+}
+.wp{
+    width:100px;
+    margin: 0 auto;
+}
+.w-school img{
+    width:24px;
+    height:auto;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+.w-school p{
+    font-family: "微软雅黑";
+    float: left;
+    font-size: 16px;
+    line-height: 18px;
+}
+#weekPrice_box1{
+    width: 45%;
+    height: 190px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 10px;
+    float: left;
+    background: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#weekPrice_box1 img{
+    width: 100px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+}
+#weekPrice_box1 a{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 12px;
+    color: #323232;
+}
+#weekPrice_box1 p{
+    font-family: "微软雅黑";
+    font-size: 12px;
+    margin-top: -6px;
+    color: #a0a0a0;
+}
+#weekPrice_box1 h1{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #d13f38;
+    line-height: 6px;
+    margin-top: 6px;
+    font-weight: bold;
+}
+#weekPrice_box1 h2{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #a0a0a0;
+    line-height: 6px;
+    text-decoration: line-through;
+}
+#weekPrice_box1 li{
+    margin-left: 8px;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+#weekPrice_box1 ul{
+    margin-top: 8px;
+}
+#weekPrice_box2{
+    width: 45%;
+    height: 190px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 10px;
+    float: left;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.wps_ul a,h1,h2{
+    font-size: 12px;
+    font-family: "微软雅黑";
+    line-height: 4px;
+}
+.wps_ul a{
+    font-weight: bold;
+    color:#323232;
+}
+.wps_ul h1{
+    font-weight: bold;
+    color:#d13f38;
+}
+.wps_ul h2{
+    color: #a0a0a0;
+    text-decoration: line-through;
+}
+.wps_ul p{
+    color: #a0a0a0;
+    font-size: 12px;
+    margin-top: -6px;
+    font-family: "微软雅黑";
+}
+.wps_ul{
+    float: left;
+    width: 48%;
+    height: 90px;
+    margin-left: 2%;
+    margin-top: 8px;
+}
+.wps_img{
+    float: left;
+    width: 48%;
+    height: 90px;
+    margin-left: 2%;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.wps_img img{
+    width: 72px;
+    height:auto;
+}
+.wp_school1,.wp_school2{
+    width: 100%;
+    height: 90px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+.wp_school2{
+    margin-top: 10px;
+}
+
+
+/*推荐驾校*/
+#recomment{
+    width: 100%;
+    background: #fff;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.r-school{
+    height: 50px;
+    border-bottom: 1px solid #eee;
+}
+.rs {
+    width: 100px;
+    margin: 0 auto;
+}
+.r-school img{
+    width:24px;
+    height:auto;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+.r-school p{
+    font-family: "微软雅黑";
+    float: left;
+    font-size: 16px;
+    line-height: 18px;
+}
+#r_box{
+    width:100%;
+    margin: 0 auto;
+}
+#r_box1{
+    width:100%;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+#r_img{
+    width:130px;
+    height:75px;
+    margin-left: 5%;
+    overflow: hidden;
+    float: left;
+}
+#r_img img{
+    width:100%;
+    height:auto;
+    display: block;
+}
+#r_main{
+    width:80%;
+    height:auto;
+    margin-left: 5%;
+    border-bottom: 1px solid #eee;
+    float: right;
+}
+#r_main a{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #333;
+    line-height: 30px;
+}
+#r_main button{
+    font-family: "微软雅黑";
+    font-size: 12px;
+    float: right;
+    background: #fa7124;
+    border: none;
+    color: #fff;
+    margin-right: 6px;
+    border-radius: 4px;
+    line-height: 20px;
+}
+#rm{
+    float: left;
+}
+#rm .money{
+    font-family: "微软雅黑";
+    font-size: 16px;
+    color: #ff5a00;
+    font-weight: bold;
+    line-height: 24px;
+}
+#rm .num{
+    font-family: "微软雅黑";
+    font-size: 12px;
+    line-height: 24px;
+    margin-right: 10px;
+}
+
+
+/*驾考资讯*/
+#new{
+    width: 100%;
+    background: #fff;
+    margin-top: 10px;
+    margin-bottom: 60px;
+    padding-bottom: 10px;
+}
+.n-school{
+    height: 50px;
+    border-bottom: 1px solid #eee;
+}
+.ns {
+    width: 100px;
+    margin: 0 auto;
+}
+.n-school img{
+    width:24px;
+    height:auto;
+    float: left;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+.n-school p{
+    font-family: "微软雅黑";
+    float: left;
+    font-size: 16px;
+    line-height: 18px;
+}
+#n_box{
+    width:100%;
+    margin: 0 auto;
+}
+#n_box1{
+    width:100%;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+#n_img{
+    width:130px;
+    height:75px;
+    margin-left: 5%;
+    overflow: hidden;
+    float: left;
+}
+#n_img img{
+    width:100%;
+    height:auto;
+    display: block;
+}
+#n_main{
+    width:80%;
+    height:auto;
+    margin-left: 5%;
+    border-bottom: 1px solid #eee;
+    float: right;
+}
+#n_main a{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #333;
+    line-height: 30px;
+}
+#nm .money{
+    float: left;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    color: #ff5a00;
+    font-weight: bold;
+    line-height: 45px;
+}
+#nm .num{
+    font-family: "微软雅黑";
+    float: right;
+    font-size: 12px;
+    line-height: 45px;
+    margin-right: 10px;
+}
+#nm .date{
+    float: left;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    color: #999;
+    line-height: 45px;
+}
+#nm .eye{
+    float: right;
+}
+#nm .eye img{
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+    margin-top: 12px;
+}
+#nm .num{
+    font-family: "微软雅黑";
+    float: right;
+    font-size: 12px;
+    line-height: 45px;
+    margin-right: 10px;
+}
+
+#footer{
+    width:100%;
+    height:55px;
+    background: #fff;
+    border-top: 1px solid #dcdcdc;
+    position: fixed;
+    left:0;
+    bottom:0;
+}
+.foot{
+    width:20%;
+    float:left;
+}
+.foot p{
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color:#333;
+    text-align: center;
+    line-height: 0;
+}
+.foot img{
+    height:30px;
+    width:auto;
+    margin:0 auto;
+}
+
+.call_box{
+    position: fixed;
+    right: 6px;
+    bottom: 120px;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow:1px 2px 3px 0 #ddd ;
+}
+.call_box img{
+    width: 28px;
+    height: 28px;
+    margin-left: 6px;
+    margin-top: 6px;
+}
+.sms_box{
+    position: fixed;
+    right: 6px;
+    bottom: 74px;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow:1px 2px 3px 0 #ddd ;
+}
+.sms_box img{
+    width: 28px;
+    height: 28px;
+    margin-left: 6px;
+    margin-top: 6px;
+}
+
+.Copyright{
+    text-align: center;
+    margin-bottom: 80px;
+}
+.Copyright p{
+    color:#a0a0a0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

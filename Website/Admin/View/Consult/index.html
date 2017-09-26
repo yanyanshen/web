@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>驾考资讯</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <style>
+            #page a,#page span{
+                display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
+                text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
+            }
+            #page a:hover{background:#F27602;color:#FF0000;}
+            #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
+            #page{ float: left; }
+
+            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
+            .table_a tr:hover{background-color: rgb(82, 249, 56);}
+        </style>
+    </head>
+    <body>
+    <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+        资讯列表
+        <span style="float: right;margin-right: 1%;color: #ffffff">总计：{$count}</span>
+        <span style=" margin-right: 8px; font-weight: bold;color: #ffffff">
+            <empty name="$add">
+                <a style="text-decoration: none;color:#ff143f;" href="{:U($add['name'])}">
+                    【{$add['title']}】
+                </a>
+                <else/>
+                <a style="text-decoration: none;color:#ff143f;" href="javascript:void(0);">
+                    【无添加权限】
+                </a>
+            </empty>
+        </span>
+    </div>
+    <div style="font-size: 13px;margin: 10px 5px ;" >
+        <table class="table_a" style="border:1px solid  rgb(129, 191, 249);width: 100%">
+            <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff;height: 35px">
+                <td width="5%">序号</td>
+                <td width="10%">图片</td>
+                <td width="10%">资讯标题</td>
+                <td width="30%">资讯内容</td>
+                <td width="5%">点击量</td>
+                <td width="5%">城市</td>
+                <td width="8%">添加时间</td>
+                <td width="10%">最后更新人</td>
+                <td width="30%">操作</td>
+            </tr>
+            <volist name="info" id="v" key="k" empty="$empty">
+                <tr>
+                    <td>{$k+$firstRow}</td>
+                    <td><img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
+                    <td>{$v['title']}</td>
+                    <td>{$v['content']|mb_substr=0,20,utf8}...</td>
+                    <td>{$v['touch_count']}</td>
+                    <td>{$v['cityname']}</td>
+                    <td>{$v['ntime']}</td>
+                    <td>{$v['update_people']}</td>
+                    <td>
+                        <input class="consult" type="button" gid="{$v['id']}" value="激活"/>
+                        <a href="{:U('Admin/Consult/editor_consult',array('id'=>$v['id']))}">编辑</a>
+                        <a id="del" href="{:U('Admin/Consult/del_consult',array('id'=>$v['id']))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+        <div id="page">{$page}</div>
+    </div>
+    </body>
+</html>
+<script>
+    $(".consult").click(function(){
+        var id=$(this).attr('gid');
+        $(this).attr('disabled',true);
+        $.post("{:U('Admin/Consult/statusUpdate')}",{id:id},function(res){
+            if(res.info==1){
+                location.href='';
+            }else{
+                location.href='';
+            }
+        })
+    })
+
+
+</script>

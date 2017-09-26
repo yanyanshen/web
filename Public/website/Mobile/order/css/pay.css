@@ -1,0 +1,192 @@
+.header_box{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 1000px;
+    height: 50px;
+    margin:0 auto;
+}
+.back{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+}
+.back img{
+    width: 100%;
+    height: auto;
+}
+.header_text{
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 24px;
+}
+.main_box{
+    width: 100%;
+}
+.main{
+    width: 1000px;
+    margin:0 auto;
+}
+.pay_box{
+    width: 100%;
+}
+.pay{
+    background: #fff;
+    margin-top: 8px;
+    border-bottom: 1px solid #eee;
+}
+.pay_img{
+    width: 80px;
+    height: 80px;
+    float: left;
+}
+.pay_img img{
+    width: 100%;
+    height: auto;
+}
+.pay_text{
+    float: left;
+}
+.pay_money,.pay_name{
+    font-family: "Î¢ÈíÑÅºÚ";
+    line-height: 20px;
+    margin-top: 12px;
+}
+.pay_money{
+    font-size: 16px;
+    font-weight: bold;
+}
+.pay_name{
+    font-size: 14px;
+    color: #777777;
+}
+
+
+/****************************************************
+Ö§¸¶ÁÐ±í
+****************************************************/
+.pay_list{
+    height: 60px;
+}
+.list_img,.list_text{
+    float: left;
+}
+.list_radio{
+    float: right;
+}
+.list_img{
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.list_img img{
+    width: 100%;
+    height: auto;
+}
+.zfb_text,.zfb_img{
+    float: left;
+}
+.ap_img{
+    float: left;
+}
+.zfb_text{
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 36px;
+    margin-left: 6px;
+}
+.zfb_img{
+    width: 28px;
+    height: 14px;
+}
+.zfb_img img{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.ap_img{
+    width: 42px;
+    height: 14px;
+}
+.ap_img img{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.note{
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 12px;
+    line-height: 10px;
+    color: #a0a0a0;
+    margin-left: 6px;
+}
+.list_radio{
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+
+/****************************************************
+µ×²¿
+****************************************************/
+.apply_submit{
+    width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#btn2{
+    width: 160px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-family: "Î¢ÈíÑÅºÚ";
+    font-size: 16px;
+    margin-top: 7px;
+    color: #fff;
+    border-radius: 4px;
+    background: #fa7124;
+}
+@media screen and (max-width: 1000px) {
+    .header {
+        width: 100%;
+    }
+    .main {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

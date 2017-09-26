@@ -1,0 +1,116 @@
+.apply_form{
+    width: 100%;
+    height: AUTO;
+    background: #fff;
+    margin-top: 10px;
+}
+.apply{
+    border-bottom: 1px solid #eee;
+    height: 50px;
+}
+.label{
+    font-family: "΢���ź�";
+    font-size: 15px;
+    line-height: 50px;
+    margin-left: 20px;
+}
+.user,.city_position,.tel,.message{
+    font-family: "΢���ź�";
+    font-size: 14px;
+    margin-left: 6px;
+}
+.apply_sex{
+    float: left;
+    font-family: "΢���ź�";
+    font-size: 15px;
+    line-height: 50px;
+    margin-left: 20px;
+}
+.apply_list{
+    float: left;
+    margin-left: 20px;
+    margin-top: 18px;
+}
+.apply_list li{
+    float: left;
+    font-family: "΢���ź�";
+    font-size: 14px;
+}
+.apply_list label{
+    font-family: "΢���ź�";
+    font-size: 14px;
+}
+
+
+.apply_order{
+    float: left;
+    font-family: "΢���ź�";
+    font-size: 15px;
+    line-height: 50px;
+    margin-left: 20px;
+}
+.apply_od{
+    float: left;
+    margin-left: 20px;
+    margin-top: 18px;
+}
+.apply_od li{
+    font-family: "΢���ź�";
+    font-size: 14px;
+    line-height: 24px;
+}
+.apply_od label{
+    font-family: "΢���ź�";
+    font-size: 14px;
+}
+
+
+.ap_note{
+    font-family: "΢���ź�";
+    font-size: 15px;
+    line-height: 50px;
+    margin-left: 20px;
+}
+.apply_submit{
+    width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#btn2{
+    width: 160px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-family: "΢���ź�";
+    font-size: 16px;
+    margin-top: 7px;
+    color: #fff;
+    border-radius: 4px;
+    background: #fa7124;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

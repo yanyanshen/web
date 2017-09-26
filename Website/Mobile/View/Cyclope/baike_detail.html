@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>百科</title>
+    <link href="__STATIC__/cyclope/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/cyclope/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/cyclope/css/baike-detail.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+
+<body>
+<style type="text/css">
+    .bdsharebuttonbox a { width: 30px!important; height: 30px!important; margin: 0 auto 10px!important; float: none!important; padding: 0!important; display: block; }
+    .bdsharebuttonbox a img { width: 30px; height: 30px; }
+    .bdsharebuttonbox .bds_tsina { background: url(__STATIC__/cyclope/images/gbRes_6.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_qzone { background: url(__STATIC__/cyclope/images/gbRes_4.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_tqq { background: url(__STATIC__/cyclope/images/gbRes_5.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_weixin { background: url(__STATIC__/cyclope/images/gbRes_2.png) no-repeat center center/30px 30px; }
+    .bdsharebuttonbox .bds_sqq { background: url(__STATIC__/cyclope/images/gbRes_3.png) no-repeat center center/30px 30px; }
+    .bd_weixin_popup .bd_weixin_popup_foot { position: relative; top: -12px; }
+</style>
+
+<div class="login_box">
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/Cyclope/kemu')}?kemu={$kemu}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">百科-科目<if condition="$kemu eq 1">
+                    一
+                    <elseif condition="$kemu eq 2"/>
+                    二
+                    <elseif condition="$kemu eq 3"/>
+                    三
+                    <else/>
+                    四
+                </if>
+                </li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="main_box">
+        <div class="main">
+            <div class="studyNew">
+                <div class="new">
+                    <volist name="info" id="v" empty="$empty">
+                        <h1 class="title">{$v.title}</h1>
+                        <ul>
+                            <li class="dates">{:date('Y.m.d',$v['ntime'])}</li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <if condition="$v['type'] eq 0">
+                            <img width="80%" align="center" style="width: 80%;" controls="controls" src="{$http}/Uploads/cyclope_logo/{$v['picurl']}{$v['picname']}"/>
+                            <elseif condition="$v['type'] eq 1"/>
+                            <video width="100%" height="240" controls="controls" src="__STATIC__/cyclope/images/kemuer01.mp4"></video>
+                        </if>
+                        <p>{$v['content']}</p>
+                    </volist>
+
+                    <div class="gb_resLay">
+                        <div class="gb_res_t"><span>分享到</span><i></i></div>
+                        <div class="bdsharebuttonbox">
+                            <ul class="gb_resItms">
+                                <li> <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin" ></a>微信好友 </li>
+                                <li> <a title="分享到QQ好友" href="#" class="bds_sqq" data-cmd="sqq" ></a>QQ好友 </li>
+                                <li> <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone" ></a>QQ空间 </li>
+                                <li> <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq" ></a>腾讯微博 </li>
+                                <li> <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina" ></a>新浪微博 </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var ShareURL = "";
+    $(function () {
+        $(".bdsharebuttonbox a").mouseover(function () {
+            ShareURL = $(this).attr("data-url");
+        });
+    });
+
+    function SetShareUrl(cmd, config) {
+        if (ShareURL) {
+            config.bdUrl = ShareURL;
+        }
+        return config;
+    }
+
+    window._bd_share_config = {
+        "common": {
+            onBeforeClick: SetShareUrl, "bdSnsKey": {}, "bdText": ""
+            , "bdMini": "2", "bdMiniList": false, "bdPic": "http://assets.jq22.com/plugin/2017-05-24-18-14-49.png", "bdStyle": "0", "bdSize": "24"
+        }, "share": {}
+    };
+
+    with (document) 0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
+            + ~(-new Date() / 36e5)];
+</script>
+
+
+</body>
+</html>

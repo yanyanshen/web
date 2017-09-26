@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>百科管理</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.form.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <style type="text/css">
+        input{  margin-bottom: 8px;  }
+        div.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
+        div.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+
+        label{padding: 10px 20px 10px 0;}
+        b{color: red}
+        li{ margin-top: 30px;list-style: none;}
+        .dfinput{margin-left: 10px;
+            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px}
+    </style>
+    <script>
+        $(document).ready(function(e) {
+            KindEditor.ready(function (K) {
+                K.create('#content7', {
+                    allowFileManager: true,
+                    filterMode: true,
+                    afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                        this.sync("#content7");
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+    子内容添加
+</div>
+    <div >
+        <form action="{:U('Admin/Cyclope/add')}" method="post" id="form1" enctype="multipart/form-data">
+            <input type="hidden" value="{$cyclope['id']?$cyclope['id']:0}" name="id"/>
+            <ul style="margin-left: 10px;padding: 0">
+                <li>
+                    <label style="padding: 10px 28px 10px 0">城市<b>*</b></label>
+                    <select name="cityid" style="width: 345px" class="dfinput">
+                        <volist name="citys" id="v" style="height: 20px;">
+                            <option value="{$v.id}" {$v['id'] == $cityid?selected:''}>{$v.cityname}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li>
+                    <label style="padding: 10px 28px 10px 0">科目<b>*</b></label>
+                    <select name="type" style="width: 345px" class="dfinput">
+                        <option value="1" {$cyclope['type']==1?selected:''}>科目一</option>
+                        <option value="2" {$cyclope['type']==2?selected:''}>科目二</option>
+                        <option value="3" {$cyclope['type']==3?selected:''}>科目三</option>
+                        <option value="4" {$cyclope['type']==4?selected:''}>科目四</option>
+                    </select>
+                </li>
+                <li>
+                    <label style="padding: 10px 0px 10px 0">内容标题<b>*</b></label>
+                    <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value="{$cyclope['title']?$cyclope['title']:''}"/>
+                </li>
+                <li>
+                    <label style="padding: 10px 0px 10px 0">展示图片<b>*</b></label>
+                    <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:700px;height:230px;position: relative;margin-bottom: 15px">
+                        <p id="preview1" >
+                            <if condition="$cyclope['id'] neq 0">
+                                <img id="imghead1"  border=0 src='{$http}/Uploads/cyclope_logo/{$cyclope["picurl"]}{$cyclope["picname"]}' width="230"/>
+                            </if>
+                        </p>
+                        <span></span>
+                        <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
+                        <label for="image1"  style="margin:80px 290px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                    </div>
+                </li>
+                <li>
+                    <label>内容<b>*</b></label>
+                    <div style="margin-left: 70px">
+                        <textarea name="content"  id="content7" class="dfinput" style="padding-left:70px;width:600px;height:250px;visibility:hidden;">{$cyclope['content']?$cyclope['content']:''}</textarea>
+                    </div>
+                </li>
+                <li>
+                    <label style="padding: 10px 70px 10px 0"></label>
+                    <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="submit" id="submit" value="{$btn?$btn:'添加'}"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    $(function(){
+        var validate=$('#form1').validate({
+            rules:{
+                content:{required:true},
+                title:{required:true}
+            },
+            messages:{
+                content:{required:' * 内容不能为空！'},
+                title:{required:' * 标题不能为空！'}
+            },
+            success:function(div){
+                div.addClass('ok').text(' * 通过验证')
+            },
+            validClass:'ok',
+            errorElement:'div'
+        });
+
+        $("#submit").click(function(){
+            if(validate.form()){
+                $(this).attr('disabled',true);
+                $('#form1').ajaxSubmit(function(res){
+                    if(res.status==1){
+                        alert('编辑成功');
+                        location.href=res.url;
+                    }else{
+                        alert('编辑失败请重新编辑');
+                        location.href=res.url;
+                    }
+                },'json');
+                return false;
+            }
+        });
+
+
+
+    });
+
+
+    function previewImage(file,pre,imag) {
+        var MAXWIDTH  = 300;
+        var MAXHEIGHT = 230;
+        var div = document.getElementById(pre);
+        if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
+            $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
+            return false;
+        }else{
+            $('#'+pre).next('span').css({"color":"green","font-weight":"bold"}).text('');
+        }
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            file.blur();
+            var src = document.selection.createRange().text;
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        }
+
+        $(file).next('label').css({margin:0,top:0,position:'absolute',background:'rgba(0,0,0,0.4)',color:'#fff',fontSize:'14px'}).html('重新选择主图');
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+</script>

@@ -1,0 +1,117 @@
+.header_box{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 1000px;
+    height: 50px;
+    margin:0 auto;
+}
+.back{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-top: 13px;
+}
+.back img{
+    width: 100%;
+    height: auto;
+}
+.header_text{
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 24px;
+}
+.main_box{
+    width: 100%;
+}
+.main{
+    width: 1000px;
+    margin:0 auto;
+}
+.list_box{
+    width: 100%;
+    background: #fff;
+    margin-top: 8px;
+}
+.list_apply{
+    height: 60px;
+    border-bottom: 1px solid #eee;
+}
+.li_name,.li_sex,.li_num{
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 6px;
+}
+.li_date{
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+    line-height: 24px;
+    color: #a0a0a0;
+    margin-top: 6px;
+}
+.li_name,.li_sex,.li_num{
+    float: left;
+    margin-left: 10px;
+}
+.li_date{
+    float: right;
+    margin-right: 10px;
+}
+.address{
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+    line-height: 24px;
+    color: #a0a0a0;
+    margin-left: 10px;
+}
+.address_span{
+    font-family: "Microsoft YaHei";
+    font-size: 12px;
+    line-height: 24px;
+    color: #a0a0a0;
+}
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .header {
+        width: 100%;
+    }
+    .main {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

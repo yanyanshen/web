@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>驾考资讯</title>
+    <link href="__STATIC__/consult/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/consult/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/consult/css/studyNew.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+        .bdsharebuttonbox a { width: 30px!important; height: 30px!important; margin: 0 auto 10px!important; float: none!important; padding: 0!important; display: block; }
+        .bdsharebuttonbox a img { width: 30px; height: 30px; }
+        .bdsharebuttonbox .bds_tsina { background: url(__STATIC__/consult/images/gbRes_6.png) no-repeat center center/30px 30px; }
+        .bdsharebuttonbox .bds_qzone { background: url(__STATIC__/consult/images/gbRes_4.png) no-repeat center center/30px 30px; }
+        .bdsharebuttonbox .bds_tqq { background: url(__STATIC__/consult/images/gbRes_5.png) no-repeat center center/30px 30px; }
+        .bdsharebuttonbox .bds_weixin { background: url(__STATIC__/consult/images/gbRes_2.png) no-repeat center center/30px 30px; }
+        .bdsharebuttonbox .bds_sqq { background: url(__STATIC__/consult/images/gbRes_3.png) no-repeat center center/30px 30px; }
+        .bd_weixin_popup .bd_weixin_popup_foot { position: relative; top: -12px; }
+    </style>
+<body>
+<div class="login_box">
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back">
+                    <a href="{:U('Mobile/Consult/studyNew')}">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </a>
+                </li>
+                <li class="header_text">驾考资讯</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="main_box">
+        <div class="main">
+            <div class="studyNew">
+                <div class="new">
+                    <h1 class="title">{$info.title}</h1>
+                    <ul>
+                        <li class="dates">{:date('Y.m.d',$info.ntime)}</li>
+                        <li class="view">浏览量：{$info.touch_count}</li>
+                        <div class="clearfix"></div>
+                    </ul>
+                    <img src="{$http}/Uploads/Consult_logo/{$info.picurl}{$info.picname}" width="80%">
+                    <p>
+                        {$info.content}
+                    </p>
+                    <div class="gb_resLay">
+                        <div class="gb_res_t"><span>分享</span><i></i></div>
+                        <div class="bdsharebuttonbox">
+                            <ul class="gb_resItms">
+                                <li> <a title="分享到微信" href="javascript:;" onclick="qq()"  class="bds_weixin btn_share" data-cmd="weixin" ></a>微信好友 </li>
+                                <li> <a title="分享到QQ好友" href="javascript:;" onclick="tt()" class="bds_sqq" data-cmd="sqq" ></a>QQ好友 </li>
+                                <li> <a title="分享到QQ空间" href="javascript:;" onclick="shareQQzone()"  class="bds_qzone" data-cmd="qzone" ></a>QQ空间 </li>
+                                <li> <a title="分享到腾讯微博" href="javascript:;" onclick="shareQQweibo()" class="bds_tqq" data-cmd="tqq" ></a>腾讯微博 </li>
+                                <li> <a title="分享到新浪微博" href="javascript:;" onclick="shareSina()" class="bds_tsina" data-cmd="tsina" ></a>新浪微博 </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function tt(){
+        alert(121)
+    }
+    function qq(){
+        var type = undefined;
+        var param = "";
+        var sid = 2;
+        var rawuin = <{1932314889}>;
+        var qsig = "undefined";
+        var QQApi = {
+            openURL: function(url){
+                var i = document.createElement('iframe');
+                i.style.display = 'none';
+                i.onload = function() { i.parentNode.removeChild(i); };
+                i.src = url;
+                document.body.appendChild(i);
+
+                var returnValue = QQApi.__RETURN_VALUE;
+                QQApi.__RETURN_VALUE = undefined;
+                return returnValue;
+            },
+            isAppInstalled: function(scheme) {
+                var parameters = {'scheme':scheme};
+                var r = QQApi.openURL('jsbridge://app/isInstalled_?p=' + encodeURIComponent(JSON.stringify(parameters)));
+                return r ? r.result : null;
+            },
+            isQQWebView: function(){
+                return QQApi.isAppInstalled('mqq') == true;
+            },
+            __RETURN_VALUE: undefined
+        };
+        var usa=navigator.userAgent;
+        var p;
+        var mobile_q_jump = {
+            android:"https://play.google.com/store/apps/details?id=com.tencent.mobileqq",
+            ios:"itms-apps://itunes.apple.com/cn/app/qq-2011/id444934666?mt=8",
+            winphone:"http://www.windowsphone.com/zh-cn/store/app/qq/b45f0a5f-13d8-422b-9be5-c750af531762",
+            pc:"http://mobile.qq.com/index.html"
+        };
+        var isMQ = 0;
+        if(typeof type == "undefined") type = 1;
+        if(usa.indexOf("Android")>-1){
+            p = "android";
+        }
+        else if(usa.indexOf("iPhone")>-1 || usa.indexOf("iPad")>-1 || usa.indexOf("iPod")>-1){
+            p = "ios";
+        }
+        else if(usa.indexOf("Windows Phone") > -1 || usa.indexOf("WPDesktop") > -1){
+            p = "winphone";
+        }
+        else {
+            p = "pc";
+        }
+        if(p == "ios"){
+            //防止循环
+            if(history.pushState)
+                history.pushState({},"t","#");
+            isMQ = QQApi.isQQWebView();
+            if (!isMQ){
+                var sc = document.createElement("script");
+                sc.src = "http://__.qq.com/api/qqapi.js";
+                sc.onload = function(){
+                    if(window['iOSQQApi']){
+                        isMQ =iOSQQApi.device.isMobileQQ();
+                    }
+                };
+                document.body.appendChild(sc);
+            }
+        }
+        else if(p == "pc" && qsig != "undefined"){
+            window.open(qsig,"_self");
+        }
+        if(type == 1){//手Q
+            var isSuccess = true;
+            var f = document.createElement("iframe");
+            f.style.display = "none";
+            document.body.appendChild(f);
+            f.onload = function(){
+                isSuccess = false;
+            };
+            if(p == "ios" && sid == 1){
+                f.src = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin="+ rawuin +"&card_type=person&source=qrcode";
+            }
+            if(p == "ios" && sid == 2){//ios并且为群名片
+                f.src = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin="+ rawuin +"&card_type=person&source=qrcode";
+            }
+            else if(p != "pc"){
+                var url = window.location.href.split("&");
+                f.src = "mqqopensdkapi://bizAgent/qm/qr?url=" + encodeURIComponent(url[0]);
+            }
+            if(p == "android" && sid == 1){
+                f.src = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin="+ rawuin +"&card_type=person&source=qrcode";
+            }
+            if(p == "android" && sid == 2){//ios并且为群名片
+                f.src = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin="+ rawuin +"&card_type=person&source=qrcode";
+            }
+            var now = Date.now();
+            setTimeout( function(){
+                if((p == "ios" && !isMQ && Date.now() - now < 2000) || (p == "android" && !isSuccess) || ((p == "winphone" && Date.now() - now < 2000))){
+                    var jumpUrl = mobile_q_jump[p];
+                    if(jumpUrl) window.open(jumpUrl,"_self");
+                }
+            } , 1500);
+        }
+    }
+</script>
+<script>
+    function shareSina() {
+        //分享到新浪微博
+        var sharesinastring = 'http://service.weibo.com/share/share.php?title=' + $("#title").val() + '&url=' + $("#url").val();
+        window.location.href = sharesinastring;
+    }
+    //分享qq空间
+    function shareQQzone(){
+        var p = {
+            url:location.href,
+            showcount:'0',/*是否显示分享总数,显示：'1'，不显示：'0' */
+            desc:'',/*默认分享理由(可选)*/
+            summary:'',/*分享摘要(可选)*/
+            title:'',/*分享标题(可选)*/
+            site:'满艺网',/*分享来源 如：腾讯网(可选)*/
+            pics:'', /*分享图片的路径(可选)*/
+            style:'203',
+            width:98,
+            height:22
+        };
+        //分享到QQ空间
+        var sharesinastring = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?title=' + $("#title").val() + '&url=' + $("#url").val() + '&site="满艺网"';
+        window.location.href = sharesinastring;
+    }
+    //分享qq
+    function shareQQ() {
+        var p = {
+            url: location.href, /*获取URL，可加上来自分享到QQ标识，方便统计*/
+            desc: '', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+            title: '', /*分享标题(可选)*/
+            summary: '', /*分享摘要(可选)*/
+            pics: '', /*分享图片(可选)*/
+            flash: '', /*视频地址(可选)*/
+            site: '满艺网', /*分享来源(可选) 如：QQ分享*/
+            style: '201',
+            width: 32,
+            height: 32
+        };
+        //分享到QQ
+        var sharesinastring = 'http://connect.qq.com/widget/shareqq/index.html?title=' + $("#title").val() + '&summary=' + $("#url").val() + '&url=' + $("#url").val() + '&site="满艺网"';
+        window.location.href = sharesinastring;
+    }
+    function shareQQweibo() {
+        var p = {
+            url: location.href, /*获取URL，可加上来自分享到QQ标识，方便统计*/
+            title: '', /*分享标题(可选)*/
+            pic: '', /*分享图片(可选)*/
+            site: '满艺网' /*分享来源(可选) 如：QQ分享*/
+        };
+        //分享到腾讯微博
+        var sharesinastring = 'http://v.t.qq.com/share/share.php?title=' + $("#title").val() + '&url=' + $("#url").val() + '&site="满艺网"';
+        window.location.href = sharesinastring;
+    }
+</script>
+<script type="text/javascript">
+    var ShareURL = "";
+    $(function () {
+        $(".bdsharebuttonbox a").mouseover(function () {
+            ShareURL = $(this).attr("data-url");
+        });
+    });
+
+    function SetShareUrl(cmd, config) {
+        if (ShareURL) {
+            config.bdUrl = ShareURL;
+        }
+        return config;
+    }
+
+    window._bd_share_config = {
+        "common": {
+            onBeforeClick: SetShareUrl, "bdSnsKey": {}, "bdText": ""
+            , "bdMini": "2", "bdMiniList": false, "bdPic": "http://assets.jq22.com/plugin/2017-05-24-18-14-49.png", "bdStyle": "0", "bdSize": "24"
+        }, "share": {}
+    };
+
+    with (document) 0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/__STATIC__/js/share.js?v=89860593.js?cdnversion='
+            + ~(-new Date() / 36e5)];
+</script>
+
+
+</body>
+</html>

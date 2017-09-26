@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>设置</title>
+    <link href="__STATIC__/user/user_center/css/main.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/user/user_center/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/user/user_center/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/user/user_center/css/setUp.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href="{:U('Mobile/User/user_center')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">设置</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="main_box">
+        <div class="main">
+            <div class="set_box">
+                <div class="password">
+                    <div class="paw_img"><img src="__STATIC__/user/user_center/images/icon-footer01-a.png"></div>
+                    <a href="{:U('Mobile/User/resetPassword')}" class="set_password">重设密码</a>
+                    <div class="paw_back"><img src="__STATIC__/user/user_center/images/back1.png"></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="login_out">
+                <div class="button_box"><button id="login_out">退出登录</button></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#login_out").click(function(){
+        layer.open({
+            content: '您确定要退出吗？'
+            ,btn: ['是', '不要']
+            ,yes: function(index){
+                $.post('{:U("Mobile/User/login_out")}','',function(res){
+                    location.href = '{:U("Mobile/Index/index")}';
+                    layer.close(index);
+                });
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

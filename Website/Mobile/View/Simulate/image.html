@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>全真模�?/title>
+    <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="__STATIC__/theory_study/css/style.css">
+    <link rel="stylesheet" href="__STATIC__/theory_study/css/mui.min.css">
+    <script src="__STATIC__/chapter_practice/js/mui.min.js"></script>
+    <style>
+        .options li{
+            cursor: pointer;border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="back"><a href=""><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="header_text">全真模�?/li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_box">
+        <div class="mui-slider theory_study">
+            <div class="mui-slider-group ">
+                <!-- 额外增加的一个节�?循环轮播：第一个节点是最后一个图文表�? -->
+                <volist name="chapter" id="chap" empty="$empty" key="k">
+                    <div class="mui-slider-item" style="background-color: white">
+                        <input type="text" value="{$chap['qid']}"/>
+
+                        <div class="title_{$chap.id}"  answer="{$chap.answer}">
+                            <p style="font-size: 14px;width: 90%;margin-left: 2%">{$k}.{$chap.question}�?
+                                <if condition="$chap.ifmul eq 0">单�?/if>
+                                <if condition="$chap.ifmul eq 1">多�?/if>
+                                <if condition="$chap.ifmul eq 2">判断</if>
+                                �?/p>
+                        </div>
+                        <div class="img">
+                            <if condition="$chap.imgurl neq '0'">
+                                <img width="90%" src="{$http}{$chap.imgurl}">
+                            </if>
+                        </div>
+                        <div class="options">
+                            <if condition="$chap.ifmul eq 1">
+                                <form action="" id="form_{$chap.id}">
+                                    <input type="hidden" name="answer" value="{$chap.answer}"/>
+
+                                    <ul>
+                                        <li class="select_A" gid="{$chap.id}" >
+                                            <label>
+                                                <input type="checkbox" class="mA_{$chap.id}" style="display: none" value="mA_{$chap.id}" name="ms[]"/>
+                                                <img id="mA_{$chap.id}" style="width: 20px;height:20px;display: inline-block;position: absolute;"    src="__STATIC__/chapter_practice/images/abcd_01.png" alt=""/>
+                                            </label>
+                                            <span style="margin-left: 7%;font-size: 16px">{$chap.s1}</span>
+
+                                        </li>
+                                        <li style="margin-top: 2%;"   class="select_B" gid="{$chap.id}" >
+                                            <label>
+                                                <input type="checkbox" class="mB_{$chap.id}" style="display: none"  value="mB_{$chap.id}" name="ms[]"/>
+                                                <img id="mB_{$chap.id}" style="width: 20px;height:20px;display: inline-block;position: absolute;"   src="__STATIC__/chapter_practice/images/abcd_02.png" alt=""/>
+                                            </label>
+                                            <span style="margin-left: 7%;font-size: 15px">{$chap.s2}</span>
+                                        </li>
+                                        <li  style="margin-top: 2%;"  class="select_C" gid="{$chap.id}">
+                                            <label>
+                                                <input type="checkbox" class="mC_{$chap.id}" style="display: none"  value="mC_{$chap.id}" name="ms[]"/>
+                                                <img  id="mC_{$chap.id}"   style="width: 20px;height:20px;display: inline-block;position: absolute;"  src="__STATIC__/chapter_practice/images/abcd_03.png" alt=""/>
+                                            </label>
+                                            <span style="margin-left: 7%;font-size: 15px">{$chap.s3}</span>
+                                        </li>
+                                        <li  style="margin-top: 2%;"  class="select_D"  gid="{$chap.id}" >
+                                            <label>
+                                                <input type="checkbox" class="mD_{$chap.id}" style="display: none"  value="mD_{$chap.id}" name="ms[]"/>
+                                                <img id="mD_{$chap.id}" style="width: 20px;height:20px;display: inline-block;position: absolute;"  src="__STATIC__/chapter_practice/images/abcd_04.png" alt=""/>
+                                                <span style="margin-left: 7%;font-size: 15px">{$chap.s4}</span>
+                                            </label>
+                                        </li>
+                                        <div id="button_{$chap.id}" style="float: right;margin-top: 2%">
+                                            <input type="button" class="button" gid="{$chap.id}" value="提交" style=""/>
+                                        </div>
+                                        <div id="analysism_{$chap.id}" style="width: 90%;margin-top:8%;">
+                                            <label style="font-size: 14px">答案�?span style="color: red">{$chap.answer}</span></label>
+                                            <p>
+                                                {$chap.analysis}
+                                            </p>
+                                        </div>
+                                    </ul>
+                                </form>
+                                <else/>
+                                <ul>
+                                    <li class="select_A" gid="{$chap.id}" style="cursor: pointer;border-bottom: 1px solid #eee" >
+                                        <label>
+                                            <img id="sA_{$chap.id}" style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"    src="__STATIC__/chapter_practice/images/abcd_01.png" alt=""/>
+                                            {$chap.s1}
+                                        </label>
+                                    </li>
+                                    <li   class="select_B" gid="{$chap.id}" style="cursor: pointer">
+                                        <label>
+                                            <img id="sB_{$chap.id}" style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"   src="__STATIC__/chapter_practice/images/abcd_02.png" alt=""/>
+                                            {$chap.s2}
+                                        </label>
+                                    </li>
+                                    <if condition="$chap.ifmul eq 0" >
+                                        <li  class="select_C" gid="{$chap.id}" style="cursor: pointer">
+                                            <label>
+                                                <img  id="sC_{$chap.id}"   style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"  src="__STATIC__/chapter_practice/images/abcd_03.png" alt=""/>
+                                                {$chap.s3}
+                                            </label>
+                                        </li>
+                                        <li class="select_D"  gid="{$chap.id}" >
+                                            <label>
+                                                <img id="sD_{$chap.id}" style="width: 20px;height:20px;display: inline-block;vertical-align: middle;"  src="__STATIC__/chapter_practice/images/abcd_04.png" alt=""/>
+                                                {$chap.s4}
+                                            </label>
+                                        </li>
+                                    </if>
+                                </ul>
+                                <div id="analysis_{$chap.id}" style="width: 90%;margin-top:8%;">
+                                    <label style="font-size: 14px">答案�?span style="color: red">{$chap.answer}</span></label>
+                                    <p>
+                                        {$chap.analysis}
+                                    </p>
+                                </div>
+                            </if>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+            <footer id="foot_theoryStudy">
+                <ul class="mui-slider-indicator" >
+                    <li class="foot_option">
+                        <button>
+                            <img src="__STATIC__/theory_study/images/Countdown.png">
+                            <p id="endtime" style="line-height: 2px">2700</p>
+                        </button>
+                    </li>
+                    <li class="foot_option">
+                        <button class="cd-popup-trigger">
+                            <img src="__STATIC__/theory_study/images/submit.png">
+                            <p>交卷</p>
+                        </button>
+                    </li>
+                    <li class="foot_option">
+                        <button>
+                            <img src="__STATIC__/theory_study/images/plan.png">
+                            <div class="mui-number">
+                                <span class="k">1</span> / 100
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+
+<div class="cd-popup" role="alert">
+    <div class="cd-popup-container">
+        <p>你确定要交卷�?</p>
+        <ul class="cd-buttons">
+            <li><button style="color: #fa7124;">确定</button></li>
+            <li><button class="button-qx">取消</button></li>
+        </ul>
+        <button class="cd-popup-close img-replace">关闭</button>
+    </div>
+</div>
+
+
+<script>
+
+    //--------------------------------点击交卷弹出框事�?-------------------------------
+
+    jQuery(document).ready(function($){
+        //查看弹出
+        $('.cd-popup-trigger').on('click', function(event){
+            //取消事件的默认动�?
+            event.preventDefault();
+            $('.cd-popup').addClass('is-visible');
+        });
+        //单击半透明背景关闭弹出
+        $('.cd-popup').on('click', function(event){
+            if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+                event.preventDefault();
+                $(this).removeClass('is-visible');
+            }
+        });
+        //单击取消按钮时关闭弹出窗�?
+        $('.button-qx').on('click', function(event){
+            event.preventDefault();
+            $('.cd-popup').removeClass('is-visible');
+        });
+        //单击关闭按钮时关闭弹出窗�?
+        $(document).keyup(function(event){
+            if(event.which =='27'){
+                $('.cd-popup').removeClass('is-visible');
+            }
+        });
+    });
+
+
+
+//--------------------------------倒计时事�?---------------------------
+    var CID = "endtime";
+    if(window.CID != null)
+    {
+        var iTime = document.getElementById(CID).innerText;
+        var Account;
+        RemainTime();
+    }
+    function RemainTime()
+    {
+        var iDay,iHour,iMinute,iSecond;
+        var sDay="",sHour="",sMinute="",sSecond="",sTime="";
+        if (iTime >= 0)
+        {
+            iDay = parseInt(iTime/24/3600);
+            if (iDay > 0)
+            {
+                sDay = iDay + "�?;
+            }
+            iHour = parseInt((iTime/3600)%24);
+            if (iHour > 0){
+                sHour = iHour + ":";
+            }
+            iMinute = parseInt((iTime/60)%60);
+            if (iMinute > 0){
+                sMinute = iMinute + ":";
+            }
+            iSecond = parseInt(iTime%60);
+            if (iSecond >= 0){
+                sSecond = iSecond;
+            }
+            if ((sDay=="")&&(sHour=="")){
+                sTime="<span style='color:#646464;'>" + sMinute+sSecond + "</font>";
+            }
+            else
+            {
+                sTime=sDay+sHour+sMinute+sSecond;
+            }
+            if(iTime==0){
+                clearTimeout(Account);
+                sTime="<span style='color:#d9221e;'>时间到了�?/span>";
+                $('.cd-popup').addClass('is-visible');
+            }
+            else
+            {
+                Account = setTimeout("RemainTime()",1000);
+            }
+            iTime=iTime-1;
+        }
+        else
+        {
+            sTime="<span style='color:#d9221e'>倒计时结束！</span>";
+        }
+        document.getElementById(CID).innerHTML = sTime;
+    }
+    mui.init();
+</script>
+
+</body>
+</html>
