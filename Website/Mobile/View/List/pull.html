@@ -97,11 +97,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="er_box">
-                            <div class="er">
-                                <button type="button" id="select" style="padding: 5px;background: #fff;color:#646464;border:none " data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">筛选</button>
-                            </div>
-                        </div>
+                        <!--<div class="er_box">-->
+                            <!--<div class="er">-->
+                                <!--<button type="button" id="select" style="padding: 5px;background: #fff;color:#646464;border:none " data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">筛选</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -192,47 +192,44 @@
                 <a href="tel:4008040517"><img src="__STATIC__/list/images/phone.png"></a>
             </div>
             <div class="sms_box" style="z-index: 1000">
-                <a href=""><img src="__STATIC__/list/images/sms.png"></a>
+                <a href="sms:18688888888"><img src="__STATIC__/list/images/sms.png"></a>
             </div>
             <footer id="footer" style="z-index: 3">
             <ul>
-                <li class="foot">
-                    <a href="{:U('Mobile/Index/index')}">
+                <a href="{:U('Mobile/Index/index')}">
+                    <li class="foot">
                         <img src="__STATIC__/list/images/icon-footer1-a.png">
                         <p>首页</p>
-                    </a>
-                </li>
-                <li class="foot">
-                    <a href="">
+                    </li>
+                </a>
+                <a href="">
+                    <li class="foot">
                         <img src="__STATIC__/list/images/icon-footer2-a.png">
                         <p>语言</p>
-                    </a>
-                </li>
-                <li class="foot">
-                    <a href="#">
+                    </li>
+                </a>
+                <a href="#">
+                    <li class="foot">
                         <img src="__STATIC__/list/images/icon-footer03-a.png">
                         <p style="color: #fa7124; font-weight: bold;">驾校</p>
-                    </a>
-                </li>
-                <li class="foot">
-                    <a href="{:U('Mobile/Cyclope/baike')}">
-                        <img src="__STATIC__/list/images/icon-footer4-a.png">
-                        <p>百科</p>
-                    </a>
-                </li>
-                <li class="foot">
-                    <if condition="$Think.session.mid eq ''">
-                        <a href="{:U('Mobile/Login/login')}">
-                            <img src="__STATIC__/Index/images/icon-footer5-a.png">
-                            <p>我的</p>
-                        </a>
+                    </li>
+                </a>
+                <a href="{:U('Mobile/Cyclope/baike')}">
+                    <li class="foot">
+                            <img src="__STATIC__/list/images/icon-footer4-a.png">
+                            <p>百科</p>
+                    </li>
+                </a>
+                <if condition="$Think.session.mid eq ''">
+                    <a href="{:U('Mobile/Login/login')}">
                         <else/>
                         <a href="{:U('Mobile/User/user_center')}">
-                            <img src="__STATIC__/Index/images/icon-footer5-a.png">
-                            <p>我的</p>
-                        </a>
-                    </if>
-                </li>
+                </if>
+                    <li class="foot">
+                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                        <p>我的</p>
+                    </li>
+                </a>
             </ul>
         </footer>
             <div class="tan">

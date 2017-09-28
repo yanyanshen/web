@@ -34,11 +34,11 @@ class OrderController extends Controller{
             $this->assign('nickname',$info['s_nickname']);
             $this->assign('price',$info['price']);
         }else{
-            $ordcode = D('order')->pay();
-            $this->assign('ordcode',$ordcode['ordcode']);
-            $this->assign('price',$ordcode['price']);
-            $url = U('Mobile/Detail/index',array('id'=>I('id')));
-            $this->assign('nickname',$ordcode['s_nickname']);
+                $ordcode = D('order')->pay();
+                $this->assign('ordcode',$ordcode['ordcode']);
+                $this->assign('price',$ordcode['price']);
+                $url = U('Mobile/Detail/index',array('id'=>I('id')));
+                $this->assign('nickname',$ordcode['s_nickname']);
         }
         $this->assign('url',$url);
         $this->display();
@@ -80,7 +80,11 @@ class OrderController extends Controller{
                 $this->error('预约失败');
             }
         }else{
-            $this->display();
+            if(!session('mid')){
+                $this->redirect('Mobile/Login/login');
+            }else{
+                $this->display();
+            }
         }
     }
     /*取消/删除订单*/

@@ -69,6 +69,7 @@ class DetailController extends Controller{
             session('until',1);
             $_POST['until'] = 1;
         }else{
+            session('until',null);
             session('total',1);
         }
 

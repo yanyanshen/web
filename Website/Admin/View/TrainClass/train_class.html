@@ -24,9 +24,11 @@
             <span>课程管理</span>
             <div style="display: inline-block">
                 <form action="{:U('Admin/TrainClass/add_class')}" method="post">
-                    <input type="hidden" name='id' value="{$id}"/>
+                    <input type="hidden" name='id' value="{$get['id']}"/>
+                    <input type="hidden" name='p' value="{$get['p']}"/>
+                    <input type="hidden" name='type' value="{$get['type']}"/>
+
                     <input type="hidden" name='nickname' value="{$nickname}"/>
-                    <input type="hidden" name='type' value="{$type}"/>
                     <input type="submit" value="课程添加"/>
                 </form>
             </div>

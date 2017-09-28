@@ -39,14 +39,14 @@ class OrderModel extends Model{
 *return $ordcode 新添加的订单信息
 */
     public function pay(){
-        $class = M('trainclass')->where(array('id'=>I('class_id')))->field('name,wholeprice,advanceprice')->find();
+        $class = M('trainclass')->where(array('id'=>I('class_id')))->field('name,wholeprice,advanceprice,type_id')->find();
         $cityname = session('city');
         $cityid = M('citys')->where("cityname = '$cityname'")->getField('id');
         if(session('mid')){
             $data['userid'] = session('mid');
         }else{
-            $account = $_POST['tel'][0];
-            $truename = $_POST['name'][0];
+            $account = $_POST['phone'];
+            $truename = $_POST['account'];
             $userid = M('user')->where(array('account'=>$account))->getField('id');
             if($userid){
                 M('user')->where(array('account'=>$account))->save(array('truename'=>$truename));
@@ -62,6 +62,7 @@ class OrderModel extends Model{
                 $user['phone'] = $account;
                 $user['jz_type'] = $class['name'];
                 $data['userid'] = M('user')->add($user);
+                M('School')->where(array('id'=>$class['type_id']))->setInc('student_num',1);
             }
             session('mid',$data['userid']);
         }
@@ -108,6 +109,7 @@ class OrderModel extends Model{
             M('OrderSource')->where(array('id'=>17))->setInc('order_num',trim(I('num')));
             $data['oid'] = $oid;
             $data['num'] = 1;
+            M('order_user')->add($data);
             if(trim(I('type')) == 1){
                 $data['price'] = $class['wholeprice'];
             }elseif(trim(I('type')) == 2){

@@ -92,6 +92,8 @@ class OrderController extends CommonController {
 
         $order_source = M('OrderSource')->select();
         $this->assign('order_source',$order_source);
+        $this->assign('get',$_GET);
+        dump($_GET);
         $this->display();
     }
 /*
@@ -192,16 +194,15 @@ class OrderController extends CommonController {
  * Date: 2017/08/25
  * 订单详情返回基地、课程
  */
-    function returntrain(){
+    public function returntrain(){
         $json=file_get_contents("php://input");
         $obj = json_decode($json);
         $id = $obj->id;
+
         $data['trainclass'] = M("trainclass")->field("id,name")->where("type_id='$id'")->select();
         $train = M('train')->field("trainaddress_id")->where("type_id='$id'")->find();
         if($train){
             $data['train'] = M("trainaddress")->field("id,trname")->where("id in ({$train['trainaddress_id']})")->select();
-        }else{
-            $data=array();
         }
         foreach ($data as $key => $value) {
             if (is_array($value)) {

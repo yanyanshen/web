@@ -26,14 +26,14 @@
         //获取浏览器页面可见高度和宽度
         var _PageHeight = document.documentElement.clientHeight,
                 _PageWidth = document.documentElement.clientWidth;
-        //计算loading框距离顶部和左部的距离（loading框的宽度15px，高度为61px?
+        //计算loading框距离顶部和左部的距离（loading框的宽度�?15px，高度为61px�?
         var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
-                _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
-        //在页面未加载完毕之前显示的loading Html自定义内?
+                _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 130) / 2 : 0;
+        //在页面未加载完毕之前显示的loading Html自定义内�?
         var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:'
-                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;">' +
+                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.5;filter:alpha(opacity=5);z-index:10000;">' +
                 '<div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:'
-                + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 30px;font-size:14px; background: #fff url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: #696969; font-family:\'Microsoft YaHei\';">页面加载中，请稍等...</div></div>';
+                + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 40px; padding-right:5px;font-size:14px; background: #000000 url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: white; font-family:\'Microsoft YaHei\';">加载中请稍等...</div></div>';
         //呈现loading效果
         document.write(_LoadingHtml);
         window.onload = function () {
@@ -43,19 +43,22 @@
     </script>
 </head>
 <body>
-    <div class="header_box">
-        <div class="header">
+    <div class="header_box" style="position: fixed;z-index:1000;">
+        <div class="header" >
             <ul>
-                <li class="back" style="border: none"><a href="{:U('Mobile/Exam/wrong_topic',array('mt'=>$mt,'ms'=>$ms))}">
-<img src="__PUBLIC__/public/images/back.png"></a></li>
-                <li class="header_text">查看我的错题</li>
+                <li class="back" style="border: none">
+                    <a href="{:U('Mobile/Exam/wrong_topic',array('mt'=>$mt,'ms'=>$ms))}">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </a>
+                </li>
+                <li class="header_text" style="border:none;">查看我的错题</li>
                 <div class="clearfix"></div>
             </ul>
         </div>
     </div>
-    <div class="mui-content">
-        <div class="mui-slider">
-            <div class="mui-slider-group">
+    <div class="mui-content" >
+        <div class="mui-slider" >
+            <div class="mui-slider-group" style="margin-bottom: 20%;margin-top:60px;">
                 <volist name="chapter" id="chap" empty="$empty" key="k">
                     <div class="mui-slider-item">
                         <div class="title_{$chap.id}"  answer="{$chap.answer}">

@@ -8,24 +8,19 @@
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
         <style type="text/css">
-            input{
-                margin-bottom: 8px;
-            }
             span.error{
-                /*position: absolute;*/
                 font-size: 14px;
                 font-weight: bold;
                 color: #FF0000;
             }
             span.ok{
-                /*position: absolute;*/
                 font-size: 14px;
                 font-weight: bold;
                 color: #38D63B;
             }
-            #changePwd{
-                cursor: pointer;
-            }
+
+            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
         </style>
     </head>
     <script>
@@ -78,27 +73,23 @@
         });
     </script>
     <body>
-
-        <div class="div_head">
-            <span>
-                <span style="float:left">当前位置是：系统管理-》添加驾校课程</span>
-                <span style="float:right;margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none" href="{:U('class_Manage?id='.$id.'&t='.$t.'&p='.$p)}">【返回】</a>
+        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+            课程添加
+                <span style="margin-right: 8px;font-weight: bold">
+                    <a style="text-decoration: none;color:#FA7124" href="{:U('train_class',array('id'=>$post['id'],'type'=>$post['type'],'p'=>$post['p']))}">【返回】</a>
                 </span>
-            </span>
         </div>
-        <div></div>
         <form action="#" method="post" id="form1">
         <div style="font-size: 13px;margin: 10px 5px">
-            <table border="1" width="100%" class="table_a">
+            <table width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
                 <tr>
-                <input type="hidden" name='type_id' value="{$id}"/>
-                 <input type="hidden" name='type' value="{$type}"/>
+                <input type="hidden" name='type_id' value="{$post['id']}"/>
+                 <input type="hidden" name='type' value="{$post['type']}"/>
                     <td colspan='2'>
-                        <if condition="$type eq 'jx'">驾校：</if>
-                        <if condition="$type eq 'jl'">教练：</if>
-                        <if condition="$type eq 'zd'">指导员：</if>
-                        {$nickname}
+                        <if condition="$post['type'] eq 'jx'">驾校：</if>
+                        <if condition="$post['type'] eq 'jl'">教练：</if>
+                        <if condition="$post['type'] eq 'zd'">指导员：</if>
+                        {$post['nickname']}
                     </td>
                 </tr>
                	<tr ><td width="5%">课程名</td>

@@ -1,6 +1,8 @@
 <?php
 namespace Mobile\Controller;
 use Think\Controller;
+use Think\Verify;
+
 class LoginController extends Controller{
     public function register(){
         if(IS_AJAX){
@@ -35,7 +37,38 @@ class LoginController extends Controller{
             $this->display();
         }
     }
+/*
+ * User:沈艳艳
+ * Date:2017/09/27
+ * 注册时验证码生成
+ */
 
+    //验证码的生成
+    public function  verify(){
+        $config=array(
+            'fontSize' => 80,
+            'length'   => 4,
+            'userCurve'=>false,
+            'useNoise'=>false,
+            'codeSet' => '1234567890'
+        );
+        $verify = new \Think\Verify($config);
+        $verify->entry();
+    }
+/*
+ * User:沈艳艳
+ * Date:2017-09-28
+ * 验证码验证
+ */
+    public function verify_check(){
+        $verify = new Verify();
+        $code = I('post.verify');
+        if($verify->check($code,'')){
+            echo 'true';
+        }else{
+            echo 'false';
+        }
+    }
     public function login(){
         if(IS_AJAX){
             $account = trim(I('username'));

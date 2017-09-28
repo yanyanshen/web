@@ -12,7 +12,7 @@ class EvaluateModel extends Model{
     public function index($id,$limit=''){
         $evaluate = $this->alias('e')
             ->join('xueches_user u ON u.id=e.uid')
-            ->field('e.id,u.truename,e.content,e.ntime,e.score,e.praise')
+            ->field('e.id,u.truename,e.content,e.ntime,e.score')
             ->where(array('sid'=>$id))
             ->order('e.ntime desc')
             ->limit(0,$limit)->select();//用户评价
@@ -45,9 +45,8 @@ class EvaluateModel extends Model{
         $page = $post['page']?$post['page']:1;
         $evaluate =  $this->alias('e')
             ->join('xueches_user u ON u.id=e.uid')
-            ->field('e.id,u.truename,e.content,e.ntime,e.score,e.praise')
+            ->field('e.id,u.truename,e.content,e.ntime,e.score')
             ->where($where)
-//            ->order('e.ntime desc')
             ->page($page,$num)->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');

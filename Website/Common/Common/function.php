@@ -174,7 +174,7 @@ function orderhandle($parameter){
     $res = $item_order ->where("ordcode='{$parameter['out_trade_no']}'")->save($data);
     if($res){
         $log['done'] = '订单支付';
-        $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].'Mobile/Pay/pay_money';
         $log['uid'] = session('mid');
         D('UserLog')->add_user_log($log);
     }

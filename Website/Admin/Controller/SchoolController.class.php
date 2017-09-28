@@ -16,7 +16,7 @@ class SchoolController extends CommonController {
                 $where.=" and school.account like '%".$_GET['account']."%' ";
             }
         }
-        $order = 'school.ntime desc';
+//        $order = 'school.ntime desc';
         $field = 'school.id,city.cityname,city.id as cid,school.nickname,school.address,school.signature,school.score,
                 school.type,school.evalutioncount,school.ntime,school.order,school.praisecount,school.allcount,
                 school.coach_num,school.passedcount,school.connectteacher,school.introduction,school.picurl,student_num,
@@ -44,7 +44,6 @@ class SchoolController extends CommonController {
         $this->assign('empty', '<h1>暂无数据</h1>');
         $this->assign('get',$_GET);
         $this->display();
-
     }
 
 
@@ -100,7 +99,6 @@ class SchoolController extends CommonController {
                     session('type_id',$id);
                 }
             $res=UploadPic('School','School_logo',$id);
-
                 $this->success($id);
         }else{
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();

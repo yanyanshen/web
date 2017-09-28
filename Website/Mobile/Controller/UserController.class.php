@@ -1,8 +1,7 @@
 <?php
 namespace Mobile\Controller;
 use Think\Controller;
-use Mobile\Common\Controller\CommonController;
-class UserController extends CommonController{
+class UserController extends Controller{
     public function _empty($name){
         //把所有城市的操作解析到city方法
         echo "页面有误";
@@ -81,7 +80,11 @@ class UserController extends CommonController{
 
     /*设置模板渲染*/
     public function setUp(){
-        $this->display();
+        if(session('mid')){
+            $this->display();
+        }else{
+            $this->redirect('Mobile/Login/login');
+        }
     }
 
     /*密码重置模板渲染*/

@@ -10,9 +10,7 @@ class TrainClassController extends CommonController {
        $field="tr.id,tr.name,tr.cartype,tr.way,tr.officeprice,tr.wholeprice,tr.advanceprice,tr.timing,tr.week,
             tr.include,tr.hot,tr.waittime,tr.class_type,tr.type,tr.recommand,tr.shuttle_way,tr.class_time2,
             tr.class_time3,jztype.jztype";
-        $where['tr.type']=$type;
-        $where['_string']='tr.jztype=jztype.id';
-        $where['tr.type_id']=$_GET['id'];
+        $where['_string']="tr.jztype=jztype.id and tr.type = '$type' and tr.type_id = {$_GET['id']}";
         $count=M('trainclass')
             ->table('xueches_trainclass tr,xueches_type jztype')
             ->where($where)->count();
@@ -20,7 +18,8 @@ class TrainClassController extends CommonController {
         $show=$page->show();
         $class=M('trainclass')
             ->table('xueches_trainclass tr,xueches_type jztype')
-            ->field($field)->where($where)
+            ->field($field)
+            ->where($where)
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
         $this->assign('class',$class);
@@ -28,8 +27,7 @@ class TrainClassController extends CommonController {
         $this->assign('page',$show);
         $nickname=M('School')->where(array('id'=>$_GET['id']))->getField('nickname');
         $this->assign('nickname',$nickname);
-        $this->assign('id',$_GET['id']);
-        $this->assign('type',$_GET['type']);
+        $this->assign('get',$_GET);
         $this->assign('count',$count);
        $this->display();
     }
@@ -48,9 +46,7 @@ class TrainClassController extends CommonController {
     function add_class(){
         $jztype=M('type')->select();
         $this->assign('jztype',$jztype);
-        $this->assign('nickname',$_POST['nickname']);
-        $this->assign('type',$_POST['type']);
-        $this->assign('id',$_POST['id']);
+        $this->assign('post',$_POST);
         $this->display();
     }
     function edit_class(){
@@ -111,7 +107,6 @@ class TrainClassController extends CommonController {
             $res=M('Trainclass')->where(array('id'=>$_POST['id']))->save($data);
             M('school')->where(array('id'=>$info['type_id']))->save($data);
         }
-//        $this->success($count);
         if($res){
             $this->success(1);
         }else{

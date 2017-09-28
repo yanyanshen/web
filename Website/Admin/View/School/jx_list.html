@@ -21,7 +21,7 @@
 <body>
     <div class="div_head"  style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder;">
         驾校列表
-        <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U('Admin/School/add_jx',array('type'=>'jx','pid'=>$get['pid']))}">【驾校添加】</a>
+        <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U('Admin/School/add_jx',array('type'=>'jx','pid'=>$get['pid'],'p'=>$get['p']))}">【驾校添加】</a>
         <span style="float:right;margin-right: 1%">总计：{$count}</span>
     </div>
     <div class="div_search"  style="background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bold">
@@ -73,6 +73,7 @@
                     </td>
                     <td>{$v.cityname}</td>
                     <td>{$v.nickname}<br>
+                        {$v.hot}
                         <span style="color: #20c318">
                             <if condition="$v.hot eq 1">热搜</if>
                             <if condition="$v.recommand eq 1">推荐</if>

@@ -23,7 +23,9 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back"><a href="{:U('Mobile/Index/index')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <li class="back">
+                    <a href="{:U('Mobile/Index/index')}"><img src="__PUBLIC__/public/images/back.png"></a>
+                </li>
                 <li class="header_text">个人中心</li>
                 <div class="clearfix"></div>
             </ul>
@@ -32,20 +34,48 @@
     <div class="main_box">
         <div class="main">
             <div class="user_top">
-                <div class="user_header"><img src="__STATIC__/user/user_center/images/header1.jpg"></div>
-                <div class="user_name"><h1>{$user.truename}</h1></div>
-                <div class="user_tel"><h2 id="tel">{$user.account}</h2></div>
+                <if condition="$Think.session.mid eq ''">
+                    <a href="{:U('Mobile/Login/login')}">
+                        <div class="user_header">
+                            <img src="__STATIC__/user/user_center/images/header1.jpg">
+                        </div>
+                    </a>
+                    <div class="user_name">
+                        <h1>点击登录</h1>
+                    </div>
+
+                    <else/>
+                    <div class="user_header">
+                        <img src="__STATIC__/user/user_center/images/header1.jpg">
+                    </div>
+                    <div class="user_name">
+                        <h1>{$user.truename}</h1>
+                    </div>
+                    <div class="user_tel">
+                        <h2 id="tel">{$user.account}</h2>
+                        <h3 style="color: #FA7124">如果您没有设置过密码请尽快设置新的密码</h3>
+                    </div>
+                </if>
+
             </div>
             <div class="user_order">
                 <div class="order_center">
                     <div class="order_img"><img src="__STATIC__/user/user_center/images/order.png"></div>
-                    <a href="{:U('Mobile/User/order_center')}">订单中心</a>
+                    <if condition="$Think.session.mid eq ''">
+                        <a href="{:U('Mobile/Login/login')}">订单中心</a>
+                    <else/>
+                        <a href="{:U('Mobile/User/order_center')}">订单中心</a>
+                    </if>
                     <div class="order_back"><img src="__STATIC__/user/user_center/images/back1.png"></div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="order_center">
                     <div class="order_img"><img src="__STATIC__/user/user_center/images/record.png"></div>
-                    <a href="{:U('Mobile/User/order_apply')}">预约报名记录</a>
+                    <if condition="$Think.session.mid eq ''">
+                        <a href="{:U('Mobile/Login/login')}">预约报名记录</a>
+                        <else/>
+                            <a href="{:U('Mobile/User/order_apply')}">预约报名记录</a>
+                        </if>
                     <div class="order_back"><img src="__STATIC__/user/user_center/images/back1.png"></div>
                     <div class="clearfix"></div>
                 </div>
@@ -90,7 +120,7 @@
         <ul>
             <li class="foot_box">
                 <a href="{:U('Mobile/Order/apply')}">
-                    <p>预约报名</p>
+                <p>预约报名</p>
                 </a>
             </li>
             <li class="foot_box">

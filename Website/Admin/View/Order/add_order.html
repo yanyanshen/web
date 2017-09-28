@@ -38,6 +38,7 @@
         });
         $("document").ready(function(){
             $("#jx").change(function(){
+
                 id = $("#jx option:selected").val();
                 data={"id":id};
                 returntrain(data);
@@ -55,14 +56,14 @@
             function returntrain(data){
                 $.ajax({
                     type: "POST",
-                    url: 'returntrain',
+                    url: '{:U("Order/returntrain")}',
                     data:JSON.stringify(data),
                     dataType: "json",//指定返回数据的类型
                     success: function (message) {
                         $('#train').html('');
-                        $('#train').append("<option value='517基地'>517基地</option>");
+                        $('#train').append("<option value='0'>请选择</option>");
                         $('#class').html('');
-                        $('#class').append("<option value='C1照全包'>C1照全包</option>");
+                        $('#class').append("<option value='C1照全包'>请选择</option>");
                         for(var i in message['train']){
                             $('#train').append("<option value="+message['train'][i]['trname']+">"+message['train'][i]['trname']+"</option>");
                         }
@@ -93,7 +94,7 @@
     <span>
         <span style="float:left;font-weight: bolder;color: #ffffff">新建订单</span>
         <span style="margin-right: 8px;font-weight: bold">
-            <a style="text-decoration: none;color: #ffffff" href="{:U('order_list')}">【返回】</a>
+            <a style="text-decoration: none;color: #FA7124" href="{:U('order_list',array('p'=>$get['p'],'pid'=>$get['pid']))}">【返回】</a>
         </span>
     </span>
 </div>
@@ -181,9 +182,9 @@
                         <option value=5 >人工订单</option>
                     </select>
                     驾校：<select id ='jx' name="jx"  data-live-search="true" >
-                        <option value="0">517驾校</option>
+                        <option value="0">请选择</option>
                         <volist name ="school" id='v'>
-                            <option value="{$v.id}" {$list['school_id']==$v['id']?'selected':''}>{$v.nickname}</option>
+                            <option value="{$v.id}"  {$list['school_id']==$v['id']?'selected':''}>{$v.nickname}</option>
                         </volist>
                     </select>
                     教练：<select id ='jl' name="jl"  data-live-search="true" >

@@ -30,33 +30,22 @@
                 _PageWidth = document.documentElement.clientWidth;
         //计算loading框距离顶部和左部的距离（loading框的宽度�?15px，高度为61px�?
         var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
-                _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
+                _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 130) / 2 : 0;
         //在页面未加载完毕之前显示的loading Html自定义内�?
         var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:'
-                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;">' +
+                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.5;filter:alpha(opacity=5);z-index:10000;">' +
                 '<div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:'
-                + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 30px;font-size:14px; background: #fff url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: #696969; font-family:\'Microsoft YaHei\';">页面加载中，请稍等...</div></div>';
+                + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 40px; padding-right:5px;font-size:14px; background: #000000 url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: white; font-family:\'Microsoft YaHei\';">加载中请稍等...</div></div>';
         //呈现loading效果
         document.write(_LoadingHtml);
         window.onload = function () {
             var loadingMask = document.getElementById('loadingDiv');
             loadingMask.parentNode.removeChild(loadingMask);
         };
-        //监听加载状态改�?
-//        document.onreadystatechange = completeLoading;
-//        //加载状态为complete时移除loading效果
-//
-//
-//        function completeLoading() {
-//            if (document.readyState == "complete") {
-//                var loadingMask = document.getElementById('loadingDiv');
-//                loadingMask.parentNode.removeChild(loadingMask);
-//            }
-//        }
     </script>
 </head>
 <body>
-<div class="header_box" style="">
+<div class="header_box" style="position: fixed;z-index:1000;">
     <div class="header">
         <ul>
             <li class="back" style="border: none; ">
@@ -68,9 +57,9 @@
         </ul>
     </div>
 </div>
-<div id="loadingDiv" class="mui-content" style="margin-top: 2%;">
+<div id="loadingDiv" class="mui-content">
     <div class="mui-slider">
-        <div class="mui-slider-group " >
+        <div class="mui-slider-group " style="margin-bottom: 20%;margin-top:60px;">
             <volist name="chapter" id="chap" empty="$empty" key="k">
                 <div class="mui-slider-item" style="background-color: white;">
                     <div class="title_{$chap.id}"  answer="{$chap.answer}">
@@ -82,10 +71,7 @@
                     </div>
                     <div class="img" style="width: 70%;">
                         <if condition="$chap.image neq '0'">
-                            <!--<img class='lazy' width="90%" src="{$http}/Uploads{$chap.image}">-->
                             <img class='lazy'  data-original="{$http}/Uploads{$chap.image}" src="{$http}/Uploads/smallpic/logo.png" />
-                            <!--<img data-src="{$http}/Uploads{$chap.image}" class="swiper-lazy">-->
-                            <!--<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>-->
                         </if>
                     </div>
                     <div class="options" >
@@ -190,12 +176,22 @@
         </div>
         <footer id="foot_theoryStudy">
             <ul  class="mui-slider-indicator" >
-                <li class="foot_option">
-                    <button class="button" ms="{$ms}" mt="{$mt}">
-                        <img   src="__STATIC__/theory_study/images/collection.png">
-                        <p>收藏</p>
-                    </button>
-                </li>
+                <if condition="$Think.session.mid eq ''">
+                    <li class="foot_option">
+                        <button>
+                            <img   src="__STATIC__/theory_study/images/collection.png">
+                            <p>未登录</p>
+                        </button>
+                    </li>
+                    <else/>
+                    <li class="foot_option">
+                        <button class="button" ms="{$ms}" mt="{$mt}">
+                            <img   src="__STATIC__/theory_study/images/collection.png">
+                            <p>收藏</p>
+                        </button>
+                    </li>
+                </if>
+
                 <li class="foot_option">
                     <button class="button">
                     </button>

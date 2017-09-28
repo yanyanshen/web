@@ -1,12 +1,14 @@
 <?php
 namespace Mobile\Controller;
 use Think\Controller;
-use Mobile\Common\Controller\CommonController;
-class SimulateController extends CommonController{
+class SimulateController extends Controller{
     /*沈艳艳
         模拟考试首页
     */
     public function test_system(){
+        if(!session('mid')){
+            $this->redirect('Mobile/Login/login');
+        }
         M('simulate_error')->where(array('userid'=>session('mid')))->delete();
         M('user')->where(array('userid'=>session('mid')))->save(array('score'=>0));
         $subject = I('ms');
@@ -22,7 +24,6 @@ class SimulateController extends CommonController{
     模拟考试试题展示
 */
     function simulate(){
-
         M('user')->where(array('userid'=>session('mid')))->save(array('score'=>0));
         $subject=I('ms');
         $type=I('mt');

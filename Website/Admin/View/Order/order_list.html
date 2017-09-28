@@ -22,7 +22,7 @@
         <span style="font-weight: bolder;color: #ffffff">订单列表</span>
         <span style=" margin-right: 8px; font-weight: bold;color: #ffffff">
             <notempty name="add_order">
-                <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="{:U($add_order['name'])}">【{$add_order['title']}】</a>
+                <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="{:U($add_order['name'],array('p'=>$get['p'],'pid'=>$get['pid']))}">【{$add_order['title']}】</a>
                 <else/>
                 <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="javascript:alert('暂无权限')" >【新建订单】</a>
             </notempty>

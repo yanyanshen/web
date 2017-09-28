@@ -28,13 +28,15 @@
         var validate=$('#form1').validate({
             //设置验证规则
             rules:{
-                name:{ required:true},
-                tel:{required:true, tel:true},
+                account:{required:true},
+                name:{required:true},
+                phone:{required:true, phone:true},
                 address:{ required:true}
             },
             messages: {
-                name: {required: '用户名不能为为空'},
-                tel: {required: '手机号不能为空'},
+                account: {required: '姓名不能为空'},
+                name: {required: '姓名不能为空'},
+                phone: {required: '手机号不能为空'},
                 address: {required: '地址不能为空'}
             },
             success: function(span) {
@@ -44,7 +46,7 @@
             errorElement:'span'
         });
         // 手机号码验证
-        jQuery.validator.addMethod("tel", function(value, element) {
+        jQuery.validator.addMethod("phone", function(value, element) {
             var mobileReg = /^1[34578]{1}[0-9]{9}$/;
             return this.optional(element) || (mobileReg.test(value));
         }, "请正确填写您的手机号");
@@ -72,11 +74,11 @@
                 <input type="hidden" name="id" value="{$id}"/>
                 <div class="apply">
                     <label class="label">真实姓名</label>
-                    <input class="user" type="text" name="name[]" placeholder="请输入真实姓名" required>
+                    <input class="user" type="text" name="account" placeholder="请输入真实姓名" required>
                 </div>
                 <div class="apply">
                     <label class="label">联系电话</label>
-                    <input class="tel" type="text" name="tel[]" placeholder="请输入电话号码" >
+                    <input class="tel" type="text" name="phone" placeholder="请输入电话号码" >
                 </div>
                 <div class="apply">
                     <label class="label">性别</label>
@@ -115,22 +117,13 @@
                     }
                 </script>
                 <div class="apply">
-                    <label class="label">驾校/教练/指导员名称：</label>
+                    <label class="label">类型：</label>
                     <input class="user" style="background: none" type="text" name="nickname" value="{$nickname}" disabled="disabled">
                 </div>
                 <div class="apply">
                     <label class="label">培训课程</label>
                     <a class="user" href="{:U('Mobile/Order/choose_course',array('id'=>$id))}">
                         {$name['name']}
-                        <!--<if condition="$name.week eq 1">-->
-                            <!--（本周特价）-->
-                        <!--</if>-->
-                        <!--<if condition="$name.recommand eq 1">-->
-                            <!--（推荐）-->
-                        <!--</if>-->
-                        <!--<if condition="$name.hot eq 1">-->
-                            <!--（热门）-->
-                        <!--</if>-->
                     </a>
                 </div>
                 <div class="apply" style="height: 60px">
@@ -148,11 +141,11 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="apply">
-                    <label class="label">地址</label>
-                    <input class="city_position" type="text" name="address" placeholder="请输入所在地址" required>
+                <div class="apply" style="border:1px solid red">
+                    <label class="ap_note">地址</label>
+                    <input class="message" type="text" name="address" placeholder="请输入所在地址" required>
                 </div>
-                <div class="apply" style="    margin-bottom: 65px;">
+                <div class="apply" style="margin-bottom:70px;">
                     <label class="ap_note">备注</label>
                     <input class="message" type="text" name="inform" placeholder="更多">
                 </div>

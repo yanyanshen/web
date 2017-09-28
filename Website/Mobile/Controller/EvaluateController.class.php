@@ -25,6 +25,7 @@ class EvaluateController extends CommonController{
                     $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
                     $log['uid'] = session('mid');
                     D('UserLog')->add_user_log($log);
+                    M('school')->where(array('id'=>$_POST['sid']))->setInc('evalutioncount',1);
                     $this->success('评价成功',U('Mobile/User/order_center'));
                 }else{
                     M('Evaluate')->rollback();

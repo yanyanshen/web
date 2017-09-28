@@ -99,15 +99,9 @@
                 <p>自学直考</p>
             </div>
             <div class="option1">
-                <if condition="$Think.session.mid eq ''">
-                    <a href="{:U('Mobile/Login/login')}">
+                <a href="{:U('Mobile/Exam/theory_study')}">
                         <img src="__STATIC__/Index/images/index_icon04.png">
                     </a>
-                    <else/>
-                    <a href="{:U('Mobile/Exam/theory_study')}">
-                        <img src="__STATIC__/Index/images/index_icon04.png">
-                    </a>
-                </if>
                 <p>理论学习</p>
             </div>
             <div class="clearfix"></div>
@@ -318,64 +312,49 @@
             </div>
         </div>
     </div>
-
-
     <footer id="footer">
         <ul>
-            <li class="foot">
-                <a href="{:U('Mobile/Index/index')}">
-                    <img src="__STATIC__/Index/images/icon-footer01-a.png">
-                    <p>首页</p>
-                </a>
-            </li>
-            <li class="foot">
-                <a href="">
+            <a href="{:U('Mobile/Index/index')}">
+                <li class="foot">
+                        <img src="__STATIC__/Index/images/icon-footer01-a.png">
+                        <p>首页</p>
+                </li>
+            </a>
+            <a href="">
+                <li class="foot">
                     <img src="__STATIC__/Index/images/icon-footer2-a.png">
                     <p>语言</p>
-                </a>
-            </li>
-            <li class="foot">
-                <a href="{:U('Mobile/List/pull')}">
+                </li>
+            </a>
+
+            <a href="{:U('Mobile/List/pull')}">
+                <li class="foot">
                     <img src="__STATIC__/Index/images/icon-footer3-a.png">
                     <p>驾校</p>
-                </a>
-            </li>
-            <li class="foot">
-                <a href="{:U('Mobile/Cyclope/baike')}">
+                </li>
+            </a>
+            <a href="{:U('Mobile/Cyclope/baike')}">
+                <li class="foot">
                     <img src="__STATIC__/Index/images/icon-footer4-a.png">
                     <p>百科</p>
-                </a>
-            </li>
-            <li class="foot">
-                <if condition="$Think.session.mid eq ''">
-                    <a href="{:U('Mobile/Login/login')}">
-                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
-                        <p>我的</p>
-                    </a>
-                    <else/>
-                    <a href="{:U('Mobile/User/user_center')}">
-                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
-                        <p>我的</p>
-                    </a>
-                </if>
+                </li>
+            </a>
+            <a href="{:U('Mobile/User/user_center')}">
+                <li class="foot">
+                    <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                    <p>我的</p>
+                </li>
+            </a>
 
-            </li>
         </ul>
     </footer>
-
     <div class="call_box">
         <a href="tel:4008040517"><img src="__STATIC__/Index/images/phone.png"></a>
     </div>
     <div class="sms_box">
-        <a href=""><img src="__STATIC__/Index/images/sms.png"></a>
-        <!--<a href="sms:18688888888">发短信</a>-->
+        <a href="sms:18688888888"><img src="__STATIC__/Index/images/sms.png"></a>
     </div>
-
     <include file="public/footer"/>
-
-
 </div>
-
-
 </body>
 </html>

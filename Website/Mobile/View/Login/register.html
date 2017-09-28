@@ -18,9 +18,8 @@
     <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
     <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <style>
-        input.error { background: #ffdbb3;}
-        span.error{position: absolute;color:#ff0300;display: block;font-weight: bold;font-size: 14px;  }
-        span.ok {color: #289628;}
+        span.error{position: absolute;color:#ff0300;display: block;font-weight: bold;font-size: 10px;left: 20px;}
+        span.ok {color: #289628;float: right}
     </style>
 <body>
 <div class="login_box">
@@ -55,6 +54,11 @@
                     <label class="password_text" for="cd-passwd">密码</label>
                     <input class="password_input" type="password" name="cd_passwd" id="cd-passwd" placeholder="请输入密码">
                 </div>
+                <div class="register">
+                    <label class="password_text" for="cd-passwd">验证码</label>
+                    <input  name="verify" style="width: 20%;padding-left: 10px" type="text"  placeholder="请输入验证码">
+                    <cite style="border-radius: 10px;"><img src="{:U('verify')}" width="100" height="50" style="cursor:pointer;vertical-align: middle;float: right;" onclick="this.src='{:U(\'verify\',rand())}' "/></cite>
+                </div>
                 <div id="error_rg4"></div>
                 <div class="main_box">
                     <div class="main">
@@ -85,14 +89,19 @@
                     remote:{url:'{:U("Mobile/Login/reg_checkPhone")}', type:'post'}
                 },
                 cd_passwd:{required:true,minlength:6, maxlength:20},
-                cd_name:{required:true,remote:{url:'{:U("Mobile/Login/reg_checkName")}', type:'post'}}
+                cd_name:{required:true,remote:{url:'{:U("Mobile/Login/reg_checkName")}', type:'post'}},
+                verify:{
+                    required:true,
+                    remote:{url:"{:U('Mobile/Login/verify_check')}",type:'post'}
+                }
             },
 
 
             messages: {
-                cd_tel: {required: '手机号不能为空', remote:'此手机号被注册'},
-                cd_name: {required: '用户名不能为为空',remote:'用户名已被使用'},
-                cd_passwd: {required: '密码不能为空',minlength:'密码长度至少6-20', maxlength:'密码长度至少6-20'}
+                cd_tel: {required: '*必填项', remote:'*此手机号被注册'},
+                cd_name: {required: '*必填项',remote:'*用户名已被使用'},
+                cd_passwd: {required: '*必填项',minlength:'*密码长度至少6-20', maxlength:'*密码长度至少6-20'},
+                verify:{required:'*必填项',remote:'*验证码错误'}
             },
             success: function(span) {
                 span.addClass("ok").text('OK');
@@ -104,7 +113,7 @@
         jQuery.validator.addMethod("cd_tel", function(value, element) {
             var mobileReg = /^1[34578]{1}[0-9]{9}$/;
             return this.optional(element) || (mobileReg.test(value));
-        }, "请正确填写您的手机号");
+        }, "*请正确填写您的手机号");
 
 
         $('.login_button').click(function(){
