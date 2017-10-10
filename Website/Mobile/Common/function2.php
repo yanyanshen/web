@@ -1,30 +1,5 @@
 <?php
 header('Content-type:text/html;charset=utf-8');
-//经纬度
-function curlGetWeb($area,$address){
-    $Url="http://api.map.baidu.com/geocoder?address=".trim($area).trim($address)."&output=json&key=ASESdpTH1lcn6HbficDjIxGbpHyVAs3P";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $Url);
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //如果把这行注释掉的话，就会直接输出
-    $result=curl_exec($ch);
-    curl_close($ch);
-    $infolist=json_decode($result);
-    $array=array();
-    if(isset($infolist->result->location) && !empty($infolist->result->location)){
-        $array=array(
-            'lng'=>$infolist->result->location->lng,
-            'lat'=>$infolist->result->location->lat,
-        );
-        return $array;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-
 /*沈艳艳
     @查询每个章节的数目 封装的类
     @ $sub 科目

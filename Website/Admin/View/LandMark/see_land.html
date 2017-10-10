@@ -34,7 +34,9 @@
         <table border="1" width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
             <tr style="height:36px;font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff">
                 <input type="hidden" name='id' value="{$id}"/>
-                <input type="hidden" name='type' value="{$type}"/>
+                <input type="hidden" name='type' value="{$get['type']}"/>
+                <input type="hidden" name='pid' value="{$get['pid']}"/>
+                <input type="hidden" name='p' value="{$get['p']}"/>
                 <td colspan='2'>{$info.nickname}</td>
                 <td >
                     <input type="button" id="checkall" value="全选"/> 　

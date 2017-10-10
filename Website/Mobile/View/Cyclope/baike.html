@@ -54,7 +54,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="hot-sort1">
+                <div class="hot-sort1" style="margin-bottom: 50px">
                     <ul><li>热门分类</li></ul>
                     <a href="{:U('Mobile/Cyclope/kemu')}?kemu=1">
                         <div class="sort-h">
@@ -104,43 +104,36 @@
 
     <footer id="footer">
         <ul>
-            <li class="foot">
-                <a href="{:U('Mobile/Index/index')}">
+            <a href="{:U('Mobile/Index/index')}">
+                <li class="foot">
                     <img src="__STATIC__/cyclope/images/icon-footer1-a.png">
                     <p>首页</p>
-                </a>
-            </li>
-            <li class="foot">
-                <a href="">
+                </li>
+            </a>
+            <a href="">
+                <li class="foot">
                     <img src="__STATIC__/cyclope/images/icon-footer2-a.png">
                     <p>语言</p>
-                </a>
-            </li>
-            <li class="foot">
-                <a href="{:U('Mobile/List/pull')}">
+                </li>
+            </a>
+            <a href="{:U('Mobile/List/pull')}">
+                <li class="foot">
                     <img src="__STATIC__/cyclope/images/icon-footer3-a.png">
                     <p>驾校</p>
-                </a>
-            </li>
-            <li class="foot">
-                <a href="">
+                </li>
+            </a>
+            <a href="">
+                <li class="foot">
                     <img src="__STATIC__/cyclope/images/icon-footer04-a.png">
                     <p style="color: #fa7124; font-weight: bold;">百科</p>
-                </a>
-            </li>
-            <li class="foot">
-                <if condition="$Think.session.mid eq ''">
-                    <a href="{:U('Mobile/Login/login')}">
-                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
-                        <p>我的</p>
-                    </a>
-                    <else/>
-                    <a href="{:U('Mobile/User/user_center')}">
-                        <img src="__STATIC__/Index/images/icon-footer5-a.png">
-                        <p>我的</p>
-                    </a>
-                </if>
-            </li>
+                </li>
+            </a>
+            <a href="{:U('Mobile/User/user_center')}">
+                <li class="foot">
+                    <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                    <p>我的</p>
+                </li>
+            </a>
         </ul>
     </footer>
 </div>

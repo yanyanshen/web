@@ -16,7 +16,8 @@ class EnvironmentController extends CommonController{
         $info=D('environment')->environment_list($where,'id,picurl,picname,time',1);
         $this->assign('nickname',$nickname['nickname']);
         $this->assign('id',$id);
-        $this->assign('type',$type);
+        $this->assign('get',$_GET);
+        print_r($_GET);
         $this->assign('http',C('HTTP'));
         $this->assign('info',$info);
         $this->assign('count',count($info));

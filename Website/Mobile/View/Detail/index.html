@@ -260,7 +260,7 @@
                                 </div>
                                 <notempty name="data['reply']">
                                     <div class="eval_text">
-                                        <if condition="$data['ucontent'] neq ''">
+                                        <if condition="$data['append'] eq 1">
                                             <p style="border-bottom: none;padding:0">{$data['content']}</p>
                                             <p style="border-bottom: 0;padding:0"> <span style="color: #FA7124">追加内容【{$data['untime']}】</span> {$data['ucontent']}</p>
                                             <else/>

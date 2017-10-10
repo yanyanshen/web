@@ -6,6 +6,7 @@ use Think\Page;
 use Admin\Common\Controller\CommonController;
 class SchoolController extends CommonController {
     public function jx_list(){
+        $this->assign('get',$_GET);
         $where = "school.cityid=city.id and school.type='jx'";
         foreach($_GET as $k=>$v){
             if($k=='cityid' && $v != 0){
@@ -133,16 +134,16 @@ class SchoolController extends CommonController {
 
     //对驾校进行编辑
     public function jx_editor(){
+        $this->assign('get',$_GET);
         if(!empty($_POST)){
             $where['id']=$_POST['id'];
             session('type_id',$_POST['id']);
             D('School')->jx_editor($where,$_POST);//更新数据
             $res=editorPic('School','School_logo',$_POST['id'],'pic');
-            $this->success($res);
             if($res){
-                $this->success($res);
+                $this->success($res,U('Admin/School/jx_list?pid='.$_POST['pid'].'&p='.$_POST['p']));
             }else{
-                $this->error(0);
+                $this->error(0,U('Admin/School/jx_editor?pid='.$_POST['pid'].'&p='.$_POST['p']));
             }
         }else{
             $id=$_GET['id'];

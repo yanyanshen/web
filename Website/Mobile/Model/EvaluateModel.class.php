@@ -12,13 +12,15 @@ class EvaluateModel extends Model{
     public function index($id,$limit=''){
         $evaluate = $this->alias('e')
             ->join('xueches_user u ON u.id=e.uid')
-            ->field('e.id,u.truename,e.content,e.ntime,e.score')
+            ->field('e.id,u.truename,e.content,e.ntime,e.score,e.append')
             ->where(array('sid'=>$id))
             ->order('e.ntime desc')
             ->limit(0,$limit)->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
-            $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');
+            if($v['append']){
+                $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');
+            }
             $evaluate[$k]['reply'] = M('EvaluateReply')->field('content,ntime')->order('ntime desc')->where(array('eid'=>$v['id']))->select();
         }
         return $evaluate;
@@ -32,7 +34,12 @@ class EvaluateModel extends Model{
 *@param $id 驾校的id值 条件
 */
     public function  evaluate($post){
-        $where = "e.sid = {$post['id']}";
+        if(session('until')){
+            $where = "e.sid = {$post['id']} and e.append = 1";
+        }else{
+            $where = "e.sid = {$post['id']}";
+        }
+
         foreach($post as $k=>$v){
             if($k == 'total'){
                 $where .= '';
@@ -45,21 +52,15 @@ class EvaluateModel extends Model{
         $page = $post['page']?$post['page']:1;
         $evaluate =  $this->alias('e')
             ->join('xueches_user u ON u.id=e.uid')
-            ->field('e.id,u.truename,e.content,e.ntime,e.score')
+            ->field('e.id,u.truename,e.content,e.ntime,e.score,e.append')
             ->where($where)
             ->page($page,$num)->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
-            $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');
-            $evaluate[$k]['reply'] = M('EvaluateReply')->field('content,ntime')->order('ntime desc')->where(array('eid'=>$v['id']))->select();
-        }
-
-        if($post['until']){
-            foreach($evaluate as $k1=>$v1){
-                if($v1['ucontent'] == ''){
-                    unset($evaluate[$k1]);
-                }
+            if($v['append']){
+                $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');
             }
+            $evaluate[$k]['reply'] = M('EvaluateReply')->field('content,ntime')->order('ntime desc')->where(array('eid'=>$v['id']))->select();
         }
         return $evaluate;
     }

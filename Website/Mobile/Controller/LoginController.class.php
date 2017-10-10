@@ -49,7 +49,7 @@ class LoginController extends Controller{
             'fontSize' => 80,
             'length'   => 4,
             'userCurve'=>false,
-            'useNoise'=>false,
+//            'useNoise'=>false,
             'codeSet' => '1234567890'
         );
         $verify = new \Think\Verify($config);
@@ -97,7 +97,7 @@ class LoginController extends Controller{
             $this->display();
         }
     }
-//验证后台是否有
+//登录时验证手机号是否存在
     public function checkPhone(){
         $account=trim(I('username'));
         $id=M('user')->where(array('account'=>$account))->getField('id');
@@ -105,6 +105,16 @@ class LoginController extends Controller{
             echo  'false';
         }else{
             echo  'true';
+        }
+    }
+//重设密码时查看手机是否是在是用户注册的手机号
+    public function chkTel(){
+        $account=trim(I('username'));
+        $info = M('user')->where(array('id'=>session('mid')))->getField('account');
+        if($info == $account){
+            echo  'true';
+        }else{
+            echo  'false';
         }
     }
 /*

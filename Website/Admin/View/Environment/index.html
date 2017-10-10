@@ -18,7 +18,7 @@
 <body>
 <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
     教学环境
-    <a style="text-decoration: none;color:#fa7124" href="{:U('Admin/School/jx_list')}">【返回】</a>
+    <a style="text-decoration: none;color:#fa7124" href="{:U('Admin/School/jx_list',array('type'=>$get['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
     <span style="float: right;margin-right: 1%">总计：{$count}</span>
 </div>
 <div style="font-size: 13px;margin: 10px 5px">
@@ -26,7 +26,7 @@
         <table  class="table_a" style="border:1px solid  rgb(129, 191, 249);width: 100%">
             <tr>
                 <input type="hidden" name='id' id="pid" value="{$id}"/>
-                <input type="hidden" name='type' id="type" value="{$type}"/>
+                <input type="hidden" name='type' id="type" value="{$get['type']}"/>
                 <td colspan='2'>{$nickname}</td>
                 <td colspan='3'>
                     <ul>

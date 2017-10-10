@@ -81,16 +81,17 @@ class TrainAddressController extends CommonController {
     }
 
     public function train_Address(){
+        $this->assign('get',$_GET);
         $type=$_GET['type'];
         switch ($type){
             case 'jx':
-                $url='School/jx_list?pid='.$_GET['pid'];
+                $url='School/jx_list?pid='.$_GET['pid']."&p=".$_GET['p'].'&type='.$_GET['type'];
                 break;
             case 'jl':
-                $url='Coach/index_list?pid='.$_GET['pid'];
+                $url='Coach/index_list?pid='.$_GET['pid']."&p=".$_GET['p'].'&type='.$_GET['type'];
                 break;
             case 'zd':
-                $url='Guider/index_list?pid='.$_GET['pid'];
+                $url='Guider/index_list?pid='.$_GET['pid']."&p=".$_GET['p'].'&type='.$_GET['type'];
                 break;
         }
         $where['id']=$_GET['id'];
@@ -106,14 +107,11 @@ class TrainAddressController extends CommonController {
         /*驾校所在的城市的总的基地*/
         $train=M('trainaddress')->field("id,trname,address")->where("cityid={$data['cityid']}")->select();
         $this->assign("train",$train);
-        $this->assign("type",$type);
         $this->assign("url",$url);
-        $this->assign("pid",$_GET['pid']);
         $this->display();
     }
     //更新基地
     function trainsave(){
-//        $type=$_POST['type'];
         $trainaddress_id=$_POST['trainaddress_id'];
         $strId='';
         foreach($trainaddress_id as $v){
@@ -131,7 +129,7 @@ class TrainAddressController extends CommonController {
             $res=M('train')->add($_POST);
         }
         if($res){
-            $url=U('Admin/TrainAddress/train_Address?id='.$_POST['type_id'].'&type='.$_POST['type']);
+            $url=U('Admin/TrainAddress/train_Address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
             $this->success(1,$url);
         }else{
             $this->error(0);

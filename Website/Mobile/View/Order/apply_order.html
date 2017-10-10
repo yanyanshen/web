@@ -17,8 +17,7 @@
     <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <style>
-        input.error { background: #ffdbb3;}
-        span.error{position: absolute;color:#ff0300;display: block;font-weight: bold;font-size: 12px;  }
+        span.error{position: absolute;color:#FA7124;display: block;font-weight: bold;font-size: 11px;left: 20px}
         span.ok {color: #289628;}
     </style>
 </head>
@@ -34,10 +33,10 @@
                 address:{ required:true}
             },
             messages: {
-                account: {required: '姓名不能为空'},
-                name: {required: '姓名不能为空'},
-                phone: {required: '手机号不能为空'},
-                address: {required: '地址不能为空'}
+                account: {required: '*必填项'},
+                name: {required: '*必填项'},
+                phone: {required: '*必填项'},
+                address: {required: '*必填项'}
             },
             success: function(span) {
                 span.addClass("ok").text('OK');
@@ -49,7 +48,7 @@
         jQuery.validator.addMethod("phone", function(value, element) {
             var mobileReg = /^1[34578]{1}[0-9]{9}$/;
             return this.optional(element) || (mobileReg.test(value));
-        }, "请正确填写您的手机号");
+        }, "*手机格式错误");
     })
 </script>
 <body>
@@ -88,9 +87,9 @@
                 <div id="user"></div>
                 <div class="apply">
                     <label class="label">报名人数</label>
-                    <input type="button" value="-" onclick="down_num()" style="border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6%" />
+                    <input type="button" value="-" onclick="down_num()" style="-webkit-appearance:none;border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6%" />
                     <input class="user" style="width: 7%;border:1px solid #a9a9a9;text-align:center;margin-left: 6%" type="text" name="num" value="1" readonly placeholder="1" >
-                    <input type="button" value="+" onclick="add_num()" style="border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6%" />
+                    <input type="button" value="+" onclick="add_num()" style="-webkit-appearance:none;border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6%" />
                 </div>
                 <script>
                     function add_num(){
@@ -118,7 +117,7 @@
                 </script>
                 <div class="apply">
                     <label class="label">类型：</label>
-                    <input class="user" style="background: none" type="text" name="nickname" value="{$nickname}" disabled="disabled">
+                    <input class="user" type="text" style="-webkit-appearance:none;"  name="nickname" value="{$nickname}" readonly>
                 </div>
                 <div class="apply">
                     <label class="label">培训课程</label>
@@ -126,7 +125,7 @@
                         {$name['name']}
                     </a>
                 </div>
-                <div class="apply" style="height: 60px">
+                <div class="apply" style="height:80px">
                     <label class="apply_order">报名方式</label>
                     <ul class="apply_od">
                         <li>
@@ -141,11 +140,12 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="apply" style="border:1px solid red">
+
+                <div class="apply">
                     <label class="ap_note">地址</label>
-                    <input class="message" type="text" name="address" placeholder="请输入所在地址" required>
+                    <input class="message" type="text" width="20" name="address" placeholder="请输入所在地址" required>
                 </div>
-                <div class="apply" style="margin-bottom:70px;">
+                <div class="apply"  style="margin-bottom:60px;">
                     <label class="ap_note">备注</label>
                     <input class="message" type="text" name="inform" placeholder="更多">
                 </div>
@@ -154,7 +154,7 @@
 
     <footer id="footer">
         <div class="apply_submit">
-            <input type="submit"   id="btn2" value="马上报名">
+            <input type="submit"  style="-webkit-appearance:none;" id="btn2" value="马上报名">
         </div>
     </footer>
     </form>

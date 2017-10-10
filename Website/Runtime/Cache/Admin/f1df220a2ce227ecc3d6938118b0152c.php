@@ -23,9 +23,6 @@
             font-weight: bold;
             color: #38D63B;
         }
-        #changePwd{
-            cursor: pointer;
-        }
     </style>
 
     <script language="javascript">

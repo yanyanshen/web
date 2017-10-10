@@ -6,13 +6,13 @@
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
         <style>
-            #page a,#page span{
-                display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-                text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
-            }
-            #page a:hover{background:#F27602;color:#FF0000;}
-            #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-            #page{ float: right; }
+            /*#page a,#page span{*/
+                /*display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;*/
+                /*text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;*/
+            /*}*/
+            /*#page{ float: right; }*/
+            /*#page a:hover{background:#F27602;color:#FF0000;}*/
+            /*#page span{ background:#F27602; color:#FF0000; font-weight: bold;}*/
 
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
             .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
@@ -27,11 +27,11 @@
                     <input type="hidden" name='id' value="{$get['id']}"/>
                     <input type="hidden" name='p' value="{$get['p']}"/>
                     <input type="hidden" name='type' value="{$get['type']}"/>
-
                     <input type="hidden" name='nickname' value="{$nickname}"/>
                     <input type="submit" value="课程添加"/>
                 </form>
             </div>
+            <a style="text-decoration: none;color: #fa7142;font-weight: bold"  href="{$url}" >【返回】</a>
             <span style="margin-right: 1%;float: right">总计：{$count}</span>
         </div>
         <form action="{:U('trainsave')}" method="post">
@@ -99,7 +99,7 @@
                             <input type="button" value="{$v['recommand']==1?'取消':'支持'}" class="btn" btn="recommand" tid="{$v.id}"/>
                         </td>
 	                	<td>
-	                	<a href="{:U('edit_class?type='.$type.'&id='.$v['id'])}">编辑</a>
+	                	<a href="{:U('edit_class?type='.$get['type'].'&id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
 	                		<a href="{:U('del_class?id='.$id.'&t=jx&p='.$p.'&iid='.$v['id'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
 	                	</td>
 	                </tr>
@@ -107,9 +107,9 @@
                 </table>
         </div>
        </form>
-        <div id="page" style="float: left">
+      <!--  <div id="page" style="float: left">
             {$page}
-        </div>
+        </div>-->
     </body>
 </html>
 

@@ -73,7 +73,6 @@
                     </td>
                     <td>{$v.cityname}</td>
                     <td>{$v.nickname}<br>
-                        {$v.hot}
                         <span style="color: #20c318">
                             <if condition="$v.hot eq 1">热搜</if>
                             <if condition="$v.recommand eq 1">推荐</if>
@@ -81,19 +80,19 @@
                         </span>
                     </td>
                     <td>{$v.address}</td>
-                    <td><a href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'])}">查看</a></td>
+                    <td><a href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     <td>
-                        <a href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>'jx'))}">{$v.class_num}个课程</a>
+                        <a href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">{$v.class_num}个课程</a>
                     </td>
                     <td>{$v.student_num}个学员</td>
                     <td>{$v.coach_num}个教练</td>
-                    <td><a href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'])}">查看</a></td>
+                    <td><a href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     <td>{$v.score}</td>
                     <td>{$v.connectteacher}</td>
                     <td>{$v.lastupdate}</td>
                     <td>
-                        <a href="{:U('Admin/Environment/index',array('id'=>$v['id'],'type'=>$v['type']))}">驾考环境</a>
-                        <a href="{:U('Admin/School/jx_editor?id='.$v['id'])}">编辑</a>　
+                        <a href="{:U('Admin/Environment/index',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">驾考环境</a>
+                        <a href="{:U('Admin/School/jx_editor?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>　
                         <a href="{:U('Admin/School/del_school?id='.$v['id'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
                 </tr>
         </volist>

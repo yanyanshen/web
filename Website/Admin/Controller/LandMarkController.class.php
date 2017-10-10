@@ -77,34 +77,36 @@ class LandMarkController extends CommonController{
     //点查看可以看到驾校、教练、指导员 的地标
     public function see_land(){
         $type=$_GET['type'];
+        $this->assign('get',$_GET);
         switch ($type){
             case 'jx':
-                $url='School/jx_list?pid='.$_GET['pid'];
+                $url='School/jx_list?pid='.$_GET['pid']."&p=".$_GET['p'].'&type='.$_GET['type'];
                 break;
             case 'jl':
-                $url='Coach/index_list?pid='.$_GET['pid'];
+                $url='Coach/index_list?pid='.$_GET['pid']."&p=".$_GET['p'].'&type='.$_GET['type'];
                 break;
             case 'zd':
-                $url='Guider/index_list?pid='.$_GET['pid'];
+                $url='Guider/index_list?pid='.$_GET['pid']."&p=".$_GET['p'].'&type='.$_GET['type'];
                 break;
         }
         $id=$_GET['id'];
         $info=M('school')->field('id,nickname,cityid')->where("id=$id")->find();
         $cityid=$info['cityid'];
-        $county=M('countys')->field("id,countyname")->where("cityid=$cityid")->select();
 
+        $county=M('countys')->field("id,countyname")->where("cityid=$cityid")->select();
+//        print_r($county);
+//        exit;
         //找到该用户已经有的地标
         $land=$this->returnland($id);
 
         //遍历找各自区、县的地标
         foreach ($county as $k=>$v){
-            $county[$k]['land']=M('landmark')->field("id,landname")->where("countyid={$v['id']}")->select();
+            $county[$k]['land']=M('landmark')->field("id,landname")->where("masterid={$v['id']}")->select();
         }
         $this->assign('county',$county);
         $this->assign('land',$land);
         $this->assign('id',$id);
         $this->assign('info',$info);
-        $this->assign('type',$type);
         $this->assign('url',$url);
         $this->display();
     }
@@ -153,6 +155,6 @@ class LandMarkController extends CommonController{
         }else{
             $message="<script>alert('更新失败')</script>";
         }
-        $this->redirect("see_land",array('id'=>$id,'type'=>$type),0,$message);
+        $this->redirect("see_land",array('id'=>$id,'type'=>$type,'pid'=>$_POST['pid'],'p'=>$_POST['p']),0,$message);
     }
 }

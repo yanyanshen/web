@@ -1,0 +1,29 @@
+[ 2017-10-10T09:10:25+08:00 ] 127.0.0.1 /Home/Index/index?id=%200
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: schools F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 123 行.
+NOTIC: [8] Undefined variable: empty F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 130 行.
+NOTIC: [8] Undefined variable: coachs F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 140 行.
+NOTIC: [8] Undefined variable: empty F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 155 行.
+NOTIC: [8] Undefined variable: offers F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 165 行.
+NOTIC: [8] Undefined variable: empty F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 180 行.
+NOTIC: [8] Undefined variable: hots F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 250 行.
+NOTIC: [8] Undefined variable: empty F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 258 行.
+NOTIC: [8] Undefined variable: hotsRight F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 263 行.
+NOTIC: [8] Undefined variable: empty F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 276 行.
+NOTIC: [8] Undefined variable: hotsRight1 F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 279 行.
+NOTIC: [8] Undefined variable: empty F:\WWW\xctest\Website\Runtime\Cache\Home\679a343d5252f05c7547d3d23e88e934.php 第 292 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+

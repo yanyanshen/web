@@ -7,6 +7,9 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
     <style type="text/css">
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        .table_a tr:hover{background-color: rgb(82, 249, 56)  }
     </style>
 </head>
 <script>
@@ -29,21 +32,20 @@
 </script>
 <body>
 
-<div class="div_head">
-            <span>
-                <span style="float:left">当前位置是：系统管理-》编辑课程</span>
-                <span style="float:right;margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none" href="{:U(Train_class.'?id='.$data['id'].'&type='.$data['type'])}">【返回】</a>
-                </span>
-            </span>
+<div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+    <span>课程编辑</span>
+    <span style="margin-right: 8px;font-weight: bold">
+        <a style="text-decoration: none;color:#FA7124" href="{$url}">【返回】</a>
+    </span>
 </div>
-<div></div>
 <form action="#" method="post" id="form1">
     <div style="font-size: 13px;margin: 10px 5px">
-        <table border="1" width="100%" class="table_a">
-            <tr>
-                <input type="hidden" name='id' value="{$data.tid}"/>
-                <input type="hidden" name='type' value="{$data.type}"/>
+        <table  width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
+            <tr style="height:36px;font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff">
+                <input type="hidden" name='id' value="{$get['id']}"/>
+                <input type="text" name='p' value="{$get['p']}"/>
+                <input type="hidden" name='pid' value="{$get['pid']}"/>
+                <input type="hidden" name='type' value="{$get['type']}"/>
                 <input type="hidden" name='school_id' value="{$data.id}"/>
                 <td colspan='2'>
                     <if condition="$data.type eq 'jx'">驾校：</if>

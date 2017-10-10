@@ -37,7 +37,9 @@
             <table  width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
                 <tr>
                 <input type="hidden" name='type_id' value="{$id}"/>
-                 <input type="hidden" name='type' value="{$type}"/>
+                 <input type="hidden" name='type' value="{$get['type']}"/>
+                 <input type="hidden" name='pid' value="{$get['pid']}"/>
+                 <input type="hidden" name='p' value="{$get['p']}"/>
                     <td colspan='2'>{$user.nickname}　城市：{$cityname}</td>
                     <td ><input type="submit"  value="保存" id="submit"/></td>
                 </tr>

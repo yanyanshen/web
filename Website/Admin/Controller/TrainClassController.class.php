@@ -5,7 +5,7 @@ use Think\Page;
 use Admin\Common\Controller\CommonController;
 class TrainClassController extends CommonController {
     //课程管理
-    function Train_class(){
+    function train_class(){
         $type=$_GET['type'];
        $field="tr.id,tr.name,tr.cartype,tr.way,tr.officeprice,tr.wholeprice,tr.advanceprice,tr.timing,tr.week,
             tr.include,tr.hot,tr.waittime,tr.class_type,tr.type,tr.recommand,tr.shuttle_way,tr.class_time2,
@@ -14,20 +14,21 @@ class TrainClassController extends CommonController {
         $count=M('trainclass')
             ->table('xueches_trainclass tr,xueches_type jztype')
             ->where($where)->count();
-        $page=new Page($count,4);
-        $show=$page->show();
+//        $page=new Page($count,4);
+//        $show=$page->show();
         $class=M('trainclass')
             ->table('xueches_trainclass tr,xueches_type jztype')
             ->field($field)
             ->where($where)
-            ->limit($page->firstRow.','.$page->listRows)
+//            ->limit($page->firstRow.','.$page->listRows)
             ->select();
+        //        $this->assign('firstRow',$page->firstRow);
+//        $this->assign('page',$show);
         $this->assign('class',$class);
-        $this->assign('firstRow',$page->firstRow);
-        $this->assign('page',$show);
         $nickname=M('School')->where(array('id'=>$_GET['id']))->getField('nickname');
         $this->assign('nickname',$nickname);
         $this->assign('get',$_GET);
+        $this->assign('url',U('Admin/School/jx_list',array('pid'=>I('pid'),'p'=>I('p'))));
         $this->assign('count',$count);
        $this->display();
     }
@@ -53,7 +54,7 @@ class TrainClassController extends CommonController {
         if(IS_AJAX){
             $res=M('trainclass')->where(array('id'=>$_POST['id']))->save($_POST);
             if($res){
-                $url=U('Admin/TrainClass/Train_class?id='.$_POST['school_id'].'&type='.$_POST['type']);
+                $url=U('Admin/TrainClass/train_class?id='.$_POST['school_id'].'&type='.$_POST['type'].'&pid='.$_POST['pid'].'&p='.$_POST['p']);
                 $this->success(1,$url);
             }else{
                 $this->error(0);
@@ -72,6 +73,8 @@ class TrainClassController extends CommonController {
             $jztype=M('type')->select();
             $this->assign('jztype',$jztype);
             $this->assign('data',$data);
+            $this->assign('get',$_GET);
+            $this->assign('url',U('Admin/TrainClass/train_class',array('id'=>$data['type_id'],'pid'=>$_GET['pid'],'type'=>$_GET['type'])));
             $this->display();
         }
     }

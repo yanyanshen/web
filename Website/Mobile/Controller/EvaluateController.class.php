@@ -51,6 +51,7 @@ class EvaluateController extends CommonController{
                     $last_id = M('EvaluateUntil')->add($_POST);
                     if($last_id){
                         M('EvaluateUntil')->commit();
+                        M('Evaluate')->where(array('id'=>$_POST['eid']))->save(array('append'=>1));
                         M('Order')->where(array('id'=>$_POST['oid']))->save(array('status'=>6));
                         $log['done'] = '追加评价';
                         $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];

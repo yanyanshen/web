@@ -11,10 +11,14 @@
         <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
+        <style>
+            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        </style>
     </head>
     <script>
         var uploadUrl = '{:U("uploadMulPic")}';
-        var listUrl = '{:U("index")}';
+//        var listUrl = '{:U("index")}';
         $(function(){
             $("#jx_editor").click(function(){
                 $('#jx_editor').attr('disabled',true);
@@ -23,11 +27,11 @@
                         $('.uploadBtn').click();
                         setTimeout(function() {
                             alert('编辑成功');
-                            location.href="{:U('Admin/School/jx_list')}";
+                            location.href=res.url;
                         },3000);
                     }else{
                         alert('驾校名称已存在,请重新编辑');
-                        location.href="{:U('Admin/School/add_jx')}";
+                        location.href=res.url;
                     }
                 },'json');
                 return false;
@@ -36,23 +40,18 @@
 
     </script>
 
-    <body>
-
-        <div class="div_head">
-            <span>
-                <span style="float:left">当前位置是：驾校管理-》驾校详情</span>
-                <span style="float:right;margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none" href="{:U('jx_list?p='.$p)}">【返回】</a>
-                </span>
-            </span>
-        </div>
-        <div></div>
-
-        <div style="font-size: 13px;margin: 10px 5px">
+<body>
+    <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-size: 15px">
+        驾校编辑
+        <a style="text-decoration: none;font-weight: bolder;color: red" href="{:U('jx_list',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+    </div>
+    <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('Admin/School/jx_editor')}" method="post" enctype="multipart/form-data" id="form1">
-            <table border="1" width="100%" class="table_a">
-                <tr>
                 <input type="hidden" name='id' value="{$id}"/>
+                <input type="hidden" name='pid' value="{$get['pid']}"/>
+                <input type="hidden" name='p' value="{$get['p']}"/>
+                <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
+                <tr>
                     <td width="7%">驾校账号</td>
                     <td><input type="text" name="account" value="{$jx.account}" /></td>
                 </tr>
@@ -84,7 +83,6 @@
                     <td>地址</td>
                     <td>
                         <input type="text" name="address" id="address" value="{$jx['address']}"/>
-                        <input type="button" value="定位" onclick="searchByStationName();" />
                     </td>
                     <div id="container"
                          style="position: absolute;
@@ -150,14 +148,6 @@
                     <td>评分</td>
                     <td><input type="text" name="score" value="{$jx['score']}" /></td>
                 </tr>
-                 <!--<tr>-->
-                    <!--<td>火热报名</td>-->
-                    <!--<td><label><input type="radio" name='hotflag' value=1 {$jx['hotflag']==1?'checked':''}/>是</label><label><input type="radio" name='hotflag' value=0 {$jx['hotflag']==0?'checked':''}/>否</label></td>-->
-                <!--</tr>-->
-                 <!--<tr>-->
-                    <!--<td>是否推荐</td>-->
-                   <!--<td><label><input type="radio" name='recommendflag' value=1 {$jx['recommendflag']==1?'checked':''}/>是</label><label><input type="radio" name='recommendflag' value=0 {$jx['recommendflag']==0?'checked':''}/>否</label></td>-->
-                <!--</tr>-->
                  <tr>
                     <td>评论数</td>
                     <td><input type="text" name="evalutioncount" value="{$jx['evalutioncount']}" /></td>
@@ -178,8 +168,6 @@
                     <td>联系人/联系方式</td>
                     <td><input type="text" name="connectteacher" value="{$jx['connectteacher']}"/>（姓名 空格 手机号）</td>
                 </tr>
-
-
                  <tr>
                     <td>驾校简介</td>
                     <td><textarea name="introduction" cols="80" rows="10">{$jx['introduction']}</textarea></td>
@@ -192,26 +180,9 @@
             </table>
             </form>
         </div>
-    </body>
+</body>
 </html>
 <script>
-    var map = new BMap.Map("container");
-    var change = function(sel){
-        var city=sel.value;
-        var map = new BMap.Map("container");
-        map.centerAndZoom(city, 12);
-    };
-
-    var localSearch = new BMap.LocalSearch(map);
-    localSearch.enableAutoViewport(); //允许自动调节窗体大小
-    function searchByStationName() {
-        var keyword = document.getElementById("keyword").value;
-        localSearch.setSearchCompleteCallback(function (searchResult) {
-            var poi = searchResult.getPoi(0);
-            document.getElementById("address").value = poi.address;  //获取经度和纬度，将结果显示在文本框中
-        });
-        localSearch.search(keyword);
-    }
 
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 200;

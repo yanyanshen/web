@@ -53,26 +53,6 @@ class DetailController extends Controller{
  * 评论页面
  */
     public function evaluate(){
-        if(I('status') == 'total'){
-            session('new',null);
-            session('until',null);
-            session('total',1);
-            $_POST['total'] = 1;
-        }elseif(I('status') == 'new'){
-            session('new',1);
-            session('total',null);
-            session('until',null);
-            $_POST['new'] = 1;
-        }elseif(I('status') == 'until'){
-            session('new',null);
-            session('total',null);
-            session('until',1);
-            $_POST['until'] = 1;
-        }else{
-            session('until',null);
-            session('total',1);
-        }
-
         if(IS_AJAX){
             $_POST['id'] = session('sid');
             if(session('total')){
@@ -92,6 +72,26 @@ class DetailController extends Controller{
                 echo json_encode($evaluate);
             }
         }else{
+            if(I('status') == 'total'){
+                session('new',null);
+                session('until',null);
+                session('total',1);
+                $_POST['total'] = 1;
+            }elseif(I('status') == 'new'){
+                session('new',1);
+                session('total',null);
+                session('until',null);
+                $_POST['new'] = 1;
+            }elseif(I('status') == 'until'){
+                session('new',null);
+                session('total',null);
+                session('until',1);
+                $_POST['until'] = 1;
+            }else{
+                session('new',null);
+                session('total',null);
+                session('until',null);
+            }
             $id = I('id');
             if($id){
                 session('sid',I('id'));
@@ -102,7 +102,11 @@ class DetailController extends Controller{
             $date = date('Y-m-t',strtotime('-1 month'));
             $total = M('evaluate')->where(array('sid'=>$id))->count();
             $new = M('evaluate')->where(array('sid'=>$id,"ntime > '$date'"))->count();
-            $until = M('evaluate')->alias('e')->join('xueches_evaluate_until ep ON e.id = ep.eid')->count();
+            $until = M('evaluate')
+                ->alias('e')
+                ->join('xueches_evaluate_until ep ON e.id = ep.eid')
+                ->where("e.sid = $id and e.append = 1")
+                ->count();
             $this->assign('total',$total);
             $this->assign('until',$until);
             $this->assign('new',$new);
