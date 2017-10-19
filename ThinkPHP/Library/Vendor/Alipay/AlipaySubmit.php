@@ -123,5 +123,43 @@ class AlipaySubmit {
 		
 		return $encrypt_key;
 	}
+
+
+    /**
+     * 建立请求，以模拟远程HTTP的POST请求方式构造并获取支付宝的处理结果
+     * @param $para_temp 请求参数数组
+     * @return 支付宝处理结果
+     */
+    function buildRequestHttp($para_temp) {
+        $sResult = '';
+
+        //待请求参数数组字符串
+        $request_data = $this->buildRequestPara($para_temp);
+
+        //远程获取数据
+        $sResult = getHttpResponsePOST($this->alipay_gateway_new, $this->alipay_config['cacert'],$request_data,trim(strtolower($this->alipay_config['input_charset'])));
+
+        return $sResult;
+    }
+
+    /**
+     * 建立请求，以模拟远程HTTP的POST请求方式构造并获取支付宝的处理结果，带文件上传功能
+     * @param $para_temp 请求参数数组
+     * @param $file_para_name 文件类型的参数名
+     * @param $file_name 文件完整绝对路径
+     * @return 支付宝返回处理结果
+     */
+    function buildRequestHttpInFile($para_temp, $file_para_name, $file_name) {
+
+        //待请求参数数组
+        $para = $this->buildRequestPara($para_temp);
+        $para[$file_para_name] = "@".$file_name;
+
+        //远程获取数据
+        $sResult = getHttpResponsePOST($this->alipay_gateway_new, $this->alipay_config['cacert'],$para,trim(strtolower($this->alipay_config['input_charset'])));
+
+        return $sResult;
+    }
+
 }
 ?>

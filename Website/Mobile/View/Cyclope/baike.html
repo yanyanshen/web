@@ -34,21 +34,14 @@
             <div class="baike-box">
                 <div class="hot-topic">
                     <ul><li>热门话题</li></ul>
-                    <a href="{:U('Mobile/Cyclope/baike_detail')}">
-                        <div class="topic1">
-                            <div class="topic-img"><img src="__STATIC__/cyclope/images/vedio01.png"></div>
-                            <p>“老司机”带带我</p>
-                        </div>
-                    </a>
-
-                    <div class="topic1">
-                        <div class="topic-img"><img src="__STATIC__/cyclope/images/vedio02.png"></div>
-                        <p>堵在路上是怎样的</p>
-                    </div>
-                    <div class="topic1">
-                        <div class="topic-img"><img src="__STATIC__/cyclope/images/vedio03.png"></div>
-                        <p>路考堵车怎么办？</p>
-                    </div>
+                    <volist name="info" id="v">
+                        <a href="{:U('Mobile/Cyclope/baike_detail',array('id'=>$v['id'],'kemu'=>$v['type']))}">
+                            <div class="topic1">
+                                <div class="topic-img"><img src="{$v['picurl']}"></div>
+                                <p>{$v['title']|substring=0,10,'utf-8'}</p>
+                            </div>
+                        </a>
+                    </volist>
                     <div class="clearfix"></div>
                 </div>
                 <div class="hot-sort1" style="margin-bottom: 50px">

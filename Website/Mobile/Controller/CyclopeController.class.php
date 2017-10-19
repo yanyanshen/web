@@ -3,8 +3,16 @@ namespace Mobile\Controller;
 use Think\Controller;
 class CyclopeController extends Controller{
     public function baike(){
+        //展示热门话题
+        $this->set_header();
         $this->display();
     }
+/*------------------------------------2017-10-19热门话题展示-------------------------------------*/
+    public function set_header(){
+        $info = M('cyclope')->where(array('set_header'=>1))->field('id,title,picurl,type')->select();
+        $this->assign('info',$info);
+    }
+/*------------------------------------2017-10-19热门话题展示-------------------------------------*/
 /*科目展示*/
     public function kemu(){
         $kemu = I('kemu');
@@ -15,7 +23,6 @@ class CyclopeController extends Controller{
             }
         }
         $this->assign('info',$info);
-        $this->assign('http',C('http'));
         $this->assign('kemu',$kemu);
         $this->assign('empty',"<h1>暂无内容</h1>");
         $this->display();
@@ -29,11 +36,8 @@ class CyclopeController extends Controller{
             ->order("od desc")
             ->select();
         M('cyclope')->where("id = $id")->setInc('count',1);
-//        print_r($info);
-
         $this->assign('info',$info);
         $this->assign('kemu',I('kemu'));
-        $this->assign('http',C('HTTP'));
         $this->assign('empty',"<h1>暂无内容</h1>");
         $this->display();
     }

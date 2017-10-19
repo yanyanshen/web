@@ -47,7 +47,7 @@ class OrderController extends Controller{
     public function pay_money(){
         switch($_POST['pay_way']){
             case 'alipay':
-                $act = A('Pay');
+                $act = D('Pay');
                 $data['pay_type'] = 1;
                 M('order')->where(array('ordcode'=>$_POST['ordcode']))->save($data);
                 $act->pay_money($_POST);

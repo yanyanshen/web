@@ -64,7 +64,7 @@
                 </tr>
                 <volist name="info" id="v" key="k" empty="$empty">
                     <tr>
-                        <td>{$v.id}</td>
+                        <td><span style="{$v['set_header']?'color: #fa7124;font-weight: bold;':''}">{$v.id}</span>  </td>
                         <td><img src="{$v.picurl}" alt="" width="100"/></td>
                         <td>{$v['title']}</td>
                         <td>{$v['content']}</td>
@@ -72,7 +72,9 @@
                         <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                         <td>{$v['update']}</td>
                         <td>
-                            <!--<a href="{:U('Admin/Cyclope/add_video',array('id'=>$v['id'],'type'=>1,'pid'=>$get['pid'],'p'=>$get['p']))}">视频</a>-->
+                            <a href="{:U('Admin/Cyclope/set_header',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
+                                {$v['set_header']?'取消置顶':'置顶'}
+                            </a>
                             <a href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
                             <a id="del" href="{:U('Admin/Cyclope/del_cyclope',array('type_id'=>$v['id'],'pid'=>$pid))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
                         </td>

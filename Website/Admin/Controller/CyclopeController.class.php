@@ -27,7 +27,7 @@ class CyclopeController extends CommonController{
         $page = new Page($count,7);
         $info = M('cyclope')
             ->where($where)
-            ->order('ntime desc')
+            ->order('set_header desc,ntime desc')
             ->limit($page->firstRow.','.$page->listRows)
             ->select();
         $show = $page->show();
@@ -191,13 +191,28 @@ class CyclopeController extends CommonController{
                 }
             }
         }else{
-            print_r($_GET);
             $this->assign('url',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
             $this->assign('get',$_GET);
             $this->display();
         }
     }
 /*-------------------------------2017-10-17腾讯云存储视频图片代码---------------------------------------------*/
+
+/*-------------------------------2017-10-19百科置顶操作---------------------------------------------*/
+    public function set_header(){
+        $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('set_header');
+        if($set_header == 0){
+            $data['set_header'] = 1;
+        }else{
+            $data['set_header'] = 0;
+        }
+        $res = M('Cyclope')->where(array('id'=>I('id')))->save($data);
+        if($res){
+            $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
+        }
+    }
+/*-------------------------------2017-10-19百科置顶操作---------------------------------------------*/
+
 
 /*删除*/
     function del_cyclope(){

@@ -9,8 +9,7 @@ class UserController extends Controller{
 
     //用户中心模板渲染
     public function user_center(){
-        print_r(aa());
-        exit;
+        $html = D('Pay')->trade_query();
         $user=M('user')->where(array('id'=>session('mid')))->find();
         $this->assign('user',$user);
         $this->display();

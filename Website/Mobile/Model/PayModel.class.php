@@ -1,7 +1,7 @@
 <?php
-namespace Mobile\Controller;
-use Think\Controller;
-class PayController extends Controller{
+namespace Mobile\Model;
+use Think\Model;
+class PayModel extends Model{
  public function _empty($name){
         //把所有城市的操作解析到city方法
         echo "页面有误";
@@ -207,25 +207,39 @@ class PayController extends Controller{
 //        echo '';
     }
 
-    public function pay_fail(){
-        echo '支付失败';
-    }
-    public function pay_success(){
-        $ordcode = I('ordcode');
-        $info = M('order')->field('trade_no,create_time,total_fee')->where(array('ordcode'=>$ordcode))->find();
-        $this->assign('info',$info);
-        $this->display();
-    }
+
 
 /*----------------------------------------------2017-10-19调用查询支付账单接口---------------------------------------*/
     public function trade_query(){
+        $alipay_config['partner']		= '2088111222703104';
+
+//安全检验码，以数字和字母组成的32位字符
+        $alipay_config['key']			= 'pui5l1oeom3cost729t5fyvibx43ptap';
+
+
+//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+
+//签名方式 不需修改
+        $alipay_config['sign_type']    = strtoupper('MD5');
+
+//字符编码格式 目前支持 gbk 或 utf-8
+        $alipay_config['input_charset']= strtolower('utf-8');
+
+//ca证书路径地址，用于curl中ssl校验
+//请保证cacert.pem文件在当前文件夹目录中
+        $alipay_config['cacert']    = getcwd().'\\cacert.pem';
+
+//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+        $alipay_config['transport']    = 'http';
         $alipay_config = C('alipay_config');
 //请求参数
         //支付宝交易号
 //        $trade_no = $_POST['WIDtrade_no'];
-        $trade_no ='201708108d11dfabb57aa5';
+        $trade_no ='2017092721001004330515978877';
         //支付宝交易号与商户网站订单号不能同时为空         //商户订单号
-        $out_trade_no = $_POST['WIDout_trade_no'];
+//        $out_trade_no = $_POST['WIDout_trade_no'];
+        $out_trade_no = '201708108d11dfabb57aa6';
 
         //构造参数
         //构造要请求的参数数组，无需改动
@@ -234,12 +248,30 @@ class PayController extends Controller{
             "partner" => trim($alipay_config['partner']),
             "trade_no"	=> $trade_no,
             "out_trade_no"	=> $out_trade_no,
-            "_input_charset"	=> trim(strtolower($alipay_config['input_charset']))
+            "_input_charset"	=> trim(strtolower($alipay_config['input_charset'])),
+            "cacert"	=> trim($alipay_config['cacert'])
         );
 
 //建立请求
-        $alipaySubmit = new \AlipaySubmit($alipay_config);
+        $alipaySubmit = new \AlipaySubmit($parameter);
+
         $html_text = $alipaySubmit->buildRequestHttp($parameter);
+        //解析XML
+//注意：该功能PHP5环境及以上支持，需开通curl、SSL等PHP配置环境。建议本地调试时使用PHP开发软件
+        $doc = new \DOMDocument();
+        $aa = $doc->loadXML($html_text);
+        dump($parameter);
+//请在这里加上商户的业务逻辑程序代码
+
+//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
+
+//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表
+
+//解析XML
+        if( ! empty($doc->getElementsByTagName( "alipay" )->item(0)->nodeValue) ) {
+            $alipay = $doc->getElementsByTagName( "alipay" )->item(0)->nodeValue;
+            echo $alipay;
+        }
     }
 /*----------------------------------------------2017-10-19调用查询支付账单接口---------------------------------------*/
 
