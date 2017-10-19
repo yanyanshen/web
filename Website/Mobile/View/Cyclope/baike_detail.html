@@ -67,49 +67,79 @@
                         <div class="gb_res_t"><span>分享到</span><i></i></div>
                         <div class="bdsharebuttonbox">
                             <ul class="gb_resItms">
-                                <li> <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin" ></a>微信好友 </li>
+                                <li> <a title="分享到微信" href="#" class="bds_weixin" onclick="weixin('http://m.e-iot.com/images/bg.jpg','www.baidu.com',title)" data-cmd="weixin" ></a>微信好友 </li>
                                 <li> <a title="分享到QQ好友" href="#" class="bds_sqq" data-cmd="sqq" ></a>QQ好友 </li>
                                 <li> <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone" ></a>QQ空间 </li>
                                 <li> <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq" ></a>腾讯微博 </li>
                                 <li> <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina" ></a>新浪微博 </li>
                             </ul>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function weixin(a,b,c){
+            document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
 
-</div>
 
-<script type="text/javascript">
-    var ShareURL = "";
-    $(function () {
-        $(".bdsharebuttonbox a").mouseover(function () {
-            ShareURL = $(this).attr("data-url");
-        });
-    });
+                window.shareData = {
+                    "imgUrl": a,
+                    "timeLineLink": b,
+                    "sendFriendLink": b,
+                    "weiboLink": b,
+                    "tTitle": c,
+                    "tContent": "8+1互助平台---营销型网站互助分享会",
+                    "fTitle": c,
+                    "fContent": "8+1互助平台---营销型网站互助分享会",
+                    "wContent": "8+1互助平台---营销型网站互助分享会"
+                };
 
-    function SetShareUrl(cmd, config) {
-        if (ShareURL) {
-            config.bdUrl = ShareURL;
+
+// 发送给好友
+                WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+                    WeixinJSBridge.invoke('sendAppMessage', {
+                        "img_url": window.shareData.imgUrl,
+                        "img_width": "640",
+                        "img_height": "640",
+                        "link": window.shareData.sendFriendLink,
+                        "desc": window.shareData.fContent,
+                        "title": window.shareData.fTitle
+                    }, function (res) {
+                        _report('send_msg', '111111');
+                    })
+                });
+
+
+// 分享到朋友圈
+                WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                    WeixinJSBridge.invoke('shareTimeline', {
+                        "img_url": window.shareData.imgUrl,
+                        "img_width": "640",
+                        "img_height": "640",
+                        "link": window.shareData.timeLineLink,
+                        "desc": window.shareData.tContent,
+                        "title": window.shareData.tTitle
+                    }, function (res) {
+                        _report('timeline', res.err_msg);
+                    });
+                });
+
+
+// 分享到微博
+                WeixinJSBridge.on('menu:share:weibo', function (argv) {
+                    WeixinJSBridge.invoke('shareWeibo', {
+                        "content": window.shareData.wContent,
+                        "url": window.shareData.weiboLink
+                    }, function (res) {
+                        _report('weibo', res.err_msg);
+                    });
+                });
+            }, false)
         }
-        return config;
-    }
-
-    window._bd_share_config = {
-        "common": {
-            onBeforeClick: SetShareUrl, "bdSnsKey": {}, "bdText": ""
-            , "bdMini": "2", "bdMiniList": false, "bdPic": "http://assets.jq22.com/plugin/2017-05-24-18-14-49.png", "bdStyle": "0", "bdSize": "24"
-        }, "share": {}
-    };
-
-    with (document) 0[(getElementsByTagName('head')[0] || body)
-            .appendChild(createElement('script'))
-            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
-            + ~(-new Date() / 36e5)];
-</script>
-
-
+    </script>
+</div>
 </body>
 </html>

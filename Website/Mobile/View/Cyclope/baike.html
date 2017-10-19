@@ -38,7 +38,7 @@
                         <a href="{:U('Mobile/Cyclope/baike_detail',array('id'=>$v['id'],'kemu'=>$v['type']))}">
                             <div class="topic1">
                                 <div class="topic-img"><img src="{$v['picurl']}"></div>
-                                <p>{$v['title']|substring=0,10,'utf-8'}</p>
+                                <p style="text-align: center">{$v['title']|mb_substr=0,8,utf8}...</p>
                             </div>
                         </a>
                     </volist>
