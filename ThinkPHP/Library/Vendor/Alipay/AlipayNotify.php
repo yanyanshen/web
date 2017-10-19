@@ -39,8 +39,7 @@ class AlipayNotify {
 	function verifyNotify(){
 		if(empty($_POST)) {//判断POST来的数组是否为空
 			return false;
-		}
-		else {
+		} else {
 			//生成签名结果
 			$isSign = $this->getSignVeryfy($_POST, $_POST["sign"]);
 			//获取支付宝远程服务器ATN结果（验证是否是支付宝发来的消息）

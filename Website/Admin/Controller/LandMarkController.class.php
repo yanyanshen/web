@@ -14,8 +14,10 @@ class LandMarkController extends CommonController{
             $cityid=$city[0]['id'];
             $this->assign('cityname',$city[0]['cityname']);
         }
+
         //区
         $county=D('countys')->Countys_list("cityid=$cityid","id,countyname",1);
+
         if(isset($_REQUEST['countyid'])){
             $countyid=$_REQUEST['countyid'];
             $info=D('countys')->Countys_list(array('id'=>$_REQUEST['countyid']),'countyname');
@@ -25,7 +27,7 @@ class LandMarkController extends CommonController{
             $this->assign('countyname',$county[0]['countyname']);
 
         }
-        $land=D('landmark')->lands_list("countyid='$countyid' and cityid=$cityid",'id,cityid,countyid,landname,longitude,latitude',1);
+        $land=D('Landmark')->lands_list("masterid=$countyid and cityid=$cityid",'id,cityid,masterid,landname,longitude,latitude',1);
         $this->assign("land",$land);
         $this->assign("cityid",$cityid);
         $this->assign("citys",$city);

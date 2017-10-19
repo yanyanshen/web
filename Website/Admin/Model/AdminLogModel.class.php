@@ -7,8 +7,7 @@ class AdminLogModel extends Model{
  * @param array $log 添加的数组
  * @param string $res 添加的日志的最后的id值
 */
-    public function addOrderLog($log)
-    {
+    public function addOrderLog($log){
         //添加日志
         if ($log) {
             $OrderLog['lastip'] = I("server.REMOTE_ADDR");

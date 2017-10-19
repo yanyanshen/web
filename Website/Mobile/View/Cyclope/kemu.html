@@ -41,13 +41,15 @@
                         <div class="kemuyi-list-img-box">
                             <div class="kemuyi-list-img">
                                 <a href="{:U('Mobile/Cyclope/baike_detail')}?id={$v['id']}&kemu={$kemu}">
-                                    <img src="{$http}/Uploads/cyclope_logo/{$v.picurl}{$v.picname}">
+                                    <img src="{$v.picurl}">
                                 </a>
                             </div>
                         </div>
                         <div class="kemuyi-list-text-box">
                                 <ul class="kemuyi-list-text">
-                                    <li class="kemuyi-list-head"><a href="{:U('Mobile/Cyclope/baike_detail')}?id={$v['id']}&kemu={$kemu}">{$v.title}</a></li>
+                                    <li class="kemuyi-list-head">
+                                        <a href="{:U('Mobile/Cyclope/baike_detail')}?id={$v['id']}&kemu={$kemu}">{$v.title}</a>
+                                    </li>
                                     <li class="kemuyi-list-note">
                                         <a href="{:U('Mobile/Cyclope/baike_detail')}?id={$v['id']}&kemu={$kemu}">
                                             {$v.title}

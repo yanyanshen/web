@@ -7,14 +7,14 @@
     <meta content="telephone=no" name="format-detection">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>全真模�?/title>
+    <title>全真模拟</title>
     <link href="__STATIC__/theory_study/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="__STATIC__/theory_study/css/style.css">
-    <link rel="stylesheet" href="__STATIC__/theory_study/css/mui.min.css">
-    <script src="__STATIC__/chapter_practice/js/mui.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
+    <script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
     <style>
         .options li{
             cursor: pointer;border-bottom: 1px solid #eee;
@@ -27,7 +27,7 @@
         <div class="header">
             <ul>
                 <li class="back"><a href=""><img src="__PUBLIC__/public/images/back.png"></a></li>
-                <li class="header_text">全真模�?/li>
+                <li class="header_text">全真模�?/li>
                 <div class="clearfix"></div>
             </ul>
         </div>
@@ -36,17 +36,17 @@
     <div class="main_box">
         <div class="mui-slider theory_study">
             <div class="mui-slider-group ">
-                <!-- 额外增加的一个节�?循环轮播：第一个节点是最后一个图文表�? -->
+                <!-- 额外增加的一个节�?循环轮播：第一个节点是最后一个图文表�? -->
                 <volist name="chapter" id="chap" empty="$empty" key="k">
                     <div class="mui-slider-item" style="background-color: white">
                         <input type="text" value="{$chap['qid']}"/>
 
                         <div class="title_{$chap.id}"  answer="{$chap.answer}">
-                            <p style="font-size: 14px;width: 90%;margin-left: 2%">{$k}.{$chap.question}�?
-                                <if condition="$chap.ifmul eq 0">单�?/if>
-                                <if condition="$chap.ifmul eq 1">多�?/if>
+                            <p style="font-size: 14px;width: 90%;margin-left: 2%">{$k}.{$chap.question}�?
+                                <if condition="$chap.ifmul eq 0">单�?/if>
+                                <if condition="$chap.ifmul eq 1">多�?/if>
                                 <if condition="$chap.ifmul eq 2">判断</if>
-                                �?/p>
+                                �?/p>
                         </div>
                         <div class="img">
                             <if condition="$chap.imgurl neq '0'">
@@ -92,7 +92,7 @@
                                             <input type="button" class="button" gid="{$chap.id}" value="提交" style=""/>
                                         </div>
                                         <div id="analysism_{$chap.id}" style="width: 90%;margin-top:8%;">
-                                            <label style="font-size: 14px">答案�?span style="color: red">{$chap.answer}</span></label>
+                                            <label style="font-size: 14px">答案�?span style="color: red">{$chap.answer}</span></label>
                                             <p>
                                                 {$chap.analysis}
                                             </p>
@@ -129,7 +129,7 @@
                                     </if>
                                 </ul>
                                 <div id="analysis_{$chap.id}" style="width: 90%;margin-top:8%;">
-                                    <label style="font-size: 14px">答案�?span style="color: red">{$chap.answer}</span></label>
+                                    <label style="font-size: 14px">答案�?span style="color: red">{$chap.answer}</span></label>
                                     <p>
                                         {$chap.analysis}
                                     </p>
@@ -168,7 +168,7 @@
 
 <div class="cd-popup" role="alert">
     <div class="cd-popup-container">
-        <p>你确定要交卷�?</p>
+        <p>你确定要交卷�?</p>
         <ul class="cd-buttons">
             <li><button style="color: #fa7124;">确定</button></li>
             <li><button class="button-qx">取消</button></li>
@@ -180,12 +180,12 @@
 
 <script>
 
-    //--------------------------------点击交卷弹出框事�?-------------------------------
+    //--------------------------------点击交卷弹出框事�?-------------------------------
 
     jQuery(document).ready(function($){
         //查看弹出
         $('.cd-popup-trigger').on('click', function(event){
-            //取消事件的默认动�?
+            //取消事件的默认动�?
             event.preventDefault();
             $('.cd-popup').addClass('is-visible');
         });
@@ -196,12 +196,12 @@
                 $(this).removeClass('is-visible');
             }
         });
-        //单击取消按钮时关闭弹出窗�?
+        //单击取消按钮时关闭弹出窗�?
         $('.button-qx').on('click', function(event){
             event.preventDefault();
             $('.cd-popup').removeClass('is-visible');
         });
-        //单击关闭按钮时关闭弹出窗�?
+        //单击关闭按钮时关闭弹出窗�?
         $(document).keyup(function(event){
             if(event.which =='27'){
                 $('.cd-popup').removeClass('is-visible');
@@ -211,7 +211,7 @@
 
 
 
-//--------------------------------倒计时事�?---------------------------
+//--------------------------------倒计时事�?---------------------------
     var CID = "endtime";
     if(window.CID != null)
     {
@@ -228,7 +228,7 @@
             iDay = parseInt(iTime/24/3600);
             if (iDay > 0)
             {
-                sDay = iDay + "�?;
+                sDay = iDay + "�?;
             }
             iHour = parseInt((iTime/3600)%24);
             if (iHour > 0){
@@ -251,7 +251,7 @@
             }
             if(iTime==0){
                 clearTimeout(Account);
-                sTime="<span style='color:#d9221e;'>时间到了�?/span>";
+                sTime="<span style='color:#d9221e;'>时间到了�?/span>";
                 $('.cd-popup').addClass('is-visible');
             }
             else

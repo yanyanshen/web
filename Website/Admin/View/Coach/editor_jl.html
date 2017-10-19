@@ -11,6 +11,10 @@
     <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+    </style>
 </head>
 <script>
     $(function(){
@@ -20,11 +24,11 @@
                 if(res.status==1){
                     setTimeout(function() {
                         alert('编辑成功');
-                        location.href="{:U('Admin/Coach/index_list')}";
+                        location.href=res.url;
                     },3000);
                 }else{
                     alert('编辑失败');
-                    location.href="";
+                    location.href=res.url;
                 }
             },'json');
             return false;
@@ -32,21 +36,26 @@
     })
 </script>
 <body>
-<div class="div_head">
-            <span>
-                <span style="float:left">当前位置是：教练管理-》添加教练</span>
-                <span style="float:right;margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none" href="{:U('index_list?p='.$p)}">【返回】</a>
-                </span>
-            </span>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
+        <span style="float:left">教练编辑</span>
+        <span>
+            <a style="text-decoration: none;color: #fa7142" href="{$url}">【返回】</a>
+        </span>
 </div>
-<div></div>
-
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="{:U('Admin/Coach/editor_jl')}" method="post" id="form1" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="{$jl['id']}" jl_id="{$jl['id']}" id="jl_id"/>
-        <table  border="1" width="100%" class="table_a">
-            <tr style="margin-top: 10px">
+        <input type="hidden" name="id" value="{$jl['id']}" jl_id="{$jl['id']}" id="jl_id" pid="{$get['pid']}" p="{$get['p']}"/>
+        <input type="hidden" name="pid" value="{$get['pid']}"/>
+        <input type="hidden" name="p" value="{$get['p']}"/>
+        <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
+            <tr>
+                <td>所属驾校：</td>
+                <td>
+                    <input type="text" name="school_nickname" value="{$nickname?$nickname:$school_nickname}"/>
+                    <input type="button" value="选择" id="school_id"/>
+                </td>
+            </tr>
+        <tr >
                 <td width="6%x">教练账号：</td>
                 <td>
                     <input type="text" name="account"  value="{$jl['account']}" style="width:300px" />
@@ -86,13 +95,7 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td>所属驾校：</td>
-                <td>
-                    <input type="text" name="school_nickname" value="{$nickname?$nickname:$school_nickname}"/>
-                    <input type="button" value="选择" id="school_id"/>
-                </td>
-            </tr>
+
             <tr>
                 <td>所属教练：</td>
                 <td>
@@ -236,7 +239,9 @@
                 shade:true,
                 title:"请勾选驾校",//false为不显示标题
                 area:["600px",'600px'],
-                content:"{:U('Admin/Coach/edit_school')}?cityid="+$("#cityid").val()+"&id="+$('#jl_id').attr('jl_id')
+                content:"{:U('Admin/Coach/edit_school')}?cityid="+$("#cityid").val()
+                +"&id="+$('#jl_id').attr('jl_id')+"&pid="+$('#jl_id').attr('pid')+"&p="+$('#jl_id').attr('p')
+                +"&type=jl"
             });
         });
     });

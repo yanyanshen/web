@@ -25,9 +25,12 @@ class CyclopeController extends Controller{
         $id = I('id');
         $info = M('cyclope_content')
             ->where(array('type_id'=>$id))
+            ->field('title,content,ntime,picurl,videourl,od,type')
             ->order("od desc")
             ->select();
         M('cyclope')->where("id = $id")->setInc('count',1);
+//        print_r($info);
+
         $this->assign('info',$info);
         $this->assign('kemu',I('kemu'));
         $this->assign('http',C('HTTP'));

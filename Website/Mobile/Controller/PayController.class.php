@@ -18,8 +18,7 @@ class PayController extends Controller{
      * 该方法其实就是将接口文件包下alipayapi.php的内容复制过来
      * 然后进行相关处理
      */
-    public function pay_money($data)
-    {
+    public function pay_money($data){
         $out_trade_no = $data['ordcode'];
 
         //订单名称，必填
@@ -45,6 +44,8 @@ class PayController extends Controller{
             "payment_type"	=> $alipay_config['payment_type'],
             "notify_url"	=> $alipay_config['notify_url'],
             "return_url"	=> $alipay_config['return_url'],
+            "pay_success"	=> $alipay_config['pay_success'],
+            "pay_fail"	=> $alipay_config['pay_fail'],
 
             "anti_phishing_key"=>$alipay_config['anti_phishing_key'],
             "exter_invoke_ip"=>$alipay_config['exter_invoke_ip'],
@@ -56,9 +57,10 @@ class PayController extends Controller{
             //其他业务参数根据在线开发文档，添加参数.文档地址:https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.kiX33I&treeId=62&articleId=103740&docType=1
             //如"参数名"=>"参数值"
         );
-
 //建立请求
         $alipaySubmit = new \AlipaySubmit($alipay_config);
+
+
         $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
         echo $html_text;
     }
@@ -119,8 +121,7 @@ class PayController extends Controller{
 
                 //调试用，写文本函数记录程序运行情况是否正常
                 //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
-            }
-            else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+            } else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -146,7 +147,6 @@ class PayController extends Controller{
         else {
             //验证失败
             echo "fail";
-
             //调试用，写文本函数记录程序运行情况是否正常
             //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
         }
@@ -195,15 +195,14 @@ class PayController extends Controller{
                 if (! checkorderstatus($out_trade_no)) {
                     orderhandle($parameter); // 进行订单处理，并传送从支付宝返回的参数；
                 }
-                $this->redirect('Mobile/Pay/pay_success',array('ordcode'=>$out_trade_no)); // 跳转到配置项中配置的支付成功页面；
+                $this->redirect($alipay_config['pay_success'],array('ordcode'=>$out_trade_no)); // 跳转到配置项中配置的支付成功页面；
             }
             echo "验证成功<br />";
-        }
-        else {
+        } else {
             //验证失败
             //如要调试，请看alipay_notify.php页面的verifyReturn函数
 //            echo "验证失败";
-            $this->redirect('Pay/pay_fail');
+            $this->redirect($alipay_config['pay_fail']);
         }
 //        echo '';
     }

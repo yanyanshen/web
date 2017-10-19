@@ -54,7 +54,8 @@ class OrderController extends Controller{
                 break;
             case 'weixin'://微信支付
                 $act = A('Wxpay');
-                $_POST['price'] = $_POST['price']*100;
+//                $_POST['price'] = $_POST['price']*100;
+                $_POST['price'] = 0.01*100;
                 $act->index($_POST);
                 break;
         }

@@ -53,13 +53,13 @@ class SchoolController extends CommonController {
         $info = M('school')->where("id={$id}")->find();
         M('school')->startTrans();
         if($info['type'] == 'jx'){
-            $url = 'jx_list';
+            $url = 'Admin/School/jx_list?p='.$_GET['p'].'&pid='.$_GET['pid'];
             $res = del_pic('School','School_logo',$id,1);
         }elseif($info['type'] == 'jl'){
-            $url = 'Admin/Coach/index_list';
+            $url = 'Admin/Coach/index_list?p='.$_GET['p'].'&pid='.$_GET['pid'];
             $res = del_pic('School','Coach_logo',$id,1);
         }elseif($info['type'] == 'zd'){
-            $url = 'Admin/Guider/index_list';
+            $url = 'Admin/Guider/index_list?p='.$_GET['p'].'&pid='.$_GET['pid'];
             $res = del_pic('School','guider_logo',$id,1);
         }
 
@@ -100,7 +100,7 @@ class SchoolController extends CommonController {
                     session('type_id',$id);
                 }
             $res=UploadPic('School','School_logo',$id);
-                $this->success($id);
+                $this->success($id,U('Admin/School/add_jx',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
         }else{
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();
             $this->assign("city",$city);

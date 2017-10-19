@@ -1,5 +1,41 @@
 <?php
 header('Content-type:text/html;charset=utf-8');
+vendor('Alipay.Corefunction');
+vendor('Alipay.Md5function');
+vendor('Alipay.AlipayNotify');
+vendor('Alipay.AlipaySubmit');
+/*------------------2017-10-19导入支付宝sdk------------------*/
+vendor('Alipay.sdk.aop.AopClient');
+vendor('Alipay.sdk.aop.request.AlipayTradeQueryRequest');
+vendor('Alipay.sdk.aop.SignData');
+/*------------------2017-10-19导入支付宝sdk------------------*/
+
+function aa(){
+    $aop = new AopClient();
+    $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
+    $aop->appId = 'your app_id';
+    $aop->rsaPrivateKey = '请填写开发者私钥去头去尾去回车，一行字符串';
+    $aop->alipayrsaPublicKey='请填写支付宝公钥，一行字符串';
+    $aop->apiVersion = '1.0';
+    $aop->signType = 'RSA2';
+    $aop->postCharset='UTF-8';
+    $aop->format='json';
+    $request = new AlipayTradeQueryRequest();
+
+    $request->setBizContent("{" .
+        "\"out_trade_no\":\"20150320010101001\"," .
+        "\"trade_no\":\"2014112611001004680 073956707\"" .
+        "  }");
+    $result = $aop->execute ( $request);
+
+    $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
+    $resultCode = $result->$responseNode->code;
+    if(!empty($resultCode)&&$resultCode == 10000){
+        echo "成功";
+    } else {
+        echo "失败";
+    }
+}
 //经纬度
 function curlGetWeb($area,$address){
     $Url="http://api.map.baidu.com/geocoder?address=".trim($area).trim($address)."&output=json&key=ASESdpTH1lcn6HbficDjIxGbpHyVAs3P";

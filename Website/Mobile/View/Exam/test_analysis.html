@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
     <!--标准mui.css-->
-    <link rel="stylesheet" href="__STATIC__/chapter_practice/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
     <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
@@ -31,9 +31,9 @@
         //计算loading框距离顶部和左部的距离（loading框的宽度�?15px，高度为61px�?
         var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
                 _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 130) / 2 : 0;
-        //在页面未加载完毕之前显示的loading Html自定义内�?
+        //在页面未加载完毕之前显示的loading Html自定义样式
         var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:'
-                + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.5;filter:alpha(opacity=5);z-index:10000;">' +
+                + _PageHeight + 'px;top:0;opacity:0.7;z-index:10000;">' +
                 '<div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:'
                 + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 40px; padding-right:5px;font-size:14px; background: #000000 url(/Uploads/smallpic/jz.gif) no-repeat scroll 5px 10px; border: 1px solid #757575;border-radius:5px; color: white; font-family:\'Microsoft YaHei\';">加载中请稍等...</div></div>';
         //呈现loading效果
@@ -209,7 +209,7 @@
     </div>
 </div>
 </body>
-<script src="__STATIC__/chapter_practice/js/mui.min.js"></script>
+<script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
 <script>
     $(".button").click(function(){
         var k=$(".k").text();

@@ -155,8 +155,7 @@ class ListController extends Controller{
                 session('p','wholeprice');
                 $order = 'tc.wholeprice';
             }
-
-            $info = $this->select_table($table,$where,$page,7,$field,$order);
+            $info = $this->select_table($table,$where,$page,20,$field,$order);
             if(IS_AJAX){//判断ajax请求
                 $page = $_POST['page']?$_POST['page']:1;
                 $num = 20;
@@ -173,22 +172,24 @@ class ListController extends Controller{
             if(empty($info)){
                 $address = session('city');
                 $coordinate = curlGetWeb($address,$k);
+                $lat = $coordinate['lat'];
+                $lng = $coordinate['lng'];
                 if($coordinate){
                     $table = 'xueches_school s,xueches_lands juli,xueches_trainclass tc,xueches_landmark l';
-                    $where = "l.id in (juli.landmarkid)  and tc.type_id=s.id  and s.cityid = $cityid  and s.verify=3 and s.type='jx' ";
+                    $where = "l.id in (juli.landmarkid) and juli.type_id = s.id  and tc.type_id=s.id  and s.cityid = $cityid  and s.verify=3 and s.type='jx' ";
                     //经纬度计算距离公
-                    $field="DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,l.latitude,l.longitude,s.allcount,s.type,
-                     ROUND(
-        6378.138 * 2 * ASIN(
-            SQRT(
-                POW(
-                    SIN(
-                        (40.0497810000 * PI() / 180 - l.latitude * PI() / 180) / 2),2
-                ) + COS(40.0497810000 * PI() / 180) * COS(l.latitude * PI() / 180) * POW(
-                    SIN(
-                    (116.3424590000 * PI() / 180 - l.longitude * PI() / 180) / 2),2))
-        ) * 1000
-    ) AS jl";
+                    $field="s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,l.latitude,
+                    l.longitude,s.allcount,s.type, ROUND(
+                        6378.138 * 2 * ASIN(
+                            SQRT(
+                                POW(
+                                    SIN(
+                                        (31.2322920000 * PI() / 180 - l.latitude * PI() / 180) / 2),2
+                                ) + COS(31.2322920000 * PI() / 180) * COS(l.latitude * PI() / 180) * POW(
+                                    SIN(
+                                    (121.522540000 * PI() / 180 - l.longitude * PI() / 180) / 2),2))
+                        ) * 1000
+                    ) AS   jl";
 
                     session('juli',1);
                     if(session('juli')){
@@ -213,19 +214,46 @@ class ListController extends Controller{
 
 
     public function select_table($table,$where,$page,$num,$field,$order=''){
-            $info = M('school')->table("$table")
-                ->field($field)
-                ->page($page,$num)
-                ->where($where)
-                ->order($order)
-                ->select();
+        $info = M('school')->table("$table")
+            ->field($field)
+            ->page($page,$num)
+            ->where($where)
+            ->order($order)
+            ->select();
+//        S(session('k'),null);
+//        if(S(session('k'))){
+//            $info = S(session('k'));
+//        }else{
+//            $info = M('school')->table("$table")
+//                ->field($field)
+//                ->page($page,$num)
+//                ->where($where)
+//                ->order($order)
+//                ->select();
+//            S(session('k'),$info,50000);
+//        }
+
+        $this->assoc_unique($info,'id');
+        $info = array_reverse($info);
         return $info;
     }
-/*
- * User：沈艳艳
- * Date：2017/09/08
- * 首页轮播图
- */
+
+    public function assoc_unique(&$arr, $key) {
+        $rAr=array();
+        for($i=0;$i<count($arr);$i++)
+        {
+            if(!isset($rAr[$arr[$i][$key]]))
+            {
+                $rAr[$arr[$i][$key]]=$arr[$i];
+            }
+        }
+        $arr=array_values($rAr);
+    }
+    /*
+     * User：沈艳艳
+     * Date：2017/09/08
+     * 首页轮播图
+     */
     public function slideshow(){
         $where = 'flag = 1 and list_flag = 1';
         $info = D('Slideshow')->slideshow($where);

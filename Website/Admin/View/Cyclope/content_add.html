@@ -9,11 +9,11 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <style type="text/css">
-        div.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
-        div.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+        div.error{  font-size: 14px;  font-weight: bold;display: inline-block;color: #FF0000;  }
+        div.ok{  font-size: 14px;  font-weight: bold;display: inline-block;  color: #38D63B;  }
 
         label{padding: 10px 20px 10px 0;}
-        b{color: red}
+        b{color: #fa7142}
         li{ margin-top: 30px;list-style: none;}
         .dfinput{margin-left: 10px;
             border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
@@ -36,30 +36,14 @@
 <body>
 <div class="div_head"  style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
    子内容添加
+    <a style="text-decoration: none;font-weight: bolder;color: #FA7124"
+       href="{$url}">【返回】</a>
 </div>
 <div style="font-size: 13px;margin: 10px 5px ;" >
     <form action="{:U('Admin/Cyclope/content_add')}" method="post" id="form1" enctype="multipart/form-data">
-        <input type="text" value="{$type}" name="type"/>
-        <input type="text" value="{$type_id?$type_id:0}" name="type_id"/>
-        <input type="text" value="{$id?$id:0}" name="id"/>
+        <input type="hidden" value="{$get['type_id']}" name="type_id"/>
+        <input type="hidden" value="{$get['pid']}" name="pid"/>
         <ul>
-            <li>
-                <label style="padding: 10px 45px 10px 0">城市<b>*</b></label>
-                <select name="cityid" disabled style="width: 345px" class="dfinput">
-                    <volist name="citys" id="v" style="height: 20px;">
-                        <option value="{$v.id}" {$v['id'] == $info['cityid']?selected:''}>{$v.cityname}</option>
-                    </volist>
-                </select>
-            </li>
-            <li>
-                <label style="padding: 10px 45px 10px 0">科目<b>*</b></label>
-                <select name="type" id="" disabled style="width: 345px" class="dfinput">
-                    <option value="1" {$info['type']==1?selected:''}>科目一</option>
-                    <option value="2" {$info['type']==2?selected:''}>科目二</option>
-                    <option value="3" {$info['type']==3?selected:''}>科目三</option>
-                    <option value="4" {$info['type']==4?selected:''}>科目四</option>
-                </select>
-            </li>
             <li>
                 <label>咨询标题<b>*</b></label>
                 <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value="{$cyclope['title']?$cyclope['title']:''}"/>
@@ -69,12 +53,13 @@
                 <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:700px;height:230px;position: relative;margin-bottom: 15px">
                     <p id="preview1" >
                         <if condition="$cyclope['id'] neq 0">
-                            <img id="imghead1"  border=0 src='{$http}/Uploads/cyclope_logo/{$cyclope["picurl"]}{$cyclope["picname"]}' width="230"/>
+                            <img id="imghead1"  border=0 src='{$cyclope["picurl"]}' width="230"/>
                         </if>
                     </p>
                     <span></span>
                     <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                    <label for="image1"  style="margin:80px 290px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                    <label for="image1"  style="margin:80px 290px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;
+                    line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                 </div>
             </li>
             <li>
@@ -100,8 +85,8 @@
                 title:{required:true}
             },
             messages:{
-                content:{required:'内容不能为空！'},
-                title:{required:'标题不能为空！'}
+                content:{required:'*必填项'},
+                title:{required:'*必填项'}
             },
             success:function(div){
                 div.addClass('ok').text('通过验证')
@@ -111,13 +96,12 @@
         });
         $("#submit").click(function(){
             if(validate.form()){
-                $(this).attr('disabled',true);
                 $('#form1').ajaxSubmit(function(res){
                     if(res.status==1){
-                        alert('编辑成功');
+                        alert(res.info);
                         location.href=res.url;
                     }else{
-                        alert('编辑失败请重新编辑');
+                        alert(res.info);
                         location.href=res.url;
                     }
                 },'json');
@@ -126,8 +110,8 @@
         });
     });
     function previewImage(file,pre,imag) {
-        var MAXWIDTH  = 300;
-        var MAXHEIGHT = 230;
+        var MAXWIDTH  = 200;
+        var MAXHEIGHT = 200;
         var div = document.getElementById(pre);
         if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
             $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');

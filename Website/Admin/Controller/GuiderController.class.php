@@ -51,14 +51,13 @@ class GuiderController extends CommonController {
             $_POST['type']='zd';
             $_POST['school_id']=$school_id;
             $_POST['time']=time();
-            $_POST['nickanme']=$_POST['nickanme'].'指导员';
             $id=M('school')->add($_POST);
             session('type_id',$id);
             if($id){
                 $aa=M('School')->where(array('id'=>$school_id,'type'=>'zd'))->setInc('guider_num',1);
                 $res=UploadPic('School','guider_logo',$id);
             }
-            $this->success($aa);
+            $this->success(1,U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
         }else{
             $category=M('GuiderCategory')->field('id,category_name')->select();
             $this->assign('category', $category);
@@ -71,6 +70,8 @@ class GuiderController extends CommonController {
             $nickname=session('nickname');
             session('nickname',null);
             $this->assign('school_nickname',$nickname);
+            $this->assign('url',U('Admin/Guider/index_list',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
+            $this->assign('get',$_GET);
             $this->display();
         }
 
@@ -107,7 +108,7 @@ class GuiderController extends CommonController {
             D('school')->jx_editor($where,$_POST);//更新数据
             $res=editorPic('School','guider_logo',$_POST['id'],'pic');
             if($res){
-                $this->success($res);
+                $this->success($res,U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
             }else{
                 $this->error(0);
             }
@@ -130,38 +131,9 @@ class GuiderController extends CommonController {
             $this->assign('nickname',$nickname);
             $picInfo=M('pic')->where(array('type_id'=>$id,'type'=>'zd'))->select();
             $this->assign("picInfo",$picInfo);
+            $this->assign("get",$_GET);
             $this->display();
         }
-    }
-
-    public function school(){
-        if(IS_AJAX){
-            $nickname=M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->getField('nickname');
-            session('nickname',$nickname);
-            $this->success(1);
-        }else{
-            $school=M('School')->field('id,nickname')->where(array('cityid'=>$_GET['cityid'],'type'=>'jx'))->select();
-            $this->assign('school',$school);
-            $this->display();
-        }
-    }
-
-    public function edit_school(){
-        if(IS_AJAX){
-            $nickname=M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->getField('nickname');
-            session('nickname',$nickname);
-            $this->success(1);
-        }else{
-            if($_GET['id']){
-                $data=D('School')->school_list(array('id'=>$_GET['id'],'type'=>'zd'),'school_id');
-                $this->assign('info',$data);
-                $this->assign('id',$_GET['id']);
-            }
-            $school=M('School')->field('id,nickname')->where(array('cityid'=>$_GET['cityid'],'type'=>'jx'))->select();
-            $this->assign('school',$school);
-            $this->display();
-        }
-
     }
 /*
  * User：沈艳艳

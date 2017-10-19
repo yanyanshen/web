@@ -97,7 +97,7 @@ class LoginController extends Controller{
             $this->display();
         }
     }
-//登录时验证手机号是否存在
+//登录时验证手机号是否已经注册    未登录时用户修改密码查询手机号是否被注册
     public function checkPhone(){
         $account=trim(I('username'));
         $id=M('user')->where(array('account'=>$account))->getField('id');
@@ -107,20 +107,10 @@ class LoginController extends Controller{
             echo  'true';
         }
     }
-//重设密码时查看手机是否是在是用户注册的手机号
-    public function chkTel(){
-        $account=trim(I('username'));
-        $info = M('user')->where(array('id'=>session('mid')))->getField('account');
-        if($info == $account){
-            echo  'true';
-        }else{
-            echo  'false';
-        }
-    }
 /*
  * User：沈艳艳
  * Date：2017/08/28
- * 验证用户名是否存在
+ * 注册账户验证用户名是否已被使用
  */
     public function reg_checkName(){
         $truename = trim(I('cd_name'));

@@ -49,11 +49,11 @@ class DumpTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testNext() {
-        $array = array("aaa", "bbb", "ccc");
+        $array = array("aaa", "bbb", "cos");
         #set arrays internal pointer to next element
         next($array);
         $dump = Spyc::YAMLDump($array);
-        $awaiting = "---\n- aaa\n- bbb\n- ccc\n";
+        $awaiting = "---\n- aaa\n- bbb\n- cos\n";
         $this->assertEquals ($awaiting, $dump);
     }
 

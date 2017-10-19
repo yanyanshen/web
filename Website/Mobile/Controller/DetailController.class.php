@@ -17,16 +17,14 @@ class DetailController extends Controller{
             $info['allcount']=sprintf("%.1f",$info['allcount']/10000).'万';
         }
         $this->assign('info',$info);//驾校
-
         $classprice=M('trainclass')->where($where)->getField('wholeprice');
         $this->assign('classprice',$classprice);//显示的课程价格
 
         $class=M('trainclass')->where(array('type_id'=>I('id')))->select();
         $this->assign('class',$class);//驾校课程
 
-        $picinfo=M('pic')->field('picurl,picname,type')->where(array('type_id'=>I('id')))->select();
+        $picinfo=M('environment')->field('picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>$info['type']))->select();
         $this->assign('picinfo',$picinfo);//驾校简介图片
-
 //评价展示
         $evaluate = D('Evaluate')->index(I('id'),5);
         $this->assign('evaluate',$evaluate);

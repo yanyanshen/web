@@ -11,10 +11,13 @@
         </style>
     </head>
     <body>
-    <form action="{:U('editor_jl')}" method="post" id="form1">
+    <form action="" method="post" id="form1">
     <div style="height:20px;text-align: right;">
         <input type="submit" id="submit" value="确认" style="float: right;margin-right: 20px"/>
-        <input type="hidden" value="{$id}" id="jl_id"/>
+        <input type="hidden" name="id" value="{$id}" id="jl_id"/>
+        <input type="hidden" name="pid" value="{$get['pid']}" />
+        <input type="hidden" name="type" value="{$get['type']}" />
+        <input type="hidden" value="{$get['p']}" name="p"/>
     </div>
         <div style="width: 100%;text-align: center;">
             <volist name="school" id="school" empty="$empty">
@@ -36,7 +39,7 @@
             $(this).attr('disabled',true);
                 $.post("{:U('Admin/Coach/edit_school')}",$('#form1').serialize(),function(res){
                     if(res.status){
-                        parent.location="{:U('Admin/Coach/editor_jl')}?id="+$("#jl_id").val()
+                        parent.location=res.url;
                     }
                 },'json');
             return false;

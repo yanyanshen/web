@@ -66,14 +66,15 @@ KindEditor.plugin('flash', function(K) {
 							heightBox[0].focus();
 							return;
 						}
-						var html = K.mediaImg(self.themesPath + 'common/blank.gif', {
-								src : url,
-								type : K.mediaType('.swf'),
-								width : width,
-								height : height,
-								quality : 'high'
-							});
-						self.insertHtml(html).hideDialog().focus();
+                        var html = K.mediaImg(self.themesPath + 'common/blank.gif', {
+                            flashvars : 'file=' + url,
+                            src : 'plugins/jwplayer/player.swf',
+                            type : K.mediaType('.swf'),
+                            width : width,
+                            height : height,
+                            quality : 'high'
+                        });
+                        self.insertHtml(html).hideDialog().focus();
 					}
 				}
 			}),
@@ -144,7 +145,7 @@ KindEditor.plugin('flash', function(K) {
 			var img = self.plugin.getSelectedFlash();
 			if (img) {
 				var attrs = K.mediaAttrs(img.attr('data-ke-tag'));
-				urlBox.val(attrs.src);
+                urlBox.val(attrs.flashvars);
 				widthBox.val(K.removeUnit(img.css('width')) || attrs.width || 0);
 				heightBox.val(K.removeUnit(img.css('height')) || attrs.height || 0);
 			}

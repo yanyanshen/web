@@ -91,9 +91,8 @@ class AlipaySubmit {
      * @return 提交表单HTML文本
      */
 	function buildRequestForm($para_temp, $method, $button_name) {
-		//待请求参数数组
+        //待请求参数数组
 		$para = $this->buildRequestPara($para_temp);
-		
 		$sHtml = "<form id='alipaysubmit' name='alipaysubmit' action='".$this->alipay_gateway_new."_input_charset=".trim(strtolower($this->alipay_config['input_charset']))."' method='".$method."'>";
 		while (list ($key, $val) = each ($para)) {
             $sHtml.= "<input type='hidden' name='".$key."' value='".$val."'/>";

@@ -49,7 +49,7 @@
                 <div class="clearfix"></div>
                 <div id="recomment" style="margin-top: 0;" >
                     <div class="rl-school" style="z-index: 1000">
-                        <div class="rr_box">
+                        <div class="rr_box" style="margin-left: 11%">
                             <div class="rr" >
                                 <if condition="$Think.session.r eq 'recommand'">
                                     <a  class="color" href="{:U('Mobile/List/pull',array('r'=>1))}">推荐</a>
@@ -160,7 +160,7 @@
                                 </button>
                                 <div class="clearfix"></div>
                             </div>
-                            <div id="r_img">
+                            <div id="r_img" style="border:1px solid #eee;border-radius: 3px">
                                 <if condition="$v['type'] eq 'jx'">
                                     <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">
                                         <img src="{$http}/Uploads/School_logo/{$v.picurl}{$v.picname}">

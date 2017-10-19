@@ -18,15 +18,17 @@
 <body>
 <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
     教学环境
-    <a style="text-decoration: none;color:#fa7124" href="{:U('Admin/School/jx_list',array('type'=>$get['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+    <a style="text-decoration: none;color:#fa7124" href="{$url}">【返回】</a>
     <span style="float: right;margin-right: 1%">总计：{$count}</span>
 </div>
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="{:U('add_img')}" method="post" enctype="multipart/form-data" id="form1">
         <table  class="table_a" style="border:1px solid  rgb(129, 191, 249);width: 100%">
             <tr>
-                <input type="hidden" name='id' id="pid" value="{$id}"/>
-                <input type="hidden" name='type' id="type" value="{$get['type']}"/>
+                <input type="hidden" name='id'  value="{$id}"/>
+                <input type="hidden" name='pid'  value="{$get['pid']}"/>
+                <input type="hidden" name='p'  value="{$get['p']}"/>
+                <input type="hidden" name='type'  value="{$get['type']}"/>
                 <td colspan='2'>{$nickname}</td>
                 <td colspan='3'>
                     <ul>
@@ -66,20 +68,20 @@
                 <tr>
                     <td>{$k}</td>
                     <td>
-                        <if condition="$type eq 'jx'">
+                        <if condition="$v['type'] eq 'jx'">
                             <img src="{$http}/Uploads/School_logo/Environment_logo/{$v.picurl}{$v.picname}" alt="" style="border-radius:40%;width: 100px;" />
                         </if>
-                        <if condition="$type eq 'jl'">
+                        <if condition="$v['type'] eq 'jl'">
                             <img src="{$http}/Uploads/Coach_logo/Environment_logo/{$v.picurl}{$v.picname}" alt="" style="border-radius:40%;width: 100px;" />
                         </if>
-                        <if condition="$type eq 'zd'">
+                        <if condition="$v['type'] eq 'zd'">
                             <img src="{$http}/Uploads/guider_logo/Environment_logo/{$v.picurl}{$v.picname}" alt="" style="border-radius:40%;width: 100px;" />
                         </if>
                     <td>
-                        <if condition="$type eq 'jx'">
+                        <if condition="$v['type'] eq 'jx'">
                             {$http}/Uploads/School_logo/Environment_logo/{$v.picurl}{$v.picname}
                         </if>
-                        <if condition="$type eq 'jl'">
+                        <if condition="$v['type'] eq 'jl'">
                             {$http}/Uploads/Coach_logo/Environment_logo/{$v.picurl}{$v.picname}
                         </if>
                     </td>

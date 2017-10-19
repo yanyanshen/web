@@ -204,16 +204,30 @@
                             <p>{$info.introduction}</p>
                             <volist name="picinfo" id="data">
                                 <if condition="$data.type eq 'jx'">
-                                    <img src="{$http}/Uploads/School_logo/{$data.picurl}/{$data.picname}"/>
+                                    <img class="img1" style="width: 250px;height: 100px" src="{$http}/Uploads/School_logo/Environment_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
 
                                 <if condition="$data.type eq 'zd'">
-                                    <img src="{$http}/Uploads/guider_logo/{$data.picurl}/{$data.picname}"/>
+                                    <img class="img1" style="width: 250px;height: 100px" src="{$http}/Uploads/guider_logo/Environment_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
                                 <if condition="$data.type eq 'jl'">
-                                    <img src="{$http}/Uploads/Coach_logo/{$data.picurl}/{$data.picname}"/>
+                                    <img class="img1" style="width: 250px;height: 100px" src="{$http}/Uploads/Coach_logo/Environment_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
                             </volist>
+                            <script type="text/javascript">
+                                $(function(){
+                                    $(".img1").click(function(){
+                                        var width = $(this).width();
+                                        if(width==250) {
+                                            $(this).width(300);
+                                            $(this).height(200);
+                                        } else {
+                                            $(this).width(250);
+                                            $(this).height(100);
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>

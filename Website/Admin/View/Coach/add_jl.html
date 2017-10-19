@@ -22,13 +22,15 @@
     <body>
         <div class="div_head"  style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
             教练添加
-            <a style="text-decoration: none;color:#FA7124" href="{:U('index_list',array('pid'=>$get['pid']))}">【返回】</a>
+            <a style="text-decoration: none;color:#FA7124" href="{:U('index_list',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
         </div>
         <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('Admin/Coach/add_jl')}" method="post" id="form1" enctype="multipart/form-data">
-                <input type="hidden" name="type" value="{$type}"/>
+                <input type="hidden" name="type" id="type" value="{$type}" pid="{$get['pid']}" p="{$get['p']}"/>
+                <input type="text" name="pid" value="{$get['pid']}"/>
+                <input type="text" name="p" value="{$get['p']}"/>
                 <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
-                    <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);height: 35px;color: #ffffff">
+                    <tr >
                         <td>所属驾校：</td>
                         <td>
                             <input type="text" name="school_nickname" value="{$school_nickname}"/>
@@ -231,6 +233,7 @@
                     title:"请勾选驾校",//false为不显示标题
                     area:["600px",'600px'],
                     content:"{:U('Admin/Coach/school')}?cityid="+$("#cityid").val()
+                    +"&pid="+$('#type').attr('pid')+"&p="+$('#type').attr('p')
                 });
         });
     });
@@ -283,11 +286,11 @@
                         $('.uploadBtn').click();
                         setTimeout(function() {
                             alert('编辑成功');
-                            location.href="{:U('Admin/coach/index_list')}";
+                            location.href=res.url;
                         },3000);
                     }else{
                         alert('教练名称已存在,请重新编辑');
-                        location.href="{:U('Admin/coach/add_jl')}";
+                        location.href=res.url;
                     }
                 },'json');
                 return false;

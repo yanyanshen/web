@@ -947,8 +947,8 @@ function _mediaAttrs(srcTag) {
 	return _getAttrList(unescape(srcTag));
 }
 function _mediaEmbed(attrs) {
-	var html = '<embed ';
-	_each(attrs, function(key, val) {
+    var html = '<embed id="player" name="player" allowscriptaccess="always" allowfullscreen="true" ';
+    _each(attrs, function(key, val) {
 		html += key + '="' + val + '" ';
 	});
 	html += '/>';

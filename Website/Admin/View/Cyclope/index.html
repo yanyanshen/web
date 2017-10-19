@@ -23,12 +23,12 @@
     <body>
     <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
         内容列表
-        <a href="{:U('Admin/Cyclope/add')}" style="text-decoration: none;color:red">【内容添加】</a>
+        <a href="{:U('Admin/Cyclope/add',array('pid'=>$get['pid'],'p'=>$get['p']))}" style="text-decoration: none;color:red">【内容添加】</a>
         <span style="float:right;margin-right: 1%">总计：{$count}</span>
     </div>
     <div class="div_search" style="background-color:  rgb(129, 191, 249);color:#ffffff;font-weight: bolder;font-size: 15px">
         <span>
-            <form action="{:U('Admin/Cyclope/index')}" id='form' method="get">
+            <form action="{:U('Admin/Cyclope/index',array('pid'=>$get['pid'],'p'=>$get['p']))}" id='form' method="get">
                 城市：
                 <select name="cityid" >
                     <option value="0">请选择</option>
@@ -53,7 +53,7 @@
     <div style="font-size: 13px;margin: 10px 5px ;" >
         <table class="table_a" style="border:1px solid  rgb(129, 191, 249);width: 100%">
             <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff;height: 35px">
-                    <td width="5%">序号</td>
+                    <td width="5%">序号id</td>
                     <td width="10%">图片</td>
                     <td width="15%">标题</td>
                     <td width="20%">内容</td>
@@ -64,17 +64,16 @@
                 </tr>
                 <volist name="info" id="v" key="k" empty="$empty">
                     <tr>
-                        <td>{$k+$firstRow}</td>
-                        <td><img src="{$http}/Uploads/cyclope_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
+                        <td>{$v.id}</td>
+                        <td><img src="{$v.picurl}" alt="" width="100"/></td>
                         <td>{$v['title']}</td>
                         <td>{$v['content']}</td>
                         <td>{$v['count']}</td>
                         <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                         <td>{$v['update']}</td>
                         <td>
-                            <a href="{:U('Admin/Cyclope/video_add',array('id'=>$v['id'],'type'=>1))}">视频</a>
-                            <a href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'type'=>0))}">子内容</a>
-                            <a href="{:U('Admin/Cyclope/add',array('id'=>$v['id']))}">编辑</a>
+                            <!--<a href="{:U('Admin/Cyclope/add_video',array('id'=>$v['id'],'type'=>1,'pid'=>$get['pid'],'p'=>$get['p']))}">视频</a>-->
+                            <a href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
                             <a id="del" href="{:U('Admin/Cyclope/del_cyclope',array('type_id'=>$v['id'],'pid'=>$pid))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
                         </td>
                     </tr>

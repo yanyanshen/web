@@ -93,7 +93,7 @@
                     <td>
                         <a href="{:U('Admin/Environment/index',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">驾考环境</a>
                         <a href="{:U('Admin/School/jx_editor?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>　
-                        <a href="{:U('Admin/School/del_school?id='.$v['id'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                        <a href="{:U('Admin/School/del_school?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
                 </tr>
         </volist>
         </tbody>

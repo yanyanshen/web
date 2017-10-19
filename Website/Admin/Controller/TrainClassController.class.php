@@ -28,7 +28,17 @@ class TrainClassController extends CommonController {
         $nickname=M('School')->where(array('id'=>$_GET['id']))->getField('nickname');
         $this->assign('nickname',$nickname);
         $this->assign('get',$_GET);
-        $this->assign('url',U('Admin/School/jx_list',array('pid'=>I('pid'),'p'=>I('p'))));
+        switch($type){
+            case 'jx':
+                $this->assign('url',U('Admin/School/jx_list',array('pid'=>I('pid'),'p'=>I('p'))));
+                break;
+            case 'jl':
+                $this->assign('url',U('Admin/Coach/index_list',array('pid'=>I('pid'),'p'=>I('p'))));
+            break;
+            case 'zd':
+                $this->assign('url',U('Admin/Guider/index_list',array('pid'=>I('pid'),'p'=>I('p'))));
+                break;
+        }
         $this->assign('count',$count);
        $this->display();
     }

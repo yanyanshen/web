@@ -54,11 +54,11 @@
                                     $('.uploadBtn').click();
                                     setTimeout(function() {
                                         alert('编辑成功');
-                                        location.href="{:U('Admin/School/jx_list')}";
+                                        location.href=res.url;
                                     },3000);
                                 }else{
                                     alert('驾校名称已存在,请重新编辑');
-                                    location.href="{:U('Admin/School/add_jx')}";
+                                    location.href=res.url;
                                 }
                             },'json');
                             return false;
@@ -74,6 +74,8 @@
         <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('Admin/School/add_jx')}" method="post" enctype="multipart/form-data" id="form1">
                 <input type="hidden" name="type" value="{$get['type']}"/>
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
                     <tr>
                         <td width="7%">驾校账号</td>

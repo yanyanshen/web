@@ -54,7 +54,7 @@
     <body>
         <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
            指导员列表
-            <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="{:U('add_zd',array('type'=>'jl','pid'=>$get['pid']))}">【指导员添加】</a>
+            <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="{:U('add_zd',array('type'=>'zd','pid'=>$get['pid'],'p'=>$get['p']))}">【指导员添加】</a>
             <span style="float:right;color:#ffffff;margin-right: 1%">总计：{$count}　　</span>
         </div>
         <div class="div_search" style="background-color:  rgb(129, 191, 249)">
@@ -115,15 +115,15 @@
                             </td>
                     		<td>{$v['sex']==1?'男':($v['sex']==2?'女':'保密')}</td>
                     		<td>
-                                <a href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>'zd'))}">{$v['class_num']}课程</a>
+                                <a href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'p'=>$get['p'],'pid'=>$get['pid']))}">{$v['class_num']}课程</a>
                             </td>
 				            <td>
                                 {$v['category_id']==1?'普通指导员':($v['category_id']==1?'私人指导员':($v['category_id']==2?'小老板':'打工指导员'))}
                             </td>
                     		<td>{$v.serialid}</td>
-                    		<td><a href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'])}">查看</a></td>
+                    		<td><a href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     		<td>{$v.student_num}个学员</td>
-                    		<td><a href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'])}">查看</a></td>
+                    		<td><a href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     		<td>{$v.score}</td>
                     		<td>
                     			<if condition="($v['timing'] eq 1) OR ($v['timing'] eq 2) ">
@@ -137,9 +137,9 @@
                     		<td>{$v.cityname}</td>
                     		<td> {$v.lastupdate}</td>
                     		<td>
-                                <a href="{:U('Admin/Environment/index',array('id'=>$v['id'],'type'=>$v['type']))}">教学环境</a>　
-                                <a href="{:U('editor_zd?id='.$v['id'].'&p='.$p)}">编辑</a>　
-                                <a href="{:U('Admin/School/del_school?id='.$v['id'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                                <a href="{:U('Admin/Environment/index',array('id'=>$v['id'],'type'=>$v['type'],'p'=>$get['p'],'pid'=>$get['pid']))}">教学环境</a>　
+                                <a href="{:U('editor_zd',array('id'=>$v['id'],'type'=>$v['type'],'p'=>$get['p'],'pid'=>$get['pid']))}">编辑</a>　
+                                <a href="{:U('Admin/School/del_school',array('id'=>$v['id'],'type'=>$v['type'],'p'=>$get['p'],'pid'=>$get['pid']))}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
                             </td>
                     	</tr>
                     </volist>

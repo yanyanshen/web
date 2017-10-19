@@ -21,11 +21,13 @@
     <body>
         <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
             指导员添加
-            <a style="text-decoration: none;color:#fa4127" href="{:U('index_list',array('pid'=>$get['pid']))}">【返回】</a>
+            <a style="text-decoration: none;color:#fa4127" href="{$url}">【返回】</a>
         </div>
         <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('Admin/Guider/add_zd')}" method="post" id="form1" enctype="multipart/form-data">
-            <table  width="100%" class="table_a" border="1">
+                <input type="text" value="{$get['p']}" name="p" id="p"/>
+                <input type="text" value="{$get['pid']}" name="pid" id="pid"/>
+            <table  width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
                 <tr>
                     <td>所属驾校：</td>
                     <td>
@@ -292,7 +294,8 @@
                     shade:true,
                     title:"请勾选驾校",//false为不显示标题
                     area:["600px",'600px'],
-                    content:"{:U('Admin/Guider/school')}?cityid="+$("#cityid").val()
+                    content:"{:U('Admin/Coach/school')}?cityid="+$("#cityid").val()
+                    +'&p='+$("#p").val()+'&pid='+$("#pid").val()+"&type=zd"
                 });
         });
     });
@@ -401,11 +404,11 @@
                         $('.uploadBtn').click();
                         setTimeout(function() {
                             alert('编辑成功');
-                            location.href="{:U('Admin/Guider/index_list')}";
+                            location.href=res.url;
                         },3000);
                     }else{
                         alert('教练名称已存在,请重新编辑');
-                        location.href="{:U('Admin/Guider/add_zd')}";
+                        location.href=res.url;
                     }
                 },'json');
                 return false;

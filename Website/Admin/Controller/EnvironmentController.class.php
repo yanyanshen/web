@@ -9,17 +9,29 @@ class EnvironmentController extends CommonController{
     public function index(){
         $id=$_GET['id'];
         $type=$_GET['type'];
+        $arr = array('id'=>$_GET['id'],'type'=>$_GET['type'],'pid'=>$_GET['pid'],'p'=>$_GET['p']);
+        switch($type){
+            case 'jx':
+                $url = U('Admin/School/jx_list',$arr);
+                break;
+            case 'jl':
+                $url = U('Admin/Coach/index_list',$arr);
+                break;
+            case 'zd':
+                $url = U('Admin/Guider/index_list',$arr);
+                break;
+        }
         $where['type_id']=$id;
         $where['type']=$type;
 
         $nickname=D('School')->school_list(array('id'=>$id,'type'=>$type),'nickname');
-        $info=D('environment')->environment_list($where,'id,picurl,picname,time',1);
+        $info=D('environment')->environment_list($where,'id,picurl,picname,time,type',1);
         $this->assign('nickname',$nickname['nickname']);
         $this->assign('id',$id);
-        $this->assign('get',$_GET);
-        print_r($_GET);
+        $this->assign('url',$url);
         $this->assign('http',C('HTTP'));
         $this->assign('info',$info);
+        $this->assign('get',$_GET);
         $this->assign('count',count($info));
         $this->display();
     }
@@ -31,6 +43,8 @@ class EnvironmentController extends CommonController{
         $id=I('post.id');
         session('id',$id);
         session('type',$type);
+        session('p',$_POST['p']);
+        session('pid',$_POST['pid']);
         switch($type){
             case 'jx':
                 session('file_name','School_logo/Environment_logo');
@@ -46,7 +60,7 @@ class EnvironmentController extends CommonController{
         if(!$type||!$id){
             $this->error(0);
         }else{
-            $url=U('index',array('id'=>$id,'type'=>$type));
+            $url=U('index',array('id'=>$id,'type'=>$type,'pid'=>$_POST['pid'],'p'=>$_POST['p']));
             $this->success(1,$url);
         }
     }
@@ -73,7 +87,7 @@ class EnvironmentController extends CommonController{
             $res=M(session('table'))->add($data);
         }
         $message="<script>alert('上传成功')</script>";
-        $this->redirect("index",array('id'=>session('id'),'type'=>session('type')),0,$message);
+        $this->redirect("index",array('id'=>session('id'),'type'=>session('type'),'pid'=>session('pid'),'p'=>session('p')),0,$message);
     }
 
 
