@@ -26,8 +26,25 @@
                 <else/>
                 <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="javascript:alert('暂无权限')" >【新建订单】</a>
             </notempty>
-                <a href="{:U('Admin/Order/order_list',array('pid'=>$pid,'flag'=>0))}" class="span" style="color: #fa7124;margin-left:200px;cursor: pointer;display: none">{$count1}条未处理</a>
-                <a href="{:U('Admin/Order/order_list',array('pid'=>$pid,'visit'=>0))}" class="span" style="color: #fa7124;margin-left:30px;cursor: pointer;display: none">{$count2}未回访</a>
+              <if condition="$return_fee eq '0'">
+                  <a href="javascript:(alert('暂无权限'));" style="border:1px solid #ff602c;width: 10px;padding:3px;height: 20px;
+                  text-decoration: none;color: #ffffff;margin-left:200px;">退费列表</a>
+                  <else/>
+                  <a href="{:U($return_fee,array('pid'=>$get['pid']))}" style="border:1px solid #ff602c;width: 10px;padding:3px;
+                  height: 20px;text-decoration: none;color: #ffffff;margin-left:200px;">退费列表</a>
+              </if>
+            <if condition="$pay_list eq '0'">
+                <a href="javascript:(alert('暂无权限'));" style="border:1px solid #ff602c;width: 10px;padding:3px;height: 20px;
+                  text-decoration: none;color: #ffffff;margin-left:100px;">已支付未处理列表</a>
+                <else/>
+                <a href="{:U($pay_list,array('pid'=>$get['pid']))}" style="border:1px solid #ff602c;width: 10px;padding:3px;
+                  height: 20px;text-decoration: none;color: #ffffff;margin-left:100px;">已支付未处理列表</a>
+            </if>
+                <a href="{:U('Admin/Order/order_list',array('pid'=>$get['pid'],'p'=>$get['p'],'flag'=>0))}" class="span"
+                   style="color: #fa7124;margin-left:200px;cursor: pointer;display: none">{$count1}条未处理</a>
+                <a href="{:U('Admin/Order/order_list',array('pid'=>$get['pid'],'p'=>$get['p'],'visit'=>0))}" class="span"
+                   style="color: #fa7124;margin-left:30px;cursor: pointer;display: none">{$count2}未回访</a>
+
             <script language="javascript">
                 function codefans(){
                     var box=$(".span");
@@ -127,12 +144,12 @@
                         </span>
                         <span style="padding-left: 5px">
                             跟单客服：<input type="text" name="customer" style="width: 80px"  value="{$get['customer']?$get['customer']:''}"/>
-                            <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/order_list",array('pid'=>$pid))}')"/>
-                            <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push")}')"/>
+                            <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/order_list",array('pid'=>$get['pid']))}')"/>
+                            <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('pid'=>$get['pid']))}')"/>
                         </span>
                     </div>
                 </div>
-                <a href="{:U('Admin/Order/return_fee')}" style="border:1px solid #ff602c;width: 10px;padding:3px;height: 20px;text-decoration: none;color: #ffffff;">退费列表</a>
+
                 <script type="text/javascript" language="javascript">
                     function submitYouFrom(path){
                         $('#form1').attr('action',path);
@@ -213,18 +230,18 @@
                     </td>
                     <td>{$v.lastupdate}</td>
                     <td>
-                        <span >
+                        <span>
                             {$v['flag']==0?'未处理':'已处理'}
-                            <a href="javascript:;" onclick="flag_visit('flag',{$v['id']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['flag']==0?'已处理':'未处理'}</a>
+                            <a href="javascript:;" onclick="flag_visit('flag',{$v['id']},{$get['pid']},{$get['p']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['flag']==0?'已处理':'未处理'}</a>
                         </span>
                         <span>
                             {$v['visit']==0?'未回访':'已回访'}
-                            <a href="javascript:;" onclick="flag_visit('visit',{$v['id']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['visit']==0?'已回访':'未回访'}</a>
+                            <a href="javascript:;" onclick="flag_visit('visit',{$v['id']},{$get['pid']},{$get['p']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['visit']==0?'已回访':'未回访'}</a>
                         </span>
                     </td>
                     <td style="text-align: center">
                         <notempty name="list_info">
-                            <a href="{:U($list_info['name'])}?id={$v['id']}&pid={$pid}">处理</a>　
+                            <a href="{:U($list_info['name'])}?id={$v['id']}&pid={$get['pid']}&p={$get['p']}">处理</a>　
                             <else/>
                             <a href="javascript:alert('暂无权限');">处理</a>　
                         </notempty>
@@ -240,12 +257,12 @@
 </body>
 </html>
 <script>
-    function flag_visit(type,id){
+    function flag_visit(type,id,pid,p){
         $(this).attr('disabled','true');
-        $.post("{:U('Order/flag_visit')}",{type:type,id:id},function(res){
+        $.post("{:U('Order/flag_visit')}",{type:type,id:id,pid:pid,p:p},function(res){
             if(res.status==1){
                 alert(res.info);
-                location.href = res.url;
+                location.href =  '{:U("Admin/Order/order_list")}?p='+p+'&pid='+pid;
             }else{
                 alert(res.info);
             }

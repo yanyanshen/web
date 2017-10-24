@@ -9,13 +9,12 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        input{margin-bottom: 6px;}
         lable.error{font-size: 14px;font-weight: bold;color: #FF0000;}
         lable.ok{font-size: 14px;font-weight: bold;color: #38D63B;}
         label{padding: 10px 20px 10px 0}
         li{margin-top: 20px;list-style: none}
         .dfinput{margin-left: 10px;border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;width: 340px;padding: 10px 0 10px 15px}
-        b{color: red}
+        b{color: #FA7124}
     </style>
 </head>
 <body>
@@ -23,13 +22,14 @@
     <span>
         <span style="float:left;font-weight: bolder;color: #ffffff;">编辑菜单</span>
         <span style="margin-right: 8px;font-weight: bold">
-            <a style="text-decoration: none;color: #ffffff;" href="{:U('AdminNav/index')}">【返回】</a>
+            <a style="text-decoration: none;color: #ffffff;" href="{$url}">【返回】</a>
         </span>
     </span>
 </div>
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="{:U('Admin/AdminNav/edit')}" id="form1" method="post">
-        <input name="id" type="hidden" class="dfinput" value="{$id}"/>
+        <input name="id" type="hidden" class="dfinput" value="{$get['id']}"/>
+        <input name="pid" type="hidden" class="dfinput" value="{$get['pid']}"/>
         <ul>
             <li><label>菜单名称<b>*</b></label>
                 <input type="text" name="navname" class="dfinput" value="{$navname}"/>
@@ -58,8 +58,8 @@
                 }
             },
             messages:{
-                navname:{required:' * 菜单名称不能为空！'},
-                navurl:{required:' * 菜单链接不能为空！'}
+                navname:{required:' * 必填项！'},
+                navurl:{required:' * 必填项！'}
             },
             success:function(lable){
                 lable.addClass('ok').text(' * 通过验证');

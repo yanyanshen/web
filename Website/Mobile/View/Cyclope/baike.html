@@ -44,7 +44,7 @@
                     </volist>
                     <div class="clearfix"></div>
                 </div>
-                <div class="hot-sort1" style="margin-bottom: 50px">
+                <div class="hot-sort1">
                     <ul><li>热门分类</li></ul>
                     <a href="{:U('Mobile/Cyclope/kemu')}?kemu=1">
                         <div class="sort-h">
@@ -87,6 +87,31 @@
                         <p>新手上路</p>
                     </div>
                     <div class="clearfix"></div>
+                </div>
+
+                <div class="hot-new" style="margin-bottom: 10px">
+                    <ul><li>热门资讯</li></ul>
+                    <volist name="Hnew" id="v">
+                        <div class="Hnew">
+                            <a href="{:U('Mobile/Cyclope/baike_detail',array('id'=>$v['id'],'kemu'=>$v['type']))}">
+                                <ul>
+                                    <li class="new-img">
+                                        <img src="{$v['picurl']}" alt=""/>
+                                    </li>
+                                    <li class="new-title">
+                                        <h1>{$v.title}</h1>
+                                        <ul>
+                                            <li class="new-browse">浏览量：<span>{$v['count']}</span></li>
+                                            <li class="new-time">{:date('Y-m-d',$v['ntime'])}</li>
+                                            <div class="clearfix"></div>
+                                        </ul>
+                                    </li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                            </a>
+                        </div>
+
+                    </volist>
                 </div>
             </div>
         </div>

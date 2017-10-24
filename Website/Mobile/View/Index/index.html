@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -93,7 +93,7 @@
                 <p>计时培训</p>
             </div>
             <div class="option1">
-                <a href="">
+                <a href="{:U('Mobile/Index/zxzk')}">
                     <img src="__STATIC__/Index/images/index_icon03.png">
                 </a>
                 <p>自学直考</p>
@@ -258,7 +258,7 @@
                         </div>
                         <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">
                             <div id="r_img">
-                                <img src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
+                                <img style="border-radius: 3px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
                             </div>
                         </a>
                         <div class="clearfix"></div>
@@ -285,9 +285,10 @@
             </div>
             <div id="n_box">
                 <volist name="consult" id="v" empty="$empty">
+                    <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$v['id']))}">
                     <div id="n_box1">
-                        <div id="n_main">
-                            <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$v['id']))}">{$v.title|mb_substr=0,20,utf8}...</a>
+                        <div id="n_main" style="margin-top: 10px">
+                            <h1>{$v.title|mb_substr=0,20,utf8}...</h1>
                             <ul id="nm">
                                 <li class="date">{:date('Y/m/d',$v['time'])}</li>
                                 <li class="num">{$v.touch_count}</li>
@@ -298,10 +299,11 @@
                             </ul>
                         </div>
                         <div id="n_img">
-                            <img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}">
+                            <img  style="border-radius: 3px" src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}">
                         </div>
                         <div class="clearfix"></div>
                     </div>
+                    </a>
                 </volist>
             </div>
             <div id="more-school">

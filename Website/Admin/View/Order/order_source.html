@@ -20,10 +20,10 @@
     <div class="div_search" style="height: 35px;background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
         <span>
             <form action="?" id='form1' method="get">
-                时间：<input type="text" style="width: 100px"  onClick="WdatePicker()" value="{$create_time?$create_time:''}" name="create_time"/>
-                至 <input type="text" style="width: 100px" value="{$create_time1?$create_time1:''}"  onClick="WdatePicker()" name="create_time1"/>
-                <input value="查询" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_source")}')"/>
-                <input value="上月" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_source?t=1")}')"/>
+                时间：<input type="text" style="width: 100px"  onClick="WdatePicker()" value="{$get['create_time']?$get['create_time']:''}" name="create_time"/>
+                至 <input type="text" style="width: 100px" value="{$get['create_time1']?$get['create_time1']:''}"  onClick="WdatePicker()" name="create_time1"/>
+                <input value="查询" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_source",array('pid'=>$get['pid']))}')"/>
+                <input value="上月" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_source",array('t'=>1,'pid'=>$get['pid']))}')"/>
                 <script>
                     function submitYouForm(path){
                         $("#form1").attr('action',path);

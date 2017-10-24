@@ -9,6 +9,7 @@ class OrderController extends CommonController {
  * 订单列表
 */
    public function order_list(){
+       session('admin_return',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
 //判断是否有新建订单权限
        $pid = I('pid');
        $add_order = D('AuthRule')->getRule($pid,'新建订单');
@@ -16,7 +17,15 @@ class OrderController extends CommonController {
 //判断是否有订单列表处理按钮权限
        $list_info = D('AuthRule')->getRule($pid,'订单处理');
        $this->assign('list_info',$list_info);
-       $this->assign('pid',$pid);
+//判断是否有订单退费列表处理按钮权限
+       $return_fee = D('AuthRule')->getRule($pid,'退费列表');
+       $this->assign('return_fee',$return_fee['name']);
+
+//判断是否有已支付未处理列表处理按钮权限
+       $return_fee = D('AuthRule')->getRule($pid,'已支付未处理列表');
+       $this->assign('pay_list',$return_fee['name']);
+
+
 
        $arr= D('order')->order_list($_GET);
        $citys=D('citys')->city_one("flag=1","id,cityname",1);
@@ -32,6 +41,7 @@ class OrderController extends CommonController {
        $this->assign('count1',$count1);
        $this->assign('count2',$count2);
        $this->assign('get',$_GET);
+       $this->assign('url',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
        $this->display();
    }
 /*
@@ -40,6 +50,16 @@ class OrderController extends CommonController {
  * 已支付未处理订单
 */
     public function pay_list(){
+//判断是否有新建订单权限
+        $pid = I('pid');
+        $add_order = D('AuthRule')->getRule($pid,'新建订单');
+        $this->assign('add_order',$add_order['name']);
+//判断是否有订单列表处理按钮权限
+        $list_info = D('AuthRule')->getRule($pid,'订单处理');
+        $this->assign('list_info',$list_info['name']);
+        session('admin_return',U('Admin/Order/pay_list',array('pid'=>I('pid'),'p'=>I('p'))));
+
+
         $where = ' flag = 0 and status != 1 and status != 5';
         $arr = D('order')->order_list($_GET,$where);
         $citys = D('citys')->city_one("flag=1","id,cityname",1);
@@ -79,7 +99,7 @@ class OrderController extends CommonController {
         $this->assign('citys',$citys);
         if(!empty($_POST)){
             $message = D('Order')->add_order($_POST);
-            $this->redirect("add_order",'',0.1,$message);
+            $this->redirect("add_order",array('pid'=>I('pid'),'p'=>I('p')),0.1,$message);
         }
         $school = M('school s')->field("s.id,s.nickname,c.cityname")->where("type = 'jx'")->join("xueches_citys c on c.id=s.cityid")->select();
         $this->assign('school',$school);
@@ -93,7 +113,7 @@ class OrderController extends CommonController {
         $order_source = M('OrderSource')->select();
         $this->assign('order_source',$order_source);
         $this->assign('get',$_GET);
-        dump($_GET);
+        $this->assign('url',session('admin_return'));
         $this->display();
     }
 /*
@@ -104,7 +124,6 @@ class OrderController extends CommonController {
     public function list_info($id){
 //日志操作查看权限
         $pid = I('pid');
-        $this->assign('pid',$pid);
         $order_log = D('AuthRule')->getRule($pid,'日志操作');
         $this->assign('order_log',$order_log);
 //修改学员信息权限
@@ -113,7 +132,9 @@ class OrderController extends CommonController {
 
 //确认课程修改权限
         $class_update = D('AuthRule')->getRule($pid,'确认课程修改');
-        $this->assign('class_update',$class_update);
+        $_GET['class_update'] = $class_update['name'];
+
+
 
         session('oid',$id);
         $field='id,ordcode,order_type,status,return_time,create_time,pay_type,tel,address,lastupdate,pay_address,
@@ -157,7 +178,8 @@ class OrderController extends CommonController {
         $this->assign("class",$class);
         $this->assign("train",$train);
         $this->assign("jilu",$jilu);
-        $this->assign("id",$id);
+        $this->assign("get",$_GET);
+        $this->assign("url",session('admin_return'));
         $this->assign("customers",$customers);
         $this->display();
     }
@@ -183,7 +205,7 @@ class OrderController extends CommonController {
         if(IS_AJAX){
             $res = D('Order')->update_class($_POST);
             if($res){
-                $this->success(1,U('Admin/Order/list_info',array('id'=>$_POST['id'],'pid'=>$_POST['pid'])));
+                $this->success(1,U('Admin/Order/list_info',array('id'=>$_POST['id'],'pid'=>$_POST['pid'],'p'=>$_POST['p'])));
             }else{
                 $this->error();
             }
@@ -368,18 +390,15 @@ class OrderController extends CommonController {
  */
     public function order_statistics(){
         $city = D('citys')->city_one('flag = 1','cityname,id',1);
-        $this->assign('cityname',$_GET['cityname']);
         $this->assign('city',$city);
 
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01');
-            $_GET['create_time1'] = date('Y-m-d',strtotime("{$_GET['create_time']} + 1 month - 1 day"));
+            $_GET['create_time'] = date('Y-m-01',strtotime('-1 month'));
+            $_GET['create_time1'] = date('Y-m-t',strtotime("-1 month - 1 day"));
         }
         $order_statistics = D('Order')->order_statistics($_GET);
         $this->assign('order_statistics',$order_statistics);
-
-        $this->assign('create_time',$_GET['create_time']);
-        $this->assign('create_time1',$_GET['create_time1']);
+        $this->assign('get',$_GET);
         $this->display();
     }
 /*
@@ -389,15 +408,14 @@ class OrderController extends CommonController {
 */
     public function order_source(){
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01', strtotime(date("Y-m-d")));
+            $_GET['create_time'] = date('Y-m-01', strtotime('-1 month'));
         } else{
             if($_GET['t'] == 1){
                 $_GET['create_time'] = date('Y-m-01', strtotime('-1 month'));
                 $_GET['create_time1'] = date('Y-m-t', strtotime('-1 month'));
             }
         }
-        $this->assign('create_time',$_GET['create_time']);
-        $this->assign('create_time1',$_GET['create_time1']);
+        $this->assign('get',$_GET);
         $order_source = D('Order')->order_source($_GET);
         $this->assign('order_source',$order_source);
         $this->assign('empty',"<h1>暂无数据</h1>");
@@ -441,8 +459,8 @@ class OrderController extends CommonController {
                 $_GET['create_time1'] = date('Y-m-t', strtotime('-1 month'));
             }
         }
-        $this->assign('create_time',$_GET['create_time']);
-        $this->assign('create_time1',$_GET['create_time1']);
+
+        $this->assign('get',$_GET);
         $this->display();
     }
 /*
@@ -451,7 +469,13 @@ class OrderController extends CommonController {
  * 退费订单列表
  */
     public function return_fee(){
-        $where = ' flag = 0 and status = 5 and return_fee != ""';
+//判断是否有新建订单按钮权限
+        $pid = I('pid');
+        $add_order = D('AuthRule')->getRule($pid,'新建订单');
+        $this->assign('add_order',$add_order['name']);
+
+
+        $where = ' flag = 0 and status = 5 and return_fee != "0"';
         $arr = D('order')->order_list($_GET,$where);
         $list = $arr['list'];
         foreach($list as $k=>$v){
@@ -465,18 +489,7 @@ class OrderController extends CommonController {
         $this->assign('page', $arr['page']);
         $this->assign('list', $list);
         $this->assign('firstRow', $arr['firstRow']);
-        $this->assign('s_nickname', $_GET['s_nickname']);
-        $this->assign('truename', $_GET['truename']);
-        $this->assign('ordcode', $_GET['ordcode']);
-        $this->assign('pay_type', $_GET['pay_type']);
-        $this->assign('customer', $_GET['customer']);
-        $this->assign('trainaddress', $_GET['trainaddress']);
-        $this->assign('create_time1', $_GET['create_time1']);
-        $this->assign('create_time2', $_GET['create_time2']);
-        $this->assign('notify_time1', $_GET['notify_time1']);
-        $this->assign('notify_time2', $_GET['notify_time2']);
-        $this->assign('return_fee1', $_GET['return_fee1']);
-        $this->assign('return_fee2', $_GET['return_fee2']);
+        $this->assign('get', $_GET);
         $this->display();
     }
 /*
@@ -495,7 +508,9 @@ class OrderController extends CommonController {
         }
         $res = M('order')->save($_POST);
         if($res){
-            $this->success('操作成功','');
+            $log['done'] = '修改订单状态';
+            D('AdminLog')->logout($log);
+            $this->success('操作成功');
         }
     }
 }

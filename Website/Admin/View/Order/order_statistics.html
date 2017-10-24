@@ -19,14 +19,14 @@
     </div>
     <div class="div_search" style="height: 30px;background-color:  rgb(129, 191, 249)">
         <span style="float:left;color: #ffffff;font-weight: bolder;width: 100%">
-            <form action="{:U('Admin/Order/order_statistics')}" id='form1' method="get">
+            <form action="{:U('Admin/Order/order_statistics',array('pid'=>$get['pid']))}" id='form1' method="get">
                 城市：<select name="cityname" id="">
                         <volist name="city" id="city">
-                            <option value="{$city['id']}" {$cityname==$city['id']?'selected':''}>{$city['cityname']}</option>
+                            <option value="{$city['id']}" {$get['cityname']==$city['id']?'selected':''}>{$city['cityname']}</option>
                         </volist>
                       </select>
-                时间：<input type="text" onClick="WdatePicker()" value="{$create_time?$create_time:''}" name="create_time"/>
-                至 <input type="text" value="{$create_time1?$create_time1:''}"  onClick="WdatePicker()" name="create_time1"/>
+                时间：<input type="text" onClick="WdatePicker()" value="{$get['create_time']?$get['create_time']:''}" name="create_time"/>
+                至 <input type="text" value="{$get['create_time1']?$get['create_time1']:''}"  onClick="WdatePicker()" name="create_time1"/>
                 <input value="查询" style="padding: 0 15px" type="submit"/>
             </form>
         </span>

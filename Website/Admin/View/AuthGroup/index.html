@@ -14,7 +14,11 @@
 <body>
     <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
         管理组列表
-        <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U('Admin/AuthGroup/add_group')}">【管理组添加】</a>
+        <if condition="get['add_group'] eq '0'">
+            <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="javascript:alert('暂无权限')" >【管理组添加】</a>
+            <else/>
+            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U($get['add_group'],array('pid'=>$get['pid']))}">【管理组添加】</a>
+        </if>
     </div>
     <div style="font-size: 13px; margin: 10px 5px;">
         <table class="table_a" style="border:1px solid rgb(129, 191, 249)" width="100%">
@@ -31,10 +35,10 @@
                         <td>{$value.title}</td>
                         <td>{$value.member}</td>
                         <td>
-                            <a href="{:U('add_member',array('gid'=>$value['id']))}" class="tablelink">添加组员</a> ｜
-                            <a href="{:U('allocateRule',array('gid'=>$value['id'],'member'=>$value['member']))}" class="tablelink">分配权限</a> ｜
-                            <a href="{:U('add_group',array('id'=>$value['id']))}" class="tablelink">编辑</a> ｜
-                            <a href="#" id="{$value.id}" class="tablelink del">删除</a>
+                            <a href="{:U('add_member',array('gid'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">添加组员</a> ｜
+                            <a href="{:U('allocateRule',array('gid'=>$value['id'],'member'=>$value['member'],'pid'=>$get['pid']))}" class="tablelink">分配权限</a> ｜
+                            <a href="{:U('add_group',array('id'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">编辑</a> ｜
+                            <a href="#" id="{$value.id}" pid="{$get['pid']}" class="tablelink del">删除</a>
                         </td>
                     </tr>
                 </volist>
@@ -46,14 +50,15 @@
 <script>
     $('.del').click(function(){
         var id = $(this).attr('id');
-        $.post("{:U('AuthGroup/del')}",{id:id},function(res){
+        var pid = $(this).attr('pid');
+        $.post("{:U('AuthGroup/del')}",{id:id,pid:pid},function(res){
             if(res.status==1){
-                layer.msg('删除成功',{icon:6,time:2000},function(){
-                    location="{:U('AuthGroup/index')}";
+                layer.msg(res.info,{icon:6,time:2000},function(){
+                    location=res.url;
                 })
             }else{
-                layer.msg('删除失败',{icon:5,time:2000},function(){
-                    location="{:U('AuthGroup/index')}";
+                layer.msg(res.info,{icon:5,time:2000},function(){
+                    location=res.url;
                 })
             }
         })

@@ -93,9 +93,9 @@
         $('.btn').on('click',function(){
             $.post('{:U("Admin/Login/edit_Pass")}',$("#form1").serialize(),function(res){
                 if(res.status == 1){
-                    layer.msg(res.info, function(){
+                    layer.msg(res.info,{icon:6,time:2000}, function(){
                         //关闭后的操作
-                        location.href = res.url;
+                        parent.location = res.url;
                     });
                 }else{layer.msg(res.info)}
             },'json')

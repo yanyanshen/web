@@ -9,14 +9,13 @@
     <script type="text/javascript" src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        input{margin-bottom: 6px;}
         lable.error{font-size: 14px;font-weight: bold;color: #FF0000;}
         lable.ok{font-size: 14px;font-weight: bold;color: #38D63B;}
         label{padding: 10px 20px 10px 0}
         li{margin-top: 30px;list-style: none}
         .dfinput{margin-left: 10px;border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;width: 340px;padding: 10px 0 10px 15px}
         .vocation{display: inline-block}
-        b{color: red}
+        b{color: #FA7124}
     </style>
     <script>
         $(function(){
@@ -53,13 +52,14 @@
     <span>
         <span style="float:left;font-weight: bolder;color: #ffffff;">编辑权限</span>
         <span style="margin-right: 8px;font-weight: bold">
-            <a style="text-decoration: none;color: #ffffff" href="{:U('AuthRule/index')}">【返回】</a>
+            <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
         </span>
     </span>
 </div>
 <div></div>
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="{:U('Admin/AuthRule/edit')}" id="form1" method="post">
+        <input type="hidden" name="pid" value="{$get['pid']}"/>
         <ul>
             <li><label>权限名称<b>*</b></label>
                 <input type="text" name="title" class="dfinput" value="{$title}"/>

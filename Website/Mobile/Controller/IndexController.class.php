@@ -23,6 +23,7 @@ class IndexController extends Controller {
         $this->slideshow();//轮播图展示
         $this->assign('http',C('HTTP'));
         $this->assign('empty',"<h style='text-align: center'>还有没有数据哦！！！</h>");
+        session('mobile_return',U('Mobile/Index/index'));
         $this->display();
     }
     //获取首页热门驾校数据
@@ -98,6 +99,11 @@ class IndexController extends Controller {
         $info = D('Slideshow')->slideshow($where);
         $this->assign('info',$info);
     }
-
+/*-------------------------------2017-10-20直学直考------------------------*/
+    public function zxzk(){
+        $this->assign('url',U('index'));
+        $this->display();
+    }
+/*-------------------------------2017-10-20直学直考------------------------*/
 
 }

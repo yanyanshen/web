@@ -27,10 +27,10 @@
                         </volist>
                       </select>
                 关键词：<input type="text" value="" name="keyword"/>
-                时间：<input type="text" onClick="WdatePicker()" value="{$create_time?$create_time:''}" name="create_time"/>
-                至 <input type="text" value="{$create_time1?$create_time1:''}"  onClick="WdatePicker()" name="create_time1"/>
-                <input value="查询" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_keyword")}')"/>
-                <input value="上月" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_keyword?t=1")}')"/>
+                时间：<input type="text" onClick="WdatePicker()" value="{$get['create_time']?$get['create_time']:''}" name="create_time"/>
+                至 <input type="text" value="{$get['create_time1']?$get['create_time1']:''}"  onClick="WdatePicker()" name="create_time1"/>
+                <input value="查询" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_keyword",array('pid'=>$get['pid']))}')"/>
+                <input value="上月" style="padding: 0 15px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_keyword",array('pid'=>$get['pid'],'t'=>1))}')"/>
                 <script>
                     function submitYouForm(path){
                         $("#form1").attr('action',path);

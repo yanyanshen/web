@@ -18,7 +18,11 @@
 <body>
     <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
         菜单列表
-        <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U('Admin/AdminNav/add_nav')}">【菜单添加】</a>
+        <if condition="get['add_nav'] neq '0'">
+            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U($get['add_nav'],array('pid'=>$get['pid']))}">【菜单添加】</a>
+            <else/>
+            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="javascript:alert('暂无权限')">【菜单添加】</a>
+        </if>
     </div>
     <div style="font-size: 13px; margin: 10px 5px;">
     <table class="table_a" style="border:1px solid rgba(119, 163, 218, 0.79)" width="100%">
@@ -39,9 +43,9 @@
                     <td>{:str_repeat('&nbsp;',12*($value['level']-1))}|--{$value.navname}</td>
                     <td>{$value.navurl}</td>
                     <td>
-                        <a href="{:U('add_nav',array('pid'=>$value['id'],'pname'=>$value['navname']))}" class="tablelink">添加子菜单</a>&nbsp;&nbsp;
-                        <a href="{:U('edit',array('id'=>$value['id']))}" class="tablelink">编辑</a>&nbsp;&nbsp;
-                        <a href="#" id="{$value['id']}" class="tablelink del">删除</a>
+                        <a href="{:U('add_nav',array('pid'=>$value['id'],'pname'=>$value['navname'],'ppid'=>$get['pid']))}" class="tablelink">添加子菜单</a>&nbsp;&nbsp;
+                        <a href="{:U('edit',array('id'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">编辑</a>&nbsp;&nbsp;
+                        <a href="#" id="{$value['id']}" pid="{$get['pid']}"  class="tablelink del">删除</a>
                     </td>
                 </tr>
             </volist>
@@ -54,7 +58,8 @@
     //删除
     $('.del').click(function(){
         var id=$(this).attr('id');
-        $.post("{:U('del')}",{id:id},function(res){
+        var pid=$(this).attr('pid');
+        $.post("{:U('del')}",{id:id,pid:pid},function(res){
             if(res.status==1){
                 layer.msg(res.info,{icon:1},function(){
                     location.href=res.url;

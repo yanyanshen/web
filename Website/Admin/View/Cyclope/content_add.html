@@ -49,8 +49,9 @@
                 <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value="{$cyclope['title']?$cyclope['title']:''}"/>
             </li>
             <li>
-                <label>展示图片<b>*</b></label>
+                <label>图片<b>*</b></label>
                 <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:700px;height:230px;position: relative;margin-bottom: 15px">
+                    (无图片则不选即可)
                     <p id="preview1" >
                         <if condition="$cyclope['id'] neq 0">
                             <img id="imghead1"  border=0 src='{$cyclope["picurl"]}' width="230"/>

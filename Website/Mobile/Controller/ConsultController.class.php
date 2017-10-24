@@ -3,6 +3,7 @@ namespace Mobile\Controller;
 use Think\Controller;
 class ConsultController extends Controller{
     public function studyNew(){
+        session('mobile_return',U('Mobile/Consult/studyNew'));
         $num = 4;//请求条数
         $page = $_POST['page']?$_POST['page']:1;
         $cityid = M('citys')->where(array('cityname'=>session('city')))->getField('id');
@@ -53,6 +54,7 @@ class ConsultController extends Controller{
             $info['touch_count']=sprintf("%.4f", $info['touch_count']/10000).'万';
         }
         $this->assign('info',$info);
+        $this->assign('url',session('mobile_return'));
         $this->display();
     }
 }

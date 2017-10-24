@@ -94,12 +94,14 @@
     <span>
         <span style="float:left;font-weight: bolder;color: #ffffff">新建订单</span>
         <span style="margin-right: 8px;font-weight: bold">
-            <a style="text-decoration: none;color: #FA7124" href="{:U('order_list',array('p'=>$get['p'],'pid'=>$get['pid']))}">【返回】</a>
+            <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
         </span>
     </span>
 </div>
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="{:U('Admin/Order/add_order')}" id="form1" method="post">
+        <input type="hidden" value="{$get['p']}" name="p"/>
+        <input type="hidden" value="{$get['pid']}" name="pid"/>
         <table style="border:1px solid rgb(194, 230, 245)" width="100%" class="table_a">
             <tr style="height: 25px;color: #536aff;font-weight: bolder">
                 <td>客户信息:</td>

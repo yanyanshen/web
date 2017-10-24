@@ -33,17 +33,17 @@
                 <select name="cityid" >
                     <option value="0">请选择</option>
                     <volist name='citys' id='v'>
-                        <option value="{$v.id}" {$v['id']==$cityid?selected:''}>{$v.cityname}</option>
+                        <option value="{$v.id}" {$v['id']==$get['cityid']?selected:''}>{$v.cityname}</option>
                     </volist>
                </select>
-                题目：<input type="text" name='title' value="{$title?$title:''}" />
+                题目：<input type="text" name='title' value="{$get['title']?$get['title']:''}" />
                 科目：
                 <select name="type" >
                     <option value="0" selected>请选择</option>
-                    <option value="1" {$type==1?selected:''}>科目一</option>
-                    <option value="2" {$type==2?selected:''}>科目二</option>
-                    <option value="3" {$type==3?selected:''}>科目三</option>
-                    <option value="4" {$type==4?selected:''}>科目四</option>
+                    <option value="1" {$get['type']==1?selected:''}>科目一</option>
+                    <option value="2" {$get['type']==2?selected:''}>科目二</option>
+                    <option value="3" {$get['type']==3?selected:''}>科目三</option>
+                    <option value="4" {$get['type']==4?selected:''}>科目四</option>
                 </select>
                 <input value="查询" type="submit" id='btn'/>
                 <input value="清空全部" type="reset" id=''/>
@@ -72,11 +72,21 @@
                         <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                         <td>{$v['update']}</td>
                         <td>
-                            <a href="{:U('Admin/Cyclope/set_header',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
+                            <a style="text-decoration: none"
+                               href="{:U('Admin/Cyclope/set_header',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
                                 {$v['set_header']?'取消置顶':'置顶'}
                             </a>
-                            <a href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
-                            <a id="del" href="{:U('Admin/Cyclope/del_cyclope',array('type_id'=>$v['id'],'pid'=>$pid))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
+                            <span>|</span>
+                            <a style="text-decoration: none" onclick="if(confirm('确认要操作吗？')==false)  return false;"
+                               href="{:U('Admin/Cyclope/Hnew',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
+                                {$v['hnew']?'取消热门资讯':'热门资讯'}
+                            </a>
+                            <span>|</span>
+                            <a style="text-decoration: none"
+                               href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
+                            <span>|</span>
+                            <a style="text-decoration: none"  id="del" href="{:U('Admin/Cyclope/del_cyclope',array('type_id'=>$v['id'],'pid'=>$pid))}"
+                               onclick="if(confirm('确定删除？')==false)return false;">删除</a>
                         </td>
                     </tr>
                 </volist>
@@ -85,18 +95,4 @@
         </div>
     </body>
 </html>
-<script>
-    $(".consult").click(function(){
-        var id=$(this).attr('gid');
-        $(this).attr('disabled',true);
-        $.post("{:U('Admin/Cyclope/statusUpdate')}",{id:id},function(res){
-            if(res.info==1){
-                location.href='';
-            }else{
-                location.href='';
-            }
-        })
-    })
 
-
-</script>

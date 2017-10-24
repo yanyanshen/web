@@ -5,10 +5,21 @@ use Admin\Common\Controller\CommonController;
 class AuthGroupController extends CommonController{
 //管理组列表
     public function index(){
+        //判断是否有管理组添加的权限
+        $pid = I('pid');
+        $add_group = D('AuthRule')->getRule($pid,'管理组添加');
+        $_GET['add_group'] = $add_group['name'];
+
+        $this->assign('get',$_GET);
         $group=D('AuthGroup');
         $groupList=$group->getGroupList();
         foreach($groupList as $k=>$v){
-            $adminInfo=M('AuthGroupAccess')->alias('g')->join('xueches_admin a ON g.uid=a.id')->field('a.username')->where("g.group_id={$v['id']}")->select();
+            $adminInfo=M('AuthGroupAccess')
+                ->alias('g')
+                ->join('xueches_admin a ON g.uid=a.id')
+                ->field('a.username')
+                ->where("g.group_id={$v['id']}")
+                ->select();
             $str='';
             foreach($adminInfo as $a){
                 $str.=$a['username'].',';
@@ -25,17 +36,21 @@ class AuthGroupController extends CommonController{
             $data=$group->create();
             if($data){
                 if($data['id']){
+                    $log['done'] = '编辑管理组名称';
+                    D('AdminLog')->logout($log);
                     $gid=$group->save($data);
                 }else{
+                    $log['done'] = '添加管理组';
+                    D('AdminLog')->logout($log);
                     $gid=$group->add_group($data);
                 }
                 if($gid){
-                    $this->success('编辑成功',U('index'));
+                    $this->success('编辑成功',U('Admin/AuthGroup/index',array('pid'=>I('pid'))));
                 }else{
-                    $this->error('编辑失败');
+                    $this->error('编辑失败',U('Admin/AuthGroup/add_group',array('pid'=>I('pid'),'id'=>I('id'))));
                 }
             }else{
-                $this->error($group->getError());
+                $this->error($group->getError(),'');
             };
         }else{
             if(I('id')){
@@ -43,22 +58,26 @@ class AuthGroupController extends CommonController{
                 $this->assign('btn','管理组编辑');
                 $title = M('AuthGroup')->where("id = $id")->getField('title');
                 $this->assign('title',$title);
-                $this->assign('id',$id);
             }
+            $this->assign('get',$_GET);
+            $this->assign('url',U('Admin/AuthGroup/index',array('pid'=>I('pid'))));
             $this->display();
         }
     }
 //给管理组分配权限;
     public function allocateRule(){
+        $this->assign('get',$_GET);
         $group=D('AuthGroup');
         if(IS_AJAX){
             $data['id']=I('post.id');
             $data['rules']=implode(',',I('post.rules'));
             $row=$group->editRule($data);
             if($row){
-                $this->success('分配成功',U('index'));
+                $log['done'] = '分配权限';
+                D('AdminLog')->logout($log);
+                $this->success('分配成功',U('index',array('pid'=>I('pid'))));
             }else{
-                $this->error('分配失败');
+                $this->error('分配失败',U('index',array('pid'=>I('pid'))));
             }
         }else{
             //获取所有权限规则
@@ -77,6 +96,7 @@ class AuthGroupController extends CommonController{
 //删除管理组;
     public function del(){
         if(IS_AJAX) {
+            $url = U('Admin/AuthGroup/index',array('pid'=>I('pid')));
             $id = I('post.id');
             $group = M('AuthGroup');
             $access=M('AuthGroupAccess');
@@ -97,18 +117,23 @@ class AuthGroupController extends CommonController{
                     $res = $group->delete($accessInfo);
                 }
                 if($res){
-                    $this->success('删除成功');
+                    $log['done'] = '删除管理组';
+                    D('AdminLog')->logout($log);
+                    $this->success('删除成功',$url);
                 }else{
-                    $this->error('删除失败');
+                    $this->error('删除失败',$url);
                 }
             }else{
-                $this->error('没有查到数据');
+                $this->error('没有查到数据',$url);
             }
         }
     }
 //添加组员
     public function add_member(){
+        $this->assign('get',$_GET);
+        $this->assign('url',U('Admin/AuthGroup/index',array('pid'=>I('pid'))));
         if(IS_AJAX){
+            $url = U('Admin/AuthGroup/add_member',array('pid'=>I('pid'),'gid'=>I('gid')));
             if(trim(I('username'))){
                 $userInfo = M('admin')->where(array('username'=>trim(I('username'))))->find();
                 $gid = I('gid');
@@ -117,16 +142,18 @@ class AuthGroupController extends CommonController{
                     $data['group_id'] = $gid;
                     $accessInfo = M('AuthGroupAccess')->where($data)->find();
                     if($accessInfo){
-                        $this->error('该组员已存在');
+                        $this->error('该组员已存在',$url);
                     }else{
                         if(M('AuthGroupAccess')->add($data)){
-                            $this->success('添加成功');
+                            $log['done'] = '向管理组添加组员';
+                            D('AdminLog')->logout($log);
+                            $this->success('添加成功',$url);
                         }else{
-                            $this->error('添加失败');
+                            $this->error('添加失败',$url);
                         }
                     }
                 }else{
-                    $this->error('这条数据不存在');
+                    $this->error('这条数据不存在',$url);
                 }
                 //勾选的管理员名字
             }elseif(I('post.uid')){
@@ -138,12 +165,14 @@ class AuthGroupController extends CommonController{
                     $res = $access->add($data);
                 }
                 if($res){
-                    $this->success('添加成功');
+                    $log['done'] = '向管理组添加组员';
+                    D('AdminLog')->logout($log);
+                    $this->success('添加成功',$url);
                 }else{
-                    $this->error('添加失败');
+                    $this->error('添加失败',$url);
                 }
             }else{
-                $this->error('管理员名称不能为空');
+                $this->error('管理员名称不能为空',$url);
             }
         }else{
             $gid = I('gid');

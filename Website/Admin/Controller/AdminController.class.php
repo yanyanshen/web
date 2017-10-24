@@ -6,7 +6,7 @@ use Admin\Common\Controller\CommonController;
 class AdminController extends CommonController{
     //管理员列表
     public function index(){
-        if (IS_GET) {
+        if ($_GET['username']) {
             //搜索;
             $keywords = I('get.username');
             $where['username'] = array('like', "%$keywords%");
@@ -29,11 +29,11 @@ class AdminController extends CommonController{
                 }
                 $adminList[$k]['group']=substr($str,0,-1);
             }
-        $this->assign('keywords', $keywords);
         $this->assign('firstRow', $page->firstRow);
         $this->assign('count',$count);
         $this->assign('adminList', $adminList);
         $this->assign('page', $show);
+        $this->assign('get', $_GET);
         $this->assign('empty', "<h1>暂无数据</h1>");
         $this->display();
     }
@@ -71,15 +71,17 @@ class AdminController extends CommonController{
             $_POST['password'] = md5($_POST['password']);
             $res = M('Admin')->where(array('id'=>session("admin_id")))->save($_POST);
             if($res){
-                $log['done'] = '修改密码';
+                $log['done'] = '修改登录密码';
                 D('AdminLog')->logout($log);
-                $this->success();
+                $this->success('修改成功',U('Admin/set_password',array('pid'=>I('pid'))));
             }else{
-                $this->error();
+                $this->error('修改失败',U('Admin/set_password',array('pid'=>I('pid'))));
             }
         }else{
             $admin = M('admin')->where(array('id'=>session("admin_id")))->find();
             $this->assign('admin',$admin);
+            $this->assign('get',$_GET);
+            $this->assign('url',U('Admin/Admin/index',array('pid'=>I('pid'))));
             $this->display();
         }
     }
@@ -101,9 +103,11 @@ class AdminController extends CommonController{
                     $psInfo['status']=($psInfo['status']==0)?1:0;
                     $a=$admin->where($data)->field('status')->save($psInfo);
                     if($a){
-                        $this->success('更新管理员状态成功');
+                        $log['done'] = '更新管理员状态';
+                        D('AdminLog')->logout($log);
+                        $this->success('更新管理员状态成功',U('Admin/Admin/index',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
                     }else{
-                        $this->error('更新管理员状态失败');
+                        $this->error('更新管理员状态失败',U('Admin/Admin/index',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
                     }
                 }else{
                     $this->error('你没有权限');
@@ -133,9 +137,11 @@ class AdminController extends CommonController{
                     $psInfo['online']=0;
                     $a=$admin->where($data)->field('online')->save($psInfo);
                     if($a){
-                        $this->success('更新管理员登录状态成功');
+                        $log['done'] = '变更管理员登录状态';
+                        D('AdminLog')->logout($log);
+                        $this->success('更新管理员登录状态成功',U('Admin/Admin/index',array('pid'=>I('pid'),'p'=>I('p'))));
                     }else{
-                        $this->error('更新管理员登录状态失败');
+                        $this->error('更新管理员登录状态失败',U('Admin/Admin/index',array('pid'=>I('pid'),'p'=>I('p'))));
                     }
                 }else{
                     $this->error('你没有权限');
@@ -184,7 +190,9 @@ class AdminController extends CommonController{
                             $access->add($info);
                         }
                     }
-                    $this->success('用户编辑成功', U('index'));
+                    $log['done'] = '编辑管理员信息';
+                    D('AdminLog')->logout($log);
+                    $this->success('用户编辑成功',  U('Admin/Admin/edit',array('id'=>I('id'),'p'=>I('p'),'pid'=>I('pid'))));
                 } else {
                     $this->error('用户编辑失败');
                 }
@@ -203,6 +211,8 @@ class AdminController extends CommonController{
             $groupList = D('AuthGroup')->getGroupList();
             $this->assign('groupList', $groupList);
             $this->assign('adminInfo', $adminInfo);
+            $this->assign('get', $_GET);
+            $this->assign('url', U('Admin/Admin/index',array('id'=>I('id'),'p'=>I('p'),'pid'=>I('pid'))));
             $this->display();
         }
     }

@@ -5,6 +5,13 @@ use Admin\Common\Controller\CommonController;
 class AuthRuleController extends CommonController{
 //权限菜单列表;
     public function index(){
+        //判断是否有管理组添加的权限
+        $pid = I('pid');
+        $add_group = D('AuthRule')->getRule($pid,'权限添加');
+
+        $_GET['add_rule'] = $add_group['name'];
+
+        $this->assign('get',$_GET);
         $rule=D('AuthRule');
         $ruleList=$rule->getRuleList();
         $this->assign('ruleList',$ruleList);
@@ -13,12 +20,15 @@ class AuthRuleController extends CommonController{
 //添加权限
     public function add_rule(){
         if(IS_AJAX){
+            $url = U('Admin/AuthRule/index',array('pid'=>I('ppid')));
             $rule=D('AuthRule');
             $data=$rule->create();
             if($data){
                 $nid=$rule->add_rule($data);
                 if($nid){
-                    $this->success('权限添加成功',U('index'));
+                    $log['done'] = '添加权限';
+                    D('AdminLog')->logout($log);
+                    $this->success('权限添加成功',$url);
                 }else{
                     $this->error('权限添加失败');
                 }
@@ -26,10 +36,8 @@ class AuthRuleController extends CommonController{
                 $this->error($rule->getError());
             };
         }else{
-            if(I('get.pid')){
-                $this->assign('pid',I('get.pid'));
-                $this->assign('pname',I('get.pname'));
-            }
+            $this->assign('get',$_GET);
+            $this->assign('url',U('Admin/AuthRule/index',array('pid'=>I('ppid'))));
             $this->display();
         }
     }
@@ -47,7 +55,9 @@ class AuthRuleController extends CommonController{
                     $res = M('AuthRule')->where(array('id'=>$id))->delete();
                 }
                 if($res){
-                    $this->success('删除成功');
+                    $log['done'] = '删除权限';
+                    D('AdminLog')->logout($log);
+                    $this->success('删除成功',U('Admin/AuthRule/index',array('pid'=>I('pid'))));
                 }else{
                     $this->error('删除失败');
                 }
@@ -81,11 +91,15 @@ class AuthRuleController extends CommonController{
             $data['id']=$id;
             $info=D('AuthRule')->edit($data);
             if($info){
-                $this->success('编辑成功');
+                $log['done'] = '编辑权限';
+                D('AdminLog')->logout($log);
+                $this->success('编辑成功',U('Admin/AUthRule/index',array('pid'=>I('pid'))));
             }else{
                 $this->error('编辑失败');
             }
         }else{
+            $this->assign('get',$_GET);
+            $this->assign('url',U('Admin/AuthRule/index',array('pid'=>I('pid'))));
             $id=I('get.id');
             $rule=M('AuthRule');
             $data=$rule->where(array('id'=>$id))->find();

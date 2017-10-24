@@ -11,7 +11,6 @@
             text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
         #page a:hover{background:#F27602;color:#FF0000;}
         #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        #page{ float: right; }
         .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);;font-size: 13px}
         .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
         .table_a tr:hover{background-color: rgb(82, 249, 56) }
@@ -22,10 +21,16 @@
         <span>
             <span style="float: left;font-weight: bolder;color: #ffffff">订单列表</span>
             <span style=" margin-right: 8px; font-weight: bold;color: #ffffff">
-                <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="{:U('Admin/Order/add_order')}">【新建订单】</a>
+                <if condition="$add_order eq '0'">
+                    <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="javascript:alert('暂无权限');">【新建订单】</a>
+                    <else/>
+                    <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="{:U($add_order,array('p'=>$get['p'],'pid'=>$get['pid']))}">【新建订单】</a>
+                </if>
             </span>
-            <a href="{:U('Admin/Order/pay_list',array('pid'=>$pid,'flag'=>0))}" class="span" style="color: #fa7124;margin-left:200px;cursor: pointer;display: none">{$count1}条未处理</a>
-            <a href="{:U('Admin/Order/pay_list',array('pid'=>$pid,'visit'=>0))}" class="span" style="color: #fa7124;margin-left:30px;cursor: pointer;display: none">{$count2}未回访</a>
+            <a href="{:U('Admin/Order/pay_list',array('pid'=>$get['pid'],'flag'=>0,'p'=>$get['p']))}" class="span"
+               style="color: #fa7124;font-weight:bold;margin-left:200px;cursor: pointer;display: none">{$count1}条未处理</a>
+            <a href="{:U('Admin/Order/pay_list',array('pid'=>$get['pid'],'visit'=>0,'p'=>$get['p']))}" class="span"
+               style="color: #fa7124;margin-left:30px;font-weight:bold;cursor: pointer;display: none">{$count2}未回访</a>
             <script language="javascript">
                 function codefans(){
                     var box=$(".span");
@@ -131,7 +136,7 @@
                         </span>
                         <span style="padding-left: 5px">
                             跟单客服：<input type="text" name="customer" style="width: 80px"  value="{$get['customer']?$get['customer']:''}"/>
-                            <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/pay_list")}')"/>
+                            <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/pay_list",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
                             <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push")}')"/>
                         </span>
                     </div>
@@ -151,12 +156,12 @@
             <tr style="height:36px;font-weight: bold;background-color:  rgb(129, 191, 249);color: #ffffff">
                 <th width="2%">编号</th>
                 <th width="2%">订单号</th>
-                <th width="7%">下单时间</th>
+                <th width="6%">下单时间</th>
                 <th width="4%">用户名</th>
                 <th width="3%">联系电话</th>
                 <th width="2%">人数</th>
-                <th width="5%">驾校/教练/指导员</th>
-                <th width="7%">课程名</th>
+                <th width="5%">驾校</th>
+                <th width="5%">课程名</th>
                 <th width="4%">基地</th>
                 <th width="3%">支付方式</th>
                 <th width="3%">支付状态</th>
@@ -164,7 +169,7 @@
                 <th width="6%">支付时间</th>
                 <th width="5%">跟单客服</th>
                 <th width="5%">最新备注</th>
-                <th width="5%">回访日期</th>
+                <th width="6%">回访日期</th>
                 <th width="3%">最后更新人</th>
                 <th width="5%">状态</th>
                 <th width="3%">操作</th>
@@ -227,33 +232,30 @@
                     <td>
                          <span >
                             {$v['flag']==0?'未处理':'已处理'}
-                            <a href="javascript:;" onclick="flag_visit('flag',{$v['id']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['flag']==0?'已处理':'未处理'}</a>
+                            <a href="javascript:;" onclick="flag_visit('flag',{$v['id']},{$get['pid']},{$get['p']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['flag']==0?'已处理':'未处理'}</a>
                         </span>
                         <span>
                             {$v['visit']==0?'未回访':'已回访'}
-                            <a href="javascript:;" onclick="flag_visit('visit',{$v['id']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['visit']==0?'已回访':'未回访'}</a>
+                            <a href="javascript:;" onclick="flag_visit('visit',{$v['id']},{$get['pid']},{$get['p']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['visit']==0?'已回访':'未回访'}</a>
                         </span>
                     </td>
                     <td style="text-align: center">
-                        <a href="{:U('Admin/Order/list_info',array('id'=>$v['id']))}">处理</a>　
+                        <a href="{:U('Admin/Order/list_info',array('id'=>$v['id'],'p'=>$get['p'],'pid'=>$get['pid']))}">处理</a>　
                     </td>
                 </tr>
         </volist>
         </tbody>
     </table>
-    <div id="page" style="float: left">
-        {$page}
-    </div>
 </div>
 </body>
 </html>
 <script>
-    function flag_visit(type,id){
+    function flag_visit(type,id,pid,p){
         $(this).attr('disabled','true');
-        $.post("{:U('Order/flag_visit')}",{type:type,id:id},function(res){
+        $.post("{:U('Order/flag_visit')}",{type:type,id:id,pid:pid,p:p},function(res){
             if(res.status==1){
                 alert(res.info);
-                location.href = res.url;
+                location.href = '{:U("Admin/Order/pay_list")}?p='+p+'&pid='+pid;
             }else{
                 alert(res.info);
             }

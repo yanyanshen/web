@@ -20,15 +20,16 @@
 <body>
 <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
     权限添加
-    <a style="text-decoration: none;color: red" href="{:U('AuthRule/index')}">【返回】</a>
+    <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
 </div>
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="{:U('Admin/AuthRule/add_rule')}" id="form1" method="post">
-        <input name="pid" type="hidden" class="dfinput" value="{$pid|default=0}"/>
+        <input name="pid" type="hidden" class="dfinput" value="{$get['pid']|default=0}"/>
+        <input name="ppid" type="hidden" class="dfinput" value="{$get['ppid']|default=0}"/>
         <ul style="padding: 0;margin-left: 10px">
             <li>
                 <label>上级权限<b>*</b></label>
-                <input type="text" class="dfinput" placeholder="{$pname|default='顶级权限'}"  readonly/>
+                <input type="text" class="dfinput" placeholder="{$get['pname']|default='顶级权限'}"  readonly/>
             </li>
             <li><label>权限名称<b>*</b></label>
                 <input name="title" type="text" class="dfinput" placeholder="请输入权限名称" />
@@ -57,8 +58,8 @@
                 }
             },
             messages:{
-                title:{required:' * 权限名称不能为空！'},
-                name:{required:' * 权限规则不能为空！'}
+                title:{required:' * 必填项！'},
+                name:{required:' * 必填项！'}
             },
             success:function(lable){
                 lable.addClass('ok').text(' * 通过验证');
@@ -72,14 +73,12 @@
                 $.post("{:U('Admin/AuthRule/add_rule')}",$('#form1').serialize(),function(res){
                 if(res.status==1){
                     layer.msg(
-                        res.info,
-                        {icon:1},
-                        function(){
+                        res.info, {icon:6,time:2000}, function(){
                             location.href=res.url;
                         }
                     );
                 }else{
-                    layer.msg(res.info);
+                    layer.msg(res.info, {icon:5,time:2000});
                 }
             },'json');
             return false;

@@ -39,11 +39,7 @@ class CyclopeController extends CommonController{
         $this->assign('info',$info);
         $this->assign('firstRow',$page->firstRow);
         $this->assign('page',$show);
-        $this->assign('cityid',$_GET['cityid']);
-        $this->assign('title',$_GET['title']);
-        $this->assign('type',$_GET['type']);
         $this->assign('count',$count);
-        $this->assign('http',C('HTTP'));
         $this->assign('get',$_GET);
         $this->display();
     }
@@ -108,9 +104,6 @@ class CyclopeController extends CommonController{
         $this->assign('info',$info);
         $res =M('cyclope')->field('id,cityid,type')->where("id = $type_id")->find();
         $this->assign('res',$res);
-
-        $this->assign('title',$_GET['title']);
-        $this->assign('update',$_GET['update']);
         $this->assign('count',count($info));
         $this->assign('get',$_GET);
         $this->assign('url',U('Admin/Cyclope/index',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
@@ -121,31 +114,31 @@ class CyclopeController extends CommonController{
         if(IS_AJAX){
             $_POST['admin_id']=session('admin_id');
             $_POST['ntime']=time();
-            if(empty($_FILES['image'])){
-                $this->error('请上传文件');
-            }else{
-                $id=M('cyclope_content')->add($_POST);
-                if($id){
+            $id = M('cyclope_content')->add($_POST);
+            if($id){
+                if(!empty($_FILES['image'])){
                     $src = $_FILES['image']['tmp_name'];
                     $name = $_FILES['image']['name'];
-                        //获取文件后缀名的几种方法
-    //            $ext = substr(strrchr($name,'.'),+1);
-    //            $ext = substr($name,strrpos($name,'.')+1);
-    //            $ext = pathinfo($name)['extension'];
-    //            $ext = end(explode('.', $name));
-                        $ext = pathinfo($name,PATHINFO_EXTENSION);
-                        $name = md5(uniqid(microtime(true),true)).".$ext";
-                        $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
-                        $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url']));
-                        if($res){
-                            $log['done'] = '添加百科子内容';
-                            D('AdminLog')->logout($log);
-                            $url = U('Admin/Cyclope/content_index?id='.$_POST['type_id'].'&pid='.$_POST['pid'].'&p='.$_POST['p']);
-                            $this->success('添加成功',$url);
-                        }else{
-                            $this->error('添加失败');
-                        }
-                    }
+                    //获取文件后缀名的几种方法
+                    //            $ext = substr(strrchr($name,'.'),+1);
+                    //            $ext = substr($name,strrpos($name,'.')+1);
+                    //            $ext = pathinfo($name)['extension'];
+                    //            $ext = end(explode('.', $name));
+                    $ext = pathinfo($name,PATHINFO_EXTENSION);
+                    $name = md5(uniqid(microtime(true),true)).".$ext";
+                    $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
+                    $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url']));
+                }else{
+                    $res = 1;
+                }
+                if($res){
+                    $log['done'] = '添加百科子内容';
+                    D('AdminLog')->logout($log);
+                    $url = U('Admin/Cyclope/content_index?id='.I('type_id').'&pid='.I('pid').'&p='.I('p'));
+                    $this->success('添加成功',$url);
+                }else{
+                    $this->error('添加失败');
+                }
             }
         }else{
             $this->assign('get',$_GET);
@@ -196,9 +189,8 @@ class CyclopeController extends CommonController{
             $this->display();
         }
     }
-/*-------------------------------2017-10-17腾讯云存储视频图片代码---------------------------------------------*/
 
-/*-------------------------------2017-10-19百科置顶操作---------------------------------------------*/
+/*-------------------------------2017-10-19百科置顶操作shenyanyan---------------------------------------------*/
     public function set_header(){
         $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('set_header');
         if($set_header == 0){
@@ -211,8 +203,20 @@ class CyclopeController extends CommonController{
             $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
         }
     }
-/*-------------------------------2017-10-19百科置顶操作---------------------------------------------*/
 
+/*-------------------------------2017-10-23百科热门资讯shenyanyan---------------------------------------------*/
+    public function Hnew(){
+        $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('Hnew');
+        if($set_header == 0){
+            $data['Hnew'] = 1;
+        }else{
+            $data['Hnew'] = 0;
+        }
+        $res = M('Cyclope')->where(array('id'=>I('id')))->save($data);
+        if($res){
+            $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
+        }
+    }
 
 /*删除*/
     function del_cyclope(){
@@ -237,7 +241,4 @@ class CyclopeController extends CommonController{
         }
         $this->redirect($url,'',0,"<script>alert('删除成功')</script>");
     }
-
-
-
 }

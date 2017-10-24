@@ -6,6 +6,7 @@ header头部
     width: 100%;
     background: #fff;
     border-bottom: 1px solid #eee;
+    position: fixed;
 }
 .header{
     width: 1000px;
@@ -55,6 +56,7 @@ header头部
 .main{
     width: 1000px;
     margin:0 auto;
+    padding-bottom: 65px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -78,6 +80,11 @@ header头部
     width: 100%;
     height: 100%;
     background: #fff;
+    padding-top: 50px;
+
+}
+.hot-topic{
+    border-bottom: 8px #f5f4f9 solid;
 }
 .hot-topic>ul>li{
     list-style: inside;
@@ -107,6 +114,9 @@ header头部
     font-size: 12px;
     line-height: 36px;
     color: #a0a0a0;
+}
+.hot-sort1{
+    border-bottom: 8px #f5f4f9 solid;
 }
 .hot-sort1>ul>li{
     list-style: inside;
@@ -141,6 +151,72 @@ header头部
     width: 100%;
     height: 100%;
 }
+
+
+
+/***************************************************************
+热门资讯
+****************************************************************/
+.hot-new>ul>li{
+    list-style: inside;
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 50px;
+    margin-left: 10px;
+}
+.Hnew{
+    border-bottom: 1px #f5f5f5 solid;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.new-img{
+    width: 100px;
+    height: 68px;
+    margin-left: 3%;
+    border-radius: 4px;
+    overflow: hidden;
+    float: left;
+}
+.new-img img{
+    width: 100%;
+    height: auto;
+}
+.new-title{
+    float: left;
+    padding-left: 10px;
+    width: 60%;
+}
+.new-title h1{
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 18px;
+    color: #646464;
+    margin:0;
+}
+.new-browse{
+    font-family: "Microsoft YaHei";
+    font-size: 10px;
+    line-height: 20px;
+    color: #aaa;
+    float: right;
+}
+.new-browse>span{
+    font-family: "Microsoft YaHei";
+    font-size: 10px;
+    line-height: 20px;
+    color: #aaa;
+}
+.new-time{
+    font-family: "Microsoft YaHei";
+    font-size: 10px;
+    line-height: 20px;
+    color: #aaa;
+    float: right;
+    margin-right: 20px;
+}
+
 
 
 /***************************************************************
@@ -210,11 +286,31 @@ header头部
 
 
 
+/***************************************************************
+自适应
+****************************************************************/
+@media screen and (min-width: 320px) {
 
+    .new-title{
+        width: 60%;
+    }
 
+}
 
+@media screen and (min-width: 375px) {
 
+    .new-title{
+        width: 65%;
+    }
 
+}
+@media screen and (min-width: 414px) {
+
+    .new-title{
+        width: 68%;
+    }
+
+}
 
 
 

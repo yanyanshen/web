@@ -210,6 +210,8 @@ class CoachController extends CommonController {
                 }
             }
             if($res){
+                $log['done'] = '添加教练';
+                D('AdminLog')->logout($log);
                 $this->success('添加成功');
             }else{
                 $this->error('添加失败');

@@ -1,14 +1,18 @@
 <?php
 namespace Admin\Model;
 use Think\Model;
+use Think\Page;
+
 class AuthRuleModel extends Model{
 //得到权限列表
     public function getRuleList(){
-        $navList=$this->order('path asc')->select();
+        $navList=$this->order('path asc')
+            ->select();
         foreach($navList as $k=>$v){
             $count=count(explode(',',$v['path']));
             $navList[$k]['level']=$count;
         }
+
         return $navList;
     }
 //添加权限;
@@ -80,10 +84,10 @@ class AuthRuleModel extends Model{
             if($id){
                 return $rule;
             }else{
-                return $rule = array();
+                return $rule = array('name'=>0);
             }
         }else{
-            return $rule = array();
+            return $rule = array('name'=>0);
         }
     }
 }

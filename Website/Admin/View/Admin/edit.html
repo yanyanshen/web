@@ -18,18 +18,15 @@
     </style>
 </head>
 <body>
-<div class="div_head">
-    <span>
-        <span style="float:left;font-weight: bolder">编辑管理员</span>
-        <span style="float:right;margin-right: 8px;font-weight: bold">
-            <a style="text-decoration: none" href="{:U('index')}">【返回】</a>
-        </span>
-    </span>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+    <span >编辑管理员</span>
+    <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
 </div>
-<div></div>
 <div style="font-size: 13px;margin: 10px 5px">
     <form action="" id="form1" method="post">
         <input type="hidden" value="{$adminInfo.id}" name="id"/>
+        <input type="hidden" value="{$get['p']}" name="p"/>
+        <input type="hidden" value="{$get['pid']}" name="pid"/>
         <ul >
             <li>
                 <label>所属组<b>*</b></label>
@@ -62,7 +59,7 @@
     $('.btn').click(function(){
         $.post("{:U('edit')}",$('#form1').serialize(),function(res){
             if(res.status==1){
-                layer.msg(res.info, {icon:1},function(){
+                layer.msg(res.info, {icon:6,time:2000},function(){
                     location=res.url;
                 });
             }else{

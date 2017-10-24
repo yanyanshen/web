@@ -31,23 +31,23 @@
                 <div class="studyNew">
                     <div class="new">
                         <volist name="info" id="data" empty="$empty">
-                            <div id="n_box1">
-                                <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$data['id']))}">
+                            <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$data['id']))}">
+                                <div id="n_box1">
                                     <div class="n_img">
-                                        <img src="{$http}/Uploads/Consult_logo/{$data.picurl}{$data.picname}" width=""/>
+                                        <img style="border-radius: 3px" src="{$http}/Uploads/Consult_logo/{$data.picurl}{$data.picname}" width=""/>
                                     </div>
-                                </a>
-                                <div class="n_main">
-                                    <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$data['id']))}">{$data.title|mb_substr=0,12,utf8}...</a>
-                                    <ul id="nm">
-                                        <li class="date">{:date('Y/m/d',$data['ntime'])}</li>
-                                        <li class="num">{$data.touch_count}</li>
-                                        <li class="eye"><img src="__STATIC__/consult/images/eye.png"></li>
-                                        <div class="clearfix"></div>
-                                    </ul>
+                                    <div class="n_main">
+                                        {$data.title|mb_substr=0,12,utf8}...
+                                        <ul id="nm">
+                                            <li class="date">{:date('Y/m/d',$data['ntime'])}</li>
+                                            <li class="num">{$data.touch_count}</li>
+                                            <li class="eye"><img src="__STATIC__/consult/images/eye.png"></li>
+                                            <div class="clearfix"></div>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
+                            </a>
                         </volist>
                     </div>
                 </div>

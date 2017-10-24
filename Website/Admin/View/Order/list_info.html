@@ -45,7 +45,7 @@
             <span>
                 <span style="float:left;color:#ffffff;font-weight: bolder">订单详情</span>
                 <span style="margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none;color:red;font-weight: bolder" href="{:U('order_list')}">【返回】</a>
+                    <a style="text-decoration: none;color:red;font-weight: bolder" href="{$url}">【返回】</a>
                 </span>
             </span>
         </div>
@@ -179,6 +179,7 @@
             <!-- ------------------------------------form3------------------------------------------------ -->
             <form action="{:U('class_update')}" method="post" id="form3">
                 <input type="hidden" value="{$pid}" name="pid"/>
+                <input type="hidden" value="{$p}" name="p"/>
                 <table class="table_a">
                     <tr>
 					    <input type="hidden" name="id" value="{$id}"/>
@@ -220,11 +221,11 @@
 					</tr>
 					<tr>
                 		<td colspan='14'>
-                            <notempty name="class_update">
-                                <input onclick="update_class()" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="button" value='{$class_update["title"]}' />
-                                <else/>
+                            <if condition="get['class_update'] eq 0">
                                 <a href="javascript:alert('暂无权限')" style="padding:6px 7px;text-decoration:none;color:#000000;background-color:rgb(189, 206, 238);border-radius: 3px;border:none">确认课程修改</a>
-                            </notempty>
+                                <else/>
+                                <input onclick="update_class()" style="background-color:rgb(189, 206, 238);border-radius: 3px;border:none" type="button" value='确认课程修改' />
+                            </if>
                         </td>
                		</tr>
 				</table>
