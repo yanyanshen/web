@@ -73,9 +73,10 @@ class LanguageController extends Controller{
             $count = count($info);
             if($count <= 0){
                 $info[][0] = 0;//到尾页返回0
-            }else{
-                echo json_encode($info);
             }
+            echo json_encode($info);
+            exit;
+
         }else{
             if(I('status') == 'total'){
                 session('new',null);
@@ -95,7 +96,6 @@ class LanguageController extends Controller{
             }
             $_POST['id'] = $id;
             $info = $this->evaluate($_POST);
-            print_r($_POST);
             //最新条数
             $date = date('Y-m-t',strtotime('-1 month'));
             $_GET['new'] = M('LanguageComment')->where(array('type_id'=>$id,"ntime > '$date'"))->count();
@@ -119,13 +119,30 @@ class LanguageController extends Controller{
                 $where .= " and ntime > '$date'";
             }
         }
-        $num = 1;
+        $num = 20;
         $page = $post['page']?$post['page']:1;
         $info =  M('LanguageComment')
-            ->field('username,content,ntime,score')
+            ->field('id,username,content,ntime,score')
             ->where($where)
             ->page($page,$num)
             ->select();//用户评价
         return $info;
+    }
+/*--------------------------2017-10-27shnayanyan---------------------------*/
+//语言教育课程详情页面
+    public function language_class_detail(){
+        //课程数据查询
+        $_GET['info'] = M('LanguageClass')->where(array('id'=>I('id')))->find();
+
+        $id = M('Language')->where(array('id'=> $_GET['info']['type_id']))->getField('id');
+        $_GET['url'] = U('Mobile/Language/language_detail',array('id'=>$id));//返回详情页链接
+        $this->assign('get',$_GET);
+        $this->display();
+    }
+
+//语言教育课程报名信息填写页面
+    public function language_apply(){
+        print_r($_GET);
+        $this->display();
     }
 }
