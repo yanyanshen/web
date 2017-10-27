@@ -10,10 +10,10 @@
         <link href="/Public/website/Mobile/list/css/main.css" rel="stylesheet" type="text/css">
         <link href="/Public/website/Mobile/list/css/media-queries.css" rel="stylesheet" type="text/css">
         <link href="/Public/website/Mobile/list/css/initialize.css" rel="stylesheet" type="text/css">
-        <link href="/Public/website/Mobile/list/css/cityPicker.css" rel="stylesheet" type="text/css">
+        <link href="/Public/public/js/banner/cityPicker.css" rel="stylesheet" type="text/css">
         <link href="/Public/website/Mobile/list/css/list.css" rel="stylesheet" type="text/css">
         <script src="/Public/public/js/jquery.min.1.8.2.js"></script>
-        <script src="/Public/website/Mobile/list/js/banner.js"></script>
+        <script src="/Public/public/js/banner/banner.js"></script>
         <script type="text/javascript" charset="utf-8" src="/Public/website/Mobile/list/js/cityPicker.js"></script>
         <style>
             .mui-pull-caption{margin: auto 0;text-align: center;font-size: 15px;display: none}

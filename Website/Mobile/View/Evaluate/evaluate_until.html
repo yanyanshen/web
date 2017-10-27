@@ -34,7 +34,7 @@
                 <form class="form_box" id="form1">
                     <input type="hidden" name="oid" value="{$oid}"/>
                     <input type="hidden" name="eid" value="{$info.id}"/>
-                    <textarea id="t" class="evaluate_input" name="content">请输入追加信息</textarea>
+                    <textarea id="t" class="evaluate_input" name="content">请输入追加信息(注意：不能添加表情)</textarea>
                     <div class="submit_box">
                         <input type="button" class="submit_eval cd-popup-trigger" value="提交评价"/>
                     </div>
@@ -46,22 +46,26 @@
 <script>
     var t = document.getElementById('t');
     t.onfocus = function(){
-        if(this.innerHTML == '请输入追加信息'){this.innerHTML = ''}
+        if(this.innerHTML == '请输入追加信息(注意：不能添加表情)'){this.innerHTML = ''}
     };
     t.onblur = function(){
         if(this.innerHTML == ''){
-            this.innerHTML = '请输入追加信息'
+            this.innerHTML = '请输入追加信息(注意：不能添加表情)'
         }
     };
     jQuery(document).ready(function($){
         //查看弹出
         $('.cd-popup-trigger').on('click', function(event){
+            $(this).attr('disabled',true);
             $.post("{:U('Mobile/Evaluate/evaluate_until')}",$('#form1').serialize(),function(res){
                 if(res.status == 0){
                     layer.open({
                         content: res.info
                         ,style: "background-color:#E7F0FA; color:white;font-size:16px; border:none;" //自定风格
                         ,time: 2
+                        ,end: function(){
+                            location.href = res.url;
+                        }
                     });
                 }else{
                     layer.open({

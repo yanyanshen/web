@@ -8,7 +8,7 @@ class IndexController extends Controller {
         session('mobile_order_source',$word['form']);
 //        session('mobile_order_keyword',$word['keyword']);//还没有办法获得关键字
         session('k',null);
-        if(!session('city')||!session('k')){
+        if(!session('city')){
             $citysInfo = getCity();
             session('city',substr($citysInfo,0,9));
         }else{
@@ -86,6 +86,11 @@ class IndexController extends Controller {
                     s.update_people,s.touch_count,c.cityname,c.id as cityid')
             ->where($where)
             ->select();
+        foreach($info as $k=>$v){
+            if(strlen($v['touch_count'])>=4){
+                $info[$k]['touch_count']=sprintf("%.4f", $v['touch_count']/10000).'万';
+            }
+        }
         $this->assign('consult',$info);
     }
 

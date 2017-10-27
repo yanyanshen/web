@@ -11,11 +11,11 @@
     <link href="__STATIC__/Index/css/main.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/Index/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/Index/css/initialize.css" rel="stylesheet" type="text/css">
-    <link href="__STATIC__/Index/css/banner.css" rel="stylesheet" type="text/css">
-    <link href="__STATIC__/Index/css/cityPicker.css" rel="stylesheet" type="text/css">
-    <script src="__STATIC__/Index/js/banner.js"></script>
+    <link href="__PUBLIC__/public/js/banner/banner.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/public/js/banner/cityPicker.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/banner/banner.js"></script>
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="__STATIC__/Index/js/Marquee.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/banner/Marquee.js"></script>
 </head>
 <body>
 <div id="pagewrap">
@@ -319,32 +319,32 @@
         <ul>
             <a href="{:U('Mobile/Index/index')}">
                 <li class="foot">
-                        <img src="__STATIC__/Index/images/icon-footer01-a.png">
-                        <p>首页</p>
+                        <img src="__PUBLIC__/public/images/icon-footer01-a.png">
+                        <p style="color: #fa7124; font-weight: bold;">首页</p>
                 </li>
             </a>
-            <a href="">
+            <a href="{:U('Mobile/Language/language_list')}">
                 <li class="foot">
-                    <img src="__STATIC__/Index/images/icon-footer2-a.png">
+                    <img src="__PUBLIC__/public/images/icon-footer2-a.png">
                     <p>语言</p>
                 </li>
             </a>
 
             <a href="{:U('Mobile/List/pull')}">
                 <li class="foot">
-                    <img src="__STATIC__/Index/images/icon-footer3-a.png">
+                    <img src="__PUBLIC__/public/images/icon-footer3-a.png">
                     <p>驾校</p>
                 </li>
             </a>
             <a href="{:U('Mobile/Cyclope/baike')}">
                 <li class="foot">
-                    <img src="__STATIC__/Index/images/icon-footer4-a.png">
+                    <img src="__PUBLIC__/public/images/icon-footer4-a.png">
                     <p>百科</p>
                 </li>
             </a>
             <a href="{:U('Mobile/User/user_center')}">
                 <li class="foot">
-                    <img src="__STATIC__/Index/images/icon-footer5-a.png">
+                    <img src="__PUBLIC__/public/images/icon-footer5-a.png">
                     <p>我的</p>
                 </li>
             </a>
@@ -352,10 +352,10 @@
         </ul>
     </footer>
     <div class="call_box">
-        <a href="tel:4008040517"><img src="__STATIC__/Index/images/phone.png"></a>
+        <a href="tel:4008040517"><img src="__PUBLIC__/public/images/phone.png"></a>
     </div>
     <div class="sms_box">
-        <a href="sms:18688888888"><img src="__STATIC__/Index/images/sms.png"></a>
+        <a href="sms:18688888888"><img src="__PUBLIC__/public/images/sms.png"></a>
     </div>
     <include file="public/footer"/>
 </div>

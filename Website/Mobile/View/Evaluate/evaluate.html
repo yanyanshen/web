@@ -32,7 +32,7 @@
             <div class="evaluate_box">
                 <form class="form_box" id="form1">
                     <input type="hidden" value="{$oid}"  name="oid"/>
-                    <textarea id="t" name="content" class="evaluate_input">请输入评价信息</textarea>
+                    <textarea id="t" name="content" class="evaluate_input">请输入评价信息(注意：不能添加表情)</textarea>
                     <div class="htmleaf-container">
                         <fieldset class="starability-fade star_evaluate">
                             <legend>星级评分</legend>
@@ -59,22 +59,26 @@
 <script>
     var t = document.getElementById('t');
     t.onfocus = function(){
-        if(this.innerHTML == '请输入评价信息'){this.innerHTML = ''}
+        if(this.innerHTML == '请输入评价信息(注意：不能添加表情)'){this.innerHTML = ''}
     };
     t.onblur = function(){
         if(this.innerHTML == ''){
-            this.innerHTML = '请输入评价信息'
+            this.innerHTML = '请输入评价信息(注意：不能添加表情)'
         }
     };
     jQuery(document).ready(function($){
         //查看弹出
         $('.cd-popup-trigger').on('click', function(event){
+            $(this).attr('disabled',true);
             $.post("{:U('Mobile/Evaluate/evaluate')}",$('#form1').serialize(),function(res){
                 if(res.status == 0){
                     layer.open({
                         content: res.info
                         ,style: "background-color:#E7F0FA; color:white;font-size:16px; border:none;" //自定风格
                         ,time: 2
+                        ,end: function(){
+                            location.href = res.url;
+                        }
                     });
                 }else{
                     layer.open({

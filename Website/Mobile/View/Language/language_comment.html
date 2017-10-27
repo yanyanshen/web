@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>语言教育评论列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
+    <link href="__STATIC__/consult/css/initialize.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/consult/css/media-queries.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/consult/css/studyNew.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <style>
+        .list{ padding: 5px 10px;border-radius: 15px; background-color: rgb(255, 108, 1);color:#fa7124}
+        .status{  padding: 5px 10px;border-radius: 15px;background-color: rgb(255, 236, 234) ;}
+    </style>
+<body>
+<div class="login_box">
+    <div class="header_box" style="z-index: 3000">
+        <div class="header">
+            <ul>
+                <li class="back">
+                    <a href="{:U('Mobile/Language/language_detail',array('id'=>$get['id']))}">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </a>
+                </li>
+                <li class="header_text">学员评价</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="header_box">
+        <div class="header">
+            <ul>
+                <li class="header_text" style="margin:0 auto;height: 50px">
+                    <if condition="$Think.session.total eq 1">
+                        <a href="{:U('Mobile/Language/language_comment',
+                        array('status'=>'total','id'=>$get['id']))}" class="status list">全部({$get['comment_count']})</a>
+                        <else/>
+                        <a href="{:U('Mobile/Language/language_comment',
+                        array('status'=>'total','id'=>$get['id']))}" class="status">全部({$get['comment_count']})</a>
+                    </if>
+
+                    <if condition="$Think.session.new eq 1">
+                        <a href="{:U('Mobile/Language/language_comment',
+                        array('status'=>'new','id'=>$get['id']))}" class="status list" style="margin: 0 10px;">最新({$get['new']})</a>
+                        <else/>
+                        <a href="{:U('Mobile/Language/language_comment',
+                        array('status'=>'new','id'=>$get['id']))}" class="status" style="margin: 0 10px;">最新({$get['new']})</a>
+                    </if>
+
+                </li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+    <div id="pullrefresh" style="margin-top: 30%" class="mui-content mui-scroll-wrapper">
+        <div class="main mui-scroll" >
+            <div class="studyNew">
+                <div class="new">
+                    <volist name="info" id="data">
+                        <div id="n_box1">
+                            <div>
+                                <h5 style="display: inline-block;height: 20px;line-height: 30px;color: #000000">{$data['username']}</h5>
+                                <div style="display: inline-block;float: right;margin-right: 1px">
+                                    <span style="margin-right: 5px">{$data['ntime']}</span>
+                                    <if condition="$data['score'] eq 1">
+                                    <img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start1.png">
+                                    <elseif condition="$data['score'] eq 2"/>
+                                    <img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start2.png">
+                                    <elseif condition="$data['score'] eq 3"/>
+                                    <img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start3.png">
+                                    <elseif condition="$data['score'] eq 4"/>
+                                    <img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start4.png">
+                                    <elseif condition="$data['score'] eq 5"/>
+                                    <img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start.png">
+                                    </if>
+                                    <span style="margin-left: 5px">{$data['score']}.0</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p style="border-bottom: none;margin: 0">{$data['content']}</p>
+                            </div>
+                        </div>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+    <script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
+<script>
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                callback: pulldownRefresh
+            },
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
+        }
+    });
+    /**
+     * 下拉刷新具体业务实现
+     */
+    function pulldownRefresh() {
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        setTimeout(function() {
+            $(".mui-pull-caption").show();
+        }, 1500);
+    };
+    var count = 0;
+    /**
+     * 上拉加载具体业务实现
+     */
+    var ys = 2; //从第二页开始获取数据
+
+    function pullupRefresh() {
+        setTimeout(function() {
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+            var table = document.body.querySelector('.mui-table-view');
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '{:U("Mobile/Language/language_comment")}',
+                data: {page: ys},
+                success: function (data) {
+                    var str = "";//定义变量保存内容
+                    $.each(data, function (index, array) {
+                        if(array['id']){
+                            str += '<div id="n_box1">';
+                            str += '<div>';
+                            str += '<h5 style="display: inline-block;height: 20px;line-height: 30px;color: #000000">'+array['username']+'</h5>';
+                            str += '<div style="display: inline-block;margin-left: 10px;float: right;margin-right: 1px">';
+                            str += '<span  style="margin-right: 5px">'+array['ntime']+'</span>';
+                            if(array['score'] == 1){
+                                str += '<img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start1.png">';
+                            }else if(array['score'] == 2){
+                                str += '<img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start2.png">';
+                            }else if(array['score'] == 3){
+                                str += '<img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start3.png">';
+                            }else if(array['score'] == 4){
+                                str += '<img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start4.png">';
+                            }else if(array['score'] == 5){
+                                str += '<img style="width: 84px;display:inline-block;" src="__STATIC__/detail/images/start.png">';
+                            }
+                            str += '<span  style="margin-left: 5px">'+array['score']+'.0</span>';
+                            str += '</div>';
+                            str += '</div>';
+                            str += '<div>';
+                            str += '<p style="border-bottom: none;padding:0">'+array['content']+'</p>';
+                            str += '</div>';
+                            str += '<div>';
+                            str += '</div>';
+                            str += '</div>';
+                        }
+                        //下拉刷新，新纪录插到最前面；
+                    });
+                    $(".new").append(str); //把HTML添加到容器
+                    ys++;//页数+1
+                }
+            });
+        }, 1500);
+    }
+    mui('body').on('tap','a',function(){document.location.href=this.href;});
+</script>

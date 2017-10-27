@@ -11,12 +11,12 @@
     <link href="/Public/website/Mobile/Index/css/main.css" rel="stylesheet" type="text/css">
     <link href="/Public/website/Mobile/Index/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="/Public/website/Mobile/Index/css/initialize.css" rel="stylesheet" type="text/css">
-    <link href="/Public/website/Mobile/Index/css/banner.css" rel="stylesheet" type="text/css">
+    <link href="/Public/public/js/banner/banner.css" rel="stylesheet" type="text/css">
     <link href="/Public/website/Mobile/Index/css/cityPicker.css" rel="stylesheet" type="text/css">
     <script src="/Public/website/Mobile/Index/js/banner.js"></script>
     <script src="/Public/website/Mobile/Index/js/banner.min.js"></script>
     <script src="/Public/public/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="/Public/website/Mobile/Index/js/Marquee.js"></script>
+    <script type="text/javascript" src="/Public/public/js/banner/Marquee.js"></script>
 
 </head>
 

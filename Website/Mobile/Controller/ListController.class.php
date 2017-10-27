@@ -159,11 +159,10 @@ class ListController extends Controller{
             if(IS_AJAX){//判断ajax请求
                 $page = $_POST['page']?$_POST['page']:1;
                 $num = 20;
-                session('page', $page);
-                $info = $this->select_table(session('table'),session('where'),session('page'),$num,$field,session('order'));
+                $info = $this->select_table(session('table'),session('where'),$page,$num,$field,session('order'));
                 $count = count($info);
 
-                if ($count < $num) {//判断是否到尾�?
+                if ($count <= 0) {//判断是否到尾�?
                     $info[]['id'] = 0;//到尾页返�?
                 }
                 echo json_encode($info);
