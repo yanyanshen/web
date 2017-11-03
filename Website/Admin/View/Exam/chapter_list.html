@@ -8,9 +8,8 @@
     <style>
         #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px 10px 5px 3px;margin: 2px;text-decoration: none;
             text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FF0000;}
+        #page a:hover{background:#F27602;color:#FA7124;}
         #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        #page{ float: right; }
         .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
         .table_a td{border: dotted 1px rgba(39, 164, 237, 0.22);font-size: 13px;text-align: center}
         .table_a tr:hover{background-color: rgb(82, 249, 56);}
@@ -33,7 +32,7 @@
             <volist name='subject_list'  id='v' key="k" empty="$empty">
                 <tr>
                     <td>{$v['id']}</td>
-                    <td>{$v['subject']}</td>
+                    <td>{$v['subject']==1?1:4}</td>
                     <td>{$v['chapter']}</td>
                     <td>
                         <if condition="$v.id eq 5">
@@ -43,7 +42,7 @@
                         </if>
                     </td>
                     <td>
-                        <a href="{:U('add_exam',array('id'=>$v['id']))}" >添加部分</a>
+                        <a href="{:U('add_exam',array('id'=>$v['id'],'pid'=>$get['pid']))}" >添加部分</a>
                     </td>
                 </tr>
         </volist>
@@ -55,33 +54,3 @@
 </div>
 </body>
 </html>
-<script>
-    $('.status').click(function(){
-        var id=$(this).attr('id');
-        $.post("{:U('Admin/operate')}", {id: id}, function (res) {
-            if (res.status == 1) {
-                layer.msg('管理员状态操作成功',{icon:6,time:2000},function(){
-                    location="{:U('Admin/index')}";
-                });
-            } else {
-                layer.msg('管理员状态操作失败',{icon:5,time:2000},function(){
-                    location="{:U('Admin/index')}"
-                });
-            }
-        }, 'json');
-    });
-    $('.online').click(function(){
-        var id=$(this).attr('id');
-        $.post("{:U('Admin/kick')}", {id: id}, function (res) {
-            if (res.status == 1) {
-                layer.msg('管理员登录状态操作成功',{icon:6,time:2000},function(){
-                    location="{:U('Admin/index')}";
-                });
-            } else {
-                layer.msg('管理员登录状态操作失败',{icon:5,time:2000},function(){
-                    location="{:U('Admin/index')}"
-                });
-            }
-        }, 'json')
-    })
-</script>

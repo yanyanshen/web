@@ -5,6 +5,7 @@
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/layer/layer.js"></script>
         <style>
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
             .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
@@ -15,12 +16,15 @@
                 $("#submit").click(function(){
                     $(this).attr('disabled',true);
                     $.post('{:U("Admin/TrainAddress/trainsave")}',$("#form1").serialize(),function(res){
-                        if(res.info==1){
-                            alert('保存成功');
+                        if(res.status){
+                            layer.msg(res.info,{icon:6,time:2000},function(){
+                                location.href = res.url;
+                            })
                         }else{
-                            alert('保存失败');
+                            layer.msg(res.info,{icon:5,time:2000},function(){
+                                location.href = res.url;
+                            })
                         }
-                        location.href=res.url;
                     },'json');
                     return false;
                 })

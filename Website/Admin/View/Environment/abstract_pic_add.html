@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>驾校简介图片添加</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+        <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <style>
+            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        </style>
+    </head>
+        <script language="javascript">
+            $(function(){
+                $('#abstract_pic_add').click(function(){
+                    $(this).attr('disabled',true);
+                    $('#form1').ajaxSubmit(function (res) {
+                            if (res.status) {
+                                layer.msg(res.info, {icon: 6, time: 2000}, function () {
+                                    location.href = res.url;
+                                });
+                            } else {
+                                layer.msg(res.info, {icon: 5, time: 2000},function(){
+                                    location.href = res.url;
+                                });
+                            }
+                        }, 'json');
+                    return false;
+                    })
+                });
+    </script>
+    <body>
+        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-size: 15px;font-weight: bold">
+                {$get['title']}添加
+            <a style="text-decoration: none;font-weight: bolder;color: #FA7124" href="{$url}">【返回】</a>
+        </div>
+        <div style="font-size: 13px;margin: 10px 5px">
+            <form action="{:U('Admin/Environment/abstract_pic_add')}" method="post" enctype="multipart/form-data" id="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
+                <input type="hidden" name="type_id" value="{$get['id']}"/>
+                <input type="hidden" name="type" value="{$get['type']}"/>
+                <input type="hidden" name="t" value="{$get['t']}"/>
+                <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
+                    <tr>
+                        <td style="width: 5%">名称</td>
+                        <td>{$nickname}</td>
+                    </tr>
+                    <tr>
+                        <td>logo</td>
+                        <td>
+                            <div class="usercity" style="border:3px dashed #e6e6e6;width:210px;height:200px;position: relative;margin-bottom: 15px">
+                                <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
+                                <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
+                                <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" id="abstract_pic_add" value="确认添加">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>
+<script>
+    function previewImage(file,pre,imag) {
+        var MAXWIDTH  = 180;
+        var MAXHEIGHT =150;
+        var div = document.getElementById(pre);
+        if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
+            $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
+            return false;
+        }else{
+            $('#'+pre).next('span').css({"color":"green","font-weight":"bold"}).text('');
+        }
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            file.blur();
+            var src = document.selection.createRange().text;
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        }
+
+        $(file).next('label').css({margin:0,top:0,position:'absolute',background:'rgba(0,0,0,0.4)',color:'#fff',fontSize:'14px'}).html('重新选择主图');
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+
+</script>

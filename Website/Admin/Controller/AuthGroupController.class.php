@@ -14,12 +14,8 @@ class AuthGroupController extends CommonController{
         $group=D('AuthGroup');
         $groupList=$group->getGroupList();
         foreach($groupList as $k=>$v){
-            $adminInfo=M('AuthGroupAccess')
-                ->alias('g')
-                ->join('xueches_admin a ON g.uid=a.id')
-                ->field('a.username')
-                ->where("g.group_id={$v['id']}")
-                ->select();
+            $adminInfo=M('AuthGroupAccess')->alias('g')->join('xueches_admin a ON g.uid=a.id')
+                ->field('a.username')->where("g.group_id={$v['id']}")->select();
             $str='';
             foreach($adminInfo as $a){
                 $str.=$a['username'].',';
@@ -36,13 +32,13 @@ class AuthGroupController extends CommonController{
             $data=$group->create();
             if($data){
                 if($data['id']){
-                    $log['done'] = '编辑管理组名称';
+                    $log['done'] = '编辑管理组名称 ID_'.$data['id'];
                     D('AdminLog')->logout($log);
                     $gid=$group->save($data);
                 }else{
-                    $log['done'] = '添加管理组';
-                    D('AdminLog')->logout($log);
                     $gid=$group->add_group($data);
+                    $log['done'] = '添加管理组 ID_'.$gid;
+                    D('AdminLog')->logout($log);
                 }
                 if($gid){
                     $this->success('编辑成功',U('Admin/AuthGroup/index',array('pid'=>I('pid'))));
@@ -117,7 +113,7 @@ class AuthGroupController extends CommonController{
                     $res = $group->delete($accessInfo);
                 }
                 if($res){
-                    $log['done'] = '删除管理组';
+                    $log['done'] = '删除管理组 ID_'.$id;
                     D('AdminLog')->logout($log);
                     $this->success('删除成功',$url);
                 }else{

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑指导员</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+    </style>
+    <script>
+        $(document).ready(function(e) {
+            KindEditor.ready(function (K) {
+                K.create('#content7', {
+                    allowFileManager: true,
+                    filterMode: true,
+                    afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                        this.sync("#content7");
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<script>
+    $(function(){
+        $("#submit").click(function(){
+            $(this).attr('disabled',true);
+            $('#form1').ajaxSubmit(function(res){
+                if(res.status){
+                    layer.msg(res.info,{icon:6,time:2000},function(){
+                        location.href=res.url;
+                    });
+                }else{
+                    layer.msg(res.info,{icon:5,time:2000},function(){
+                        location.href=res.url;
+                    });
+                }
+            },'json');
+            return false;
+        });
+    })
+</script>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
+        <span style="float:left">指导员编辑</span>
+        <span>
+            <a style="text-decoration: none;color: #fa7142" href="{$url}">【返回】</a>
+        </span>
+</div>
+<div style="font-size: 13px;margin: 10px 5px">
+    <form action="{:U('Admin/guider/editor_zd')}" method="post" id="form1" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$jl['id']}" jl_id="{$jl['id']}" id="jl_id" pid="{$get['pid']}" p="{$get['p']}"/>
+        <input type="hidden" name="pid" value="{$get['pid']}"/>
+        <input type="hidden" name="p" value="{$get['p']}"/>
+        <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
+            <tr>
+                <td>所属驾校：</td>
+                <td>
+                    <input type="text" name="school_nickname" value="{$nickname?$nickname:$school_nickname}"/>
+                    <input type="button" value="选择" id="school_id"/>
+                </td>
+            </tr>
+        <tr>
+                <td width="6%x">教练账号：</td>
+                <td>
+                    <input type="text" name="account"  value="{$jl['account']}" style="width:300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>教练姓名：</td>
+                <td>
+                    <input type="text" name="nickname" value="{$jl['nickname']}" style="width:300px"  />
+                </td>
+            </tr>
+            <tr>
+                <td>性&nbsp;&nbsp;别：</td>
+                <td>
+                        <input type="radio"  name='sex' value=0  {$jl['sex']==0?checked:''} /> <label for="">男</label>
+                        <input type="radio"   name='sex' value=1 {$jl['sex']==1?checked:''} /><label for="">女</label>
+                        <input type="radio"   name='sex' value=2 {$jl['sex']==2?checked:''} /><label for="">保密</label>
+                </td>
+            </tr>
+            <tr>
+                <td>教练类型：</td>
+                <td>
+                    <select name="category_id" >
+                        <volist name="category" id="v">
+                            <option value='{$v.id}' {$jl['id']==$v['id']?selected:''} >{$v.category_name}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>所在城市：</td>
+                <td>
+                    <select name="cityid" style="width:80px;" id="cityid" onchange="change(this)">
+                        <volist name="city" id='v'>
+                            <option value="{$v.id}" {$v['id']==$jl['cityid']?selected:''}>{$v.cityname}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>所属教练：</td>
+                <td>
+                    <select name="boss_id" style="width:80px;">
+                        <volist name="boss" id='v'>
+                            <option value="{$v.id}" {$v['id']==$jl['boss_id']?selected:''}>{$v.boss_name}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>登录密码：</td>
+                <td>
+                    <input type="text" name="pass" value="244ac348537069c3bfe9d633349b7334" style="width:300px" />
+                        <span style="color:red;">
+                            {$errorInfo.pass|default=""}(默认为517xueche)
+                        </span>
+                </td>
+            </tr>
+            <tr>
+                <td>身份证号：</td>
+                <td><input type="text" name="numberId" value="{$jl.numberid}" style="width:300px" /></td>
+            </tr>
+            <tr>
+                <td>驾驶证号：</td>
+                <td><input type="text" name="driverId" value="{$jl.driverid}"   style="width:300px" /></td>
+            </tr>
+            <tr>
+                <td>车牌号：</td>
+                <td><input type="text" name="carnumber" value="{$jl.carnumber}"  style="width:300px" /></td>
+            </tr>
+            <tr>
+                <td>教练证号：</td>
+                <td><input type="text" name="serialid" value="{$jl.serialid}" style="width:300px"  /></td>
+            </tr>
+            <tr>
+                <td>年&nbsp;&nbsp;龄：</td>
+                <td><input type="text" name="age" value="{$jl.age}"  style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>驾&nbsp;&nbsp;龄：</td>
+                <td><input type="text" name="driverage"  value="{$jl.driverage}" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>教&nbsp;&nbsp;龄：</td>
+                <td><input type="text" name="teachage" value="{$jl.teachage}" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>联系电话：</td>
+                <td><input type="text" name="phone" value="{$jl.phone}" style="width:300px"  /></td>
+            </tr>
+            <tr>
+                <td>签&nbsp;&nbsp;名：</td>
+                <td><input type="text" name="signature" value="{$jl.signature}"  style="width:300px"  /></td>
+            </tr>
+            <tr>
+                <td>评论数：</td>
+                <td><input type="text" name="evalutioncount" value="{$jl.evalutioncount}" style="width:300px" /></td>
+            </tr>
+            <tr>
+                <td>好评数：</td>
+                <td><input type="text" name="praisecount" value="{$jl.praisecount}"  style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>总学员数：</td>
+                <td><input type="text" name="allcount"  value="{$jl.allcount}" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>已通过人数：</td>
+                <td><input type="text" name="passedcount" value="{$jl.passedcount}" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>地&nbsp;&nbsp;址：</td>
+                <td><input type="text" name="address" value="{$jl.address}" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>计时培训：</td>
+                <td>
+                    <label><input type="radio"  name='timing' value=1 {$jl['timing']==1?checked:''} />支持</label>　
+                    <label><input type="radio"   name='timing' value=0 {$jl['timing']==0?checked:''} />不支持</label>
+                </td>
+            </tr>
+            <tr>
+                <td>教练头像</td>
+                <td>
+                    <div class="usercity" style="border:3px dashed #e6e6e6;width:210px;height:200px;position: relative;margin-bottom: 15px">
+                        <p id="preview1" >
+                            <img id="imghead1"  border=0 src="{$http}/Uploads/guider_logo/{$jl['picurl']}{$jl['picname']}" width="200" height="120">
+                        </p>
+                        <span></span>
+                        <input type="file" id="image0" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
+                        <label for="image0"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>教练简介：</td>
+                <td>
+                    <textarea name="introduction" id="content7"  style="padding-left:70px;height:250px;visibility:hidden;">{$jl['introduction']}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" id="submit" value="保存更新">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+
+    var change=function(sel){
+        var city=sel.value;
+        $("#cityid").val(city);
+    };
+
+    $(function(){
+        $('#school_id').click(function(){
+            layer.open({
+                type:2,
+                shade:true,
+                title:"请勾选驾校",//false为不显示标题
+                area:["600px",'600px'],
+                content:"{:U('Admin/Coach/edit_school')}?cityid="+$("#cityid").val()
+                +"&id="+$('#jl_id').attr('jl_id')+"&pid="+$('#jl_id').attr('pid')+"&p="+$('#jl_id').attr('p')
+                +"&type=zd"
+            });
+        });
+    });
+
+
+    function previewImage(file,pre,imag) {
+        var MAXWIDTH  = 200;
+        var MAXHEIGHT = 230;
+        var div = document.getElementById(pre);
+        if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
+            $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
+            return false;
+        }else{
+            $('#'+pre).next('span').css({"color":"green","font-weight":"bold"}).text('');
+        }
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            file.blur();
+            var src = document.selection.createRange().text;
+            div.innerHTML ='<img id='+imag+'>';
+            var img = document.getElementById(imag);
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        }
+
+        $(file).next('label').css({margin:0,top:0,position:'absolute',background:'rgba(0,0,0,0.4)',color:'#fff',fontSize:'14px'}).html('重新选择主图');
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+</script>

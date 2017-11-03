@@ -87,6 +87,7 @@ class ListController extends Controller{
 //    }
 
     public function pull(){
+        session('mobile_return',U('Mobile/List/pull'));
         $this->slideshow();
         if (I('city')) {
             session('city', I('city'));

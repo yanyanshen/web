@@ -7,7 +7,7 @@
         <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
         <style>
             label{padding: 10px 20px 10px 0;}
-            b{color: red}
+            b{color: #FA7124}
             li{ margin-top: 20px;list-style: none;}
             .dfinput{margin-left: 10px;
                 border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
@@ -17,14 +17,17 @@
     <body>
         <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
             学员编辑
-            <a style="text-decoration: none;color:red" href="{:U('stu_list')}">【返回】</a>
+            <a style="text-decoration: none;color:red" href="{:U('stu_list',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
         </div>
         <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('#')}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{$get['id']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
+                <input type="hidden" name="p" value="{$get['p']}"/>
                 <ul style="padding: 0;margin-left: 10px">
                     <li>
                         <label>用户账号<b>*</b></label>
-                        <input class="dfinput" type="text" name="account" value="{$stu.account}" />
+                        <input class="dfinput" type="text" name="account" value="{$stu.account}"/>
                     </li>
                     <li>
                         <label>用户名称<b>*</b></label>
@@ -46,11 +49,11 @@
                     </li>
                     <li>
                         <label>驾照类型<b>*</b></label>
-                        <input class="dfinput" type="text" name="jz_type" value="{$stu['jz_type']}"/>
+                        <input class="dfinput" type="text" name="jz_type" value="{$stu['jz_type']}"  placeholder="例如：C1"/>
                     </li>
                     <li>
                         <label>当前科目<b>*</b></label>
-                        <input class="dfinput" type="text" name="jz_type" value="{$stu['jz_type']}"/>
+                        <input class="dfinput" type="text" name="subject" value="{$stu['subject']?$stu['subject']:''}"  placeholder="例如：1"/>
                     </li>
                     <li>
                         <label>联系方式<b>*</b></label>
@@ -58,7 +61,7 @@
                     </li>
                     <li>
                         <label style="padding: 10px 46px 10px 0">地址<b>*</b></label>
-                        <input class="dfinput" type="text" name="address" value="{$stu['address']}"/>
+                        <input class="dfinput" type="text" name="address" value="{$stu['address']}" placeholder="例如：上海杨浦"/>
                     </li>
                     <li>
                         <label>所在城市<b>*</b></label>

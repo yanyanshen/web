@@ -22,30 +22,8 @@
     轮播图列表
     <span style="float:right;color: #ffffff;margin-right: 1%">总计：{$info['count']}</span>
 </div>
-<div>
-    <!--<form method="post" action="{:U('Admin/Slideshow/aa')}"  enctype="multipart/form-data">-->
-        <!--<input name="key" type="hidden" value="<resource_key>">-->
-        <!--<input name="x:<custom_name>" type="hidden" value="<custom_value>">-->
-        <!--<input name="token" type="hidden" value="<upload_token>">-->
-        <!--<input name="file" type="file" />-->
-        <!--<input name="crc32" type="hidden" />-->
-        <!--<input name="accept" type="hidden" />-->
-        <!--<input type="submit" value="上传" />-->
-    <!--</form>-->
-
-
-    <!--<form method="post" action="{:U('Admin/Slideshow/upload_video')}"  enctype="multipart/form-data">-->
-        <!--<input name="key" type="hidden" value="<resource_key>">-->
-        <!--<input name="x:<custom_name>" type="hidden" value="<custom_value>">-->
-        <!--<input name="token" type="hidden" value="<upload_token>">-->
-        <!--<input name="file" type="file" />-->
-        <!--<input name="crc32" type="hidden" />-->
-        <!--<input name="accept" type="hidden" />-->
-        <!--<input type="submit" value="上传1" />-->
-    <!--</form>-->
-</div>
 <div style="font-size: 13px;margin: 10px 5px">
-    <form action="{:U('add_slide')}" method="post" enctype="multipart/form-data" id="form1">
+    <form action="{:U('add_slide',array('p'=>$get['p'],'pid'=>$get['pid']))}" method="post" enctype="multipart/form-data" id="form1">
         <table style="border:1px solid  rgb(129, 191, 249);" width="100%" class="table_a">
             <tr style="height:35px;font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff">
                 <td width="5%">序号</td>
@@ -91,10 +69,10 @@
                     <td>{:date('Y-m-d',$v['ntime'])}</td>
                     <td>{$v['flag']==0?'禁止':'展示'}</td>
                     <td>
-                        <a href="{:U('edit_slide?id='.$v['id'].'&pid='.$pid)}">编辑</a>
-                        <a href="{:U('change_status?id='.$v['id'].'&pid='.$pid.'&flag='.$v['flag'])}">{$v['flag']==0?'展示':'禁止'}</a>
-                        <a href="{:U('change_status?id='.$v['id'].'&pid='.$pid.'&list_flag='.$v['list_flag'])}">{$v['list_flag']==0?'设为列表图':'取消列表图'}</a>
-                        <a href="{:U('del_img?id='.$v['id'].'&pid='.$pid)}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                        <a href="{:U('edit_slide?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
+                        <a href="{:U('change_status?id='.$v['id'].'&pid='.$get['pid'].'&flag='.$v['flag'].'&p='.$get['p'])}">{$v['flag']==0?'展示':'禁止'}</a>
+                        <a href="{:U('change_status?id='.$v['id'].'&pid='.$pid.'&list_flag='.$v['list_flag'].'&p='.$get['p'])}">{$v['list_flag']==0?'设为列表图':'取消列表图'}</a>
+                        <a href="{:U('del_img?id='.$v['id'].'&pid='.$pid.'&p='.$get['p'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
                     </td>
                 </tr>
             </volist>

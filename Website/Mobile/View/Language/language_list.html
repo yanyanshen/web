@@ -61,7 +61,7 @@
                                     </ul>
 			                        </a>
                                 <button style="padding: 2px 4px;margin-right: 0">
-                                    <a href="{:U('Mobile/Language/language_detail',array('id'=>$v['id']))}" style="color: white;font-size: 12px">马上报名</a>
+                                    <a href="{:U('Mobile/Language/language_apply',array('id'=>$v['id']))}" style="color: white;font-size: 12px">马上报名</a>
                                 </button>
                                 <div class="clearfix"></div>
                             </div>
@@ -170,7 +170,7 @@
                                     str += '</ul>';
 				                    str += '</a>';
                                     str += '<button style="padding: 2px 4px;margin-right: 0">';
-                                    str += '<a style="color:white;font-size:10px" href="'+"{:U('Mobile/Order/choose_course')}?id="+array['id']+'">'+'马上报名</a>';
+                                    str += '<a style="color:white;font-size:10px" href="'+"{:U('Mobile/Language/language_apply')}?id="+array['id']+'">'+'马上报名</a>';
                                     str += '</button>';
                                     str += '<div class="clearfix"></div>';
                                     str += '</div>';

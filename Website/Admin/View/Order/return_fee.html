@@ -75,14 +75,14 @@
                 </div>
                 <div style="display: inline-block;padding-left: 15px">
                     <div>
-                        下单时间：<input type="text" style="width: 80px"  onClick="WdatePicker()" value="{$get['create_time1']?$get['create_time1']:''}" name="create_time1"/>
+                        下单时间：<input type="text" style="width: 80px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['create_time1']?$get['create_time1']:''}" name="create_time1"/>
                         至
-                        <input type="text" style="width: 80px" value="{$get['create_time2']?$get['create_time2']:''}"  onClick="WdatePicker()" name="create_time2"/>
+                        <input type="text" style="width: 80px" value="{$get['create_time2']?$get['create_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="create_time2"/>
                     </div>
                     <div>
-                        支付时间：<input type="text" style="width: 80px"  onClick="WdatePicker()" value="{$get['notify_time1']?$get['notify_time1']:''}" name="notify_time1"/>
+                        支付时间：<input type="text" style="width: 80px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['notify_time1']?$get['notify_time1']:''}" name="notify_time1"/>
                         至
-                        <input type="text" style="width: 80px" value="{$get['notify_time2']?$get['notify_time2']:''}"  onClick="WdatePicker()" name="notify_time2"/>
+                        <input type="text" style="width: 80px" value="{$get['notify_time2']?$get['notify_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="notify_time2"/>
                     </div>
                 </div>
                 <div style="display: inline-block;padding-left: 15px">
@@ -106,9 +106,9 @@
                         跟单客服：<input type="text" name="customer" style="width: 95px;"  value="{$get['customer']?$get['customer']:''}"/>
                     </div>
                     <div>
-                        退款时间：<input type="text" style="width: 80px"  onClick="WdatePicker()" value="{$get['return_fee1']?$get['return_fee1']:''}" name="return_fee1"/>
+                        退款时间：<input type="text" style="width: 80px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['return_fee1']?$get['return_fee1']:''}" name="return_fee1"/>
                         至
-                        <input type="text" style="width: 80px" value="{$get['return_fee2']?$get['return_fee2']:''}"  onClick="WdatePicker()" name="return_fee2"/>
+                        <input type="text" style="width: 80px" value="{$get['return_fee2']?$get['return_fee2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="return_fee2"/>
                         <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/return_fee",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
                         <input value="清空" type="reset" />
                     </div>

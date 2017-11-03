@@ -4,42 +4,47 @@
         <title>驾校编辑</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/js/webuploader/webuploader.css" />
-        <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
-        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
-        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style>
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
             .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
         </style>
+        <script>
+            $(document).ready(function(e) {
+                KindEditor.ready(function (K) {
+                    K.create('#content7', {
+                        allowFileManager: true,
+                        filterMode: true,
+                        afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                            this.sync("#content7");
+                        }
+                    });
+                });
+            })
+        </script>
     </head>
     <script>
-        var uploadUrl = '{:U("uploadMulPic")}';
-//        var listUrl = '{:U("index")}';
         $(function(){
             $("#jx_editor").click(function(){
                 $('#jx_editor').attr('disabled',true);
                 $('#form1').ajaxSubmit(function(res){
-                    if(res.status==1){
-                        $('.uploadBtn').click();
-                        setTimeout(function() {
-                            alert('编辑成功');
+                    if(res.status){
+                        layer.msg(res.info,{icon:6,time:2000},function(){
                             location.href=res.url;
-                        },3000);
+                        });
                     }else{
-                        alert('驾校名称已存在,请重新编辑');
-                        location.href=res.url;
+                        layer.msg(res.info,{icon:5,time:2000},function(){
+                            location.href=res.url;
+                        });
                     }
                 },'json');
                 return false;
             });
         })
-
     </script>
-
 <body>
     <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-size: 15px">
         驾校编辑
@@ -57,7 +62,7 @@
                 </tr>
                 <tr>
                     <td>登录密码</td>
-                    <td><input type="text" name="pass" value="{$jx.pass}" readonly style="width:500px;"/></td>
+                    <td><input type="text" name="pass" value="{$jx.pass}" readonly style="width:300px;"/></td>
                 </tr>
 
                 <tr>
@@ -77,22 +82,13 @@
                 </tr>
                 <tr>
                     <td>驾校全称</td>
-                    <td><input type="text" name="fullname" id="keyword" value="{$jx.fullname}" style="width:400px"/></td>
+                    <td><input type="text" name="fullname" id="keyword" value="{$jx.fullname}" style="width:300px"/></td>
                 </tr>
                 <tr>
                     <td>地址</td>
                     <td>
-                        <input type="text" name="address" id="address" value="{$jx['address']}"/>
+                        <input type="text" name="address"  value="{$jx['address']}"/>
                     </td>
-                    <div id="container"
-                         style="position: absolute;
-                            display:none;
-                            width: 400px;
-                            height: 300px;
-                            top: 200px;
-                            border: 1px solid gray;
-                            overflow:hidden;">
-                    </div>
                 </tr>
                 <tr>
                     <td>驾校电话</td>
@@ -113,24 +109,6 @@
                             <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
                             <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                         </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>驾校简介logo</td>
-                    <td>
-                        <div>
-                            <label>简介图片<b>*</b></label>
-                        </div>
-                            <volist name="picInfo" id="v">
-                                <div class="usercity" style="border:3px dashed #e6e6e6;width:320px;height:200px;margin:5px 0px;position: relative;float: left;
-                                margin-left: 20px">
-                                    <p id="preview{$v.id}" >
-                                        <img width="150" id="imghead{$v.id}" height="120"  border=0 src='{$http}/Uploads/School_logo/{$v.picurl}{$v.picname}'></p><span></span>
-                                    <input type="file" id="image{$v.id}" name="{$v.id}" onchange="previewImage(this,'preview{$v.id}','imghead{$v.id}',150,150)" style="display:none;" >
-                                    <label for="image{$v.id}"  style="margin:0;top:0;position:absolute;background:rgba(0,0,0,0.4);color:#fff;font-size:12px;text-align:center;border-radius:4px;width:60px;height:20px;line-height:20px;padding:3px 3px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">修改图片</label>
-                                </div>
-                            </volist>
                     </td>
                 </tr>
                 <tr>
@@ -170,20 +148,24 @@
                 </tr>
                  <tr>
                     <td>驾校简介</td>
-                    <td><textarea name="introduction" cols="80" rows="10">{$jx['introduction']}</textarea></td>
+                     <td>
+                         <textarea name="introduction" id="content7"  style="padding-left:70px;height:250px;visibility:hidden;">
+                         {$jx['introduction']}
+                     </textarea>
+                     </td>
+
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
                         <input type="button" id="jx_editor" value="保存更新">
                     </td>
-                </tr>  
+                </tr>
             </table>
             </form>
         </div>
 </body>
 </html>
 <script>
-
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 200;
         var MAXHEIGHT = 150;
@@ -248,5 +230,4 @@
         return param;
     }
 
-</script>
 </script>

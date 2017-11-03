@@ -4,13 +4,11 @@
         <title>添加教练</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/js/webuploader/webuploader.css" />
-        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
         <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style>
             span.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
             span.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
@@ -18,6 +16,19 @@
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
             .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
        </style>
+        <script>
+            $(document).ready(function(e) {
+                KindEditor.ready(function (K) {
+                    K.create('#content7', {
+                        allowFileManager: true,
+                        filterMode: true,
+                        afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                            this.sync("#content7");
+                        }
+                    });
+                });
+            })
+        </script>
     </head>
     <body>
         <div class="div_head"  style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
@@ -26,9 +37,9 @@
         </div>
         <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('Admin/Coach/add_jl')}" method="post" id="form1" enctype="multipart/form-data">
-                <input type="hidden" name="type" id="type" value="{$type}" pid="{$get['pid']}" p="{$get['p']}"/>
-                <input type="text" name="pid" value="{$get['pid']}"/>
-                <input type="text" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="type" id="type" value="{$get['type']}" pid="{$get['pid']}" p="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
+                <input type="hidden" name="p" value="{$get['p']}"/>
                 <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
                     <tr >
                         <td>所属驾校：</td>
@@ -177,33 +188,12 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>驾校简介logo</td>
-                        <td>
-                            <label>驾校简介logo<b>*</b></label>
-                            <div class="uploader-list-container vocation" style="width: 525px;border:0px;">
-                                <div class="queueList">
-                                    <div id="dndArea" class="placeholder">
-                                        <div id="filePicker-2"></div>
-                                        <p>或将照片拖到这里，单次最多可选10张</p>
-                                    </div>
-                                </div>
-                                <div class="statusBar" style="display:none;">
-                                    <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
-                                    <div class="info"></div>
-                                    <div class="btns">
-                                        <div id="filePicker2"></div>
-                                        <div class="uploadBtn" style="display: none">开始上传</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+
                     <tr>
                     <tr>
                         <td>教练简介：</td>
                         <td>
-                            <textarea name="introduction" id="" cols="150" rows="4"></textarea>
+                            <textarea name="introduction" id="content7"  style="padding-left:70px;height:250px;visibility:hidden;"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -233,7 +223,7 @@
                     title:"请勾选驾校",//false为不显示标题
                     area:["600px",'600px'],
                     content:"{:U('Admin/Coach/school')}?cityid="+$("#cityid").val()
-                    +"&pid="+$('#type').attr('pid')+"&p="+$('#type').attr('p')
+                    +"&pid="+$('#type').attr('pid')+"&p="+$('#type').attr('p')+"&type=jl"
                 });
         });
     });

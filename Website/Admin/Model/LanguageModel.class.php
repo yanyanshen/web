@@ -18,7 +18,7 @@ class LanguageModel extends Model{
             }
         }
         $count = $this->table('xueches_language l,xueches_citys city')->where($where)->count();
-        $Page=new Page($count,5);
+        $Page=new Page($count,8);
         $show=$Page->show();
         $data = M('Language')
             ->field('l.*,city.cityname')

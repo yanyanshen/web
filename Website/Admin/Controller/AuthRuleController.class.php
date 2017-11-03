@@ -26,7 +26,7 @@ class AuthRuleController extends CommonController{
             if($data){
                 $nid=$rule->add_rule($data);
                 if($nid){
-                    $log['done'] = '添加权限';
+                    $log['done'] = '添加权限 ID_'.$nid;
                     D('AdminLog')->logout($log);
                     $this->success('权限添加成功',$url);
                 }else{
@@ -55,7 +55,7 @@ class AuthRuleController extends CommonController{
                     $res = M('AuthRule')->where(array('id'=>$id))->delete();
                 }
                 if($res){
-                    $log['done'] = '删除权限';
+                    $log['done'] = '删除权限 ID_'.$res;
                     D('AdminLog')->logout($log);
                     $this->success('删除成功',U('Admin/AuthRule/index',array('pid'=>I('pid'))));
                 }else{
@@ -91,7 +91,7 @@ class AuthRuleController extends CommonController{
             $data['id']=$id;
             $info=D('AuthRule')->edit($data);
             if($info){
-                $log['done'] = '编辑权限';
+                $log['done'] = '编辑权限 ID_'.$id;
                 D('AdminLog')->logout($log);
                 $this->success('编辑成功',U('Admin/AUthRule/index',array('pid'=>I('pid'))));
             }else{

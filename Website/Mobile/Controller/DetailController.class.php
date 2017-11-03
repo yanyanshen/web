@@ -4,13 +4,12 @@ use Think\Controller;
 class DetailController extends Controller{
     //驾校详情页
     public function index(){
+        $this->assign('mobile_return',session('mobile_return'));
         $where['type_id']=I('id');
-        $info=M('school')
-            ->where(array('id'=>I('id')))
-            ->field('nickname,fullname,id,introduction,picurl,picname,evalutioncount,
-                phone,allcount,timing,address,type,age,teachage,driverage,school_id')
-            ->find();
-       if($info['type']!='jx'){
+        $info=M('school')->where(array('id'=>I('id')))
+            ->field('nickname,fullname,id,introduction,picurl,picname,evalutioncount,phone,allcount,timing,
+            address,type,age,teachage,driverage,school_id')->find();
+       if(I('type') !='jx'){
            $info['school_id']=M('school')->where(array('id'=>$info['school_id']))->getField('nickname');
        }
         if(strlen($info['allcount'])>=5){
@@ -23,8 +22,11 @@ class DetailController extends Controller{
         $class=M('trainclass')->where(array('type_id'=>I('id')))->select();
         $this->assign('class',$class);//驾校课程
 
+        $abstract_pic=M('Pic')->field('picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>I('type')))->select();
+        $this->assign('abstract_pic',$abstract_pic);//驾校简介图片
+
         $picinfo=M('environment')->field('picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>$info['type']))->select();
-        $this->assign('picinfo',$picinfo);//驾校简介图片
+        $this->assign('picinfo',$picinfo);//驾校环境图片
 //评价展示
         $evaluate = D('Evaluate')->index(I('id'),5);
         $this->assign('evaluate',$evaluate);

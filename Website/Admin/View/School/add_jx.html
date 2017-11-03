@@ -4,19 +4,31 @@
         <title>添加驾校</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/js/webuploader/webuploader.css" />
-        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style type="text/css">
-            span.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
+            span.error{  font-size: 14px;  font-weight: bold;  color: #FA7124;  }
             span.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
 
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
             .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
         </style>
+        <script>
+            $(document).ready(function(e) {
+                KindEditor.ready(function (K) {
+                    K.create('#content7', {
+                        allowFileManager: true,
+                        filterMode: true,
+                        afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                            this.sync("#content7");
+                        }
+                    });
+                });
+            })
+        </script>
     </head>
         <script language="javascript">
         $(function(){
@@ -29,39 +41,35 @@
                     address:{required:true}
                 },
                 messages:{
-                    account:{required:'驾校账号不能为空！'},
-                    pass:{required:'密码不能为空！', rangelength:'密码长度必须在5到12位之间！'},
-                    nickname:{required:'简称不能为空!'},
-                    fullname: {required: '全称不能为空'},
-                    address:{required:'地址不能为空'}
+                    account:{required:' * 必填项！'},
+                    pass:{required:' * 必填项！', rangelength:' * 密码长度必须在5到12位之间！'},
+                    nickname:{required:' * 必填项！'},
+                    fullname: {required: ' * 必填项！'},
+                    address:{required:' * 必填项！'}
                 },
                 success:function(span){
-                    span.addClass('ok').text('通过验证')
+                    span.addClass('ok').text(' * ok')
                 },
                 validClass:'ok',
                 errorElement:'span'
             });
 
-
-
-
             $("#add_jx").click(function(){
-                    if(validate.form()){
-                        $("#add_jx").attr('disabled',true);
-                        $('#form1').ajaxSubmit(function(res){
-                                if(res.status==1){
-                                    $('.uploadBtn').click();
-                                    setTimeout(function() {
-                                        alert('编辑成功');
-                                        location.href=res.url;
-                                    },3000);
-                                }else{
-                                    alert('驾校名称已存在,请重新编辑');
-                                    location.href=res.url;
-                                }
-                            },'json');
-                            return false;
+                if(validate.form()){
+                    $("#add_jx").attr('disabled',true);
+                    $('#form1').ajaxSubmit(function(res){
+                        if(res.status){
+                            layer.msg(res.info,{icon:6,time:2000},function(){
+                                location.href=res.url;
+                            });
+                        }else{
+                            layer.msg(res.info,{icon:5,time:2000},function(){
+                                location.href=res.url;
+                            });
                         }
+                    },'json');
+                        return false;
+                    }
             });
         });
     </script>
@@ -124,32 +132,10 @@
                     <tr>
                         <td>驾校logo</td>
                         <td>
-                            <div class="usercity" style="border:3px dashed #e6e6e6;width:210px;height:200px;position: relative;margin-bottom: 15px">
+                            <div class="usercity" style="border:3px dashed #e6e6e6;width:300px;height:200px;position: relative;margin-bottom: 15px">
                                 <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
                                 <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
                                 <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>驾校简介logo</td>
-                        <td>
-                            <label>驾校简介logo<b>*</b></label>
-                            <div class="uploader-list-container vocation" style="width: 525px;border:0px;">
-                                <div class="queueList">
-                                    <div id="dndArea" class="placeholder">
-                                        <div id="filePicker-2"></div>
-                                        <p>或将照片拖到这里，单次最多可选10张</p>
-                                    </div>
-                                </div>
-                                <div class="statusBar" style="display:none;">
-                                    <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
-                                    <div class="info"></div>
-                                    <div class="btns">
-                                        <div id="filePicker2"></div>
-                                        <div class="uploadBtn" style="display: none">开始上传</div>
-                                    </div>
-                                </div>
                             </div>
                         </td>
                     </tr>
@@ -192,7 +178,9 @@
 
                     <tr>
                         <td>驾校简介</td>
-                        <td><textarea name="introduction"  cols="80" rows="10"></textarea></td>
+                        <td>
+                            <textarea name="introduction" id="content7"  style="padding-left:70px;height:250px;visibility:hidden;"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
@@ -205,13 +193,9 @@
     </body>
 </html>
 <script>
-
-    var uploadUrl = '{:U("uploadMulPic")}';
-//    var listUrl = '{:U("index")}';
-
     function previewImage(file,pre,imag) {
-        var MAXWIDTH  = 200;
-        var MAXHEIGHT = 230;
+        var MAXWIDTH  = 180;
+        var MAXHEIGHT = 150;
         var div = document.getElementById(pre);
         if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
             $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
@@ -271,5 +255,4 @@
         param.top = Math.round((maxHeight - param.height) / 2);
         return param;
     }
-
 </script>

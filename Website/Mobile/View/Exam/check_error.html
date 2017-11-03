@@ -14,11 +14,10 @@
     <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
-
     <!--标准mui.css-->
-    <link rel="stylesheet" href="__STATIC__/chapter_practice/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
     <!--App自定义的css-->
-    <link rel="stylesheet" type="text/css" href="__STATIC__/chapter_practice/css/app.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/mui/css/app.css" />
     <style>
         ul li{  border-bottom:1px solid #e8e8e8;  }
     </style>
@@ -181,10 +180,17 @@
         <footer id="foot_theoryStudy">
             <ul  class="mui-slider-indicator" >
                 <li class="foot_option">
-                    <button class="button">
-                        <img src="__STATIC__/theory_study/images/collection.png">
-                        <p>收藏</p>
-                    </button>
+                    <if condition="$think.session.mid eq ''">
+                            <button>
+                                <img src="__STATIC__/theory_study/images/collection.png">
+                                <p>收藏</p>
+                            </button>
+                        <else/>
+                            <button class="button">
+                                <img src="__STATIC__/theory_study/images/collection.png">
+                                <p>收藏</p>
+                            </button>
+                    </if>
                 </li>
                 <li class="foot_option" style="border: none">
                     <button></button>

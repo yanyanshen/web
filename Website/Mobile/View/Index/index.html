@@ -170,7 +170,7 @@
                     <div id="weekPrice_box2" style="height: 260px">
                         <volist name="week_list1" id="data2" offset="1"  empty="$empty">
                             <div class="wp_school1" style="height: 105px;margin-bottom: 10px">
-                                <a href="{:U('Mobile/Detail/index',array('id'=>$data2['school_id']))}">
+                                <a href="{:U('Mobile/Detail/index',array('id'=>$data2['school_id'],'type'=>$data2['type']))}">
                                     <ul class="wps_ul">
                                         <li>{$data2.nickname}</li>
                                         <li><h1>￥{$data2.wholeprice}</h1></li>
@@ -179,7 +179,7 @@
                                         <span>价格优惠，42小时实车训..</span>
                                     </ul>
                                 </a>
-                                <a  href="{:U('Mobile/Detail/index',array('id'=>$data2['school_id']))}" class="wps_img">
+                                <a  href="{:U('Mobile/Detail/index',array('id'=>$data2['school_id'],'type'=>$data2['type']))}" class="wps_img">
                                     <img height="50" src="{$http}/Uploads/School_logo/{$data2.picurl}{$data2.picname}">
                                 </a>
                                 <div class="clearfix"></div>
@@ -208,7 +208,7 @@
             </div>
             <div id="hot_box">
                 <volist name="hot_list" id="data" empty="$empty">
-                    <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">
+                    <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id'],'type'=>$data['type']))}">
                         <div id="hot_box1" style="border-radius: 10px">
                             <img style="margin-top: 10px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
                             <span style="text-align:center;color: #323232;font-weight: bold;margin-left: 15px;line-height: 24px;font-size: 12px;font-family: "微软雅黑" ">
@@ -243,7 +243,7 @@
                 <volist name="jx_list" id="data" empty="$empty">
                     <div id="r_box1">
                         <div id="r_main">
-                            <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">
+                            <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id'],'type'=>$data['type']))}">
                                 {$data.nickname}
                                 <div class="clearfix"></div>
                                 <ul id="rm">
@@ -256,7 +256,7 @@
                             </button>
                             <div class="clearfix"></div>
                         </div>
-                        <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id']))}">
+                        <a href="{:U('Mobile/Detail/index',array('id'=>$data['school_id'],'type'=>$data['type']))}">
                             <div id="r_img">
                                 <img style="border-radius: 3px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
                             </div>

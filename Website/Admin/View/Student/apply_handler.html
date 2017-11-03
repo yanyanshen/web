@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>学员预约订单详情</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <style type="text/css">
+        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
+        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+    </style>
+    <script>
+        $(document).ready(function(e) {
+            KindEditor.ready(function (K) {
+                K.create('#content7', {
+                    allowFileManager: true,
+                    filterMode: true,
+                    afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                        this.sync("#content7");
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<script>
+    $(function(){
+        $("#submit").click(function(){
+            $("#submit").attr('disabled',true);
+            $.post('{:U("Admin/Student/apply_handler")}',$("#form1").serialize(),function(res){
+                if(res.status==1){
+                    layer.msg(res.info,{icon:6,time:2000},function(){
+                        location.href=res.url;
+                    })
+                }else{
+                    layer.msg(res.info,{icon:5,time:2000},function(){
+                        location.href=res.url;
+                    })
+                }
+            },'json');
+            return false;
+        });
+    });
+</script>
+<body>
+<div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+    学员预约订单详情
+    <span style="margin-right: 8px;font-weight: bold">
+        <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
+    </span>
+</div>
+<form action="#" method="post" id="form1">
+    <div style="font-size: 13px;margin: 10px 5px">
+        <table width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
+            <input type="hidden" name='id' value="{$get['id']}"/>
+            <input type="hidden" name='p' value="{$get['p']}"/>
+            <input type="hidden" name='pid' value="{$get['pid']}"/>
+            <tr >
+                <td width="5%">客户</td>
+                <td>{$info['user']}</td>
+            </tr>
+            <tr >
+                <td width="5%">用户</td>
+                <td>{$info['truename']} - {$info['phone']}</td>
+            </tr>
+            <tr >
+                <td width="7%">上次更新人</td>
+                <td>{$info['lastupdate']}</td>
+            </tr>
+            <tr >
+                <td width="7%">上次编辑时间</td>
+                <td>{$info['visit_time']}</td>
+            </tr>
+            <tr>
+                <td>最新备注</td>
+                <td>
+                    <textarea name="customer_inform" id="content7" style="height: 250px;">{$info['customer_inform']}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='2'>
+                    <input type="submit" id="submit" onclick="if(confirm('确定次操作吗？')==false) return false" value="确认操作"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</body>
+</html>

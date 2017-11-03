@@ -18,22 +18,18 @@ class SchoolController extends CommonController {
             }
         }
 //        $order = 'school.ntime desc';
-        $field = 'school.id,city.cityname,city.id as cid,school.nickname,school.address,school.signature,school.score,
-                school.type,school.evalutioncount,school.ntime,school.order,school.praisecount,school.allcount,
+        $field = 'school.*,city.cityname,city.id as cid,school.nickname,school.address,school.signature,school.score,
+                school.type,school.evalutioncount,school.ntime,school.order,school.praisecount,school.allcount,school.lastupdate,
                 school.coach_num,school.passedcount,school.connectteacher,school.introduction,school.picurl,student_num,
                 school.picname,school.class_num,school.account,school.recommand,school.week,school.hot,school.type';
         $count = M('School')->table('xueches_school school,xueches_citys city')->where($where)->count();
         $Page=new Page($count,14);
         $show=$Page->show();
-        $data = M('School')
-            ->table('xueches_school school,xueches_citys city')
-            ->field($field)
-            ->where($where)
+        $data = M('School')->table('xueches_school school,xueches_citys city')
+            ->field($field)->where($where)
 //            ->order($order)
-            ->limit($Page->firstRow.','.$Page->listRows)
-            ->select();
+            ->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        $http=C('HTTP');
         //城市
         $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
         $this->assign('page',$show);// 赋值分页输出
@@ -41,7 +37,7 @@ class SchoolController extends CommonController {
         $this->assign('count', $count);
         $this->assign('city', $citys);
         $this->assign('jx_list', $data);
-        $this->assign('http', $http);
+        $this->assign('http', C('HTTP'));
         $this->assign('empty', '<h1>暂无数据</h1>');
         $this->assign('get',$_GET);
         $this->display();
@@ -49,58 +45,72 @@ class SchoolController extends CommonController {
 
 
     //删除驾校
-    function del_school($id){
-        $info = M('school')->where("id={$id}")->find();
+    function del_school($id,$pid,$p,$type){
         M('school')->startTrans();
-        if($info['type'] == 'jx'){
-            $url = 'Admin/School/jx_list?p='.$_GET['p'].'&pid='.$_GET['pid'];
-            $res = del_pic('School','School_logo',$id,1);
-        }elseif($info['type'] == 'jl'){
-            $url = 'Admin/Coach/index_list?p='.$_GET['p'].'&pid='.$_GET['pid'];
-            $res = del_pic('School','Coach_logo',$id,1);
-        }elseif($info['type'] == 'zd'){
-            $url = 'Admin/Guider/index_list?p='.$_GET['p'].'&pid='.$_GET['pid'];
-            $res = del_pic('School','guider_logo',$id,1);
+        switch($type){
+            case 'jx':
+                $url = 'Admin/School/jx_list';
+                $res = del_pic('School','School_logo',$id);
+                break;
+            case 'jl':
+                $url = 'Admin/Coach/index_list';
+                $res = del_pic('School','Coach_logo',$id);
+                break;
+            case 'zd';
+                $url = 'Admin/Guider/index_list';
+                $res = del_pic('School','guider_logo',$id);
+                break;
         }
 
-        if($res == 1){
+        if($res){
             M('school')->commit();
+            //删除基地
             if(M('train')->where("type_id={$id}")->select()){
                 M('train')->where("type_id={$id}")->delete();
             }
+            //删除课程
             if(M('trainclass')->where("type_id={$id}")->find()){
                 M('trainclass')->where("type_id={$id}")->delete();
             }
+            //删除地标
             if(M('lands')->where("type_id={$id}")->find()){
                 M('lands')->where("type_id={$id}")->delete();
             }
-            $message='';
+            $log['done'] = '删除驾校 ID_'.$id;
+            D('AdminLog')->logout($log);
+            $message='删除成功';
             $tt=0;
         }else{
             M('school')->rollback();
             $message="<script>alert('删除失败')</script>";
             $tt=0.1;
         }
-        $this->redirect($url,array('p'=>''),$tt,$message);
+        $this->redirect($url,array('p'=>$p,'pid'=>$pid),$tt,$message);
     }
-    //添加驾校
+//添加驾校
     function add_jx(){
         if(!empty($_POST)){
-                $where['nickname']=$_POST['nickname'];
-                $field='id';
-                $data=D('School')->school_list($where,$field);
-                if($data){
-                    $this->error(0);
-                }else{
-                    $where['cityname']=$_POST['cityid'];
-                    $city_list=D('Citys')->city_one($where);
-                    $_POST['cityid']=$city_list['id'];
-                    $_POST['ntime']=time();
-                    $id=D('School')->add_jx($_POST);
-                    session('type_id',$id);
-                }
+            $where['nickname']=$_POST['nickname'];
+            $field='id';
+            $data=D('School')->school_list($where,$field);
+            if($data){
+                $this->error(0);
+            }else{
+                $where['cityname']=$_POST['cityid'];
+                $city_list=D('Citys')->city_one($where);
+                $_POST['cityid']=$city_list['id'];
+                $_POST['ntime']=time();
+                $_POST['lastupdate']=session('admin_name');
+                $id=D('School')->add_jx($_POST);
+            }
             $res=UploadPic('School','School_logo',$id);
-                $this->success($id,U('Admin/School/add_jx',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            if($res){
+                $log['done'] = '驾校添加 ID_'.$id;
+                D('AdminLog')->logout($log);
+                $this->success('添加成功',U('Admin/School/jx_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            }else{
+                $this->error('添加失败',U('Admin/School/add_jx',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            }
         }else{
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();
             $this->assign("city",$city);
@@ -108,50 +118,26 @@ class SchoolController extends CommonController {
             $this->display();
         }
     }
-
-//上传简介图片，
-    public function uploadMulPic(){
-        $data['time']=time();
-        $upload = new \Think\Upload();
-        $upload->maxSize = 3145728;
-        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
-        $upload->rootPath = "./Uploads/School_logo/";
-        if (!file_exists($upload->rootPath)) {
-            mkdir($upload->rootPath);
-        }
-        $info=$upload->upload();
-        if(!$info){
-            $res=$upload->getError();
-        }else{
-            $data['type_id']=session('type_id');
-            $data['type']='jx';
-            $data['picurl']=$info['file']['savepath'];
-            $data['picname']=$info['file']['savename'];
-            $res=M('pic')->add($data);
-        }
-    }
-
-
     //对驾校进行编辑
     public function jx_editor(){
         $this->assign('get',$_GET);
         if(!empty($_POST)){
             $where['id']=$_POST['id'];
-            session('type_id',$_POST['id']);
+            $_POST['lastupdate']=session('admin_name');
             D('School')->jx_editor($where,$_POST);//更新数据
-            $res=editorPic('School','School_logo',$_POST['id'],'pic');
+            $res=editorPic('School','School_logo',$_POST['id']);
             if($res){
-                $this->success($res,U('Admin/School/jx_list?pid='.$_POST['pid'].'&p='.$_POST['p']));
+                $log['done'] = '驾校编辑 ID_'.I('id');
+                D('AdminLog')->logout($log);
+                $this->success('编辑成功',U('Admin/School/jx_list?pid='.$_POST['pid'].'&p='.$_POST['p']));
             }else{
-                $this->error(0,U('Admin/School/jx_editor?pid='.$_POST['pid'].'&p='.$_POST['p']));
+                $this->error('编辑失败',U('Admin/School/jx_editor?pid='.$_POST['pid'].'&p='.$_POST['p'].'&type='.I('type').'&id='.I('id')));
             }
         }else{
             $id=$_GET['id'];
             $where['id']=$id;
             $data=D('School')->school_list($where);
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();
-            $picInfo=M('pic')->where(array('type_id'=>$id))->select();
-            $this->assign("picInfo",$picInfo);
             $this->assign("city",$city);
             $this->assign("id",$id);
             $this->assign("jx",$data);
@@ -219,6 +205,8 @@ class SchoolController extends CommonController {
             if($data){
                 $row=$nav->setPriority($data);
                 if($row){
+                    $log['done'] = '优先级更新 ID_'.$data['id'];
+                    D('AdminLog')->logout($log);
                     $this->success('优先级更新成功');
                 }
             }else{
@@ -227,5 +215,4 @@ class SchoolController extends CommonController {
         }
 
     }
-
 }

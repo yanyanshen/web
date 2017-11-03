@@ -25,15 +25,15 @@
         资讯列表
         <span style="float: right;margin-right: 1%;color: #ffffff">总计：{$count}</span>
         <span style=" margin-right: 8px; font-weight: bold;color: #ffffff">
-            <empty name="$add">
-                <a style="text-decoration: none;color:#ff143f;" href="{:U($add['name'])}">
-                    【{$add['title']}】
+            <if condition="$consult eq '0'">
+                <a style="text-decoration: none;color:#FA7124;" href="javascript:alert('暂无添加权限');">
+                    【资讯添加】
                 </a>
                 <else/>
-                <a style="text-decoration: none;color:#ff143f;" href="javascript:void(0);">
-                    【无添加权限】
+                <a style="text-decoration: none;color:#FA7124;" href="{:U($consult,array('pid'=>$get['pid'],'p'=>$get['p']))}">
+                    【资讯添加】
                 </a>
-            </empty>
+            </if>
         </span>
     </div>
     <div style="font-size: 13px;margin: 10px 5px ;" >
@@ -54,15 +54,15 @@
                     <td>{$k+$firstRow}</td>
                     <td><img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
                     <td>{$v['title']}</td>
-                    <td>{$v['content']|mb_substr=0,20,utf8}...</td>
+                    <td>{$v['content']|mb_substr=0,40,utf8}...</td>
                     <td>{$v['touch_count']}</td>
                     <td>{$v['cityname']}</td>
                     <td>{$v['ntime']}</td>
                     <td>{$v['update_people']}</td>
                     <td>
-                        <input class="consult" type="button" gid="{$v['id']}" value="激活"/>
-                        <a href="{:U('Admin/Consult/editor_consult',array('id'=>$v['id']))}">编辑</a>
-                        <a id="del" href="{:U('Admin/Consult/del_consult',array('id'=>$v['id']))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
+                        <input class="consult"  type="button" gid="{$v['id']}" pid="{$get['pid']}" p="{$get['p']}" value="激活"/>
+                        <a href="{:U('Admin/Consult/consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">编辑</a>
+                        <a id="del" href="{:U('Admin/Consult/del_consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
                     </td>
                 </tr>
             </volist>
@@ -74,15 +74,19 @@
 <script>
     $(".consult").click(function(){
         var id=$(this).attr('gid');
+        var pid=$(this).attr('pid');
+        var p=$(this).attr('p');
         $(this).attr('disabled',true);
-        $.post("{:U('Admin/Consult/statusUpdate')}",{id:id},function(res){
-            if(res.info==1){
-                location.href='';
+        $.post("{:U('Admin/Consult/statusUpdate')}",{id:id,pid:pid,p:p},function(res){
+            if(res.status){
+                layer.msg(res.info,{icon:6,time:2000},function(){
+                    location.href = res.url;
+                });
             }else{
-                location.href='';
+                layer.msg(res.info,{icon:5,time:2000},function(){
+                    location.href = res.url;
+                });
             }
-        })
+        },'json')
     })
-
-
 </script>

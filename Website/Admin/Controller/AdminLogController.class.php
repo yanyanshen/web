@@ -21,16 +21,16 @@ class AdminLogController extends CommonController{
         $admins = M('Admin');
         //总记录数;
         $count = $admins->where($where)->count();
-        $page = new Page($count, 5);
+        $page = new Page($count, 20);
         //分页展示;
         $show = $page->show();
         $adminLog = $admins->where($where)->order('lastlogin desc')->limit($page->firstRow . ',' . $page->listRows)->select();
-        $this->assign('keywords', $keywords);
         $this->assign('firstRow', $page->firstRow);
         $this->assign('count',$count);
         $this->assign('adminLog', $adminLog);
         $this->assign('page', $show);
         $this->assign('empty', "<h1>暂无数据</h1>");
+        $this->assign('get',$_GET);
         $this->display();
     }
 /*
@@ -73,24 +73,17 @@ class AdminLogController extends CommonController{
         $count = $admins->table($table)
             ->where($where)
             ->count();
-        $page = new Page($count, 5);
+        $page = new Page($count, 20);
         //分页展示;
         $show = $page->show();
-        $admin_log_detail = $admins
-            ->table($table)
-            ->where($where)
-            ->field($field)
-            ->order('al.ntime desc')
-            ->limit($page->firstRow.','.$page->listRows)
-            ->select();
+        $admin_log_detail = $admins->table($table)->where($where)->field($field)->order('al.ntime desc')
+            ->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('firstRow', $page->firstRow);
         $this->assign('count',$count);
         $this->assign('adminLog', $admin_log_detail);
         $this->assign('page', $show);
-        $this->assign('uid', I('uid'));
-        $this->assign('ntime', I('ntime'));
-        $this->assign('ntime1', I('ntime1'));
-        $this->assign('t', I('t'));
+        $_GET['url'] = U('Admin/AdminLog/index',array('p'=>I('p'),'pid'=>I('pid')));
+        $this->assign('get',$_GET);
         $this->assign('empty', "<h1>暂无数据</h1>");
         $this->display($display);
     }

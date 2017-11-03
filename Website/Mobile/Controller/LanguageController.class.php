@@ -5,13 +5,12 @@ class LanguageController extends Controller{
 /*------------------2017-10-26shenyanyan------------------*/
 //语言教育列表
     public function language_list(){
+        session('mobile_return',U('Mobile/Language/language_list'));
 
         $this->assign('get',$_GET);
         if (I('city')) {
             session('city', I('city'));
         }
-
-
         $city_name = session('city');
         $cityid = M('citys')->where(array('cityname'=>array('like',"%$city_name%")))->getField('id');
         $where = "cityid = $cityid";
@@ -56,6 +55,7 @@ class LanguageController extends Controller{
         $info['environment_pic'] = M('LanguageEnvironmentPic')->where(array('type_id'=>I('id')))->select();
         $this->assign('info',$info);
         $this->assign('get',$_GET);
+        $this->assign('mobile_return',session('mobile_return'));
         $this->display();
     }
 //语言教育评论页面
@@ -142,7 +142,21 @@ class LanguageController extends Controller{
 
 //语言教育课程报名信息填写页面
     public function language_apply(){
-        print_r($_GET);
-        $this->display();
+        if(IS_AJAX){
+            $_POST['ntime'] = date('Y-m-d H:i:s',time());
+            $_POST['lastupdate'] = $_POST['truename'];
+            $res = M('LanguageApply')->add($_POST);
+            if($res){
+                $url = U('Mobile/Language/language_detail',array('id'=>I('type_id')));
+                $this->success('您好，您的信息已经提交成功，稍后会有客服与您联系！',$url);
+            }else{
+                $url = U('Mobile/Language/language_apply',array('id'=>I('type_id')));
+                $this->error('网络差，请稍后再试！',$url);
+            }
+        }else{
+            $_GET['nickname'] = M('Language')->where(array('id'=>I('id')))->getField('nickname');
+            $this->assign('get',$_GET);
+            $this->display();
+        }
     }
 }

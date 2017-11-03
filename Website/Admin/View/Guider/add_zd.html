@@ -4,19 +4,31 @@
         <title>添加指导员</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
-        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/webuploader/webuploader.min.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/public/js/upload.js"></script>
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/js/webuploader/webuploader.css" />
         <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+
         <style>
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
             .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
             span.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
             span.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
        </style>
+        <script>
+            $(document).ready(function(e) {
+                KindEditor.ready(function (K) {
+                    K.create('#content7', {
+                        allowFileManager: true,
+                        filterMode: true,
+                        afterBlur: function () {  //利用该方法处理当富文本编辑框失焦之后，立即同步数据
+                            this.sync("#content7");
+                        }
+                    });
+                });
+            })
+        </script>
     </head>
     <body>
         <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bold;color: #ffffff">
@@ -25,8 +37,9 @@
         </div>
         <div style="font-size: 13px;margin: 10px 5px">
             <form action="{:U('Admin/Guider/add_zd')}" method="post" id="form1" enctype="multipart/form-data">
-                <input type="text" value="{$get['p']}" name="p" id="p"/>
-                <input type="text" value="{$get['pid']}" name="pid" id="pid"/>
+                <input type="hidden" value="{$get['p']}" name="p" id="p"/>
+                <input type="hidden" value="{$get['pid']}" name="pid" id="pid"/>
+                <input type="hidden" value="{$get['type']}" name="type"/>
             <table  width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
                 <tr>
                     <td>所属驾校：</td>
@@ -179,31 +192,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>驾校简介logo</td>
-                    <td>
-                        <label>驾校简介logo<b>*</b></label>
-                        <div class="uploader-list-container vocation" style="width: 525px;border:0px;">
-                            <div class="queueList">
-                                <div id="dndArea" class="placeholder">
-                                    <div id="filePicker-2"></div>
-                                    <p>或将照片拖到这里，单次最多可选10张</p>
-                                </div>
-                            </div>
-                            <div class="statusBar" style="display:none;">
-                                <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
-                                <div class="info"></div>
-                                <div class="btns">
-                                    <div id="filePicker2"></div>
-                                    <div class="uploadBtn" style="display: none">开始上传</div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
                     <td>指导员简介：</td>
                     <td>
-                        <textarea name="introduction"  cols="150" rows="4"></textarea>
+                        <textarea name="introduction" id="content7"  style="padding-left:70px;height:250px;visibility:hidden;"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -300,9 +291,6 @@
         });
     });
 
-    var uploadUrl = '{:U("uploadMulPic")}';
-    var listUrl = '{:U("index_list")}';
-
     $(function(){
         var validate=$('#form1').validate({
             rules:{
@@ -347,45 +335,45 @@
             },
             messages:{
                 account:{
-                    required:'驾校账号不能为空！'
+                    required:' * 必填项！'
                 },
                 nickname:{
-                    required:'姓名不能为空'
+                    required:' * 必填项！'
                 },
                 pass:{
-                    required:'密码不能为空！',
+                    required:' * 必填项！',
                     rangelength:'密码长度必须在5到12位之间！'
                 },
                 school_nickname:{
-                    required:'驾校不能为空!'
+                    required:' * 必填项！'
                 },
                 address:{
-                    required:'地址不能为空'
+                    required:' * 必填项！'
                 },
                  age:{
-                     required:'年龄不能空',
-                     rangelength:'长度为1-3'
+                     required:' * 必填项！',
+                     rangelength:' * 长度为1-3！'
                  },
                 numberId:{
-                    required:'身份证号不能空'
+                    required:' * 必填项！'
                 },
                 driverage:{
-                    required:'驾龄不能为空',
-                    rangelength:'长度为1-3'
+                    required:' * 必填项',
+                    rangelength:' * 长度为1-3！'
                 },
                 teachage:{
-                    required:'教龄不能为空',
-                    rangelength:'长度为1-3'
+                    required:' * 必填项！',
+                    rangelength:' * 长度为1-3！'
                 },
                 serialId:{
-                    required:'车牌号不能为空'
+                    required:' * 必填项！'
                 },
                 driverId:{
-                    required:'驾驶证号不能为空'
+                    required:' * 必填项！'
                 }
             },
             success:function(span){
-                span.addClass('ok').text('通过验证')
+                span.addClass('ok').text(' * ok')
             },
             validClass:'ok',
             errorElement:'span'
@@ -400,22 +388,18 @@
             if(validate.form()){
                 $(this).attr('disabled',true);
                 $('#form1').ajaxSubmit(function(res){
-                    if(res.status==1){
-                        $('.uploadBtn').click();
-                        setTimeout(function() {
-                            alert('编辑成功');
+                    if(res.status){
+                        layer.msg(res.info,{icon:6,time:2000},function(){
                             location.href=res.url;
-                        },3000);
+                        })
                     }else{
-                        alert('教练名称已存在,请重新编辑');
-                        location.href=res.url;
+                        layer.msg(res.info,{icon:5,time:2000},function(){
+                            location.href=res.url;
+                        })
                     }
                 },'json');
                 return false;
             }
-
         });
-
     });
-
 </script>

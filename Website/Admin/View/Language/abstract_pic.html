@@ -5,6 +5,7 @@
     <title>语言简介图片列表</title>
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
         .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
         .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
@@ -43,8 +44,20 @@
                     <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                     <td>{$v.lastupdate}</td>
                     <td>
-                        <a href="{:U('Admin/Language/abstract_pic_del',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">删除</a>　
+                        <a style="text-decoration: none" href="javascript:void(0);"
+                           onclick="del({$v['id']},{$get['pid']},'language_abstract_pic',{$get['id']},{$get['type']},{$get['p']})">删除</a>　
                     </td>
+                    <script>
+                        function del(id,pid,type,tid,type1,p){
+                            layer.msg('确定要删除吗？', {
+                                time: 0, //不自动关闭
+                                btn: ["确定", '取消'],
+                                yes: function(){
+                                    location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&tid='+tid+'&type1='+type1+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                }
+                            });
+                        }
+                    </script>
                 </tr>
         </volist>
         </tbody>

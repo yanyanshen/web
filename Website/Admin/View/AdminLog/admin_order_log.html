@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
-        管理员订单日志(一个月内)
+        管理员订单日志(一个月内)<a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
         <span style="float:right;margin-right: 1%">总计：{$count}</span>
     </div>
     <div class="div_search" style="height: 35px;background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
@@ -27,11 +27,12 @@
             <form action="?" id='form1' method="get" name="form1">
                 <input type="hidden" name="uid" value="{$uid}"/>
                 <input type="hidden" name="t" value="{$t}"/>
-                时间：<input name="ntime" type="text" style="width: 100px"  onClick="WdatePicker()" value="{$ntime?$ntime:''}" />
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
+                时间：<input name="ntime" type="text" style="width: 100px"  onClick="WdatePicker()" value="{$get['ntime']?$get['ntime']:''}" />
                 至
-                <input type="text" style="width: 100px" value="{$ntime1?$ntime1:''}"  onClick="WdatePicker()" name="ntime1"/>
-                <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/AdminLog/admin_log_detail",array('t'=>0))}')"/>
-                <input value="清空全部" type="reset"/>
+                <input type="text" style="width: 100px" value="{$get['ntime1']?$get['ntime1']:''}"  onClick="WdatePicker()" name="ntime1"/>
+                <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/AdminLog/admin_log_detail",array('t'=>0,'pid'=>$get['pid'],'p'=>$get['p']))}')"/>
                 <!--<input value="导出" type="button" id="button" onclick="submitYouFrom('http://www.517xc.cn/index.php/Admin/Order/push')"/>-->
                 <script type="text/javascript" language="javascript">
                     function submitYouFrom(path){

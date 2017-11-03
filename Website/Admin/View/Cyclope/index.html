@@ -46,7 +46,7 @@
                     <option value="4" {$get['type']==4?selected:''}>科目四</option>
                 </select>
                 <input value="查询" type="submit" id='btn'/>
-                <input value="清空全部" type="reset" id=''/>
+                <input value="清空全部" type="reset" id='btn'/>
             </form>
         </span>
     </div>
@@ -85,9 +85,20 @@
                             <a style="text-decoration: none"
                                href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
                             <span>|</span>
-                            <a style="text-decoration: none"  id="del" href="{:U('Admin/Cyclope/del_cyclope',array('type_id'=>$v['id'],'pid'=>$pid))}"
-                               onclick="if(confirm('确定删除？')==false)return false;">删除</a>
+                            <a style="text-decoration: none"   id="del" href="javascript:void(0);"
+                               onclick="del({$v['id']},{$get['pid']},'cyclope',{$get['p']})">删除</a>
                         </td>
+                        <script>
+                            function del(id,pid,type,p){
+                                layer.msg('确定要删除吗？', {
+                                    time: 0, //不自动关闭
+                                    btn: ["确定", '取消'],
+                                    yes: function(){
+                                        location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                    }
+                                });
+                            }
+                        </script>
                     </tr>
                 </volist>
             </table>

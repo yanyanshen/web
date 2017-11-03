@@ -217,12 +217,10 @@ function UploadPic($table,$file_name,$id){
         $data['ntime']=time();
         $res=M($table)->field('picurl,picname,ntime')->where(array('id'=>$id))->save($data);
     }
-
-    //创建上传文件夹;
-    return $info;
+    return $res;
 }
 
-function editorPic($table,$file_name,$id,$schoolpic){
+function editorPic($table,$file_name,$id){
     //更新图片信息
     $upload = new  Think\Upload();
     $upload->maxSize = 3145728;// 设置附件上传大小
@@ -244,17 +242,6 @@ function editorPic($table,$file_name,$id,$schoolpic){
                 } else {
                     $res = $this->error('主图更新失败');
                 };
-            } else if ($key > 0) { //修改辅图
-                $pid = $key;
-                $data['id'] = $pid;
-                $data['picname'] = $val['savename'];
-                $data['picurl'] = $val['savepath'];
-                $data['type_id'] = $id;
-                $schoolpicInfo = M($schoolpic)->field('picname,picurl')->find($pid);
-                //删除原图
-                if($res=M($schoolpic)->save($data)){
-                    unlink($upload->rootPath . $schoolpicInfo['picurl'] . $schoolpicInfo['picname']);
-                }
             }
         }
     }
@@ -268,7 +255,7 @@ function editorPic($table,$file_name,$id,$schoolpic){
 @param $type  string   是否删除pic与encironment里的图片的标志
 */
 //图片删除
-function del_pic($table,$file_name,$id,$type=0){
+function del_pic($table,$file_name,$id){
     //更新图片信息
     $upload = new  Think\Upload();
     $picInfo=M($table)->field('picurl,picname')->where(array('id'=>$id))->find();
@@ -276,26 +263,24 @@ function del_pic($table,$file_name,$id,$type=0){
    //删除原图
     unlink($upload->rootPath. $picInfo['picurl'] . $picInfo['picname']);
     $res = M($table)->where(array('id'=>$id))->delete();
-    if($type){
+    if($info = M('pic')->where("type_id={$id}")->select()){
+        $upload->rootPath="./Uploads/$file_name/";
+        foreach($info as $v){
+            unlink($upload->rootPath . $v['picurl'] . $v['picname']);
+        }
+        M('pic')->where("type_id={$id}")->delete();
+    }
+    if($info1 = M('environment')->where("type_id={$id}")->select()){
         $upload->rootPath="./Uploads/Environment_logo/";
-        if($info = M('pic')->where("type_id={$id}")->select()){
-            foreach($info as $v){
-                unlink($upload->rootPath . $v['picurl'] . $v['picname']);
-            }
-            M('pic')->where("type_id={$id}")->delete();
+        foreach($info1 as $v1){
+            unlink($upload->rootPath . $v1['picurl'] . $v1['picname']);
         }
-
-        if($info1 = M('environment')->where("type_id={$id}")->select()){
-            foreach($info1 as $v1){
-                unlink($upload->rootPath . $v1['picurl'] . $v1['picname']);
-            }
-            M('environment')->where("type_id={$id}")->delete();
-        }
+        M('environment')->where("type_id={$id}")->delete();
     }
     if($res){
         return 1;
     }else{
-        return 2;
+        return 0;
     }
 }
 

@@ -49,11 +49,11 @@
                     <label class="apply_sex">性别</label>
                     <ul class="apply_list">
                         <li>
-                            <input type="radio" name="ap_button" value="0" id="ap_radio1"  checked>
+                            <input type="radio" name="ap_button" value="0" id="ap_radio1"  checked/>
                             <label for="ap_radio1">男</label>
                         </li>
                         <li style="margin-left: 20px;">
-                            <input type="radio" name="ap_button" value="1" id="ap_radio2" required>
+                            <input type="radio" name="ap_button" value="1" id="ap_radio2"/>
                             <label for="ap_radio2">女</label>
                         </li>
                         <div class="clearfix"></div>
@@ -86,22 +86,14 @@
         //validate表单验证
         var validate=$('#form1').validate({
             //设置验证规则
-            rules:{
-                ap_name:{required:true},
-                ap_tel:{required:true,ap_tel:true},
-                ap_position:{required:true},
-                ap_button:{required:true}
+            rules:{ap_name:{required:true},
+                ap_tel:{required:true,ap_tel:true}, ap_position:{required:true}
             },
-
-
-            messages: {
-                ap_name: {required: '*必填项'},
-                ap_tel: {required: '*必填项'},
-                ap_position: {required: '*必填项'},
-                ap_button: {required: '*必填项'}
+            messages: {ap_name: {required: '*必填项'}, ap_tel: {required: '*必填项'},
+                ap_position: {required: '*必填项'}
             },
             success: function(span) {
-                span.addClass("ok").text('OK');
+                span.addClass("ok").text('*ok');
             },
             validClass:'ok',
             errorElement:'span'
@@ -141,5 +133,4 @@
             }
         })
     })
-
 </script>

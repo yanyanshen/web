@@ -117,11 +117,9 @@ class OrderModel extends Model {
                 }elseif($key == 'trainaddress' && $val != ''){
                     $where.=" o.$key like '%".trim($val)."%'".' and';
                 }elseif($key == 'create_time1' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.=" o.create_time  > $val and";
+                    $where.=" o.create_time  > '$val' and";
                 }elseif($key == 'create_time2' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.=" o.create_time  < $val and";
+                    $where.=" o.create_time  < '$val' and";
                 }elseif($key == 'notify_time1' && $val != ''){
                     $where.=" o.notify_time  > '$val' and";
                 }elseif($key == 'notify_time2' && $val != ''){

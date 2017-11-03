@@ -7,7 +7,7 @@
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
         <script src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
+        <script src="__PUBLIC__/public/js/layer/layer.js"></script>
         <style type="text/css">
             span.error{  font-size: 13px;  font-weight: bold;  color: #FF0000;}
             span.ok{  font-size: 13px;  font-weight: bold;  color: #38D63B;  }
@@ -24,23 +24,15 @@
         $(function(){
             var validate=$('#form1').validate({
                 rules:{
-                    trname:{
-                        required:true
-                    },
-                    address:{
-                        required:true
-                    }
+                    trname:{required:true},
+                    address:{required:true}
                 },
                 messages:{
-                    trname:{
-                        required:'基地名称不能为空！'
-                    },
-                    address:{
-                        required:'地址不能为空'
-                    }
+                    trname:{required:' * 必填项！'},
+                    address:{required:' * 必填项！'}
                 },
                 success:function(span){
-                    span.addClass('ok').text('通过验证')
+                    span.addClass('ok').text(' * ok')
                 },
                 validClass:'ok',
                 errorElement:'span'
@@ -55,12 +47,14 @@
                 if(validate.form()){
                     $(this).attr('disabled',true);
                     $('#form1').ajaxSubmit(function(res){
-                        if(res.status==1){
-                            alert('编辑成功');
-                                    location.href=res.url;
+                        if(res.status){
+                           layer.msg(res.info,{icon:6,time:2000},function(){
+                                location.href = res.url;
+                            });
                         }else{
-                            alert('编辑失败，请重新编辑');
-                            location.href=res.url;
+                            layer.msg(res.info,{icon:5,time:2000},function(){
+                                location.href = res.url;
+                            });
                         }
                     },'json');
                     return false;
@@ -75,7 +69,9 @@
                  <form action="{:U('Admin/TrainAddress/add_trainaddress')}" method="post" id="form1" enctype="multipart/form-data">
                      <ul style="margin-left: 10px;padding: 0">
                          <li>
-                             <input type="hidden"  name="id" value="{$id?$id:''}"/>
+                             <input type="hidden"  name="id" value="{$get['id']?$get['id']:''}"/>
+                             <input type="hidden"  name="pid" value="{$get['pid']?$get['pid']:''}"/>
+                             <input type="hidden"  name="p" value="{$get['p']?$get['p']:''}"/>
                              <label style="padding: 10px 45px 10px 0">城市<b>*</b></label>
                              <select name="cityid" id="cityid" class="dfinput" style="width:345px;">
                                  <volist name="citys" id="v">
@@ -97,41 +93,6 @@
                      </ul>
                 </form>
             </div>
-            <div></div>
         </div>
     </body>
 </html>
-<script>
-
-var change  =   function(sel){
-    var cityname=sel.options[sel.selectedIndex].text;
-    $("#cityname").val(cityname);
-};
-var cityname=$("#cityid option:selected").text();
-$("#cityname").val(cityname);
-
-//实例化百度地图
-    var map = new BMap.Map("container");
-    var city =$("#cityname").val();//获取所选的当前的城市名称
-    map.centerAndZoom(city, 12);
-
-    var localSearch = new BMap.LocalSearch(map);
-    localSearch.enableAutoViewport(); //允许自动调节窗体大小
-    function searchByStationName() {
-        var keyword = document.getElementById("keyword").value;
-        if(keyword==''){
-            alert('请填写基地名称');
-        }
-        localSearch.setSearchCompleteCallback(function (searchResult) {
-            var poi = searchResult.getPoi(0);
-            document.getElementById("address").value = poi.address;  //将地址显示在文本框中
-        });
-        localSearch.search(keyword);
-    }
-
-
-    //前端validate验证
-
-
-
-</script>

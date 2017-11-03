@@ -16,22 +16,16 @@ class GuiderController extends CommonController {
                 $where.="and s.account like '%".$_GET['account']."%'";
             }
         }
-        $count = $Dao
-            ->table('xueches_boss b,xueches_school s,xueches_guider_category ca,xueches_citys city')
-            ->where($where)
-            ->count();
+        $count = $Dao->table('xueches_boss b,xueches_school s,xueches_guider_category ca,xueches_citys city')
+            ->where($where)->count();
         $field="s.id,s.school_id,s.account,s.picurl,s.picname,s.sex,s.nickname,s.score,s.ntime,s.carnumber,s.class_num,
                 s.serialId,s.numberId,s.address,s.cityid,s.verify,s.lastupdate,s.type,s.recommand,s.week,s.hot,s.student_num,
                 ca.category_name,ca.id as caid,city.cityname,city.id as cityid";
         $p = new Page($count,10);
         $page = $p->show();
-        $list = $Dao
-            ->field($field)
+        $list = $Dao->field($field)
             ->table('xueches_boss b,xueches_school s,xueches_guider_category ca,xueches_citys city')
-            ->where($where)
-            ->order("s.id desc")
-            ->limit($p->firstRow.','.$p->listRows)
-            ->select();
+            ->where($where)->order("s.id desc")->limit($p->firstRow.','.$p->listRows)->select();
         //城市
         $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
         $this->assign('page', $page);
@@ -52,12 +46,11 @@ class GuiderController extends CommonController {
             $_POST['school_id']=$school_id;
             $_POST['time']=time();
             $id=M('school')->add($_POST);
-            session('type_id',$id);
             if($id){
-                $aa=M('School')->where(array('id'=>$school_id,'type'=>'zd'))->setInc('guider_num',1);
+                M('School')->where(array('id'=>$school_id,'type'=>'zd'))->setInc('guider_num',1);
                 $res=UploadPic('School','guider_logo',$id);
             }
-            $this->success(1,U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            $this->success('添加成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
         }else{
             $category=M('GuiderCategory')->field('id,category_name')->select();
             $this->assign('category', $category);
@@ -76,28 +69,6 @@ class GuiderController extends CommonController {
         }
 
     }
-    public function uploadMulPic(){
-        $data['time']=time();
-        $upload = new \Think\Upload();
-        $upload->maxSize = 3145728;
-        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
-        $upload->rootPath = "./Uploads/guider_logo/";
-        if (!file_exists($upload->rootPath)) {
-            mkdir($upload->rootPath);
-        }
-        $info=$upload->upload();
-        if(!$info){
-            $res=$upload->getError();
-        }else{
-            $data['type_id']=session('type_id');
-            $data['type']='zd';
-            $data['picurl']=$info['file']['savepath'];
-            $data['picname']=$info['file']['savename'];
-            M('pic')->add($data);
-        }
-    }
-
-
     //对教练进行编辑
     public function editor_zd(){
         if(!empty($_POST)){
@@ -106,11 +77,11 @@ class GuiderController extends CommonController {
             $_POST['school_id']=$school_id;
             $_POST['ntime']=time();
             D('school')->jx_editor($where,$_POST);//更新数据
-            $res=editorPic('School','guider_logo',$_POST['id'],'pic');
+            $res=editorPic('School','guider_logo',$_POST['id']);
             if($res){
-                $this->success($res,U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+                $this->success('编辑成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
             }else{
-                $this->error(0);
+                $this->error('编辑失败',U('Admin/Guider/editor_zd',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'id'=>$_POST['id'],'type'=>I('type'))));
             }
         }else{
             $id=$_GET['id'];
@@ -129,16 +100,16 @@ class GuiderController extends CommonController {
             $nickname=session('nickname');
             session('nickname',null);
             $this->assign('nickname',$nickname);
-            $picInfo=M('pic')->where(array('type_id'=>$id,'type'=>'zd'))->select();
-            $this->assign("picInfo",$picInfo);
+
             $this->assign("get",$_GET);
+            $this->assign('url',U('Admin/Guider/index_list',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
             $this->display();
         }
     }
 /*
  * User：沈艳艳
  * Date：2017/09/04
- * 指导员分类列表
+ * 教练分类列表/编辑教练分类/添加教练分类
  */
     public function category_index(){
         if(IS_AJAX){
@@ -149,36 +120,33 @@ class GuiderController extends CommonController {
             $_POST['update_people']=session("admin_name");
             if($_POST['cid']){
                 $res=M('GuiderCategory')->where(array('id'=>$_POST['cid']))->save($_POST);
+                $log['done'] = '编辑指导员分类 ID_'.$_POST['cid'];
             }else{
                 $cid=M('GuiderCategory')->where(array('category_name'=>$_POST['category_name']))->getField('id');
                 if($cid){
-                    $res=M('GuiderCategory')->where(array('id'=>$cid))->save($_POST);
+                    $this->error('数据已经存在',U('Admin/Guider/category_index',array('pid'=>I('pid'))));
                 }else{
                     $res=M('GuiderCategory')->add($_POST);
+                    $log['done'] = '添加指导员分类 ID_'.$res;
                 }
             }
             if($res){
-                $this->success('添加成功');
+                D('AdminLog')->logout($log);
+                $this->success('操作成功',U('Admin/Guider/category_index',array('pid'=>I('pid'))));
             }else{
-                $this->error('添加失败');
+                $this->error('操作失败',U('Admin/Guider/category_index',array('pid'=>I('pid'))));
             }
         }else{
+            if(I('id')){
+                //修改
+                $category_name=M('GuiderCategory')->where(array('id'=>$_GET['id']))->getField('category_name');
+                $this->assign('category_name',$category_name);
+                $this->assign('btn','编辑');
+            }
             $info=M('GuiderCategory')->select();
+            $this->assign('get',$_GET);
             $this->assign('category',$info);
             $this->display();
         }
-    }
-
-/*
- * User：沈艳艳
- * Date：2017/09/04
- * 编辑指导员分类
- */
-    public function edit_category(){
-        $category_name=M('GuiderCategory')->where(array('id'=>$_GET['id']))->getField('category_name');
-        $this->assign('category_name',$category_name);
-        $this->assign('id',$_GET['id']);
-        $this->assign('btn','编辑');
-        $this->category_index();
     }
 }

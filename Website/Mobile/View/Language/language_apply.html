@@ -28,7 +28,7 @@
         <div class="header">
             <ul>
                 <li class="back">
-                    <a href="{:U('Mobile/Language/language_detail')}">
+                    <a href="{:U('Mobile/Language/language_detail',array('id'=>$get['id']))}">
                     <img src="__PUBLIC__/public/images/back.png"></a>
                 </li>
                 <li class="header_text">语言教育报名页面</li>
@@ -39,23 +39,25 @@
     <div class="main_box">
         <div class="main">
             <form class="apply_form" id="form1">
+                <input type="hidden" name="nickname" value="{$get['nickname']}"/>
+                <input type="hidden" name="type_id" value="{$get['id']}"/>
                 <div class="apply">
                     <label class="label" for="ap_name">姓名</label>
-                    <input class="user" type="text" name="ap_name" id="ap_name" placeholder="请输入真实姓名" required>
+                    <input class="user" type="text" name="truename" id="ap_name" placeholder="请输入真实姓名" required>
                 </div>
                 <div class="apply">
                     <label class="label" for="ap_tel">电话</label>
-                    <input class="tel" type="text" name="ap_tel" id="ap_tel" placeholder="请输入电话号码" required>
+                    <input class="tel" type="text" name="phone" id="ap_tel" placeholder="请输入电话号码" required>
                 </div>
                 <div class="apply">
                     <label class="apply_sex">性别</label>
                     <ul class="apply_list">
                         <li>
-                            <input type="radio" name="ap_button" value="0" id="ap_radio1"  checked>
+                            <input type="radio" name="sex" value="0" id="ap_radio1"  checked>
                             <label for="ap_radio1">男</label>
                         </li>
                         <li style="margin-left: 20px;">
-                            <input type="radio" name="ap_button" value="1" id="ap_radio2" required>
+                            <input type="radio" name="sex" value="1" id="ap_radio2" required>
                             <label for="ap_radio2">女</label>
                         </li>
                         <div class="clearfix"></div>
@@ -64,11 +66,11 @@
                 </div>
                 <div class="apply">
                     <label class="label" for="ap_position">地址</label>
-                    <input class="city_position" type="text" name="ap_position" id="ap_position" placeholder="请输入所在地址" required>
+                    <input class="city_position" type="text" name="address" id="ap_position" placeholder="请输入所在地址" required>
                 </div>
                 <div class="apply">
                     <label class="ap_note" for="ap_textarea">备注</label>
-                    <input class="message" type="text" name="ap_message" id="ap_textarea" placeholder="更多">
+                    <input class="message" type="text" name="inform" id="ap_textarea" placeholder="更多">
                 </div>
             </form>
         </div>
@@ -79,7 +81,6 @@
         </div>
     </footer>
 </div>
-
 </body>
 </html>
 
@@ -89,18 +90,14 @@
         var validate=$('#form1').validate({
             //设置验证规则
             rules:{
-                ap_name:{required:true},
-                ap_tel:{required:true,ap_tel:true},
-                ap_position:{required:true},
-                ap_button:{required:true}
+                truename:{required:true},
+                phone:{required:true,phone:true},
+                address:{required:true}
             },
-
-
             messages: {
-                ap_name: {required: '*必填项'},
-                ap_tel: {required: '*必填项'},
-                ap_position: {required: '*必填项'},
-                ap_button: {required: '*必填项'}
+                truename: {required: '*必填项'},
+                phone: {required: '*必填项'},
+                address: {required: '*必填项'}
             },
             success: function(span) {
                 span.addClass("ok").text('OK');
@@ -109,24 +106,23 @@
             errorElement:'span'
         });
         // 手机号码验证
-        jQuery.validator.addMethod("ap_tel", function(value, element) {
+        jQuery.validator.addMethod("phone", function(value, element) {
             var mobileReg = /^1[34578]{1}[0-9]{9}$/;
             return this.optional(element) || (mobileReg.test(value));
         }, "*手机格式不正确");
 
         $('#btn2').click(function(){
+            $(this).attr('disabled',true);
             //表单提交之前判断前端验证是否通过，只有通过时才提交表单
             if(validate.form()){
-                $.post("{:U('Mobile/Order/apply')}",$('#form1').serialize(),function(res){
+                $.post("{:U('Mobile/Language/language_apply')}",$('#form1').serialize(),function(res){
                     if(res.status==1){
                         layer.open({
                             content: res.info
-                            ,skin: 'msg'
-                            ,icon:2
-                            ,style: 'background-color:#DAEAD3; font-color:#49EE18; border:none;' //自定风格
-                            ,time: 2 //2秒后自动关闭
-                            ,end:function(){
-                                location.href='';
+                            ,btn: ['确定']
+                            ,yes: function(index){
+                                location.href = res.url;
+                                layer.close(index);
                             }
                         });
                     }else{
@@ -136,6 +132,9 @@
                             ,icon:2
                             ,style: 'background-color:white; color:red; border:none;' //自定风格
                             ,time: 2 //2秒后自动关闭
+                            ,end:function(){
+                                location.href = res.url;
+                            }
                         });
                     }
                 },'json');

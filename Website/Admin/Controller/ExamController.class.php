@@ -4,8 +4,10 @@ use Think\Controller;
 use Admin\Common\Controller\CommonController;
 class ExamController extends CommonController{
 //后台试题excel表导入数据
-    public function Exam(){
+    public function exam(){
         $this->assign('http',C('HTTP'));
+        $_GET['url'] = U('Admin/Exam/add_exam',array('pid'=>I('pid'),'id'=>I('type_id')));
+        $this->assign('get',$_GET);
         $this->display();
     }
 
@@ -20,7 +22,7 @@ class ExamController extends CommonController{
             $file_extension=$file_array[count($file_array)-1];//获取文件后缀名
             //判断是否是 excel文件
             if(strtolower($file_extension)!='xls'){
-                $this->error('type');
+                $this->error('type',U('Admin/Exam/exam',array('pid'=>I('pid'),'type_id'=>I('type_id'))));
             }
             //以时间来命名上传的文件
 
@@ -34,15 +36,15 @@ class ExamController extends CommonController{
             $result=move_uploaded_file($tmp_name,$Exceldest.'/'.$file['name'].'_'.date('Y-m-d',time()));
             //判断文件是否上传成功
             if(!$result){
-                $this->error('file_error');
+                $this->error('file_error',U('Admin/Exam/exam',array('pid'=>I('pid'),'type_id'=>I('type_id'))));
             }
             /*上传成功后的excel的数据*/
             $data=ImportExcel($Exceldest.'/'.$file['name'].'_'.date('Y-m-d',time()));
             $data=array_slice($data,1);
-            $result=$this->addData($data);
-            $log['done'] = '通过excel表进行数据添加';
+            $result = $this->addData($data);
+            $log['done'] = '通过excel表进行交规题添加';
             D('AdminLog')->logout($log);
-            $this->success(1);
+            $this->success('导入成功',U('Admin/Exam/chapter_list',array('pid'=>I('pid'))));
         }
     }
 
@@ -90,6 +92,7 @@ class ExamController extends CommonController{
     public function chapter_list(){
         $subject_list = M('subject')->select();
         $this->assign('subject_list',$subject_list);
+        $this->assign('get',$_GET);
         $this->display();
     }
 /*
@@ -101,11 +104,11 @@ class ExamController extends CommonController{
         if(IS_AJAX){
             $res = D('Exam')->add_exam($_POST);
             if($res) {
-                $log['done'] = '添加试题';
+                $log['done'] = '添加交规题 ID_'.$res;
                 D('AdminLog')->logout($log);
-                $this->success('添加成功');
+                $this->success('添加成功',U('Admin/Exam/chapter_list',array('pid'=>I('pid'))));
             }else{
-                $this->error('添加失败');
+                $this->error('添加失败',U('Admin/Exam/add_exam',array('id'=>I('id'),'pid'=>I('pid'))));
             }
         }else{
             $id = I('id');
@@ -113,6 +116,8 @@ class ExamController extends CommonController{
             $this->assign('subject_info',$subject_info);
             $province = M('province')->select();
             $this->assign('province',$province);
+            $_GET['url'] = U('Admin/Exam/chapter_list',array('pid'=>I('pid')));
+            $this->assign('get',$_GET);
             $this->display();
         }
     }
@@ -125,7 +130,11 @@ class ExamController extends CommonController{
         $id = I('id');
         $res = M('exam')->where(array('id'=>$id))->delete();
         if($res){
-            $this->redirect('Admin/Exam/exam_list?pid='.$_GET['pid'],'',0.1,"<script>alert('操作成功')</script>");
+            $log['done'] = '删除交规题 ID_'.I('id');
+            D('AdminLog')->logout($log);
+            $this->redirect('Admin/Exam/exam_list',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
+        }else{
+            $this->redirect('Admin/Exam/exam_list',array('pid'=>I('pid'),'p'=>I('p')),0.1,"<script>alert('操作失败')</script>");
         }
     }
 }

@@ -39,7 +39,7 @@
         <div class="header2">
             <ul>
                 <li class="header_back">
-                    <a href="{:U('Mobile/Index/index')}">
+                    <a href="{$mobile_return}">
                         <img src="__PUBLIC__/public/images/back.png">
                     </a>
                 </li>
@@ -131,11 +131,7 @@
                         </if>
                         </span></li>
                     <if condition="$info.type neq 'jx'">
-                        <empty name="$info.school_id">
-                            <li>所属驾校：<span>�</span></li>
-                            <else/>
-                            <li>所属驾校：<span>{$info.school_id}</span></li>
-                        </empty>
+                        <li>所属驾校：<span>{$info['school_id']}</span></li>
                     </if>
                 </ul>
             </div>
@@ -203,15 +199,15 @@
                         <div id="introduce_m">
                             <p>{$info.introduction}</p>
                             <volist name="picinfo" id="data">
-                                <if condition="$data.type eq 'jx'">
-                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/Environment_logo/{$data.picurl}{$data.picname}"/>
+                                <if condition="$data.type eq 'jx' and $data.picname neq ''">
+                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
 
-                                <if condition="$data.type eq 'zd'">
-                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/guider_logo/Environment_logo/{$data.picurl}{$data.picname}"/>
+                                <if condition="$data.type eq 'zd' and $data.picname neq ''">
+                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/guider_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
-                                <if condition="$data.type eq 'jl'">
-                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/Coach_logo/Environment_logo/{$data.picurl}{$data.picname}"/>
+                                <if condition="$data.type eq 'jl' and $data.picname neq ''">
+                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/Coach_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
                             </volist>
                             <script type="text/javascript">
@@ -223,7 +219,7 @@
                                             $(this).height(200);
                                         } else {
                                             $(this).width(250);
-                                            $(this).height(100);
+                                            $(this).height(150);
                                         }
                                     });
                                 });
@@ -233,7 +229,45 @@
                 </div>
             </div>
 
+        <div id="content_mi">
+            <div id="introduce_bm">
+                <div class="course_tbm">
+                    <div class="course_tm">
+                        <h1>驾校环境</h1>
+                    </div>
+                </div>
+                <div id="introduce_tm">
+                    <div id="introduce_m">
+                        <volist name="abstract_pic" id="data">
+                            <if condition="$data.type eq 'jx'  and $data.picname neq ''">
+                                <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
+                            </if>
 
+                            <if condition="$data.type eq 'zd' and $data.picname neq ''">
+                                <img class="img2" style="width: 250px;height: 150px" src="{$http}/Uploads/guider_logo/{$data.picurl}{$data.picname}"/>
+                            </if>
+                            <if condition="$data.type eq 'jl' and $data.picname neq ''">
+                                <img class="img2" style="width: 250px;height: 150px" src="{$http}/Uploads/Coach_logo/{$data.picurl}{$data.picname}"/>
+                            </if>
+                        </volist>
+                        <script type="text/javascript">
+                            $(function(){
+                                $(".img2").click(function(){
+                                    var width = $(this).width();
+                                    if(width==250) {
+                                        $(this).width(300);
+                                        $(this).height(200);
+                                    } else {
+                                        $(this).width(250);
+                                        $(this).height(150);
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="content_me">
             <div id="eval_bm">

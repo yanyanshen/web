@@ -163,10 +163,17 @@
             <footer id="foot_theoryStudy" style="z-index:20">
                 <ul  class="mui-slider-indicator">
                     <li class="foot_option">
-                        <button class="button1">
-                            <img src="__STATIC__/theory_study/images/collection.png">
-                            <p>收藏</p>
-                        </button>
+                        <if condition="$Think.session.mid eq ''">
+                            <button>
+                                <img src="__STATIC__/theory_study/images/collection.png">
+                                <p>未登录</p>
+                            </button>
+                            <else/>
+                            <button class="button1">
+                                <img src="__STATIC__/theory_study/images/collection.png">
+                                <p>收藏</p>
+                            </button>
+                        </if>
                     </li>
                     <li class="foot_option">
                         <button class="button2">

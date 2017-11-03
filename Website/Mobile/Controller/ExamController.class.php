@@ -37,9 +37,6 @@ class ExamController extends Controller{
     @章节练习页面
 */
     public function chapter(){
-        if(!session('mid')){
-            $this->redirect('Mobile/Login/login');
-        }
         $type=$_GET['mt'];
         $subject=$_GET['ms'];
         $cityname=session('city');
@@ -206,7 +203,7 @@ class ExamController extends Controller{
             }
         }
     }
-    /*沈艳艳
+/*沈艳艳
     @param $type    驾照类型
     @param $subject 科目
     @param $chapter 章节

@@ -5,6 +5,7 @@
     <title></title>
     <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
         .table_a{border:2px solid rgba(39, 164, 237, 0.22);width:100%;border-radius: 8px;font-size: 13px}
         .table_a  td,th{  border: dotted 1px rgba(39, 164, 237, 0.22);}
@@ -32,18 +33,18 @@
             <th width="25%">回复内容</th>
         </tr>
             <tr>
-                <td>{$info[0]['nickname']}</td>
+                <td>{$info['nickname']}</td>
                 <td>
                     <p>
-                        <span style="color: #FA7124">{$info[0]['truename']}评论【{$info[0]['ntime']}】</span>
-                        {$info[0]['content']}
+                        <span style="color: #FA7124">【{$info['ntime']}】</span>
+                        {$info['content']}
                     </p>
-                    <if condition="$info[0]['untime'] neq ''">
+                    <notempty name="info['until']">
                         <p>
-                            <span style="color: #FA7124">{$info[0]['truename']}追加【{$info[0]['untime']}】</span>
-                            {$info[0]['ucontent']}
+                            <span style="color: #FA7124">{$info['truename']}追加【{$info['until']['content']}】</span>
+                            {$info['until']['content']}
                         </p>
-                    </if>
+                    </notempty>
                 </td>
                 <notempty name="reply">
                     <td>
@@ -57,7 +58,9 @@
             </tr>
     </table>
     <form action="" id="form1">
-        <input type="hidden" name="eid" value="{$id}"/>
+        <input type="hidden" name="eid" value="{$get['id']}"/>
+        <input type="hidden" name="pid" value="{$get['pid']}"/>
+        <input type="hidden" name="p" value="{$get['p']}"/>
         <div style="margin-top: 20px;">
             <textarea name="content"  id="content7" style="width:100%;height:200px;visibility:hidden;">我们会继续努力的！！！</textarea>
             <input  style="margin:2% 0 0 42%;width: 137px;height: 35px;line-height: 35px;background-color: rgb(60,149,200);border: none;border-radius: 4px;color: #ffffff "  type="button" id="submit" value="确认回复"/>
@@ -69,11 +72,14 @@
 <script>
     $("#submit").click(function(){
         $.post("{:U('Student/evaluate_reply')}",$("#form1").serialize(),function(res){
-            if(res.status == 1){
-                alert('添加成功');
-                location.href = res.url;
+            if(res.status){
+                layer.msg(res.info,{icon:6,time:2000},function(){
+                    parent.location = res.url;
+                });
             }else{
-                alert('添加失败')
+                layer.msg(res.info,{icon:5,time:2000},function(){
+                    parent.location = res.url;
+                });
             }
         },'json');
     })

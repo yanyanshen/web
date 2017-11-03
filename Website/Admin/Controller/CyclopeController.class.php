@@ -7,7 +7,7 @@ class CyclopeController extends CommonController{
     public function index(){
         $where = "";
         foreach($_GET as $k => $v){
-            if($k == 'cityid'){
+            if($k == 'cityid' ){
                 if($v){
                     $where .= "cityid = {$_GET['cityid']}";
                 }
@@ -25,11 +25,8 @@ class CyclopeController extends CommonController{
         }
         $count = M('cyclope')->where($where)->count();
         $page = new Page($count,7);
-        $info = M('cyclope')
-            ->where($where)
-            ->order('set_header desc,ntime desc')
-            ->limit($page->firstRow.','.$page->listRows)
-            ->select();
+        $info = M('cyclope')->where($where)->order('set_header desc,ntime desc')
+            ->limit($page->firstRow.','.$page->listRows)->select();
         $show = $page->show();
         $citys_list = D('citys')->city_one("flag = 1",'id,cityname',1);
         foreach($info as $k=>$v){
@@ -63,9 +60,9 @@ class CyclopeController extends CommonController{
                         $ext = pathinfo($name,PATHINFO_EXTENSION);
                         $name = md5(uniqid(microtime(true),true)).".$ext";
                         $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
-                        $res = M('cyclope')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url']));
+                        $res = M('cyclope')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url'],'picname'=>$name));
                         if($res){
-                            $log['done'] = '添加百科内容';
+                            $log['done'] = '添加百科内容 ID_'.$id;
                             D('AdminLog')->logout($log);
                             $this->success('添加成功',U('cyclope/index',array('pid'=>$_POST['pid'],'p'=>$_POST['p'])));
                         }else{
@@ -74,8 +71,6 @@ class CyclopeController extends CommonController{
                     }
                 }
         }else{
-//            $ret = cloudMove('cyclope/2017-10-17/904b45b2fed9a878bf86fe099cfd0d86.jpg');
-//            print_r($ret);
             $citys_list = D('citys')->city_one("flag = 1",'id,cityname',1);
             $this->assign('citys',$citys_list);
             $this->assign('get',$_GET);
@@ -94,15 +89,13 @@ class CyclopeController extends CommonController{
                 $where .= "  and a.username like '%".$_GET['update']."%'";
             }
         }
-        $info = M('CyclopeContent')
-            ->table('xueches_admin a,xueches_cyclope_content c')
+        $info = M('CyclopeContent')->table('xueches_admin a,xueches_cyclope_content c')
             ->field('a.username,c.id,c.title,c.content,c.ntime,c.picurl,c.type,c.type_id')
-            ->where($where)
-            ->select();
+            ->where($where)->select();
         $citys_list = D('citys')->city_one("flag = 1",'id,cityname',1);
         $this->assign('citys',$citys_list);
         $this->assign('info',$info);
-        $res =M('cyclope')->field('id,cityid,type')->where("id = $type_id")->find();
+        $res = M('cyclope')->field('id,cityid,type')->where("id = $type_id")->find();
         $this->assign('res',$res);
         $this->assign('count',count($info));
         $this->assign('get',$_GET);
@@ -127,17 +120,18 @@ class CyclopeController extends CommonController{
                     $ext = pathinfo($name,PATHINFO_EXTENSION);
                     $name = md5(uniqid(microtime(true),true)).".$ext";
                     $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
-                    $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url']));
+                    $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url'],'picname'=>$name));
                 }else{
                     $res = 1;
                 }
                 if($res){
-                    $log['done'] = '添加百科子内容';
+                    $log['done'] = '添加百科子内容 ID_'.$id;
                     D('AdminLog')->logout($log);
                     $url = U('Admin/Cyclope/content_index?id='.I('type_id').'&pid='.I('pid').'&p='.I('p'));
                     $this->success('添加成功',$url);
                 }else{
-                    $this->error('添加失败');
+                    $url = U('Admin/Cyclope/content_index?type_id='.I('type_id').'&pid='.I('pid').'&p='.I('p'));
+                    $this->error('添加失败',$url);
                 }
             }
         }else{
@@ -148,7 +142,7 @@ class CyclopeController extends CommonController{
     }
 /*-------------------------------2017-10-17腾讯云存储视频图片代码---------------------------------------------*/
     public function add_video(){
-        //上传文件到腾讯云
+//上传文件到腾讯云
         if(IS_AJAX){
             $_POST['admin_id']=session('admin_id');//管理员id
             $_POST['ntime']=time();//添加时间
@@ -163,7 +157,7 @@ class CyclopeController extends CommonController{
                     $ext = pathinfo($name,PATHINFO_EXTENSION);
                     $name = md5(uniqid(microtime(true),true)).".$ext";
                     $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
-                    $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url']));
+                    $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url'],'picname'=>$name));
                     if($res){
                         if($_FILES['video']){
                             $src = $_FILES['video']['tmp_name'];
@@ -171,14 +165,16 @@ class CyclopeController extends CommonController{
                             $ext = pathinfo($name,PATHINFO_EXTENSION);
                             $name = md5(uniqid(microtime(true),true)).".$ext";
                             $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
-                            $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('videourl'=>$ret['access_url']));
+                            $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('videourl'=>$ret['access_url'],'videoname'=>$name));
                             if($res){
-                                $log['done'] = '添加百科视频';
+                                $log['done'] = '添加百科视频 ID_'.$id;
                                 D('AdminLog')->logout($log);
-                                $this->success('添加成功',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
+                                $this->success('上传成功！',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
                             }else{
                                 $this->error('上传失败');
                             }
+                        }else{
+                            $this->error('请上传视频文件');
                         }
                     }
                 }
@@ -200,6 +196,8 @@ class CyclopeController extends CommonController{
         }
         $res = M('Cyclope')->where(array('id'=>I('id')))->save($data);
         if($res){
+            $log['done'] = '设置/取消置顶百科 ID_'.I('id');
+            D('AdminLog')->logout($log);
             $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
         }
     }
@@ -214,31 +212,106 @@ class CyclopeController extends CommonController{
         }
         $res = M('Cyclope')->where(array('id'=>I('id')))->save($data);
         if($res){
+            $log['done'] = '设置/取消热门百科 ID_'.I('id');
+            D('AdminLog')->logout($log);
             $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
         }
     }
+/*----------------------------------2017-11-02shenyanyan-----------------------------*/
+//百科/教育语言删除
+    function del(){
+        switch(I('type')){
+            case 'cyclope':
+                //确认是否有子内容 然后删除
+                $info = M('CyclopeContent')->where(array('type_id'=>I('id')))->select();
+                if(count($info)){
+                    foreach($info as $k=>$v){
+                        $time = date('Y-m-d',$v['ntime']);
+                        cloudMove("cyclope/$time/{$v['picname']}");
+                        if($v['type']){
+                            cloudMove("cyclope/$time/{$v['videoname']}");
+                        }
+                    }
+                    M('CyclopeContent')->where(array('type_id'=>I('id')))->delete();
+                }
+                $info1 = M('Cyclope')->where(array('id'=>I('id')))->find();
+                $time = date('Y-m-d',$info1['ntime']);
+                cloudMove("cyclope/$time/{$info1['picname']}");
+                $res= M('Cyclope')->where(array('id'=>I('id')))->delete();
+                if($res){
+                    $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p'),0,"<script>alert('删除成功')</script>"));
+                }else{
+                    echo 'false';
+                }
+                break;
+            case 'cyclope_content':
+                $info = M('CyclopeContent')->where(array('id'=>I('id')))->find();
+                $time = date('Y-m-d',$info['ntime']);
+                cloudMove("cyclope/$time/{$info['picname']}");
+                if($info['type']){
+                    cloudMove("cyclope/$time/{$info['videoname']}");
+                }
+                $res = M('CyclopeContent')->where(array('id'=>I('id')))->delete();
+                if($res){
+                    $this->redirect('content_index',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('tid'),0,"<script>alert('删除成功')</script>"));
+                }else{
+                    echo 'false';
+                }
+                break;
+            case 'language':
+                //判断语言教育下的 简介图片是否存在
+                $abstract = M('LanguageAbstractPic')->where(array('type_id'=>I('id')))->select();
 
-/*删除*/
-    function del_cyclope(){
-        $id = $_GET['id'];
-        $type_id = $_GET['type_id'];
-        if($id){
-            $url = 'Admin/Cyclope/content_index?id='.I('tid').'&type='.I('type');
-            del_pic('CyclopeContent','cyclope_logo',$id);
-        }elseif($type_id){
-//更新图片信息
-            $upload = new  \Think\Upload();
-            $picInfo=M('CyclopeContent')->field('picurl,picname')->where(array('type_id'=>$type_id))->select();
-            $upload->rootPath="./Uploads/cyclope_logo/";
-            //删除子内容图
-            foreach($picInfo as $k=>$v){
-                 unlink($upload->rootPath. $v['picurl'] . $v['picname']);
-            }
-            M('CyclopeContent')->where(array('type_id'=>$type_id))->delete();
-            //删除内容图片
-            del_pic('Cyclope','cyclope_logo',$type_id);
-            $url = 'Admin/Cyclope/index?pid='.I('pid');
+                if(count($abstract)){
+                    foreach($abstract as $k1=>$v1){
+                        $time = date('Y-m-d',$v1['ntime']);
+                        cloudMove("language/$time/{$v1['picname']}");
+                    }
+                    M('LanguageAbstractPic')->where(array('type_id'=>I('id')))->delete();
+                }
+                //判断语言教育下的 环境图片是否存在
+                $environment = M('LanguageEnvironmentPic')->where(array('type_id'=>I('id')))->select();
+                if(count($environment)){
+                    foreach($environment as $k2=>$v2){
+                        $time = date('Y-m-d',$v2['ntime']);
+                        cloudMove("language/$time/{$v2['picname']}");
+                    }
+                    M('LanguageEnvironmentPic')->where(array('type_id'=>I('id')))->delete();
+                }
+
+                $info = M('Language')->where(array('id'=>I('id')))->find();
+                $time = date('Y-m-d',$info['ntime']);
+                cloudMove("language/$time/{$info['picname']}");
+                $res= M('Language')->where(array('id'=>I('id')))->delete();
+                if($res){
+                    $this->redirect('Admin/Language/index',array('pid'=>I('pid'),'p'=>I('p'),0,"<script>alert('删除成功')</script>"));
+                }else{
+                    echo 'false';
+                }
+                break;
+            case 'language_abstract_pic':
+                $info = M('LanguageAbstractPic')->where(array('id'=>I('id')))->find();
+
+                $time = date('Y-m-d',$info['ntime']);
+                cloudMove("language/$time/{$info['picname']}");
+                $res = M('LanguageAbstractPic')->where(array('id'=>I('id')))->delete();
+                if($res){
+                    $this->redirect('Admin/Language/abstract_pic',array('pid'=>I('pid'),'id'=>I('tid'),'type'=>I('type1'),'p'=>I('p')),0,"<script>alert('删除成功')</script>");
+                }else{
+                    echo 'false';
+                }
+                break;
+            case 'language_environment_pic':
+                $info = M('LanguageEnvironmentPic')->where(array('id'=>I('id')))->find();
+                $time = date('Y-m-d',$info['ntime']);
+                cloudMove("language/$time/{$info['picname']}");
+                $res = M('LanguageEnvironmentPic')->where(array('id'=>I('id')))->delete();
+                if($res){
+                    $this->redirect('Admin/Language/abstract_pic',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('tid'),'type'=>I('type1')),0,"<script>alert('删除成功')</script>");
+                }else{
+                    echo 'false';
+                }
+                break;
         }
-        $this->redirect($url,'',0,"<script>alert('删除成功')</script>");
     }
 }

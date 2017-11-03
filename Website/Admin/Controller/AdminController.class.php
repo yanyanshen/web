@@ -16,7 +16,7 @@ class AdminController extends CommonController{
         $admins = M('Admin');
         //总记录数;
         $count = $admins->where($where)->count();
-        $page = new Page($count, 5);
+        $page = new Page($count, 10);
         //分页展示;
         $show = $page->show();
         $adminList = $admins->where($where)->order('id')->limit($page->firstRow . ',' . $page->listRows)->select();
@@ -49,7 +49,7 @@ class AdminController extends CommonController{
                 $data['password'] = md5($data['password']);
                 $res = $admin->add_admin($data);
                 if($res){
-                    $log['done'] = '添加管理员';
+                    $log['done'] = '添加管理员 ID_'.$res;
                     D('AdminLog')->logout($log);
                     $this->success();
                 }else{
@@ -63,7 +63,7 @@ class AdminController extends CommonController{
 /*
  * User：沈艳艳
  * Date：2017/08/28
- * 修改登陆者密码
+ * 修改后台登陆者密码
  */
     public function set_password(){
         if(IS_AJAX){
@@ -71,7 +71,7 @@ class AdminController extends CommonController{
             $_POST['password'] = md5($_POST['password']);
             $res = M('Admin')->where(array('id'=>session("admin_id")))->save($_POST);
             if($res){
-                $log['done'] = '修改登录密码';
+                $log['done'] = '修改管理员 '.session('admin_name').' 的登录密码';
                 D('AdminLog')->logout($log);
                 $this->success('修改成功',U('Admin/set_password',array('pid'=>I('pid'))));
             }else{

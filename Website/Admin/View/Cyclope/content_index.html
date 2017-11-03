@@ -71,8 +71,20 @@
                     <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                     <td>{$v['username']}</td>
                     <td>
-                        <a id="del" href="{:U('Admin/Cyclope/del_cyclope',array('id'=>$v['id'],'tid'=>$id,'type'=>$type))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
+                        <a style="text-decoration: none"   id="del" href="javascript:void(0);"
+                           onclick="del({$v['id']},{$get['pid']},'cyclope_content',{$get['id']},{$get['p']})">删除</a>
                     </td>
+                    <script>
+                        function del(id,pid,type,tid,p){
+                            layer.msg('确定要删除吗？', {
+                                time: 0, //不自动关闭
+                                btn: ["确定", '取消'],
+                                yes: function(){
+                                    location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&tid='+tid+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                }
+                            });
+                        }
+                    </script>
                 </tr>
             </volist>
         </table>

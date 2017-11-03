@@ -24,7 +24,7 @@ class AdminNavController extends CommonController{
             if($_POST){
                 $nid=$nav->add_nav($_POST);
                 if($nid){
-                    $log['done'] = '添加菜单';
+                    $log['done'] = '添加菜单 ID_'.$nid;
                     D('AdminLog')->logout($log);
                     $this->success('菜单添加成功',U('Admin/AdminNav/index',array('pid'=>I('ppid'))));
                 }else{
@@ -47,7 +47,7 @@ class AdminNavController extends CommonController{
             $info=$nav->where(array('id'=>$id))->find();
             if($info){
                 if($nav->where(array('id'=>$id))->save($data)){
-                    $log['done'] = '编辑菜单';
+                    $log['done'] = '编辑菜单 ID_'.$id;
                     D('AdminLog')->logout($log);
                     $this->success('编辑成功',U('index',array('pid'=>I('pid'))));
                 }else{
@@ -86,7 +86,7 @@ class AdminNavController extends CommonController{
                 $res = $nav->where(array('id'=>$id))->delete();
             }
             if($res){
-                $log['done'] = '删除了菜单';
+                $log['done'] = '删除了菜单 ID_'.$id;
                 D('AdminLog')->logout($log);
                 $this->success('删除成功',U('Admin/AdminNav/index',array('pid'=>I('pid'))));
             }else{
@@ -105,7 +105,7 @@ class AdminNavController extends CommonController{
             if($data){
                 $row=$nav->setPriority($data);
                 if($row){
-                    $log['done'] = '更新了左边菜单优先级';
+                    $log['done'] = "更新了左边菜单 ID_{$data['id']} 的优先级";
                     D('AdminLog')->logout($log);
                     $this->success('优先级更新成功');
                 }

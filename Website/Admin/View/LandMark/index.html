@@ -5,6 +5,7 @@
         <title>地标管理</title>
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/layer/layer.js"></script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
         <style>
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
@@ -14,16 +15,20 @@
         <script>
 	        $("document").ready(function(){
 				$("#button").click(function(){
+                    var pid = $(this).attr('pid');
 		 			$.ajax({
-		 				url:"{:U('addnewland')}",
+		 				url:"{:U('addnewland')}?pid="+pid,
 		 			    type:"POST",
 		 		        data:$('#form').serialize(),
 		 		        success: function(res) {
-		 		          if(res.info){
-                              alert('添加成功');
-		 		        	 window.location.reload();
+		 		          if(res.status){
+                              layer.msg(res.info,{icon:6,time:2000},function(){
+                                  location.href = res.url;
+                              });
 		 		          }else{
-		 		        	  alert("添加失败");
+                              layer.msg(res.info,{icon:5,time:2000},function(){
+                                  location.href = res.url;
+                              });
 		 		          }
 		 		        }
 		 			},'json');
@@ -38,7 +43,7 @@
         </div>
         <div class="div_search"  style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder;">
             <div style="display: inline-block;">
-                <form action="{:U('')}" method="post">
+                <form action="{:U('Admin/LandMark/index',array('pid'=>$get['pid']))}" method="post">
                     城市：<select name="cityid" id="city">
                             <volist name='citys' id='v'>
                                 <option value="{$v.id}" {$cityid==$v['id']?'selected':''}>{$v.cityname}</option>
@@ -58,11 +63,11 @@
                     <input type="hidden" name="countyid" id="countyname" value="{$countyid}"/>
                     城市：<input type="text" disabled  class="cityname" value="{$cityname}" style="width: 60px"/>
                     区/省：<input type="text" disabled  class="countyname" value="{$countyname}" style="width: 60px"/>
-                    输入地标名：<input type="text"  name="landname" id="landname" placeholder="请输入该地区的地标名" />
+                    输入地标名：<input type="text"  name="landname" id="landname" value="" placeholder="请输入该地区的地标名" />
                     <input type="button" value="查询" onclick="searchByStationName();"/>
                     经度：<input type="text" name="longitude" id="longitude" />
                     纬度：<input type="text" name="latitude" id="latitude"/>
-                    <input type="button" value="添加" id="button" onclick="checkNull()"/>
+                    <input type="button" value="添加" pid="{$get['pid']}" id="button"/>
                 </form>
             </div>
         </div>
@@ -83,7 +88,7 @@
                             <td>{$v.longitude}</td>
                             <td>{$v.latitude}</td>
                             <td>
-                                <a href="{:U('del_land?id='.$v['id'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                                <a href="{:U('del_land?id='.$v['id'].'&pid='.$get['pid'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
                             </td>
                         </tr>
                     </volist>
@@ -111,13 +116,12 @@
                     $(".countyname").val($("#county option:selected").text())
                 };
 
-        var checkNull  =  function () {
-            if($("#landname").val()==''){
-                alert('地标名不能为空');
-                return false;
-            }
-        };
-
+//        var checkNull  =  function () {
+//            if($("#landname").val()==''){
+//                alert('地标名不能为空');
+//                return false;
+//            }
+//        };
         var city=$("#city option:selected").text();
      var map = new BMap.Map("container");
     map.centerAndZoom(city, 12);
@@ -159,7 +163,5 @@
     });
     localSearch.search(keyword);
 }
-
-
     </script>
 </html>

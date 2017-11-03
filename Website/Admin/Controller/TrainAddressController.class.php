@@ -21,16 +21,13 @@ class TrainAddressController extends CommonController {
 
         $count=M('trainaddress')->where($where)->count();
         $this->assign('count',$count);
-        $page=new Page($count,10);
+        $page=new Page($count,20);
         $show=$page->show();
-        $train_address=M('trainaddress')
-            ->where($where)
-            ->limit($page->firstRow.','.$page->listRows)
-            ->order('time desc')
-            ->select();
+        $train_address=M('trainaddress')->where($where)->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('page',$show);
         $this->assign('firstRow',$page->firstRow);
         $this->assign('train',$train_address);
+        $this->assign('get',$_GET);
         $this->display();
     }
 
@@ -39,16 +36,20 @@ class TrainAddressController extends CommonController {
         if(IS_AJAX){
             $_POST['time']=time();
             if($_POST['id']){
+                $log['done'] = '更新基地 ID_'.$_POST['id'];
                 $res=M('trainaddress')->where(array('id'=>$_POST['id']))->save($_POST);
             }else{
                 $res=M('trainaddress')->add($_POST);
+                $log['done'] = '添加基地 ID_'.$res;
             }
 
             if($res){
-                $url=U('Admin/TrainAddress/index?cityid='.$_POST['cityid']);
-                $this->success($_POST,$url);
+                D('AdminLog')->logout($log);
+                $url=U('Admin/TrainAddress/index?cityid='.$_POST['cityid'].'&p='.I('p').'&pid='.I('pid'));
+                $this->success('操作成功',$url);
             }else{
-                $this->error(0,'');
+                $url=U('Admin/TrainAddress/add_trainaddress?cityid='.$_POST['cityid'].'&p='.I('p').'&pid='.I('pid').'&id='.I('id'));
+                $this->error('操作失败',$url);
             }
         }else{
             if($_GET['id']){
@@ -64,24 +65,25 @@ class TrainAddressController extends CommonController {
             }
             $citys=D('citys')->city_one(array('flag'=>1),'id,cityname',1);
             $this->assign('citys',$citys);
+            $this->assign('get',$_GET);
             $this->display();
         }
     }
 
 
     public function del_train(){
-        $id=$_GET['id'];
         $cityid=$_GET['cityid'];
-        $res=M('trainaddress')->where(array('id'=>$id,'cityid'=>$cityid))->delete();
+        $res=M('trainaddress')->where(array('id'=>I('id'),'cityid'=>$cityid))->delete();
         if($res){
-            $this->redirect('Admin/TrainAddress/index',array('cityid'=>$cityid),0,"<script>alert('删除成功')</script> ");
+            $log['done'] = '删除基地 ID_'.I('id');
+            D('AdminLog')->logout($log);
+            $this->redirect('Admin/TrainAddress/index',array('cityid'=>$cityid,'p'=>I('p'),'pid'=>I('pid')),0,"<script>alert('删除成功')</script> ");
         }else{
-            $this->redirect('Admin/TrainAddress/index',array('cityid'=>$cityid),0,"<script>alert('失败')</script> ");
+            $this->redirect('Admin/TrainAddress/index',array('cityid'=>$cityid,'p'=>I('p'),'pid'=>I('pid')),0.1,"<script>alert('删除失败')</script> ");
         }
     }
 
     public function train_Address(){
-        $this->assign('get',$_GET);
         $type=$_GET['type'];
         switch ($type){
             case 'jx':
@@ -108,9 +110,10 @@ class TrainAddressController extends CommonController {
         $train=M('trainaddress')->field("id,trname,address")->where("cityid={$data['cityid']}")->select();
         $this->assign("train",$train);
         $this->assign("url",$url);
+        $this->assign('get',$_GET);
         $this->display();
     }
-    //更新基地
+//更新驾校基地
     function trainsave(){
         $trainaddress_id=$_POST['trainaddress_id'];
         $strId='';
@@ -125,14 +128,19 @@ class TrainAddressController extends CommonController {
         $data=M('train')->where($where)->field('id')->find();
         if($data){
             $res=M('train')->where(array('id'=>$data['id']))->save($_POST);
+            $log['done'] = '更新驾校/教练/指导员基地 ID_'.$data['id'];
+            D('AdminLog')->logout($log);
         }else{
             $res=M('train')->add($_POST);
+            $log['done'] = '添加驾校/教练/指导员基地 ID_'.$res;
+            D('AdminLog')->logout($log);
         }
         if($res){
             $url=U('Admin/TrainAddress/train_Address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
-            $this->success(1,$url);
+            $this->success('更新成功',$url);
         }else{
-            $this->error(0);
+            $url=U('Admin/TrainAddress/train_Address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
+            $this->error('更新失败',$url);
         }
     }
 

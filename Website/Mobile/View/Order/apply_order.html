@@ -17,7 +17,7 @@
     <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <style>
-        span.error{position: absolute;color:#FA7124;display: block;font-weight: bold;font-size: 11px;left: 20px}
+        span.error{color:#FA7124;display: inline-block;float: right;font-weight: bold;font-size: 10px;margin-right: 2%;line-height: 50px}
         span.ok {color: #289628;}
     </style>
 </head>
@@ -26,20 +26,14 @@
         //validate表单验证
         var validate=$('#form1').validate({
             //设置验证规则
-            rules:{
-                account:{required:true},
-                name:{required:true},
-                phone:{required:true, phone:true},
+            rules:{account:{required:true}, name:{required:true}, phone:{required:true, phone:true},
                 address:{ required:true}
             },
-            messages: {
-                account: {required: '*必填项'},
-                name: {required: '*必填项'},
-                phone: {required: '*必填项'},
+            messages: {account: {required: '*必填项'}, name: {required: '*必填项'}, phone: {required: '*必填项'},
                 address: {required: '*必填项'}
             },
             success: function(span) {
-                span.addClass("ok").text('OK');
+                span.addClass("ok").text('*ok');
             },
             validClass:'ok',
             errorElement:'span'
@@ -80,14 +74,14 @@
                     <input class="tel" type="text" name="phone" placeholder="请输入电话号码" >
                 </div>
                 <div class="apply">
-                    <label class="label">性别</label>
-                    <input type="radio" name="sex"  value="0" required checked>男&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="label" style="margin-right: 33px">性别</label>
+                    <input type="radio" name="sex"  value="0"  checked>男&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="radio" name="sex"  value="1">女
                 </div>
                 <div id="user"></div>
                 <div class="apply">
                     <label class="label">报名人数</label>
-                    <input type="button" value="-" onclick="down_num()" style="-webkit-appearance:none;border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6%" />
+                    <input type="button" value="-" onclick="down_num()" style="-webkit-appearance:none;border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6px" />
                     <input class="user" style="width: 7%;border:1px solid #a9a9a9;text-align:center;margin-left: 6%" type="text" name="num" value="1" readonly placeholder="1" >
                     <input type="button" value="+" onclick="add_num()" style="-webkit-appearance:none;border-radius:5px;width: 8%;background-color:#ffffff;font-weight: bolder;font-size: 18px;border:1px solid #a2a2a2;margin-left: 6%" />
                 </div>
@@ -116,7 +110,7 @@
                     }
                 </script>
                 <div class="apply">
-                    <label class="label">类型：</label>
+                    <label class="label" style="margin-right: 14px">类型：</label>
                     <input class="user" type="text" style="-webkit-appearance:none;"  name="nickname" value="{$nickname}" readonly>
                 </div>
                 <div class="apply">
@@ -125,22 +119,21 @@
                         {$name['name']}
                     </a>
                 </div>
-                <div class="apply" style="height:80px">
+                <div class="apply" style="height:80px;">
                     <label class="apply_order">报名方式</label>
-                    <ul class="apply_od">
+                    <ul class="apply_od" style="margin-left:9px;">
                         <li>
-                            <input type="radio" name="type" value="1" required checked>
+                            <input type="radio" name="type" value="1"  checked>
                             <label>付全款报名 <span>{$name['wholeprice']}</span>元 / 每人</label>
                         </li>
                         <li>
-                            <input type="radio" name="type" value="2" required>
+                            <input type="radio" name="type" value="2" >
                             <label>预付费报名 <span>{$name['advanceprice']}</span>元 / 每人</label>
                         </li>
                         <div class="clearfix"></div>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-
                 <div class="apply">
                     <label class="ap_note">地址</label>
                     <input class="message" type="text" width="20" name="address" placeholder="请输入所在地址" required>

@@ -3,14 +3,13 @@ namespace Admin\Controller;
 use Think\Controller;
 use Think\Upload;
 use Admin\Common\Controller\CommonController;
-use Think\Upload\Driver\Qiniu\QiniuStorage;
 class SlideshowController extends CommonController{
     //驾考环境
     public function index(){
         $data = D('Slideshow')->slideshow_list('','*',1,'list_flag desc');
         $this->assign('http',C('HTTP'));
         $this->assign('info',$data);
-        $this->assign('pid',I('pid'));
+        $this->assign('get',$_GET);
         $this->display();
     }
 
@@ -22,13 +21,14 @@ class SlideshowController extends CommonController{
             $id = M('slideshow')->add($_POST);
             $res = UploadPic('slideshow','Slideshow_logo',$id);
             if($res){
-                $log['done'] = '添加轮播图';
+                $log['done'] = '添加轮播图 ID_'.$id;
                 D('AdminLog')->logout($log);
-                $this->success('操作成功');
+                $this->success('操作成功',U('Admin/Slideshow/index',array('pid'=>I('pid'))));
             }else{
-                $this->error('操作失败');
+                $this->error('操作失败',U('Admin/Slideshow/add_slide',array('pid'=>I('pid'))));
             }
         }else{
+            $this->assign('get',$_GET);
             $this->display();
         }
     }
@@ -47,18 +47,20 @@ class SlideshowController extends CommonController{
             }
             $_POST['lastupdate'] = session('admin_name');
             $info = M('slideshow')->save($_POST);
-            $res = editorPic('slideshow','Slideshow_logo',$_POST['id'],'');
+            $res = editorPic('slideshow','Slideshow_logo',$_POST['id']);
             if($info || $res){
-                $log['done'] = '编辑轮播图';
+                $log['done'] = '编辑轮播图 ID_'.$_POST['id'];
                 D('AdminLog')->logout($log);
-                $this->success('操作成功');
+                $this->success('操作成功',U('Admin/Slideshow/index',array('pid'=>I('pid'),'p'=>I('p'))));
             }else{
-                $this->success('操作失败');
+                $this->success('操作失败',U('Admin/Slideshow/edit_slide',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('id'))));
             }
         }else{
             $info = M('slideshow')->where(array('id'=>$_GET['id']))->find();
             $this->assign('info',$info);
             $this->assign('http',C('HTTP'));
+            $_GET['url'] = U('Admin/Slideshow/index',array('pid'=>I('pid'),'p'=>I('p')));
+            $this->assign('get',$_GET);
             $this->display();
         }
     }
@@ -71,11 +73,11 @@ class SlideshowController extends CommonController{
         $id=$_GET['id'];
         $res = del_pic('slideshow','Slideshow_logo',$id);
         if($res){
-            $log['done'] = '删除轮播图';
+            $log['done'] = '删除轮播图 ID_'.$res;
             D('AdminLog')->logout($log);
-            $this->redirect('index',array('pid'=>I('pid')),0,"<script>alert('删除成功')</script>");
+            $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('删除成功')</script>");
         }else{
-            $this->redirect('index',array('pid'=>I('pid')),0,"<script>alert('删除失败')</script>");
+            $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('删除失败')</script>");
         }
     }
 /*
@@ -89,18 +91,18 @@ class SlideshowController extends CommonController{
             if($k == 'flag'){
                 if($info['flag'] == 1){
                     $data['flag'] = 0;
-                    $log['done'] = '修改轮播图状态为：禁止';
+                    $log['done'] = "修改轮播图 ID_{$_GET['id']} 状态为：禁止";
                 }else{
                     $data['flag'] = 1;
-                    $log['done'] = '修改轮播图状态为：展示';
+                    $log['done'] = "修改轮播图 ID_{$_GET['id']} 状态为：展示";
                 }
             }elseif($k == 'list_flag'){
                 if($info['list_flag'] == 1){
                     $data['list_flag'] = 0;
-                    $log['done'] = '取消列表轮播图';
+                    $log['done'] = '取消搜索页轮播图 ID_'.$_GET['id'];
                 }else{
                     $data['list_flag'] = 1;
-                    $log['done'] = '设置列表轮播图';
+                    $log['done'] = '设置搜索页轮播图 ID_'.$_GET['id'];
                 }
             }
         }
@@ -111,7 +113,7 @@ class SlideshowController extends CommonController{
         }else{
             $massage = "<script>alert('操作失败')</script>";
         }
-        $this->redirect('index',array('pid'=>I('pid')),0,$massage);
+        $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,$massage);
     }
 
 

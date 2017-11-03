@@ -8,6 +8,7 @@
     <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
         div.error{  font-size: 14px;  font-weight: bold;display: inline-block;color: #FF0000;  }
         div.ok{  font-size: 14px;  font-weight: bold;display: inline-block;  color: #38D63B;  }
@@ -86,11 +87,11 @@
                 title:{required:true}
             },
             messages:{
-                content:{required:'*必填项'},
-                title:{required:'*必填项'}
+                content:{required:' * 必填项！'},
+                title:{required:' * 必填项！'}
             },
             success:function(div){
-                div.addClass('ok').text('通过验证')
+                div.addClass('ok').text(' * ok')
             },
             validClass:'ok',
             errorElement:'div'
@@ -99,11 +100,13 @@
             if(validate.form()){
                 $('#form1').ajaxSubmit(function(res){
                     if(res.status==1){
-                        alert(res.info);
-                        location.href=res.url;
+                        layer.msg(res.info,{icon:6,time:2000},function(){
+                            location.href=res.url;
+                        });
                     }else{
-                        alert(res.info);
-                        location.href=res.url;
+                        layer.msg(res.info,{icon:5,time:2000},function(){
+                            location.href=res.url;
+                        });
                     }
                 },'json');
                 return false;

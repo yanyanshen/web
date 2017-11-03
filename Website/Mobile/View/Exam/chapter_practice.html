@@ -12,15 +12,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
     <!--标准mui.css-->
-    <link rel="stylesheet" href="__STATIC__/chapter_practice/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
     <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
     <style>
-        .options li{
-            cursor: pointer;border-bottom: 1px solid #eee;
-        }
+        .options li{cursor: pointer;border-bottom: 1px solid #eee;}
     </style>
     <script>
         //获取浏览器页面可见高度和宽度
@@ -163,18 +161,24 @@
           <footer id="foot_theoryStudy" style="z-index: 1000;margin-bottom: 0;">
               <ul  class="mui-slider-indicator" >
                   <li class="foot_option">
-                      <if condition="$mc eq 1">
-                          <button class="button2">
-                              <img src="__STATIC__/theory_study/images/collection.png">
-                              <p>取消收藏</p>
-                          </button>
+                      <if condition="$Think.session.mid eq ''">
+                              <button>
+                                  <img src="__STATIC__/theory_study/images/collection.png">
+                                  <p>未登录</p>
+                              </button>
                           <else/>
-                          <button class="button1">
-                              <img src="__STATIC__/theory_study/images/collection.png">
-                              <p>收藏</p>
-                          </button>
+                          <if condition="$mc eq 1">
+                              <button class="button2">
+                                  <img src="__STATIC__/theory_study/images/collection.png">
+                                  <p>取消收藏</p>
+                              </button>
+                              <else/>
+                              <button class="button1">
+                                  <img src="__STATIC__/theory_study/images/collection.png">
+                                  <p>收藏</p>
+                              </button>
+                          </if>
                       </if>
-
                   </li>
                   <li class="foot_option">
                       <button class="button3">
@@ -407,6 +411,9 @@
                 ,icon:3
                 ,style:"background-color:#DAEAD3;border:none"
                 ,time:2
+                ,end:function(){
+                    location.href = '';
+                }
             })
         },'json');
     });

@@ -10,7 +10,7 @@
         <link href="__STATIC__/list/css/main.css" rel="stylesheet" type="text/css">
         <link href="__STATIC__/list/css/media-queries.css" rel="stylesheet" type="text/css">
         <link href="__STATIC__/list/css/initialize.css" rel="stylesheet" type="text/css">
-        <link href="__STATIC__/list/css/cityPicker.css" rel="stylesheet" type="text/css">
+        <link href="__PUBLIC__/public/js/banner/cityPicker.css" rel="stylesheet" type="text/css">
         <link href="__STATIC__/list/css/list.css" rel="stylesheet" type="text/css">
         <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script src="__PUBLIC__/public/js/banner/banner.js"></script>
@@ -148,7 +148,7 @@
                     <volist name="info" id="v" empty="$empty">
                         <li style="width: 96%;padding: 3% 0;margin: 0;" class="mui-table-view-cell">
                             <div id="r_main" style="border-bottom: none">
-                                <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">{$v.nickname}
+                                <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">{$v.nickname}
                                     <div class="clearfix"></div>
                                     <ul id="rm">
                                         <li style="font-size: 12px" class="money">￥{$v.wholeprice}</li>
@@ -162,17 +162,17 @@
                             </div>
                             <div id="r_img" style="border:1px solid #eee;border-radius: 3px">
                                 <if condition="$v['type'] eq 'jx'">
-                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">
+                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">
                                         <img src="{$http}/Uploads/School_logo/{$v.picurl}{$v.picname}">
                                     </a>
                                 </if>
                                 <if condition="$v['type'] eq 'jl'">
-                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">
+                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">
                                         <img src="{$http}/Uploads/coach_logo/{$v.picurl}{$v.picname}">
                                     </a>
                                 </if>
                                 <if condition="$v['type'] eq 'zd'">
-                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">
+                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">
                                         <img src="{$http}/Uploads/guider_logo/{$v.picurl}{$v.picname}">
                                     </a>
                                 </if>
@@ -317,7 +317,7 @@
                                 if(array['id']){
                                     str += '<li style="width: 96%;padding: 3% 0;margin: 0;" class="mui-table-view-cell">';
                                     str += ' <div id="r_main" style="border-bottom: none">';
-                                    str += '<a  href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'">'+array['nickname'];
+                                    str += '<a  href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'&type='+array['type']+'">'+array['nickname'];
                                     str += '<div class="clearfix"></div>';
                                     str += '<ul id="rm">';
                                     str += '<li class="money">￥'+array['wholeprice']+'</li>';
@@ -331,17 +331,17 @@
                                     str += '</div>';
                                     str += '<div id="r_img" style="border:1px solid #eee;border-radius: 3px">';
                                     if(array['type'] == 'jx'){
-                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'">';
+                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'&type='+array['type']+'">';
                                         str += '<img src="{$http}/Uploads/School_logo/'+array['picurl']+array['picname']+'">';
                                         str += '</a>';
                                     }
                                     if(array['type'] == 'jl'){
-                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'">';
+                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'&type='+array['type']+'">';
                                         str += '<img src="{$http}/Uploads/coach_logo/'+array['picurl']+array['picname']+'">';
                                         str += '</a>';
                                     }
                                     if(array['type'] == 'zd'){
-                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'">';
+                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'&type='+array['type']+'">';
                                         str += '<img src="{$http}/Uploads/guider_logo/'+array['picurl']+array['picname']+'">';
                                         str += '</a>';
                                     }

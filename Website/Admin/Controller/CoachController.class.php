@@ -52,20 +52,24 @@ class CoachController extends CommonController {
             $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
             $_POST['school_id']=$school_id;
             $_POST['ntime']=time();
-            $_POST['type']='jl';
-            $_POST['nickname']=$_POST['nickname'].'教练';
+            $_POST['lastupdate']=session('admin_name');
             $id=M('School')->add($_POST);
-            session('type_id',$id);
             if($id){
+                $log['done'] = '添加教练 ID_'.$id;
+                D('AdminLog')->logout($log);
                 M('School')->where(array('id'=>$school_id,'type'=>'jx'))->setInc('coach_num',1);
             }
             $res=UploadPic('School','Coach_logo',$id);
-            $this->success($res,U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            if($res){
+                $this->success('添加成功',U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            }else{
+                $this->success('添加失败',U('Admin/Coach/add_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'type'=>I('type'))));
+            }
         }else{
             $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
             $this->assign('city',$citys);
 
-            $boss=M('boss')->where(array('type'=>'jl'))->field('id,boss_name')->select();
+            $boss=M('boss')->where(array('type'=>I('type')))->field('id,boss_name')->select();
             $this->assign('boss',$boss);
 
             $nickname=session('nickname');
@@ -75,52 +79,29 @@ class CoachController extends CommonController {
         }
 
     }
-
-    //上传简介图片，
-    public function uploadMulPic(){
-        $data['time']=time();
-        $upload = new \Think\Upload();
-        $upload->maxSize = 3145728;
-        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
-        $upload->rootPath = "./Uploads/Coach_logo/";
-        if (!file_exists($upload->rootPath)) {
-            mkdir($upload->rootPath);
-        }
-        $info=$upload->upload();
-        if(!$info){
-            $res=$upload->getError();
-        }else{
-            //缩略
-            //图片路径
-            $data['type_id']=session('type_id');
-            $data['type']='jl';
-            $data['picurl']=$info['file']['savepath'];
-            $data['picname']=$info['file']['savename'];
-            $res=M('pic')->add($data);
-        }
-    }
-
-
     //对教练进行编辑
     public function editor_jl(){
         if(!empty($_POST)){
+            $_POST['lastupdate']=session('admin_name');
             $where['id']=$_POST['id'];
             $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
             $_POST['school_id']=$school_id;
             $_POST['time']=time();
             D('school')->jx_editor($where,$_POST);//更新数据
-            $res=editorPic('School','Coach_logo',$_POST['id'],'pic');
+            $res=editorPic('School','Coach_logo',$_POST['id']);
             if($res){
+                $log['done'] = '编辑教练 ID_'.$_POST['id'];
+                D('AdminLog')->logout($log);
                 $url = U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid']));
-                $this->success($res,$url);
+                $this->success('编辑成功',$url);
             }else{
-                $url = U('Admin/Coach/editor_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'id'=>$_POST['id']));
-                $this->error(0,$url);
+                $url = U('Admin/Coach/editor_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'id'=>$_POST['id'],'type'=>I('type')));
+                $this->error('编辑失败',$url);
             }
         }else{
             $id=$_GET['id'];
             $where['id']=$id;
-            $where['type']='jl';
+            $where['type']= $_GET['type'];
             $data=D('school')->school_list($where);
             $school_nickname=D('School')->school_list(array('id'=>$data['school_id'],'type'=>'jx'),'nickname');
             $this->assign('school_nickname',$school_nickname['nickname']);
@@ -136,8 +117,7 @@ class CoachController extends CommonController {
             $this->assign('nickname',$nickname);
 
             $this->assign('url',U('Admin/Coach/index_list',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
-            $picInfo=M('pic')->where(array('type_id'=>$id,'type'=>'jl'))->select();
-            $this->assign("picInfo",$picInfo);
+
             $this->assign("get",$_GET);
             $this->display();
         }
@@ -190,50 +170,48 @@ class CoachController extends CommonController {
 /*
  * User：沈艳艳
  * Date：2017/09/04
- * 教练分类列表
+ * 教练分类列表/编辑教练分类/添加教练分类
  */
     public function category_index(){
         if(IS_AJAX){
             if($_POST['category_name'] == ''){
-                $this->error('分类名称不能为空');
+                $this->error('分类名称不能为空',U('Admin/Coach/category_index',array('pid'=>I('pid'))));
             }
             $_POST['time']=time();
             $_POST['update_people']=session('admin_name');
             if($_POST['cid']){
                 $res=M('CoachCategory')->where(array('id'=>$_POST['cid']))->save($_POST);
+                $log['done'] = '编辑教练分类 ID_'.$_POST['cid'];
             }else{
                 $cid=M('CoachCategory')->where(array('category_name'=>$_POST['category_name']))->getField('id');
                 if($cid){
-                    $res=M('CoachCategory')->where(array('id'=>$cid))->save($_POST);
+                    $this->error('数据已经存在',U('Admin/Coach/category_index',array('pid'=>I('pid'))));
                 }else{
                     $res=M('CoachCategory')->add($_POST);
+                    $log['done'] = '添加教练分类 ID_'.$res;
                 }
             }
             if($res){
-                $log['done'] = '添加教练';
                 D('AdminLog')->logout($log);
-                $this->success('添加成功');
+                $this->success('操作成功',U('Admin/Coach/category_index',array('pid'=>I('pid'))));
             }else{
-                $this->error('添加失败');
+                $this->error('操作失败',U('Admin/Coach/category_index',array('pid'=>I('pid'))));
             }
         }else{
+            if(I('id')){
+                //修改
+                $category_name=M('CoachCategory')->where(array('id'=>$_GET['id']))->getField('category_name');
+                $this->assign('category_name',$category_name);
+                $this->assign('btn','编辑');
+            }
+            //教练列表
             $info=M('CoachCategory')->select();
+            $this->assign('get',$_GET);
             $this->assign('category',$info);
             $this->display();
         }
     }
-/*
- * User：沈艳艳
- * Date：2017/09/04
- * 编辑教练分类
- */
-    public function edit_category(){
-        $category_name=M('CoachCategory')->where(array('id'=>$_GET['id']))->getField('category_name');
-        $this->assign('category_name',$category_name);
-        $this->assign('id',$_GET['id']);
-        $this->assign('btn','编辑');
-        $this->category_index();
-    }
+
 /*
  * User：沈艳艳
  * Date：2017/09/04
@@ -242,9 +220,11 @@ class CoachController extends CommonController {
     public function del_category($id){
         $res = M('CoachCategory')->where(array('id'=>$id))->delete();
         if($res){
-            $this->redirect('category_index','',0,"<script>alert('删除成功')</script>");
+            $log['done'] = '删除教练分类 ID_'.$_POST['id'];
+            D('AdminLog')->logout($log);
+            $this->redirect('category_index',array('pid'=>I('pid')),0,"<script>alert('删除成功')</script>");
         }else{
-            $this->redirect('category_index','',0,"<script>alert('删除失败')</script>");
+            $this->redirect('category_index',array('pid'=>I('pid')),0,"<script>alert('删除失败')</script>");
         }
     }
 }

@@ -6,7 +6,7 @@ class SlideshowModel extends Model {
     public function slideshow_list($where='',$field='',$num=0,$order=''){
         if($num==1){
             $count = $this->where($where)->count();
-            $page = new \Think\Page($count,8);
+            $page = new \Think\Page($count,7);
             $show = $page->show();
             $info = $this->where($where)
                 ->field($field)

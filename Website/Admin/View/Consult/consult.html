@@ -8,16 +8,17 @@
     <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        div.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
-        div.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+        div.error{  font-size: 14px;  font-weight: bold;  color: #FA7124;display: inline-block  }
+        div.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;display: inline-block   }
 
         label{padding: 10px 20px 10px 0;}
         li{ margin-top: 30px;list-style: none;}
         .dfinput{margin-left: 10px;
             border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
             width: 340px;padding: 10px 0 10px 5px}
-        b{color: red}
+        b{color: #FA7124}
     </style>
     <script>
         $(document).ready(function(e) {
@@ -36,17 +37,20 @@
 <body>
 <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
     资讯添加
+    <a style="text-decoration: none;color:#FA7124" href="{:U('Admin/Consult/index',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
 </div>
 <div style="font-size: 13px;margin: 10px 5px ;" >
     <form action="{:U('Consult/consult')}" method="post" id="form1" enctype="multipart/form-data">
-        <input type="hidden" value="{$consult['id']?$consult['id']:0}" name="id"/>
+        <input type="hidden" value="{$get['id']?$get['id']:0}" name="id"/>
+        <input type="hidden" value="{$get['pid']?$get['pid']:0}" name="pid"/>
+        <input type="hidden" value="{$get['p']?$get['p']:0}" name="p"/>
         <div style="width: 100%;height: 400px;">
             <ul style="padding: 0">
                 <li>
                     <label style="padding: 10px 45px 10px 0">城市<b>*</b></label>
                     <select name="cityid"  class="dfinput" style="width: 345px">
                         <volist name="citys" id="v" style="height: 20px;">
-                            <option value="{$v.id}" {$v['id']==$cityid?selected:''}>{$v.cityname}</option>
+                            <option value="{$v.id}" {$v['id']==$consult['cityid']?selected:''}>{$v.cityname}</option>
                         </volist>
                     </select>
                 </li>
@@ -56,14 +60,14 @@
                 </li>
                 <li>
                     <label>资讯图片<b>*</b></label>
-                    <div class="usercity" style="margin-left: 10px;display:inline-block;border:3px dashed #e6e6e6;width:500px;height:300px;position: relative;margin-bottom: 15px" >
+                    <div class="usercity" style="margin-left: 10px;display:inline-block;border:3px dashed #e6e6e6;width:300px;height:250px;position: relative;margin-bottom: 15px" >
                         <p id="preview1" >
                             <if condition="$consult['id'] neq 0">
-                                <img id="imghead1"  border=0 src='{$http}/Uploads/Consult_logo/{$consult["picurl"]}{$consult["picname"]}' width="300"/>
+                                <img id="imghead1"  border=0 src='{$http}/Uploads/Consult_logo/{$consult["picurl"]}{$consult["picname"]}' width="200"/>
                             </if>
                         </p>
                         <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                        <label for="image1"  style="margin:83px 170px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                        <label for="image1"  style="margin:83px 50px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                     </div>
                 </li>
                 <li>
@@ -89,26 +93,28 @@
                 title:{required:true}
             },
             messages:{
-                content:{required:'内容不能为空！'},
-                title:{required:'标题不能为空！'}
+                content:{required:' * 必填项！'},
+                title:{required:' * 必填项！'}
             },
             success:function(div){
-                div.addClass('ok').text('通过验证')
+                div.addClass('ok').text(' * ok')
             },
             validClass:'ok',
             errorElement:'div'
         });
 
         $("#submit").click(function(){
+            $(this).attr('disabled',true);
             if(validate.form()){
-                $(this).attr('disabled',true);
                 $('#form1').ajaxSubmit(function(res){
-                    if(res.status==1){
-                        alert('编辑成功');
-                        location.href=res.url;
+                    if(res.status){
+                        layer.msg(res.info,{icon:6,time:2000},function(){
+                            location.href=res.url;
+                        });
                     }else{
-                        alert('编辑失败请重新编辑');
-                        location.href=res.url;
+                        layer.msg(res.info,{icon:5,time:2000},function(){
+                            location.href=res.url;
+                        });
                     }
                 },'json');
                 return false;
@@ -118,8 +124,8 @@
 
 
     function previewImage(file,pre,imag) {
-        var MAXWIDTH  = 300;
-        var MAXHEIGHT = 230;
+        var MAXWIDTH  =200;
+        var MAXHEIGHT = 200;
         var div = document.getElementById(pre);
         if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
             $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');

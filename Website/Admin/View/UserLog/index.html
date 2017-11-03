@@ -8,9 +8,8 @@
     <style>
         #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
             text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        #page{ float: right; }
+        #page a:hover{background:#F27602;color:#FA7124;}
+        #page span{ background:#F27602; color:#FA7124; font-weight: bold;}
         .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;text-align: center}
         .table_a td{border: dotted 1px rgba(39, 164, 237, 0.22);font-size: 13px;}
         .table_a tr:hover{background-color: rgb(82, 249, 56);}
@@ -24,9 +23,9 @@
     <div class="div_search" style="height: 35px;background-color:  rgb(129, 191, 249)">
         <span style="float:left;color: #ffffff;font-weight: bolder">
             <form action="?" id='form1' method="get" name="form1">
-                姓名：<input type="text" name='username' style="width: 40%"  value="{$username?$username:''}" />
-                <input value="查询" type="submit"  onclick="submitYouFrom('{:U("Admin/UserLog/index")}')"/>
-                <input value="清空全部" type="reset"/>
+                姓名：<input type="text" name='username' style="width: 40%"  value="{$get['username']?$get['username']:''}" />
+                <input value="查询" type="submit" id="b"  onclick="submitYouFrom('{:U("Admin/UserLog/index",array('pid'=>$get['pid']))}')"/>
+                <input value="清空" type="reset" id="b" />
                 <!--<input value="导出" type="button" id="button" onclick="submitYouFrom('http://www.517xc.cn/index.php/Admin/Order/push')"/>-->
                 <script type="text/javascript" language="javascript">
                     function submitYouFrom(path){

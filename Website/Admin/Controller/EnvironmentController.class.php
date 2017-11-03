@@ -1,113 +1,184 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-use Think\Upload;
-use Think\Page;
 use Admin\Common\Controller\CommonController;
+use Think\Upload;
 class EnvironmentController extends CommonController{
-    //驾考环境
-    public function index(){
-        $id=$_GET['id'];
-        $type=$_GET['type'];
-        $arr = array('id'=>$_GET['id'],'type'=>$_GET['type'],'pid'=>$_GET['pid'],'p'=>$_GET['p']);
-        switch($type){
+/*-----------------------------------2017-10-31shenyanyan---------------------------------*/
+//驾校/教练/指导员简介图片
+    public function abstract_pic(){
+        switch(I('type')){
             case 'jx':
-                $url = U('Admin/School/jx_list',$arr);
+            //判断是简介图片还是环境图片
+                if(I('t')){
+                    $title = '驾校环境图片';
+                }else{
+                    $title = '驾校简介图片';
+                }
+                $url = U('Admin/School/jx_list',array('pid'=>I('pid'),'p'=>I('p')));
                 break;
             case 'jl':
-                $url = U('Admin/Coach/index_list',$arr);
+                if(I('t')){
+                    $title = '教练环境图片';
+                }else{
+                    $title = '教练简介图片';
+                }
+                $url = U('Admin/Coach/index_list',array('pid'=>I('pid'),'p'=>I('p')));
                 break;
             case 'zd':
-                $url = U('Admin/Guider/index_list',$arr);
+                if(I('t')){
+                    $title = '指导员环境图片';
+                }else{
+                    $title = '指导员简介图片';
+                }
+                $url = U('Admin/Guider/index_list',array('pid'=>I('pid'),'p'=>I('p')));
                 break;
         }
-        $where['type_id']=$id;
-        $where['type']=$type;
 
-        $nickname=D('School')->school_list(array('id'=>$id,'type'=>$type),'nickname');
-        $info=D('environment')->environment_list($where,'id,picurl,picname,time,type',1);
-        $this->assign('nickname',$nickname['nickname']);
-        $this->assign('id',$id);
-        $this->assign('url',$url);
-        $this->assign('http',C('HTTP'));
+//设置添加驾校/教练/指导员简介图片
+        $_GET['add_url'] = U('Admin/Environment/abstract_pic_add',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('id'),'type'=>I('type'),'t'=>I('t')));
+        if(I('t')){
+            $info = M("environment")->where(array('type_id'=>I('id'),'type'=>I('type')))->select();
+        }else{
+            $info = M("pic")->where(array('type_id'=>I('id'),'type'=>I('type')))->select();
+        }
+        $_GET['title'] = $title;//设置标题
         $this->assign('info',$info);
-        $this->assign('get',$_GET);
         $this->assign('count',count($info));
+        $this->assign('get',$_GET);
+
+        $this->assign('url',$url);
         $this->display();
     }
 
-    //添加图片
-
-    public function add_img(){
-        $type=$_POST['type'];
-        $id=I('post.id');
-        session('id',$id);
-        session('type',$type);
-        session('p',$_POST['p']);
-        session('pid',$_POST['pid']);
-        switch($type){
-            case 'jx':
-                session('file_name','School_logo/Environment_logo');
-                break;
-            case 'jl':
-                session('file_name','Coach_logo/Environment_logo');
-                break;
-            case 'zd':
-                session('file_name','guider_logo/Environment_logo');
-                break;
-        }
-        session('table','environment');
-        if(!$type||!$id){
-            $this->error(0);
+//驾校/教练/指导员简介图片添加
+    public function abstract_pic_add(){
+        if(IS_AJAX){
+            if(empty($_FILES['image'])){
+                $this->error('请选择上传文件');
+            }else{
+                $_POST['ntime'] = time();
+                $_POST['lastupdate'] = session('admin_name');
+                if(I('t')){
+                    $id = M('Environment')->add($_POST);
+                }else{
+                    $id = M('Pic')->add($_POST);
+                }
+                switch(I('type')){
+                    case 'jx':
+                        $file = 'School_logo';
+                        if(I('t')){
+                            $log['done'] = '添加驾校环境图片 pic ID_'.$id;
+                        }else{
+                            $log['done'] = '添加驾校简介图片 pic ID_'.$id;
+                        }
+                        break;
+                    case 'jl':
+                        $file = 'Coach_logo';
+                        if(I('t')){
+                            $log['done'] = '添加教练环境图片 pic ID_'.$id;
+                        }else{
+                            $log['done'] = '添加教练简介图片 pic ID_'.$id;
+                        }
+                        break;
+                    case 'zd':
+                        $file = 'guider_logo';
+                        if(I('t')){
+                            $log['done'] = '添加指导员环境图片 pic ID_'.$id;
+                        }else{
+                            $log['done'] = '添加指导员简介图片 pic ID_'.$id;
+                        }
+                        break;
+                }
+                if(I('t')){
+                    $res=UploadPic('Environment',$file,$id);
+                }else{
+                    $res=UploadPic('Pic',$file,$id);
+                }
+                if($res){
+                    D('AdminLog')->logout($log);
+                    $this->success('添加成功', U('Admin/Environment/abstract_pic',
+                        array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'),'t'=>I('t'))));
+                }else{
+//                    $this->error('添加失败',U('Admin/Environment/abstract_pic_add',
+//                        array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'),'t'=>I('t'))));
+                    $this->error('添加失败');
+                }
+            }
         }else{
-            $url=U('index',array('id'=>$id,'type'=>$type,'pid'=>$_POST['pid'],'p'=>$_POST['p']));
-            $this->success(1,$url);
+            if(I('type') == 'jx'){
+                if(I('t')){
+                    $_GET['title'] = '驾校环境图片';
+                }else{
+                    $_GET['title'] = '驾校简介图片';
+                }
+            }elseif(I('type') == 'jl'){
+                if(I('t')){
+                    $_GET['title'] = '教练环境图片';
+                }else{
+                    $_GET['title'] = '教练简介图片';
+                }
+            }elseif(I('type') == 'zd'){
+                if(I('t')){
+                    $_GET['title'] = '指导员环境图片';
+                }else{
+                    $_GET['title'] = '指导员简介图片';
+                }
+            }
+            $nickname = M('School')->where(array('id'=>I('id')))->getField('nickname');
+            $this->assign('nickname',$nickname);
+            $this->assign('url', U('Admin/Environment/abstract_pic',
+                array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('id'),'type'=>I('type'),'t'=>I('t'))));
+            $this->assign('get',$_GET);
+            $this->display();
         }
     }
 
-
-    public function uploadMulPic(){
-        $data['time']=time();
-        $upload = new \Think\Upload();
-        $upload->maxSize = 3145728;
-        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
-        $file_name=session('file_name');
-        $upload->rootPath = "./Uploads/$file_name/";
-        if (!file_exists($upload->rootPath)) {
-            mkdir($upload->rootPath);
-        }
-        $info=$upload->upload();
-        if(!$info){
-            $res=$upload->getError();
-        }else{
-            $data['picurl']=$info['file']['savepath'];
-            $data['picname']=$info['file']['savename'];
-            $data['type']=session('type');
-            $data['type_id']=session('id');
-            $res=M(session('table'))->add($data);
-        }
-        $message="<script>alert('上传成功')</script>";
-        $this->redirect("index",array('id'=>session('id'),'type'=>session('type'),'pid'=>session('pid'),'p'=>session('p')),0,$message);
-    }
-
-
-    function del_img(){
-        $type=$_GET['type'];
-        $id=$_GET['id'];
+//删除驾校/教练/指导员简介图片
+    public function abstract_pic_del($id,$pid,$type,$type_id,$t,$p){
         switch($type){
             case 'jx':
-                $file_name='School_logo/Environment_logo';
+                $file_name = 'School_logo';
+                if($t){
+                    $table = 'environment';
+                    $log['done'] = '删除驾校环境图片 environment ID_'.$id;
+                }else{
+                    $table = 'pic';
+                    $log['done'] = '删除驾校简介图片 pic ID_'.$id;
+                }
                 break;
             case 'jl':
-                $file_name='Coach_logo/Environment_logo';
+                $file_name = 'Coach_logo';
+                if($t){
+                    $table = 'environment';
+                    $log['done'] = '删除教练环境图片 environment ID_'.$id;
+                }else{
+                    $table = 'pic';
+                    $log['done'] = '删除教练简介图片 pic ID_'.$id;
+                }
                 break;
             case 'zd':
-                $file_name='guider_logo/Environment_logo';
+                $file_name = 'guider_logo';
+                if($t){
+                    $table = 'environment';
+                    $log['done'] = '删除指导员环境图片 environment ID_'.$id;
+                }else{
+                    $table = 'pic';
+                    $log['done'] = '删除指导员简介图片 pic ID_'.$id;
+                }
                 break;
         }
-        del_pic('environment',$file_name,$id);
-        $this->assign('id',$id);
-        $this->assign('type',$type);
-        $this->redirect('index',array('id'=>$_GET['pid'],'type'=>$type),0,"<script>alert('删除成功')</script>");
+        //更新图片信息
+        $upload = new  Upload();
+        $upload->rootPath="./Uploads/$file_name/";
+        $info = M($table)->where("id = {$id}")->find();
+        unlink($upload->rootPath . $info['picurl'] . $info['picname']);
+        $res = M($table)->where("id={$id}")->delete();
+        if($res){
+            D('AdminLog')->logout($log);
+            $this->redirect('abstract_pic',array('id'=>$type_id,'type'=>$type,'pid'=>$pid,'t'=>$t,'p'=>$p),0,"<script>alert('删除成功')</script>");
+        }else{
+            echo 'false';
+        }
     }
 }

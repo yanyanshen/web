@@ -11,9 +11,8 @@
             display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
             text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
         }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        #page{ float: left; }
+        #page a:hover{background:#F27602;color:#ffffff;}
+        #page span{ background:#F27602; color:#FA7124; font-weight: bold;}
 
         .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
         .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
@@ -23,7 +22,6 @@
 <body>
 <div class="div_head" style="background-color: rgb(129, 191, 249);font-size: 15px;font-weight: bolder;color: #ffffff">
     资讯列表
-    <a href="{:U('Admin/Consult/consult')}" style="text-decoration: none;color:red;">【资讯添加】</a>
     <span style="float: right;margin-right: 1%;color: #ffffff">总计：{$count}</span>
 </div>
 <div style="font-size: 13px;margin: 10px 5px ;" >
@@ -41,7 +39,7 @@
         <volist name="info" id="v" key="k" empty="$empty">
             <tr>
                 <td>
-                    <input type="text" value="{$v.order1}" id="pri{$v.id}" onchange="setPriority(this,{$v.id})" style="width: 50px;"/>
+                    <input type="text" value="{$v.order1}" id="pri{$v.id}" onchange="setPriority(this,{$v.id},{$get['pid']},{$get['p']})" style="width: 50px;"/>
                 </td>
                 <td><img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
                 <td>{$v['title']}</td>
@@ -52,7 +50,7 @@
                 <td>{$v['ntime']}</td>
                 <td>
                     首页咨询
-                    <input class="consult" type="button" gid="{$v['id']}" value="取消"/>
+                    <input class="consult" type="button" gid="{$v['id']}" pid="{$get['pid']}" p="{$get['p']}" value="取消"/>
                 </td>
             </tr>
         </volist>
@@ -65,25 +63,30 @@
 
 <script>
     $(".consult").click(function(){
-        var id=$(this).attr('gid');
         $(this).attr('disabled',true);
-        $.post("{:U('Admin/Consult/statusUpdate')}",{id:id},function(res){
-            if(res.info==1){
-                location.href='';
+        var id=$(this).attr('gid');
+        var pid=$(this).attr('pid');
+        var p=$(this).attr('p');
+        $.post("{:U('Admin/Consult/statusUpdate')}",{id:id,pid:pid,p:p},function(res){
+            if(res.status){
+                layer.msg(res.info,{icon:6,time:2000},function(){
+                    location.href=res.url;
+                });
             }else{
-                location.href='';
+                layer.msg(res.info,{icon:5,time:2000},function(){
+                    location.href=res.url;
+                });
             }
         })
-    })
+    });
 
-    var setPriority = function(nav,id){
+    var setPriority = function(nav,id,pid,p){
         var priority = $(nav).val();
-        $.post('{:U("Admin/Consult/setPriority")}',{'order1':priority,'id':id},function(res){
-            if(res.status==1){
-                layer.tips(res.info, '#pri'+id, {
-                    tips: [2, '#3EAFE0']
+        $.post('{:U("Admin/Consult/setPriority")}',{'order1':priority,'id':id,p:p,pid:pid},function(res){
+            if(res.status){
+                layer.tips(res.info, '#pri'+id, {tips: [2, '#3EAFE0']},function(){
+                    location.href=res.url;
                 });
-                location.href="";
             }
         },'json')
     }

@@ -3,7 +3,6 @@ namespace Admin\Controller;
 use Think\Controller;
 use Admin\Common\Controller\CommonController;
 use Think\Page;
-
 class LanguageController extends CommonController{
 /*---------------------------2017-10-24shenyanyan获取语言教育列表-----------------------------*/
     public function index(){
@@ -35,7 +34,7 @@ class LanguageController extends CommonController{
             $_POST['lastupdate'] = session('admin_name');
             $_POST['ntime'] = time();
             if(empty($_FILES['image'])){
-                $this->error('请选择上传文件');
+                $this->error('请选择上传文件',U('Admin/Language/add_language',array('pid'=>I('pid'),'p'=>I('p'))));
             }else{
                 $id = D('language')->add_language($_POST);
                 if($id){
@@ -49,16 +48,17 @@ class LanguageController extends CommonController{
                     $ext = pathinfo($name,PATHINFO_EXTENSION);
                     $name = md5(uniqid(microtime(true),true)).".$ext";
                     $ret = cloudCos($src,$name,'language/'.date('Y-m-d'));//存储到腾讯云上
-                    $res = M('Language')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url']));
+                    $res = M('Language')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url'],'picname'=>$name));
                     if($res){
+                        $log['done'] = '添加语言教育 ID_'.$res;
+                        D('AdminLog')->logout($log);
                         $this->success('添加成功',U('Admin/Language/index',array('pid'=>I('pid'),'p'=>I('p'))));
                     }else{
-                        $this->error('添加失败');
+                        $this->error('添加失败',U('Admin/Language/add_language',array('pid'=>I('pid'),'p'=>I('p'))));
                     }
                 }else{
-                    $this->error('语言教育已存在，请重新添加');
+                    $this->error('语言教育已存在，请重新添加',U('Admin/Language/add_language',array('pid'=>I('pid'),'p'=>I('p'))));
                 }
-
             }
         }else{
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();
@@ -76,11 +76,11 @@ class LanguageController extends CommonController{
             $_POST['lastupdate'] = session('admin_name');
             $res = M('Language')->save($_POST);
             if($res){
-                $log['done'] = '编辑语言教育';
+                $log['done'] = '编辑语言教育 ID_'.$_POST['id'];
                 D('AdminLog')->logout($log);
                 $this->success('编辑成功',U('Admin/Language/index',array('pid'=>I('pid'),'p'=>I('p'))));
             }else{
-                $this->error('编辑失败');
+                $this->error('编辑失败',U('Admin/Language/language_edit',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('id'))));
             }
         }else{
             $info = M('Language')->where(array('id'=>I('id')))->find();
@@ -120,7 +120,8 @@ class LanguageController extends CommonController{
     public function abstract_pic_add(){
         if(IS_AJAX){
             if(empty($_FILES['image'])){
-                $this->error('请选择上传文件');
+                $this->error('请选择上传文件',
+                    U('Admin/Language/abstract_pic_add',array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'))));
             }else{
                 $_POST['ntime'] = time();
                 $_POST['lastupdate'] = session('admin_name');
@@ -135,6 +136,7 @@ class LanguageController extends CommonController{
                 $name = md5(uniqid(microtime(true),true)).".$ext";
                 $ret = cloudCos($src,$name,'language/'.date('Y-m-d'));//存储到腾讯云上
                 $_POST['picurl'] = $ret['access_url'];
+                $_POST['picname'] = $name;
                 if($_POST['type'] == 0){
                     $table = 'LanguageAbstractPic';
                 }elseif(I('type') == 1){
@@ -142,12 +144,12 @@ class LanguageController extends CommonController{
                 }
                 $res = M("$table")->add($_POST);
                 if($res){
-                    $log['done'] = '添加语言教育相关图片';
+                    $log['done'] = '添加语言教育相关图片 ID_'.$res;
                     D('AdminLog')->logout($log);
                     $this->success('添加成功',
                         U('Admin/Language/abstract_pic',array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'))));
                 }else{
-                    $this->error('添加失败');
+                    $this->error('添加失败',U('Admin/Language/abstract_pic_add',array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'))));
                 }
             }
         }else{
@@ -176,12 +178,13 @@ class LanguageController extends CommonController{
         if(IS_AJAX){
             $_POST['lastupdate'] = session('admin_name');
             if(I('id')){
-                $log['done'] = '编辑语言教育课程';
+                $log['done'] = '编辑语言教育课程 ID_'.I('id');
                 $res = M('LanguageClass')->save($_POST);
             }else{
-                $log['done'] = '添加语言教育课程';
                 $_POST['ntime'] = time();
                 $res = M('LanguageClass')->add($_POST);
+                $log['done'] = '添加语言教育课程 ID_'.$res;
+
                 M('Language')->where(array('id'=>I('type_id')))->setInc('class_num',1);
             }
             if($res){
@@ -205,7 +208,7 @@ class LanguageController extends CommonController{
     public function language_class_del(){
         $res = M('LanguageClass')->where(array('id'=>I('id')))->delete();
         if($res){
-            $log['done'] = '删除语言教育课程';
+            $log['done'] = '删除语言教育课程 ID_'.I('id');
             D('AdminLog')->logout($log);
             M('Language')->where(array('id'=>I('type_id')))->setDec('class_num',1);
             $this->redirect('Admin/Language/language_class',array('pid'=>I('pid'),'id'=>I('type_id'),'p'=>I('p')),0.1,'删除成功');
@@ -243,7 +246,7 @@ class LanguageController extends CommonController{
             $_POST['lastupdate'] = session('admin_name');
             $res = M('LanguageComment')->add($_POST);
             if($res){
-                $log['done'] = '语言教育评论添加';
+                $log['done'] = '语言教育评论添加 ID_'.$res;
                 D('AdminLog')->logout($log);
                 $this->success('添加成功',U('Admin/Language/language_comment',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
             }else{
@@ -263,6 +266,90 @@ class LanguageController extends CommonController{
             $this->redirect('Admin/Language/language_comment',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id')),0.1,'删除成功');
         }else{
             $this->redirect('Admin/Language/language_comment',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id')),0.1,'删除失败');
+        }
+    }
+/*---------------------------2017-10-31shenyanyan----------------------------*/
+//语言教育预约列表
+    public function language_apply(){
+        $pid = I('pid');
+        $add_order = D('AuthRule')->getRule($pid,'新建订单');
+        $_GET['add_order'] = $add_order['name'];
+        session('admin_return',U('Admin/Language/language_apply',array('pid'=>I('pid'),'p'=>I('p'))));
+        foreach($_GET as $k=>$val){
+            if($k == 'create_time1' && $val != ''){
+                $where .= "ntime >= '$val' and ";
+            }elseif($k == 'create_time2' && $val != ''){
+                $where .= "ntime <= '$val' and ";
+            }elseif($k == 'truename' && $val != ''){
+                $where .= "truename like '%$val%' and ";
+            }elseif($k == 'lastupdate' && $val != ''){
+                $where .= "lastupdate like '%$val%' and ";
+            }elseif($k == 'phone' && $val != ''){
+                $where .= "phone like '%$val%' and ";
+            }elseif($k == 'visit_time1' && $val != ''){
+                $where .= "visit_time >= '$val' and ";
+            }elseif($k == 'visit_time2' && $val != ''){
+                $where .= "visit_time <= '$val' and ";
+            }elseif($k == 'visit' && $val == 0){
+                $where .= "visit = 0 and ";
+            }elseif($k == 'flag' && $val == 0){
+                $where .= "flag = 0 and ";
+            }
+        }$where = rtrim($where,' and ');
+
+        $count = M('LanguageApply')->where($where)->count();
+        $Page = new Page($count,10);
+        $_GET['page'] = $Page->show();
+        $_GET['firstRow'] = $Page->firstRow;
+        $_GET['info'] = M('LanguageApply')
+            ->limit($Page->firstRow.','.$Page->listRows)->order('ntime desc')
+            ->where($where)->select();
+        $_GET['count'] = $count;
+        $_GET['count1'] = M('LanguageApply')->where("flag = 0")->count();
+        $_GET['count2'] = M('LanguageApply')->where("visit = 0")->count();
+
+        $this->assign('get',$_GET);
+        $this->display();
+    }
+//语言教育预约订单状态改变
+    public function flag_visit(){
+        $type = I('type');
+        $id = I('id');
+        $info = M('LanguageApply')->where(array('id'=>$id))->getField($type);
+        if($info == 0){
+            $_POST[$type] = 1;
+        }else{
+            $_POST[$type] = 0;
+        }
+        $res = M('LanguageApply')->save($_POST);
+        if($res){
+            $log['done'] = '语言教育预约订单状态修改 ID_'.I('id');
+            D('AdminLog')->logout($log);
+            $this->success('操作成功');
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
+//语言教育预约报名处理
+    public function apply_handler(){
+        if(IS_AJAX){
+            $_POST['visit_time'] = date('Y-m-d H:i:s',time());
+            $_POST['lastupdate'] = session('admin_name');
+            $res = M('LanguageApply')->save($_POST);
+            if($res){
+                $log['done'] = '语言教育预约订单处理 ID_'.$_POST['id'];
+                D('AdminLog')->logout($log);
+                $this->success('操作成功',U('Admin/Language/language_apply',array('pid'=>I('pid'),'p'=>I('p'))));
+            }else{
+                $this->error('操作失败',U('Admin/Language/apply_handler',array('pid'=>I('pid'),'p'=>I('p'))));
+            }
+        }else{
+            $_GET['url'] = U('Admin/Language/language_apply',array('pid'=>I('pid'),'p'=>I('p')));
+            $info = M('LanguageApply')->where(array('id'=>I('id')))->find();
+            $this->assign('get',$_GET);
+            $this->assign('info',$info);
+            $this->display();
         }
     }
 }

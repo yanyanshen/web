@@ -30,30 +30,14 @@ class EvaluateModel extends Model{
                 }
             }$where = rtrim($where,'and ');
         }
-        $count = M('Evaluate')->alias('e')
-            ->join('xueches_user u ON u.id=e.uid')
-            ->where($where)
-            ->count();
-        $page = new \Think\Page($count,5);
-        $evaluate = $this->alias('e')
-            ->join('xueches_user u ON u.id=e.uid')
-            ->where($where)
-            ->field($field)
-            ->order('e.ntime desc')
-            ->limit($page->firstRow.','.$page->listRows)
-            ->select();//用户评价
+        $count = M('Evaluate')->alias('e')->join('xueches_user u ON u.id=e.uid')->where($where)->count();
+        $page = new \Think\Page($count,10);
+        $evaluate = $this->alias('e')->join('xueches_user u ON u.id=e.uid')->where($where)->field($field)
+            ->order('e.ntime desc')->limit($page->firstRow.','.$page->listRows)->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
             $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');
-            if($v['sid']==0){
-                $evaluate[$k]['nickname'] = '517驾校';
-            }else{
-                if($get['nickname']){
-                    $evaluate[$k]['nickname'] = M('School')->where(array('id'=>$v['sid'],"nickname like '%{$get['nickname']}%'"))->getField('nickname');
-                }else{
-                    $evaluate[$k]['nickname'] = M('School')->where(array('id'=>$v['sid']))->getField('nickname');
-                }
-            }
+            $evaluate[$k]['nickname'] = M('School')->where(array('id'=>$v['sid'],"nickname like '%{$get['nickname']}%'"))->getField('nickname');
         }
         $arr[0] = $evaluate;
         $arr[1] = $count;

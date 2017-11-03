@@ -25,21 +25,15 @@ class OrderController extends CommonController {
        $return_fee = D('AuthRule')->getRule($pid,'已支付未处理列表');
        $this->assign('pay_list',$return_fee['name']);
 
-
-
        $arr= D('order')->order_list($_GET);
        $citys=D('citys')->city_one("flag=1","id,cityname",1);
        $this->assign('citys', $citys);
-       $this->assign('count', $arr['count']);
-       $this->assign('page', $arr['page']);
-       $this->assign('list', $arr['list']);
-       $this->assign('firstRow', $arr['firstRow']);
+
        //未处理订单数量
-       $count1 = M('Order')->where(array('flag'=>0))->count();
+       $arr['count1'] = M('Order')->where(array('flag'=>0))->count();
        //未回访订单数量
-       $count2 = M('Order')->where(array('visit'=>0))->count();
-       $this->assign('count1',$count1);
-       $this->assign('count2',$count2);
+       $arr['count2'] = M('Order')->where(array('visit'=>0))->count();
+       $this->assign('arr', $arr);
        $this->assign('get',$_GET);
        $this->assign('url',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
        $this->display();
@@ -68,6 +62,7 @@ class OrderController extends CommonController {
         $this->assign('page', $arr['page']);
         $this->assign('list', $arr['list']);
         $this->assign('firstRow', $arr['firstRow']);
+
         $this->assign('get',$_GET);
         //未处理订单数量
         $count1 = M('Order')->where(array('flag'=>0))->count();
@@ -79,7 +74,7 @@ class OrderController extends CommonController {
     }
 /*
  * User: 沈艳艳
- * Date: 2017/08/25
+ * : 2017/08/25
  * 新建订单
  */
     function add_order(){
@@ -118,7 +113,7 @@ class OrderController extends CommonController {
     }
 /*
  * User: 沈艳艳
- * Date: 217/08/25
+ * : 217/08/25
  * 订单详情
  */
     public function list_info($id){
@@ -376,7 +371,7 @@ class OrderController extends CommonController {
     }
 //取消订单
     public function cencel_order($id,$pid){
-        if(M('order')->where("id=$id")->setField(array('status'=>5,'return_fee'=>date('Y-m-d'),'notify_time'=>date('Y-m-d')))){
+        if(M('order')->where("id=$id")->setField(array('status'=>5,'return_fee'=>date('Y-m-d H:i:s')))){
             $message="<script>alert('取消成功')</script>";
         }else{
             $message="<script>alert('取消失败')</script>";
@@ -508,7 +503,7 @@ class OrderController extends CommonController {
         }
         $res = M('order')->save($_POST);
         if($res){
-            $log['done'] = '修改订单状态';
+            $log['done'] = '修改驾校预约状态';
             D('AdminLog')->logout($log);
             $this->success('操作成功');
         }

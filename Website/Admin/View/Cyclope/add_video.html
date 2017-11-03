@@ -8,33 +8,21 @@
     <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        div.error{  font-size: 14px;  font-weight: bold; display: inline-block; color: #FF0000;  }
+        div.error{  font-size: 14px;  font-weight: bold; display: inline-block; color: #FA7124;  }
         div.ok{  font-size: 14px;  font-weight: bold; display: inline-block;  color: #38D63B;  }
 
         label{padding: 10px 20px 10px 0;}
-        b{color: red}
+        b{color: #FA7124}
         li{ margin-top: 30px;list-style: none;}
-        .dfinput{margin-left: 10px;
-            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
+        .dfinput{margin-left: 10px;  border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
             width: 340px;padding: 10px 0 10px 5px}
-        #progressbar{
-            width:343px;
-            height:20px;
-            border:1px solid darkgray;
-            background-color: #6caf00;
-        }
+        #progressbar{  width:343px;  height:20px;  border:1px solid darkgray;  background-color: #6caf00;  }
         /*在进度条元素上调用动画*/
-        #fill{
-            animation: move 2s;
-            text-align: center;
-            background-color: #6caf00;
-        }
+        #fill{  animation: move 2s;  text-align: center;  background-color: #6caf00;  }
         /*实现元素宽度的过渡动画效果*/
-        @keyframes move {
-            0%{  width:0;  }
-            100%{  width:100%;  }
-        }
+        @keyframes move { 0%{  width:0;  } 100%{  width:100%;  } }
     </style>
     <script>
         $(document).ready(function(e) {
@@ -59,7 +47,7 @@
     <form action="{:U('Admin/Cyclope/add_video')}" method="post" id="form1" enctype="multipart/form-data">
         <input type="hidden" value="{$get['pid']}" name="pid"/>
         <input type="hidden" value="{$get['p']}" name="p"/>
-        <input type="text" value="{$get['type_id']}" name="type_id"/>
+        <input type="hidden" value="{$get['type_id']}" name="type_id"/>
         <ul style="margin-left: 10px;padding: 0">
             <li>
                 <label style="padding: 10px 0px 10px 0">内容标题<b>*</b></label>
@@ -162,7 +150,7 @@
                 count++;
                 fill.innerHTML=count+'%';
                 if(count===100) clearInterval(timer);
-            },100);
+            },400);
         }
     };
     $(function(){
@@ -172,11 +160,11 @@
                 title:{required:true}
             },
             messages:{
-                content:{required:'*必填项'},
-                title:{required:'*必填项'}
+                content:{required:' * 必填项!'},
+                title:{required:' * 必填项!'}
             },
             success:function(div){
-                div.addClass('ok').text('*通过验证')
+                div.addClass('ok').text(' * ok')
             },
             validClass:'ok',
             errorElement:'div'
@@ -185,14 +173,15 @@
             if(validate.form()){
                     progressbar.init();
                     $('#form1').ajaxSubmit(function(res){
-                        setTimeout(function(){
-                            if(res.status==1){
-                                alert(res.info);
-                                location.href=res.url;
+                            if(res.status){
+                                layer.msg(res.info,{icon:6,time:2000},function(){
+                                    location.href=res.url;
+                                });
                             }else{
-                                alert(res.info);
+                                layer.msg(res.info,{icon:5,time:2000},function(){
+                                    location.href=res.url;
+                                });
                             }
-                        },4000)
                     },'json');
                     return false;
             }

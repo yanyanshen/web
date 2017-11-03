@@ -176,22 +176,19 @@
         </div>
         <footer id="foot_theoryStudy">
             <ul  class="mui-slider-indicator" >
-                <if condition="$Think.session.mid eq ''">
-                    <li class="foot_option">
+                <li class="foot_option">
+                    <if condition="$Think.session.mid eq ''">
                         <button>
                             <img   src="__STATIC__/theory_study/images/collection.png">
                             <p>未登录</p>
                         </button>
-                    </li>
-                    <else/>
-                    <li class="foot_option">
+                        <else/>
                         <button class="button" ms="{$ms}" mt="{$mt}">
                             <img   src="__STATIC__/theory_study/images/collection.png">
                             <p>收藏</p>
                         </button>
-                    </li>
-                </if>
-
+                    </if>
+                </li>
                 <li class="foot_option">
                     <button class="button">
                     </button>

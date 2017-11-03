@@ -68,7 +68,7 @@ class OrderController extends Controller{
             $data['sex']=$_POST['ap_button'];
             $data['address']=$_POST['ap_position'];
             $data['inform']=$_POST['ap_message'];
-            $data['time']=time();
+            $data['ntime']=date('Y-m-d H:i:s',time());
             $data['mid']=session('mid');
             $id=M('apply')->add($data);
             if($id){

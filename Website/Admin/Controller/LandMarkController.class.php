@@ -34,6 +34,8 @@ class LandMarkController extends CommonController{
         $this->assign("count",count($land));
         $this->assign("countys",$county);
         $this->assign("countyid",$countyid);
+
+        $this->assign("get",$_GET);
         $this->display();
     }
 
@@ -44,34 +46,35 @@ class LandMarkController extends CommonController{
 
 //添加新地标
     function addnewland(){
-        if(isset($_POST['landname'])){
+        if($_POST['landname']){
             $info=D('landmark')->lands_list(array('countyid'=>$_POST['countyid'],'cityid'=>$_POST['cityid'],'landname'=>$_POST['landname']),'id');
-
             if($info){
                 $res=D('landmark')->land_save(array('id'=>$info['id']),$_POST);
+                $log['done'] = '更新地标 ID_'.$res;
             }else{
                 $res=D('landmark')->land_add($_POST);
-                $this->success($res);
+                $log['done'] = '添加地标 ID_'.$res;
             }
             if($res){
-                $this->success($res);
+                D('AdminLog')->logout($log);
+                $this->success('操作成功',U('Admin/LandMark/index',array('pid'=>I('pid'))));
             }else{
-                $this->error($res);
+                $this->error('操作失败',U('Admin/LandMark/index',array('pid'=>I('pid'))));
             }
+        }else{
+            $this->error('地标名不能为空',U('Admin/LandMark/index',array('pid'=>I('pid'))));
         }
     }
-
-
-
-
     //删除地标
     public function del_land(){
         $id=$_GET['id'];
         $res=D('landmark')->land_del($id);
         if($res){
-            $this->redirect('Admin/LandMark/index',array(),0,"<script>alert('删除成功')</script> ");
+            $log['done'] = '删除地标 ID_'.$id;
+            D('AdminLog')->logout($log);
+            $this->redirect('Admin/LandMark/index',array('pid'=>I('pid')),0,"<script>alert('删除成功')</script> ");
         }else{
-            $this->redirect('Admin/LandMark/index','',0,"<script>alert('失败')</script> ");
+            $this->redirect('Admin/LandMark/index',array('pid'=>I('pid')),0,"<script>alert('删除失败')</script> ");
         }
     }
 
@@ -96,8 +99,7 @@ class LandMarkController extends CommonController{
         $cityid=$info['cityid'];
 
         $county=M('countys')->field("id,countyname")->where("cityid=$cityid")->select();
-//        print_r($county);
-//        exit;
+
         //找到该用户已经有的地标
         $land=$this->returnland($id);
 
@@ -153,6 +155,8 @@ class LandMarkController extends CommonController{
         }
 
         if($res){
+            $log['done'] = '更新地标 ID_'.$res;
+            D('AdminLog')->logout($log);
             $message="<script>alert('更新成功')</script>";
         }else{
             $message="<script>alert('更新失败')</script>";

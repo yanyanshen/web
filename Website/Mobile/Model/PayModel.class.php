@@ -260,7 +260,7 @@ class PayModel extends Model{
 //注意：该功能PHP5环境及以上支持，需开通curl、SSL等PHP配置环境。建议本地调试时使用PHP开发软件
         $doc = new \DOMDocument();
         $aa = $doc->loadXML($html_text);
-        dump($parameter);
+//        dump($parameter);
 //请在这里加上商户的业务逻辑程序代码
 
 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——

@@ -20,7 +20,7 @@ class UserLogController extends CommonController{
         $count = M('UserLog')->alias('ul')
             ->join('xueches_user u ON u.id = ul.uid')
             ->where($where)->count();
-        $page = new \Think\Page($count,5);
+        $page = new \Think\Page($count,20);
         $show = $page->show();
         $UserLog = M('UserLog')->alias('ul')
             ->join('xueches_user u ON u.id = ul.uid')
@@ -32,7 +32,7 @@ class UserLogController extends CommonController{
         $this->assign('firstRow',$page->firstRow);
         $this->assign('page',$show);
         $this->assign('count',$count);
-        $this->assign('username',$_GET['username']);
+        $this->assign('get',$_GET);
         $this->display();
     }
 }
