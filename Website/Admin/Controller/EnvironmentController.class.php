@@ -35,7 +35,7 @@ class EnvironmentController extends CommonController{
                 break;
         }
 
-//设置添加驾校/教练/指导员简介图片
+//设置添加驾校/教练/指导员环境、简介图片
         $_GET['add_url'] = U('Admin/Environment/abstract_pic_add',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('id'),'type'=>I('type'),'t'=>I('t')));
         if(I('t')){
             $info = M("environment")->where(array('type_id'=>I('id'),'type'=>I('type')))->select();
@@ -100,8 +100,6 @@ class EnvironmentController extends CommonController{
                     $this->success('添加成功', U('Admin/Environment/abstract_pic',
                         array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'),'t'=>I('t'))));
                 }else{
-//                    $this->error('添加失败',U('Admin/Environment/abstract_pic_add',
-//                        array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'),'t'=>I('t'))));
                     $this->error('添加失败');
                 }
             }

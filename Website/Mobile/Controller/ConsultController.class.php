@@ -7,11 +7,8 @@ class ConsultController extends Controller{
         $num = 4;//请求条数
         $page = $_POST['page']?$_POST['page']:1;
         $cityid = M('citys')->where(array('cityname'=>session('city')))->getField('id');
-        $info = M('consult')
-            ->where(array('cityid'=>$cityid))
-            ->page($page,$num)
-            ->order('flag desc')
-            ->select();
+        $info = M('consult')->where(array('cityid'=>$cityid))
+            ->page($page,$num)->order('flag desc')->select();
         foreach($info as $k=>$v){
             if(strlen($v['touch_count'])>=4){
                 $info[$k]['touch_count']=sprintf("%.4f", $v['touch_count']/10000).'万';
@@ -21,11 +18,8 @@ class ConsultController extends Controller{
             if(IS_AJAX){//判断ajax请求
                 $page = $_POST['page']?$_POST['page']:1;
                 $num = 4;
-                $info = M('consult')
-                    ->where(array('cityid'=>$cityid))
-                    ->page($page,$num)
-                    ->order('flag desc')
-                    ->select();
+                $info = M('consult')->where(array('cityid'=>$cityid))->page($page,$num)
+                    ->order('flag desc')->select();
                 foreach($info as $k=>$v){
                     if(strlen($v['touch_count'])>=4){
                         $info[$k]['touch_count']=sprintf("%.4f", $v['touch_count']/10000).'万';

@@ -11,8 +11,8 @@
                 display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
                 text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
             }
-            #page a:hover{background:#F27602;color:#FF0000;}
-            #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
+            #page a:hover{background:#F27602;color:#FA7124;}
+            #page span{ background:#F27602; color:#FA7124; font-weight: bold;}
             #page{ float: left; }
 
             .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
@@ -52,7 +52,7 @@
             <volist name="info" id="v" key="k" empty="$empty">
                 <tr>
                     <td>{$k+$firstRow}</td>
-                    <td><img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
+                    <td><img src="{$v.picurl}" alt="" width="100" height="100"/></td>
                     <td>{$v['title']}</td>
                     <td>{$v['content']|mb_substr=0,40,utf8}...</td>
                     <td>{$v['touch_count']}</td>
@@ -62,8 +62,22 @@
                     <td>
                         <input class="consult"  type="button" gid="{$v['id']}" pid="{$get['pid']}" p="{$get['p']}" value="激活"/>
                         <a href="{:U('Admin/Consult/consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">编辑</a>
-                        <a id="del" href="{:U('Admin/Consult/del_consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>
+                        <!--<a id="del" href="{:U('Admin/Consult/del_consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}" onclick="if(confirm('确定删除？')==false)return false;">删除</a>-->
+
+                        <a style="text-decoration: none" href="javascript:void(0);"
+                           onclick="del({$v['id']},{$get['pid']},{$get['p']})">删除</a>
                     </td>
+                    <script>
+                        function del(id,pid,type,type_id,t,p){
+                            layer.msg('确定要删除吗？', {
+                                time: 0, //不自动关闭
+                                btn: ["确定", '取消'],
+                                yes: function(){
+                                    location.href='{:U("Admin/Consult/del_consult")}?id='+id+'&pid='+pid+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                }
+                            });
+                        }
+                    </script>
                 </tr>
             </volist>
         </table>

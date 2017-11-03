@@ -79,13 +79,10 @@ class IndexController extends Controller {
     public function first_index($city_name){
         $where['_string']='s.flag=1 and s.cityid=c.id';
         $where['c.cityname']=array('like',"%$city_name%");
-        $info=M('Consult')
-            ->table('xueches_consult s,xueches_citys c')
-            ->order('order1')
-            ->field('s.id,s.order1,s.title,s.picurl,s.picname,s.flag,s.ntime,
+        $info=M('Consult')->table('xueches_consult s,xueches_citys c')->order('order1')
+            ->field('s.id,s.order1,s.title,s.picurl,s.flag,s.ntime,
                     s.update_people,s.touch_count,c.cityname,c.id as cityid')
-            ->where($where)
-            ->select();
+            ->where($where)->select();
         foreach($info as $k=>$v){
             if(strlen($v['touch_count'])>=4){
                 $info[$k]['touch_count']=sprintf("%.4f", $v['touch_count']/10000).'万';

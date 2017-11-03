@@ -10,12 +10,9 @@ class EvaluateModel extends Model{
  * return $evaluate array 返回用户评价列表
  */
     public function index($id,$limit=''){
-        $evaluate = $this->alias('e')
-            ->join('xueches_user u ON u.id=e.uid')
+        $evaluate = $this->alias('e')->join('xueches_user u ON u.id=e.uid')
             ->field('e.id,u.truename,e.content,e.ntime,e.score,e.append')
-            ->where(array('sid'=>$id))
-            ->order('e.ntime desc')
-            ->limit(0,$limit)->select();//用户评价
+            ->where(array('sid'=>$id))->order('e.ntime desc')->limit(0,$limit)->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
             if($v['append']){
@@ -48,13 +45,11 @@ class EvaluateModel extends Model{
                 $where .= " and e.ntime > '$date'";
             }
         }
-        $num = 2;
+        $num = 15;
         $page = $post['page']?$post['page']:1;
-        $evaluate =  $this->alias('e')
-            ->join('xueches_user u ON u.id=e.uid')
+        $evaluate =  $this->alias('e')->join('xueches_user u ON u.id=e.uid')
             ->field('e.id,u.truename,e.content,e.ntime,e.score,e.append')
-            ->where($where)
-            ->page($page,$num)->select();//用户评价
+            ->where($where)->page($page,$num)->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
             if($v['append']){

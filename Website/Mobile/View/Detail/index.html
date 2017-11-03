@@ -198,7 +198,7 @@
                     <div id="introduce_tm">
                         <div id="introduce_m">
                             <p>{$info.introduction}</p>
-                            <volist name="picinfo" id="data">
+                            <volist name="abstract_pic" id="data">
                                 <if condition="$data.type eq 'jx' and $data.picname neq ''">
                                     <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
@@ -238,7 +238,7 @@
                 </div>
                 <div id="introduce_tm">
                     <div id="introduce_m">
-                        <volist name="abstract_pic" id="data">
+                        <volist name="picinfo" id="data">
                             <if condition="$data.type eq 'jx'  and $data.picname neq ''">
                                 <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
                             </if>

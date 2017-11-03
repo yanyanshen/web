@@ -15,7 +15,7 @@ class ConsultController extends CommonController{
         $page=new Page($count,10);
         $show=$page->show();
         $info=M('Consult')->table('xueches_consult s,xueches_citys c')->order('ntime desc')
-            ->field('s.id,s.order1,s.title,s.content,s.picurl,s.picname,s.flag,s.ntime,s.update_people,
+            ->field('s.id,s.order1,s.title,s.content,s.picurl,s.flag,s.ntime,s.update_people,
                 s.touch_count,c.cityname,c.id as cityid')->where($where)
             ->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('http',C('HTTP'));
@@ -33,20 +33,29 @@ class ConsultController extends CommonController{
             $_POST['ntime']=date('Y-m-d H:i:s',time());
             if(I('id')){
                 $log['done'] = '修改驾校资讯 ID_'.I('id');
-                M('consult')->where(array('id'=>$_POST['id']))->save($_POST);
-                $res=editorPic('consult','Consult_logo',$_POST['id'],'');
-                $url=U('Consult/index',array('pid'=>I('pid'),'p'=>I('p')));
+                $res = M('consult')->where(array('id'=>$_POST['id']))->save($_POST);
             }else{
-                $id=M('consult')->add($_POST);
-                $log['done'] = '添加驾校资讯 ID_'.$id;
-                $res=UploadPic('consult','Consult_logo',$id);
-                $url=U('Consult/index',array('pid'=>I('pid'),'p'=>I('p')));
+                if($_FILES['image']){
+                    $src = $_FILES['image']['tmp_name'];
+                    $name = $_FILES['image']['name'];
+                    $ext = pathinfo($name,PATHINFO_EXTENSION);
+                    $name = md5(uniqid(microtime(true),true)).".$ext";
+                    $ret = cloudCos($src,$name,'consult');//存储到腾讯云上
+                    $_POST['picurl'] = $ret['access_url'];
+                    $_POST['picname'] = $name;
+
+                    $res=M('consult')->add($_POST);
+
+                    $log['done'] = '添加驾校资讯 ID_'.$res;
+                }else{
+                    $this->error('请上传文件');
+                }
             }
             if($res){
                 D('AdminLog')->logout($log);
-                $this->success('操作成功',$url);
+                $this->success('操作成功',U('Consult/index',array('pid'=>I('pid'),'p'=>I('p'))));
             }else{
-                $this->error('操作失败',$url);
+                $this->error('操作失败');
             }
         }else{
             if(I('id')){
@@ -69,7 +78,7 @@ class ConsultController extends CommonController{
         $page=new Page($count,10);
         $show=$page->show();
         $info=M('Consult')->table('xueches_consult s,xueches_citys c')->order('order1')
-            ->field('s.id,s.order1,s.title,s.picurl,s.picname,s.flag,s.ntime,s.update_people,
+            ->field('s.id,s.order1,s.title,s.picurl,s.flag,s.ntime,s.update_people,
                 s.touch_count,s.content,c.cityname,c.id as cityid')->where($where)
             ->limit($page->firstRow.','.$page->listRows)->select();
         $this->assign('http',C('HTTP'));
@@ -82,14 +91,19 @@ class ConsultController extends CommonController{
 //删除驾校资讯
     public function del_consult(){
         $id = I('id');
-        $res = del_pic('consult','Consult_logo',$id);
-        M('consult')->where(array('id'=>$id))->delete();
+        $info = M('consult')->where(array('id'=>$id))->find();
+        if($info){
+            cloudMove("consult/{$info['picname']}");
+            $res = M('consult')->where(array('id'=>$id))->delete();
+        }else{
+            echo '未查到数据';
+        }
         if($res){
             $log['done'] = '删除驾校资讯 ID_'.$id;
             D('AdminLog')->logout($log);
             $this->redirect('Admin/Consult/index',array('p'=>I('p'),'pid'=>I('pid')),0,"<script>alert('删除成功')</script>");
         }else{
-            $this->redirect('Admin/Consult/index',array('p'=>I('p'),'pid'=>I('pid')),0,"<script>alert('删除失败')</script>");
+            echo 'false';
         }
     }
 

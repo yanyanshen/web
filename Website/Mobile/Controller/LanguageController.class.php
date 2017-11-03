@@ -26,7 +26,7 @@ class LanguageController extends Controller{
 
         if(IS_AJAX){
             $page = $_POST['page']?$_POST['page']:1;
-            $num = 4;
+            $num = 15;
             $info = M('Language')->where(session('where'))->page($page,$num)->select();
             $count = count($info);
 
@@ -38,7 +38,7 @@ class LanguageController extends Controller{
         }
         session('where',$where);
         $page = $_POST['page']?$_POST['page']:1;
-        $info = M('Language')->where($where)->page($page,4)->select();
+        $info = M('Language')->where($where)->page($page,15)->select();
         $this->assign('info',$info);
         $this->display();
     }
@@ -105,8 +105,6 @@ class LanguageController extends Controller{
             $this->assign('get',$_GET);
             $this->display();
         }
-
-
     }
 
     public function  evaluate($post){
@@ -119,7 +117,7 @@ class LanguageController extends Controller{
                 $where .= " and ntime > '$date'";
             }
         }
-        $num = 20;
+        $num = 15;
         $page = $post['page']?$post['page']:1;
         $info =  M('LanguageComment')
             ->field('id,username,content,ntime,score')

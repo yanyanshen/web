@@ -264,14 +264,12 @@ function del_pic($table,$file_name,$id){
     unlink($upload->rootPath. $picInfo['picurl'] . $picInfo['picname']);
     $res = M($table)->where(array('id'=>$id))->delete();
     if($info = M('pic')->where("type_id={$id}")->select()){
-        $upload->rootPath="./Uploads/$file_name/";
         foreach($info as $v){
             unlink($upload->rootPath . $v['picurl'] . $v['picname']);
         }
         M('pic')->where("type_id={$id}")->delete();
     }
     if($info1 = M('environment')->where("type_id={$id}")->select()){
-        $upload->rootPath="./Uploads/Environment_logo/";
         foreach($info1 as $v1){
             unlink($upload->rootPath . $v1['picurl'] . $v1['picname']);
         }

@@ -25,7 +25,7 @@ class DetailController extends Controller{
         $abstract_pic=M('Pic')->field('picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>I('type')))->select();
         $this->assign('abstract_pic',$abstract_pic);//驾校简介图片
 
-        $picinfo=M('environment')->field('picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>$info['type']))->select();
+        $picinfo=M('environment')->field('id,picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>$info['type']))->select();
         $this->assign('picinfo',$picinfo);//驾校环境图片
 //评价展示
         $evaluate = D('Evaluate')->index(I('id'),5);
@@ -34,6 +34,7 @@ class DetailController extends Controller{
         $this->assign('id',I('id'));
         $this->assign('http',C('HTTP'));
         $this->assign('empty',"<h1>暂无信息</h1>");
+
         $this->display();
     }
 
@@ -102,11 +103,8 @@ class DetailController extends Controller{
             $date = date('Y-m-t',strtotime('-1 month'));
             $total = M('evaluate')->where(array('sid'=>$id))->count();
             $new = M('evaluate')->where(array('sid'=>$id,"ntime > '$date'"))->count();
-            $until = M('evaluate')
-                ->alias('e')
-                ->join('xueches_evaluate_until ep ON e.id = ep.eid')
-                ->where("e.sid = $id and e.append = 1")
-                ->count();
+            $until = M('evaluate')->alias('e')->join('xueches_evaluate_until ep ON e.id = ep.eid')
+                ->where("e.sid = $id and e.append = 1")->count();
             $this->assign('total',$total);
             $this->assign('until',$until);
             $this->assign('new',$new);

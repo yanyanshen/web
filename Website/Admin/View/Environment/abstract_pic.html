@@ -19,6 +19,8 @@
                href="{$get['add_url']}">【{$get['title']}添加】</a>
         <a style="text-decoration: none;color:#fa7124;font-size: 15px"
            href="{$url}">【返回】</a>
+        <a href="" style="padding: 2px 10px;text-decoration: none;color: #ffffff">【刷新】</a>
+
         <span style="float:right;margin-right: 1%">总计：{$count}</span>
     </div>
     <div style="font-size: 13px; margin: 10px 5px;">
@@ -46,7 +48,15 @@
                             <img src="{$http}/Uploads/guider_logo/{$v['picurl']}{$v['picname']}" alt="" style="border-radius:50%" width="70" height="70" />
                         </if>
                     </td>
-                    <td>Uploads/{$v.picurl}{$v.picname}</td>
+                    <td>
+                        <if condition="$v['type'] eq 'jx'">
+                            Uploads/School_logo/{$v.picurl}{$v.picname}
+                            <elseif condition="$v['type'] eq 'jl'"/>
+                            Uploads/Coach_logo/{$v.picurl}{$v.picname}
+                            <elseif condition="$v['type'] eq 'zd'"/>
+                            Uploads/guider_logo/{$v.picurl}{$v.picname}
+                        </if>
+                    </td>
                     <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                     <td>{$v.lastupdate}</td>
                     <td>

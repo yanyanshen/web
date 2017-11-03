@@ -53,7 +53,7 @@ class SlideshowController extends CommonController{
                 D('AdminLog')->logout($log);
                 $this->success('操作成功',U('Admin/Slideshow/index',array('pid'=>I('pid'),'p'=>I('p'))));
             }else{
-                $this->success('操作失败',U('Admin/Slideshow/edit_slide',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('id'))));
+                $this->error('操作失败',U('Admin/Slideshow/edit_slide',array('pid'=>I('pid'),'p'=>I('p'),'id'=>I('id'))));
             }
         }else{
             $info = M('slideshow')->where(array('id'=>$_GET['id']))->find();

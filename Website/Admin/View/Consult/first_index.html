@@ -41,7 +41,7 @@
                 <td>
                     <input type="text" value="{$v.order1}" id="pri{$v.id}" onchange="setPriority(this,{$v.id},{$get['pid']},{$get['p']})" style="width: 50px;"/>
                 </td>
-                <td><img src="{$http}/Uploads/Consult_logo/{$v.picurl}{$v.picname}" alt="" width="100"/></td>
+                <td><img src="{$v.picurl}" alt="" width="100" height="100"/></td>
                 <td>{$v['title']}</td>
                 <td>{$v['content']}</td>
                 <td>{$v['touch_count']}</td>
