@@ -29,11 +29,11 @@
     <div class="header_box1">
         <div class="header2">
             <ul>
-                <li class="header_back">
-                    <a href="{$mobile_return}">
+                <a href="{$mobile_return}">
+                    <li class="header_back" style="padding-right: 50px">
                         <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-                </li>
+                    </li>
+                </a>
                 <li class="header_detail">
                     语言教育详情
                 </li>
@@ -102,6 +102,7 @@
                 </ul>
             </div>
         </div>
+        <a name="detail"></a>
         <div id="content_mc">
             <div class="course_bm">
                 <div class="course_tbm">
@@ -132,9 +133,9 @@
                                         <td align="center" style="padding: 0;margin:0">{$v.officeprice}</td>
                                         <td align="center" class="course_money" style="padding: 0;margin:0">{$v.wholeprice}</td>
                                         <td align="center">
-                                            <div class="course_apply">
-                                                <a href="{:U('Mobile/Language/language_apply',array('id'=>$get['id']))}">报名</a>
-                                            </div>
+                                            <a href="{:U('Mobile/Language/language_apply',array('id'=>$get['id']))}">
+                                                <div class="course_apply" style="color: #ffffff;padding: 3px 0">报名</div>
+                                            </a>
                                         </td>
                                     </tr>
                                 </volist>
@@ -247,7 +248,7 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="eval_text">
-                                    <p style="border-bottom: none;padding:0">{$data['content']}</p>
+                                    <p style="padding:0">{$data['content']}</p>
                                 </div>
                             </div>
                         </volist>
@@ -262,11 +263,12 @@
     </div>
     <footer id="footer">
         <ul>
-            <li class="foot_box">
-                <a href="{:U('Mobile/Language/language_apply',array('id'=>$get['id']))}">
+            <a href="#detail">
+                <li class="foot_box">
                     <p>马上报名</p>
-                </a>
-               </li>
+                </li>
+            </a>
+
             <li class="foot_box">
                 <a href="">
                     <p>免费咨询</p>

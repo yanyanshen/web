@@ -9,7 +9,6 @@ class AuthGroupController extends CommonController{
         $pid = I('pid');
         $add_group = D('AuthRule')->getRule($pid,'管理组添加');
         $_GET['add_group'] = $add_group['name'];
-
         $this->assign('get',$_GET);
         $group=D('AuthGroup');
         $groupList=$group->getGroupList();
@@ -32,12 +31,14 @@ class AuthGroupController extends CommonController{
             $data=$group->create();
             if($data){
                 if($data['id']){
-                    $log['done'] = '编辑管理组名称 ID_'.$data['id'];
+                    //原来的管理组名称
+                    $groupInfo = M('AuthGroup')->where(array('id'=>$data['id']))->find();
+                    $log['done'] = "管理组信息:{$groupInfo['title']} => {$data['title']}";
                     D('AdminLog')->logout($log);
                     $gid=$group->save($data);
                 }else{
                     $gid=$group->add_group($data);
-                    $log['done'] = '添加管理组 ID_'.$gid;
+                    $log['done'] = "管理组添加: => {$data['title']}";
                     D('AdminLog')->logout($log);
                 }
                 if($gid){
@@ -61,7 +62,7 @@ class AuthGroupController extends CommonController{
         }
     }
 //给管理组分配权限;
-    public function allocateRule(){
+    public function allocaterule(){
         $this->assign('get',$_GET);
         $group=D('AuthGroup');
         if(IS_AJAX){
@@ -69,7 +70,7 @@ class AuthGroupController extends CommonController{
             $data['rules']=implode(',',I('post.rules'));
             $row=$group->editRule($data);
             if($row){
-                $log['done'] = '分配权限';
+                $log['done'] = session('admin_name')."权限信息: => ".I('post.rules');
                 D('AdminLog')->logout($log);
                 $this->success('分配成功',U('index',array('pid'=>I('pid'))));
             }else{
@@ -100,6 +101,7 @@ class AuthGroupController extends CommonController{
             $accessInfo=$access->where(array('group_id'=>$id))->select();
             //判断管理组以及组员是否存在,然后分别删除;
             if($groupInfo) {
+                $log['done'] = "管理组删除: =>{$groupInfo['title']}";
                 if($accessInfo) {
                     $group->startTrans();
                     if (!$group->where(array('id' => $id))->delete()) {
@@ -113,7 +115,6 @@ class AuthGroupController extends CommonController{
                     $res = $group->delete($accessInfo);
                 }
                 if($res){
-                    $log['done'] = '删除管理组 ID_'.$id;
                     D('AdminLog')->logout($log);
                     $this->success('删除成功',$url);
                 }else{

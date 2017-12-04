@@ -26,8 +26,8 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back"><a href="{:U('Mobile/Index/index')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
-                <li class="header_text">登录</li>
+                <a href="{:U('Mobile/Index/index')}"><li class="back"><img src="__PUBLIC__/public/images/back.png"></li></a>
+                <li class="header_text" style="margin-right: 24px">登录</li>
                 <div class="clearfix"></div>
             </ul>
         </div>
@@ -86,7 +86,7 @@
                 password: {required: '*必填项'}
             },
             success: function(span) {
-                span.addClass("ok").text('OK');
+                span.addClass("ok").text('*ok');
             },
             validClass:'ok',
             errorElement:'span'
@@ -101,26 +101,17 @@
         $('.login_button').click(function(){
             //表单提交之前判断前端验证是否通过，只有通过时才提交表单
             if(validate.form()){
-//                $(this).attr('disabled',true);
                 $.post("{:U('Mobile/Login/login')}",$('#form1').serialize(),function(res){
                     if(res.status==1){
                         layer.open({
-                            content: res.info
-                            ,skin: 'msg'
-                            ,icon:2
-                            ,style: 'background-color:#DAEAD3; font-color:#49EE18; border:none;' //自定风格
-                            ,time: 2 //2秒后自动关闭
+                            content: res.info,time: 2 //2秒后自动关闭
                             ,end:function(){
                                 location.href=res.url;
                             }
                         });
                     }else{
                         layer.open({
-                            content: res.info
-                            ,skin: 'msg'
-                            ,icon:2
-                            ,style: 'background-color:white; color:red; border:none;' //自定风格
-                            ,time: 2 //2秒后自动关闭
+                            content: res.info,time: 2 //2秒后自动关闭
                             ,end:function(){
                                 location.href=res.url;
                             }

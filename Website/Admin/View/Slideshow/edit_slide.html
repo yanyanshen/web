@@ -9,24 +9,23 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        lable.error{  font-size: 14px;  font-weight: bold;  color: #fa7124;  }
-        lable.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+        lable.error{ font-size: 12px;color: #fa7124; }
+        lable.ok{ font-size: 12px;color: #38D63B; }
 
 
         label{padding: 10px 20px 10px 0;}
         b{color: #FA7124}
-        li{ margin-top: 30px;list-style: none;}
-        .dfinput{margin-left: 10px;
-            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
-            width: 340px;padding: 10px 0 10px 5px}
+        li{ margin-top: 15px;list-style: none;}
+        .dfinput{margin-left: 10px; border: rgb(220,220,220) solid 1px;border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
     </style>
 </head>
 <body>
-<div class="div_head" style="font-weight: bolder;font-size: 15px;color:#ffffff;background-color: rgb(129, 191, 249);">
+<div class="div_head">
     轮播图编辑
-    <a style="text-decoration: none;color:#ff143f" href="{$get['url']}">【返回】</a>
+    <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
 </div>
-<div style="font-size: 13px;margin: 10px 5px">
+<div style="font-size: 12px;margin: 10px 5px">
     <form action="{:U('Admin/Slideshow/edit_slide')}" id="form1" method="post">
         <input type="hidden" name='id' value="{$get['id']?$get['id']:''}"/>
         <input type="hidden" name='pid' value="{$get['pid']?$get['pid']:''}"/>
@@ -37,9 +36,9 @@
                 <input name="describe" type="text" class="dfinput" value="{$info['describe']?$info['describe']:''}" placeholder="请输入描述内容" />
             </li>
             <li>
-                <label style='padding-right: 55px;'>设置<b>*</b></label>
+                <label style='padding-right: 53px;'>设置<b>*</b></label>
                 <span style="color: #fa7124;font-weight: bold"> 不设置则不用勾选</span>
-                <div class="dfinput" style="margin-left: 92px">
+                <div class="dfinput" style="margin-left: 90px">
                     <div>
                         <input type="checkbox" value="true" disabled  {$info['url']?checked:''}/>设置链接url
                         <input style="margin-left: 50px" class="list_flag" type="checkbox" name="list_flag" value="{$info['list_flag']}"   {$info['list_flag']==1?checked:''}/>设为列表轮播图
@@ -127,7 +126,7 @@
             <li>
                 <label>轮播图<b>*</b></label>
                 <div class="usercity dfinput" style="width:345px;height:150px;position: relative;margin-left: 90px">
-                    <label for="image1"  style="position: relative;margin-left:10px;color:#fff;text-align:center;border-radius:4px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:8px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                    <label for="image1"  style="position: relative;margin-left:10px;color:#fff;text-align:center;border-radius:4px;height:26px;line-height:26px;font-size:14px;background:rgb(19, 181, 177);padding:8px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                     <p id="preview1">
                         <img id="imghead1" width="150"  border=0 src='{$http}/Uploads/Slideshow_logo/{$info["picurl"]}{$info["picname"]}'>
                     </p><span></span>
@@ -136,7 +135,7 @@
             </li>
             <li>
                 <label style="padding: 10px 90px 10px 0"></label>
-                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
             </li>
         </ul>
     </form>

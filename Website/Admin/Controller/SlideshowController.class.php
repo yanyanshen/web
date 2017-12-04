@@ -91,10 +91,10 @@ class SlideshowController extends CommonController{
             if($k == 'flag'){
                 if($info['flag'] == 1){
                     $data['flag'] = 0;
-                    $log['done'] = "修改轮播图 ID_{$_GET['id']} 状态为：禁止";
+                    $log['done'] = "轮播图信息:禁止 => 展示";
                 }else{
                     $data['flag'] = 1;
-                    $log['done'] = "修改轮播图 ID_{$_GET['id']} 状态为：展示";
+                    $log['done'] = "轮播图信息:展示 => 禁止";
                 }
             }elseif($k == 'list_flag'){
                 if($info['list_flag'] == 1){

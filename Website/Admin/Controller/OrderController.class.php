@@ -9,30 +9,36 @@ class OrderController extends CommonController {
  * 订单列表
 */
    public function order_list(){
+       //用户在网站上下单 并未付款 订单状态是未支付 未处理状态  系统自动 分配给  在线的 客服
+       //1.先查询未支付未处理订单
+       $order = M('Order')->where(array('status'=>1,'order_status'=>1))->select();
+       if(!empty($order)){
+           //2.查询在线的客服
+           $admin = M('Admin')->where(array('permissions'=>2,'online'=>1))->select();
+           $count = count($admin);
+           //3.分配订单
+           foreach($order as $k => $v){
+               $k = $v['id']%$count;
+               M('Order')->where(array('id'=>$v['id']))->save(array('customer'=>$admin[$k]['username']));
+           }
+       }
        session('admin_return',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
 //判断是否有新建订单权限
        $pid = I('pid');
        $add_order = D('AuthRule')->getRule($pid,'新建订单');
-       $this->assign('add_order',$add_order);
+       $this->assign('add_order',$add_order['name']);
 //判断是否有订单列表处理按钮权限
        $list_info = D('AuthRule')->getRule($pid,'订单处理');
-       $this->assign('list_info',$list_info);
-//判断是否有订单退费列表处理按钮权限
-       $return_fee = D('AuthRule')->getRule($pid,'退费列表');
-       $this->assign('return_fee',$return_fee['name']);
-
-//判断是否有已支付未处理列表处理按钮权限
-       $return_fee = D('AuthRule')->getRule($pid,'已支付未处理列表');
-       $this->assign('pay_list',$return_fee['name']);
-
+       $this->assign('list_info',$list_info['name']);
        $arr= D('order')->order_list($_GET);
+
        $citys=D('citys')->city_one("flag=1","id,cityname",1);
        $this->assign('citys', $citys);
 
-       //未处理订单数量
-       $arr['count1'] = M('Order')->where(array('flag'=>0))->count();
-       //未回访订单数量
-       $arr['count2'] = M('Order')->where(array('visit'=>0))->count();
+//支付宝已支付未处理、待回访、待结算待回访 数量
+       $count = D('Order')->order_count();
+       $this->assign('count',$count);
+
        $this->assign('arr', $arr);
        $this->assign('get',$_GET);
        $this->assign('url',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
@@ -44,32 +50,17 @@ class OrderController extends CommonController {
  * 已支付未处理订单
 */
     public function pay_list(){
-//判断是否有新建订单权限
-        $pid = I('pid');
-        $add_order = D('AuthRule')->getRule($pid,'新建订单');
-        $this->assign('add_order',$add_order['name']);
-//判断是否有订单列表处理按钮权限
-        $list_info = D('AuthRule')->getRule($pid,'订单处理');
-        $this->assign('list_info',$list_info['name']);
         session('admin_return',U('Admin/Order/pay_list',array('pid'=>I('pid'),'p'=>I('p'))));
-
-
-        $where = ' flag = 0 and status != 1 and status != 5';
-        $arr = D('order')->order_list($_GET,$where);
+        $_GET['order_status'] = 1;
+        $_GET['status'] = 2;
+        $arr = D('order')->order_list($_GET);
         $citys = D('citys')->city_one("flag=1","id,cityname",1);
         $this->assign('citys', $citys);
-        $this->assign('count', $arr['count']);
-        $this->assign('page', $arr['page']);
-        $this->assign('list', $arr['list']);
-        $this->assign('firstRow', $arr['firstRow']);
-
+        $this->assign('arr', $arr);
         $this->assign('get',$_GET);
-        //未处理订单数量
-        $count1 = M('Order')->where(array('flag'=>0))->count();
-        //未回访订单数量
-        $count2 = M('Order')->where(array('visit'=>0))->count();
-        $this->assign('count1',$count1);
-        $this->assign('count2',$count2);
+//支付宝已支付未处理、待回访、待结算待回访 数量
+        $count = D('Order')->order_count();
+        $this->assign('count',$count);
         $this->display();
     }
 /*
@@ -77,39 +68,32 @@ class OrderController extends CommonController {
  * : 2017/08/25
  * 新建订单
  */
-    function add_order(){
-        //城市
-        $citys=D('citys')->city_one("flag=1","id,cityname",1);
-        if(isset($_REQUEST['cityid'])){
-            $cityid=$_REQUEST['cityid'];
-            $info=D('citys')->city_one(array('id'=>$_REQUEST['cityid']),'cityname');
-            $this->assign('cityname',$info['cityname']);
-        }else{
-            $cityid=$citys[0]['id'];
-            $this->assign('cityname',$citys[0]['cityname']);
-        }
-
-        $county=D('countys')->Countys_list("cityid=$cityid","id,countyname",1);
-        $this->assign("countys",$county);
-        $this->assign('citys',$citys);
+    public function add_order(){
         if(!empty($_POST)){
             $message = D('Order')->add_order($_POST);
-            $this->redirect("add_order",array('pid'=>I('pid'),'p'=>I('p')),0.1,$message);
+            $this->redirect("order_list",array('pid'=>I('pid'),'p'=>I('p')),0.1,$message);
+        }else{
+            //城市
+            $citys=D('citys')->city_one("flag=1","id,cityname",1);
+            if(isset($_REQUEST['cityid'])){
+                $cityid=$_REQUEST['cityid'];
+                $info=D('citys')->city_one(array('id'=>$_REQUEST['cityid']),'cityname');
+                $this->assign('cityname',$info['cityname']);
+            }else{
+                $cityid=$citys[0]['id'];
+                $this->assign('cityname',$citys[0]['cityname']);
+            }
+            $this->assign('citys',$citys);
+
+            $county=D('countys')->Countys_list("cityid=$cityid","id,countyname",1);
+            $this->assign("countys",$county);
+
+            $order_source = M('OrderSource')->select();
+            $this->assign('order_source',$order_source);
+            $this->assign('get',$_GET);
+            $this->assign('url',session('admin_return'));
+            $this->display();
         }
-        $school = M('school s')->field("s.id,s.nickname,c.cityname")->where("type = 'jx'")->join("xueches_citys c on c.id=s.cityid")->select();
-        $this->assign('school',$school);
-
-        $coach = M('school s')->field("s.id,s.nickname,c.cityname")->where("type = 'jl'")->join("xueches_citys c on c.id=s.cityid")->select();
-        $this->assign('coach',$coach);
-
-        $guider = M('school s')->field("s.id,s.nickname,c.cityname")->where("type = 'zd'")->join("xueches_citys c on c.id=s.cityid")->select();
-        $this->assign('guider',$guider);
-
-        $order_source = M('OrderSource')->select();
-        $this->assign('order_source',$order_source);
-        $this->assign('get',$_GET);
-        $this->assign('url',session('admin_return'));
-        $this->display();
     }
 /*
  * User: 沈艳艳
@@ -120,62 +104,45 @@ class OrderController extends CommonController {
 //日志操作查看权限
         $pid = I('pid');
         $order_log = D('AuthRule')->getRule($pid,'日志操作');
-        $this->assign('order_log',$order_log);
+        $this->assign('order_log',$order_log['name']);
 //修改学员信息权限
         $stu_update = D('AuthRule')->getRule($pid,'修改学员信息');
-        $this->assign('stu_update',$stu_update);
+        $this->assign('stu_update',$stu_update['name']);
 
 //确认课程修改权限
         $class_update = D('AuthRule')->getRule($pid,'确认课程修改');
         $_GET['class_update'] = $class_update['name'];
 
+//订单详情
+        $list = M('order')->field('*')->where("id=$id")->find();
 
-
-        session('oid',$id);
-        $field='id,ordcode,order_type,status,return_time,create_time,pay_type,tel,address,lastupdate,pay_address,
-        s_nickname,class_name,trainaddress,price,total_fee,customer,userid,inform,num,type,school_id,connect,
-        order_source,sale_price';
-        //跟单所以客服
-        $customers = M('admin')->field('id,username')->select();
-        //订单详情
-        $list = M('order')->field($field)->where("id=$id")->find();
+//课程信息
+        $class = M('trainclass')->field('wholeprice,name,officeprice,advanceprice,(wholeprice-advanceprice) as whole1')->where(array('id'=>$list['class_name']))->find();
+        $this->assign('class',$class);
+//基地名称
+        $list['trainaddress'] = M('trainaddress')->where(array('id'=>$list['trainaddress']))->getField('trname');
         $this->assign("list",$list);
 
-        //客户姓名/电话
-        $user = M("user")->field("truename,account")->where("id='{$list['userid']}'")->find();
-        $this->assign("user",$user);
-
-        //学员姓名电话
-        $stu = M('OrderUser')->field('name,tel')->where("oid = $id")->select();
+//学员姓名电话
+        $stu = M('OrderUser')->field('id,name,tel,sex')->where("oid = $id")->select();
         $this->assign('stu',$stu);
-        //跟单记录
-        $jilu = M('customer')->field("id,create_time,content,return_time,operator")->where("ordcode='{$list['ordcode']}'")->order("id desc")->limit(5)->select();
-        //所报课程的全款价，全包价
-        if($list['school_id']){
-            $class = M('trainclass')->field("name,id")->where("type_id={$list['school_id']}")->select();
-            $price= M('trainclass')->field("officeprice,wholeprice,advanceprice,(wholeprice-advanceprice) as whole1")->where("name='{$list['class_name']}' and type_id = {$list['school_id']}")->find();
-        }else{
-            $class = 0;
-            $price = 0;
-        }
-        if($list['type'] == 1){
-            session('price',$price['wholeprice']);
-        }elseif($list['type'] == 2){
-            session('price',$price['advanceprice']);
-        }
-        $train = M('train')->field("trainaddress_id")->where("type_id='{$list['school_id']}'")->find();
-        if($train){
-            $train = M("trainaddress")->field("id,trname")->where("id in ({$train['trainaddress_id']})")->select();
-        }
-        $order_source = M('OrderSource')->where(array('id'=>$list['order_source']))->getField('name');
-        $this->assign("order_source",$order_source);
-        $this->assign("price",$price);
-        $this->assign("class",$class);
-        $this->assign("train",$train);
+//跟单记录
+        $jilu = M('customer')->where("ordcode='{$list['ordcode']}'")->limit(5)->select();
+//跟单客服
+        $customer = M('Admin')->select();
+        $this->assign('customer',$customer);
+
+        $_GET['order_source'] = M('OrderSource')->where(array('id'=>$list['order_source']))->getField('name');
+        $_GET['order_keyword'] = M('OrderKeyword')->where(array('id'=>$list['order_keyword']))->getField('name');
+
+        //订单取消原因
+        $order_cancel = M('OrderCancelReason')->select();
+        $this->assign('order_cancel',$order_cancel);
+
+
         $this->assign("jilu",$jilu);
         $this->assign("get",$_GET);
         $this->assign("url",session('admin_return'));
-        $this->assign("customers",$customers);
         $this->display();
     }
 /*
@@ -185,7 +152,7 @@ class OrderController extends CommonController {
  * 订单详情的订单日志查看
  */
     public function order_log(){
-        $order_log = D('AdminLog')->order_log();
+        $order_log = D('AdminLog')->order_log(I('oid'));
         $this->assign('order_log',$order_log);
         $this->assign('empty',"<h>暂无操作日志</h>");
         $this->display();
@@ -197,57 +164,53 @@ class OrderController extends CommonController {
  * 订单详情修改课程意向页面
  */
     public function update_class(){
-        if(IS_AJAX){
-            $res = D('Order')->update_class($_POST);
-            if($res){
-                $this->success(1,U('Admin/Order/list_info',array('id'=>$_POST['id'],'pid'=>$_POST['pid'],'p'=>$_POST['p'])));
+        if($_POST){
+            if(!$_POST['s_nickname']||!$_POST['class_name']||!$_POST['trainaddress']){
+                $this->redirect('Admin/Order/list_info',array('id'=>$_POST['id'],'pid'=>$_POST['pid'],'p'=>$_POST['p']),0.1,'<script>alert("驾校、课程或基地不能为空")</script>');
             }else{
-                $this->error();
-            }
-        }
-    }
-/*
- * User: 沈艳艳
- * Date: 2017/08/25
- * 订单详情返回基地、课程
- */
-    public function returntrain(){
-        $json=file_get_contents("php://input");
-        $obj = json_decode($json);
-        $id = $obj->id;
-
-        $data['trainclass'] = M("trainclass")->field("id,name")->where("type_id='$id'")->select();
-        $train = M('train')->field("trainaddress_id")->where("type_id='$id'")->find();
-        if($train){
-            $data['train'] = M("trainaddress")->field("id,trname")->where("id in ({$train['trainaddress_id']})")->select();
-        }
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $k => $v) {
-                    $data[$key][$k] = $v;
+                $res = D('Order')->update_class($_POST);
+                if($res){
+                    $this->redirect('Admin/Order/list_info',array('id'=>$_POST['id'],'pid'=>$_POST['pid'],'p'=>$_POST['p']),0.1,'<script>alert("修改成功")</script>');
+                }else{
+                    $this->redirect('Admin/Order/list_info',array('id'=>$_POST['id'],'pid'=>$_POST['pid'],'p'=>$_POST['p']),0.1,'<script>alert("修改错误")</script>');
                 }
             }
         }
-       echo stripslashes(json_encode($data, JSON_UNESCAPED_UNICODE));
     }
-
+//跟单客服修改
+    public function update_customer(){
+        $_POST['lastupdate'] = session('admin_name');
+        //原有客服信息
+        $order = M('Order')->where(array('id'=>$_POST['id']))->find();
+        $res =  M('Order')->save($_POST);
+        if($res){
+            $log = "客服信息:{$order['customer']} => ". I('customer');
+            D('AdminLog')->addOrderLog($log,I('id'));
+            $this->redirect('list_info',array('id'=>I('id'),'pid'=>I('pid'),'p'=>I('p')));
+        }else{
+            echo 'false';
+        }
+    }
 /*
  * User: 沈艳艳
  * Date: 2017/08/25
  * 订单详情支付
  */
-    public function zhifu(){
-        if($_GET['t'] == 1){
-            $log = '确认收款：'.$_POST['price'].'元';
-            $info = M('Order')->field('order_source,num')->where(array('id'=>$_POST['id']))->find();
-            M('OrderSource')->where(array('id'=>$info['order_source']))->setInc('completed_num',$info['num']);
-            $res = M('Order')->where(array('id'=>$_POST['id']))->save(array('status'=>3,'lastupdate'=>session("admin_name"),'notify_time'=>date('Y-m-d H:i:s')));
+    public function queren(){
+        if($_POST['t'] == 1){
+            $_POST['order_status'] = 3;//进入待结算订单
+            $_POST['status'] = 2;
+            $_POST['lastupdate'] = session("admin_name");
+            $_POST['notify_time'] = date('Y-m-d H:i:s',time());
+            $res = M('Order')->save($_POST);
+            $info = M('Order')->field('total_fee')->where(array('id'=>$_POST['id']))->find();
+            $log = "确认收款{$info['total_fee']}元";
         }else{
-            $log = D('Order')->zhifu($_POST);
+            $log = D('Order')->pay_type($_POST);
             $res = $log;
         }
         if($res){
-            D('AdminLog')->addOrderLog($log);
+            D('AdminLog')->addOrderLog($log,I('id'));
             $this->redirect("list_info",array('id'=>$_POST['id'],'pid'=>$_POST['pid']),0.1,"<script>alert('更新成功')</script>");
         }else{
             $this->redirect("list_info",array('id'=>$_POST['id'],'pid'=>$_POST['pid']),0.1,"<script>alert('未做修改')</script>");
@@ -260,8 +223,12 @@ class OrderController extends CommonController {
  */
     public function stu_update(){
         if(IS_AJAX){
-            //保存地址和备注
-            M('Order')->where(array('id'=>session('oid')))->save(array('address'=>I('post.address'),'inform'=>I('post.inform')));
+            //原有的学员信息
+            $order = M('Order')->where(array('id'=>I('oid')))->find();
+            $user = M('OrderUser')->where(array('oid'=>I('oid')))->select();
+            foreach($user as $v){
+                $log .= "{$v['name']}({$v['tel']}) | ";
+            }
             //保存原有的学员信息 并添加日志
             $tel = I('post.tel');
             $id = I('post.id');
@@ -271,45 +238,52 @@ class OrderController extends CommonController {
                     $OrderUser['tel'] = $tel[$k];
                     $OrderUser['sex'] = I('sex')[$k];
                     if(!M('OrderUser')->where($OrderUser)->getField('id')){
-                        $OrderUser['lastupdate'] = session('admin_name');
                         M('OrderUser')->where(array('id'=>$id[$k]))->save($OrderUser);
-                        $log .= " name/tel[$k]: $v($tel[$k]); ";
                     }
-                }
-                if($log){
-                    $log = " 编辑学员:".$log;
+                    $log1 .= " $v($tel[$k]) | ";//修改后的学员信息
                 }
             }
+
             //添加新学员时添加日志
             $phone = I('post.phone');
             if(!empty($phone)){
+                $userInfo = M('OrderUser')->field('price')->where(array('oid'=>I('oid')))->find();
                 foreach(I('post.username') as $k1=>$v1){
-                    $data['oid'] = session('oid');
+                    $data['oid'] = I('oid');
                     $data['name']= $v1;
                     $data['tel'] = $phone[$k1];
-                    $data['lastupdate'] = session("admin_name");
                     $data['sex'] = I('sex1')[$k];
-                    $data['price'] = session('price')?session('price'):100;
-                    $info = M('OrderUser')->add($data);
-                    $log .= " name/tel[$k1]: $v1($phone[$k1]); ";
+                    $data['price'] = $userInfo['price'];
+                     M('OrderUser')->add($data);
+                    $log1 .= "$v1($phone[$k1]) | ";
                 }
-                M('Order')->where(array('id'=>session('oid')))->setInc('num',count($phone));
-                $log = "添加学员:".$log;
+                M('Order')->where(array('id'=>I('oid')))->setInc('num',count($phone));
+                M('Order')->where(array('id'=>I('oid')))->setInc('price',count($phone)*$userInfo['price']);
             }
-            $price = M('OrderUser')->field('price')->where(array('oid'=>session('oid')))->sum('price');
-            M('Order')->where(array('id'=>session('oid')))->save(array('price'=>$price));
-            if($log){
-                $res = D('AdminLog')->addOrderLog($log);
+            //保存地址 或 备注
+            if(I('address')||I('inform')){
+                if(M('Order')->where(array('id'=>I('oid')))->save(array('address'=>I('address'),'inform'=>I('inform')))){
+                    $log2 = "学员地址|备注:{$order['address']} | {$order['inform']}=>{$_POST['address']}|{$_POST['inform']}";
+                };
             }
-            if($res){
-                $this->success();
-            }else{
-                $this->error();
+            $price = M('OrderUser')->field('price')->where(array('oid'=>I('oid')))->sum('price');
+            M('Order')->where(array('id'=>I('oid')))->save(array('price'=>$price));
+            $log = "学员信息:$log => $log1";
+
+            if($log||$log2){
+                $res = D('AdminLog')->addOrderLog($log,I('oid'));
+                $res1 = D('AdminLog')->addOrderLog($log2,I('oid'));
+                if($res || $res1){
+                    $this->success('更新成功',U('Admin/Order/list_info',array('id'=>I('oid'),'pid'=>I('pid'),'p'=>I('p'))));
+                }else{
+                    $this->error('更新失败');
+                }
             }
         }else{
-            $order_user = M('OrderUser')->where("oid=".session('oid'))->select();
-            $info = M('Order')->field('address,inform')->where(array('id'=>session('oid')))->find();
+            $order_user = M('OrderUser')->where("oid=".I('oid'))->select();
+            $info = M('Order')->field('address,inform')->where(array('id'=>I('oid')))->find();
             $this->assign('order_user',$order_user);
+            $this->assign('get',$_GET);
             $this->assign('info',$info);
             $this->display();
         }
@@ -318,9 +292,10 @@ class OrderController extends CommonController {
  * User: 沈艳艳
  * Date: 2017/08/25
  * 订单列表到处excel表
+ * @$flag  string 条件
  */
-    public function push(){
-        $res = D('Order')->push($_GET);
+    public function push($flag){
+        $res = D('Order')->push($_GET,$flag);
         $this->success($res);
     }
 /*
@@ -332,7 +307,7 @@ class OrderController extends CommonController {
         $oid = $_POST['ordcode'];
         $id = $_POST['id'];
         $message = D('Order')->returndate($oid,$id);
-        $this->redirect("list_info",array('id'=>I('id')),0.1,$message);
+        $this->redirect("list_info",array('id'=>I('id'),'pid'=>I('pid'),'p'=>I('p')),0.1,$message);
     }
 /*
  * User: 沈艳艳
@@ -340,43 +315,33 @@ class OrderController extends CommonController {
  * @param string $id 订单id
  * 订单详情删除学员
  */
-    public function del($id){
-        $name = M('OrderUser')->where("id = $id")->getField('name');
-        $log .= "删除学员 name: ".$name;
+    public function del($oid,$id){
+        //原有学员信息
+        $user= M('OrderUser')->where("oid = $oid")->select();
+        foreach($user as $v){
+            $log .= "{$v['name']}({$v['tel']}) | ";
+        }
         $res = M('OrderUser')->where("id = $id")->delete();
         if($res){
-            $count = M('OrderUser')->where(array('oid'=>session('oid')))->count();
+            $count = M('OrderUser')->where(array('oid'=>$oid))->count();
             if(!$count){
-                M('Order')->where(array('id'=>session('oid')))->delete();
+                M('Order')->where(array('id'=>$oid))->delete();
             }else{
-                M('Order')->where(array('id'=>session('oid')))->setDec('num',1);
-                $price = M('OrderUser')->field('price')->where(array('oid'=>session('oid')))->sum('price');
-                M('Order')->where(array('id'=>session('oid')))->save(array('price'=>$price));
+                M('Order')->where(array('id'=>$oid))->setDec('num',1);
+                $price = M('OrderUser')->field('price')->where(array('oid'=>$oid))->sum('price');
+                M('Order')->where(array('id'=>$oid))->save(array('price'=>$price));
             }
-            $res = D('AdminLog')->addOrderLog($log);
-            if($res){
-                $this->success();
-            }else{
-                $this->error();
+            //删除后的学员信息
+            $delete_after= M('OrderUser')->where("oid = $oid")->select();
+            foreach($delete_after as $v1){
+                $log1 .= "{$v1['name']}({$v1['tel']}) | ";
             }
+            $log = "学员信息:$log => $log1";
+            D('AdminLog')->addOrderLog($log,$oid);
+            $this->success('删除成功');
         }else{
-            $this->error();
+            $this->error('删除失败');
         }
-    }
-
-//订单详情返回价格
-    function returnprices($class_name){
-        $data=M('trainclass')->field("id,officeprice,wholeprice,advanceprice,(wholeprice-advanceprice) as whole1")->where("id='$class_name'")->find();
-        echo stripslashes(json_encode($data, JSON_UNESCAPED_UNICODE));
-    }
-//取消订单
-    public function cencel_order($id,$pid){
-        if(M('order')->where("id=$id")->setField(array('status'=>5,'return_fee'=>date('Y-m-d H:i:s')))){
-            $message="<script>alert('取消成功')</script>";
-        }else{
-            $message="<script>alert('取消失败')</script>";
-        }
-        $this->redirect("list_info",array('id'=>$id,'pid'=>$pid),0,$message);
     }
 /*
  * User: 沈艳艳
@@ -388,8 +353,8 @@ class OrderController extends CommonController {
         $this->assign('city',$city);
 
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01',strtotime('-1 month'));
-            $_GET['create_time1'] = date('Y-m-t',strtotime("-1 month - 1 day"));
+            $_GET['create_time'] = date('Y-m-01 H:i:s',strtotime('-1 month'));
+            $_GET['create_time1'] = date('Y-m-t  H:i:s',strtotime("-1 month - 1 day"));
         }
         $order_statistics = D('Order')->order_statistics($_GET);
         $this->assign('order_statistics',$order_statistics);
@@ -414,28 +379,29 @@ class OrderController extends CommonController {
         $order_source = D('Order')->order_source($_GET);
         $this->assign('order_source',$order_source);
         $this->assign('empty',"<h1>暂无数据</h1>");
-        $this->assign('count',count($order_source));
-        $order_num = 0;
-        $completed_num = 0;
-        $completed_lv = 0;
-        $cancel_num = 0;
+
         foreach($order_source as $v){
-            $order_num = $order_num + $v['order_num'];
-            $completed_num = $completed_num + $v['completed_num'];
-            if($completed_num){
-                $completed_lv = $completed_num.'/'.$order_num.' = '.sprintf('%.2f',$completed_num/$order_num*100).'%';
-            }
-            $cancel_num = $cancel_num + $v['cancel_num'];
-            if($cancel_num){
-                $cancel_lv = $cancel_num.'/'.$order_num.' = '.sprintf('%.2f',$cancel_num/$order_num*100).'%';
-            }
+            $data['order_num'] =  $data['order_num'] + $v['order_num'];//总单数
+            $data['completed_num'] = $data['completed_num'] + $v['completed_num'];//成单量
+
+            $data['end_num'] = $data['end_num'] + $v['end_num'];//成单量
+
+            $data['cancel_num'] = $data['cancel_num'] + $v['cancel_num'];//取消量
+        }
+        //成单率
+        if($data['completed_num']){
+            $data['completed_lv'] = $data['completed_num'].'/'. $data['order_num'].' = '.sprintf('%.2f',$data['completed_num']/$data['order_num']*100).'%';
+        }
+        //结算率
+        if($data['end_num']){
+            $data['end_lv'] = $data['end_num'].'/'.$data['order_num'].' = '.sprintf('%.2f',$data['end_num']/$data['order_num']*100).'%';
         }
 
-        $this->assign('order_num',$order_num);
-        $this->assign('completed_num',$completed_num);
-        $this->assign('completed_lv',$completed_lv);
-        $this->assign('cancel_num',$cancel_num);
-        $this->assign('cancel_lv',$cancel_lv);
+        //取消率
+        if($data['cancel_num']){
+            $data['cancel_lv'] = $data['cancel_num'].'/'.$data['order_num'].' = '.sprintf('%.2f',$data['cancel_num']/$data['order_num']*100).'%';
+        }
+        $this->assign('data',$data);
         $this->display();
     }
 /*
@@ -444,68 +410,74 @@ class OrderController extends CommonController {
  * 订单关键词来源统计
 */
     public function order_keyword(){
-        $order_source = M('OrderSource')->select();
-        $this->assign('order_source',$order_source);
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01', strtotime(date("Y-m-d")));
+            $_GET['create_time'] = date('Y-m-01 H:i:s', strtotime('-1 month'));
         } else{
             if($_GET['t'] == 1){
-                $_GET['create_time'] = date('Y-m-01', strtotime('-1 month'));
-                $_GET['create_time1'] = date('Y-m-t', strtotime('-1 month'));
+                $_GET['create_time'] = date('Y-m-01 H:i:s', strtotime('-1 month'));
+                $_GET['create_time1'] = date('Y-m-t H:i:s', strtotime('-1 month'));
             }
         }
 
+        $order_source = D('Order')->order_keyword($_GET);
+        $this->assign('order_source',$order_source);
+
+        foreach($order_source as $v){
+            $data['order_num'] = $data['order_num']  + $v['order_num'];//订单总数
+            $data['completed_num'] = $data['completed_num'] + $v['completed_num'];//承担总数
+            $data['end_num'] = $data['end_num'] + $v['end_num'];//承担总数
+            $data['cancel_num'] = $data['cancel_num'] + $v['cancel_num'];//取消总数
+        }
+        //成单率
+        if( $data['completed_num']){
+            $data['completed_lv'] =  $data['completed_num'].'/'.$data['order_num'].' = '.sprintf('%.2f', $data['completed_num']/$data['order_num']*100).'%';
+        }
+        //结算率
+        if($data['end_num']){
+            $data['end_lv'] =  $data['end_num'].'/'.$data['order_num'].' = '.sprintf('%.2f',$data['end_num']/$data['order_num']*100).'%';
+        }
+        //取消率
+        if($data['cancel_num']){
+            $data['cancel_lv'] = $data['cancel_num'].'/'.$data['order_num'].' = '.sprintf('%.2f',$data['cancel_num']/$data['order_num']*100).'%';
+        }
+
+        $this->assign('empty',"<h1>暂无数据</h1>");
+        $this->assign('data',$data);
         $this->assign('get',$_GET);
         $this->display();
     }
-/*
- * User: 沈艳艳
- * Date: 2017/08/25
- * 退费订单列表
- */
-    public function return_fee(){
-//判断是否有新建订单按钮权限
-        $pid = I('pid');
-        $add_order = D('AuthRule')->getRule($pid,'新建订单');
-        $this->assign('add_order',$add_order['name']);
-
-
-        $where = ' flag = 0 and status = 5 and return_fee != "0"';
-        $arr = D('order')->order_list($_GET,$where);
-        $list = $arr['list'];
-        foreach($list as $k=>$v){
-            $list[$k]['name'] = M('user')->where("id = {$v['userid']}")->getField('truename');
-            $list[$k]['wholeprice'] = M('trainclass')->where("type_id = {$v['school_id']} and name = '{$v['class_name']}'")->getField('wholeprice');
-            if(!$list[$k]['wholeprice']){
-                $list[$k]['wholeprice'] = 6500;
-            }
-        }
-        $this->assign('count', $arr['count']);
-        $this->assign('page', $arr['page']);
-        $this->assign('list', $list);
-        $this->assign('firstRow', $arr['firstRow']);
-        $this->assign('get', $_GET);
-        $this->display();
-    }
-/*
- * User：沈艳艳
- * Date：2017/09/01
- * 订单列表里的flag visit 状态改变
- */
-    public function flag_visit(){
-        $type = I('type');
-        $id = I('id');
-        $info = M('order')->where(array('id'=>$id))->getField($type);
-        if($info == 0){
-            $_POST[$type] = 1;
-        }else{
-            $_POST[$type] = 0;
-        }
-        $res = M('order')->save($_POST);
+//其他优惠更新
+    public function sale_price(){
+        $order = M('Order')->where(array('id'=>I('id')))->find();
+        $_POST['lastupdate'] = session('admin_name');
+        $res = M('Order')->save($_POST);
         if($res){
-            $log['done'] = '修改驾校预约状态';
-            D('AdminLog')->logout($log);
-            $this->success('操作成功');
+            $log = "订单其他优惠:{$order['sale_price']}=>".I('sale_price');
+            D('AdminLog')->addOrderLog($log,I('id'));
+            $this->redirect('list_info',array('id'=>I('id'),'pid'=>I('pid'),'p'=>I('p')),0,'修改成功');
+        }else{
+            echo "false";
         }
+    }
+//订单详情里 取消订单
+    public function cancel_order(){
+        $_POST['status'] = 5;
+        $_POST['order_status'] = 5;
+        $res =  M('Order')->save($_POST);
+        if($res){
+            $log = '取消订单';
+            D('AdminLog')->addOrderLog($log,I('id'));
+            $this->redirect('list_info',array('id'=>I('id'),'pid'=>I('pid'),'p'=>I('p')));
+        }else{
+            echo 'false';
+        }
+    }
+
+/*-------------------------------2017-11-23shenyanyan--------------------------*/
+//查询到所有的待回访订单 将其时间与现在的时间相对比 如果大于现在的时间则 记录条数并异步返回到订单页面
+    public function timing(){
+        $now_time = date('Y-m-d H:i:s',time());
+        $count = M('Order')->where(array('order_status'=>2,'return_time'=>array('elt',$now_time)))->count();
+        $this->success($count);
     }
 }

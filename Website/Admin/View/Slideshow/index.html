@@ -5,26 +5,16 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-    <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FA7124;}
-        #page span{ background:#F27602; color:#FA7124; font-weight: bold;}
-
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
-        .table_a tr:hover{background-color: rgb(82, 249, 56)  }
-    </style>
 </head>
 <body>
-<div class="div_head" style="font-weight: bolder;font-size: 15px;color:#ffffff;background-color: rgb(129, 191, 249);">
+<div class="div_head">
     轮播图列表
-    <span style="float:right;color: #ffffff;margin-right: 1%">总计：{$info['count']}</span>
+    <span class="span">总计：{$info['count']}</span>
 </div>
-<div style="font-size: 13px;margin: 10px 5px">
+<div style="margin: 10px 5px">
     <form action="{:U('add_slide',array('p'=>$get['p'],'pid'=>$get['pid']))}" method="post" enctype="multipart/form-data" id="form1">
-        <table style="border:1px solid  rgb(129, 191, 249);" width="100%" class="table_a">
-            <tr style="height:35px;font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff">
+        <table  width="100%" class="table_a">
+            <tr style="background-color:rgb(19, 181, 177);">
                 <td width="5%">序号</td>
                 <td width="5%">图片</td>
                 <td width="10%">图片描述</td>
@@ -40,18 +30,16 @@
                 <tr>
                     <td>
                         <if condition="$v['list_flag'] eq 1">
-                            <p style="color: #fa7142">{$k} *列表页</p>
+                            <p style="color:rgb(19, 181, 177)">{$k} *列表页</p>
                             <else/>
                             <p>{$k}</p>
                         </if>
                     </td>
                     <td>
-                        <img src="{$http}/Uploads/Slideshow_logo/{$v.picurl}{$v.picname}" alt="" style="border-radius:40%;width:150px ;height: 70px" />
+                        <img src="{$http}/Uploads/Slideshow_logo/{$v.picurl}{$v.picname}" alt="" style="border-radius:40%;width:100px;height:50px" />
                     </td>
                     <td>{$v.describe}</td>
-                    <td>
-                        {$http}/Uploads/Slideshow_logo/{$v.picurl}{$v.picname}
-                    </td>
+                    <td>{$http}/Uploads/Slideshow_logo/{$v.picurl}{$v.picname}</td>
                     <td>{$v['param']=='0'?'/':$v['param']}</td>
                     <td>{$v['url']==''?'/':$v['url']}</td>
                     <td>
@@ -68,102 +56,18 @@
                     <td>{:date('Y-m-d',$v['ntime'])}</td>
                     <td>{$v['flag']==0?'禁止':'展示'}</td>
                     <td>
-                        <a href="{:U('edit_slide?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
-                        <a href="{:U('change_status?id='.$v['id'].'&pid='.$get['pid'].'&flag='.$v['flag'].'&p='.$get['p'])}">{$v['flag']==0?'展示':'禁止'}</a>
-                        <a href="{:U('change_status?id='.$v['id'].'&pid='.$pid.'&list_flag='.$v['list_flag'].'&p='.$get['p'])}">{$v['list_flag']==0?'设为列表图':'取消列表图'}</a>
-                        <a href="{:U('del_img?id='.$v['id'].'&pid='.$pid.'&p='.$get['p'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                        <a class="tablelink" href="{:U('edit_slide?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
+                        <a class="tablelink" href="{:U('change_status?id='.$v['id'].'&pid='.$get['pid'].'&flag='.$v['flag'].'&p='.$get['p'])}">{$v['flag']==0?'展示':'禁止'}</a>
+                        <a class="tablelink" href="{:U('change_status?id='.$v['id'].'&pid='.$pid.'&list_flag='.$v['list_flag'].'&p='.$get['p'])}">{$v['list_flag']==0?'设为列表图':'取消列表图'}</a>
+                        <a class="tablelink" href="{:U('del_img?id='.$v['id'].'&pid='.$pid.'&p='.$get['p'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
                     </td>
                 </tr>
             </volist>
         </table>
-        <div id="page" style="float: left">
+        <div id="page">
             {$info['page']}
         </div>
     </form>
 </div>
 </body>
 </html>
-<script>
-    var uploadUrl = '{:U("uploadMulPic")}';
-    var listUrl = '{:U("index")}';
-    //提交商品发布表单
-    $('.btn').click(function(){
-        $(this).attr('disabled',true);
-        $('#form1').ajaxSubmit(function(res){
-            $('.uploadBtn').click();
-            setTimeout(function() {
-                alert('添加成功');
-                location.href=res.url;
-            },2000);
-
-        },'json');
-        return false;
-    });
-
-
-    //图片上传预览    IE是用了滤镜。
-    function previewImage(file,pre,imag)
-    {
-        var MAXWIDTH  = 300;
-        var MAXHEIGHT = 300;
-        var div = document.getElementById(pre);
-        if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
-            //$(this).prev('span').text('图片格式无效！');
-            $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');
-            return false;
-        }else{
-            $('#'+pre).next('span').css({"color":"green","font-weight":"bold"}).text('');
-        }
-        if (file.files && file.files[0])
-        {
-            div.innerHTML ='<img id='+imag+'>';
-            var img = document.getElementById(imag);
-            img.onload = function(){
-                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-                img.width  =  rect.width;
-                img.height =  rect.height;
-//                 img.style.marginLeft = rect.left+'px';
-                img.style.marginTop = rect.top+'px';
-            }
-            var reader = new FileReader();
-            reader.onload = function(evt){img.src = evt.target.result;}
-            reader.readAsDataURL(file.files[0]);
-        }
-        else //兼容IE
-        {
-            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
-            file.select();
-            file.blur();
-            var src = document.selection.createRange().text;
-            div.innerHTML ='<img id='+imag+'>';
-            var img = document.getElementById(imag);
-            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
-            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
-        }
-
-        $(file).next('label').css({margin:0,top:0,position:'absolute',background:'rgba(0,0,0,0.4)',color:'#fff',fontSize:'14px'}).html('重新选择主图');
-    }
-    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
-        var param = {top:0, left:0, width:width, height:height};
-        if( width>maxWidth || height>maxHeight )
-        {
-            rateWidth = width / maxWidth;
-            rateHeight = height / maxHeight;
-
-            if( rateWidth > rateHeight )
-            {
-                param.width =  maxWidth;
-                param.height = Math.round(height / rateWidth);
-            }else
-            {
-                param.width = Math.round(width / rateHeight);
-                param.height = maxHeight;
-            }
-        }
-
-        param.left = Math.round((maxWidth - param.width) / 2);
-        param.top = Math.round((maxHeight - param.height) / 2);
-        return param;
-    }
-</script>

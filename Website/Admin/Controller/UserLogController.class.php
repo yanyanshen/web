@@ -22,12 +22,10 @@ class UserLogController extends CommonController{
             ->where($where)->count();
         $page = new \Think\Page($count,20);
         $show = $page->show();
-        $UserLog = M('UserLog')->alias('ul')
-            ->join('xueches_user u ON u.id = ul.uid')
+        $UserLog = M('UserLog')->alias('ul')->join('xueches_user u ON u.id = ul.uid')
             ->field('ul.*,u.truename,u.account,u.phone,u.lastip,u.lasttime')
             ->limit($page->firstRow.','.$page->listRows)
-            ->where($where)
-            ->select();
+            ->where($where)->select();
         $this->assign('UserLog',$UserLog);
         $this->assign('firstRow',$page->firstRow);
         $this->assign('page',$show);

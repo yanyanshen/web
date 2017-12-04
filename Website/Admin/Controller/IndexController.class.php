@@ -24,5 +24,4 @@ class IndexController extends CommonController {
         $this->assign('admin',$admin);
         $this->display();
     }
-
 }

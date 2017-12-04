@@ -7,27 +7,22 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        .table_a td{text-align: left}
     </style>
 </head>
 <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+    <div class="div_head">
         权限列表
         <if condition="get['add_rule'] eq '0'">
-            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="javascript:alert('暂无权限')">【权限添加】</a>
+            <a style="text-decoration: none;color:#fa7124;" href="javascript:alert('暂无权限')">【权限添加】</a>
             <else/>
-            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U($get['add_rule'],array('pid'=>$get['pid']))}">【权限添加】</a>
+            <a style="text-decoration: none;color:#fa7124;" href="{:U($get['add_rule'],array('ppid'=>$get['pid']))}">【权限添加】</a>
         </if>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-        <table class="table_a" style="border:1px solid rgba(119, 163, 218, 0.79)" width="100%">
+    <div style="margin: 10px 5px;">
+        <table class="table_a" width="100%">
         <thead>
-        <tr style="height:35px;color:#ffffff;font-weight: bold;background-color:  rgb(129, 191, 249);">
+        <tr style="background-color:  rgb(19, 181, 177);">
             <th>权限名称</th>
             <th>权限规则</th>
             <th>操作</th>
@@ -35,7 +30,7 @@
         </thead>
         <tbody>
         <volist name="ruleList" id="value">
-            <tr>
+            <tr style="color: #646464">
                 <td>{:str_repeat('&nbsp;',12*($value['level']-1))}|--{$value.title}</td>
                 <td>{$value.name}</td>
                 <td>
@@ -49,7 +44,6 @@
     </table>
     </div>
     <div id="page">{$ruleList['page']}</div>
-
 </body>
 </html>
 <script>

@@ -26,7 +26,7 @@ class AuthRuleController extends CommonController{
             if($data){
                 $nid=$rule->add_rule($data);
                 if($nid){
-                    $log['done'] = '添加权限 ID_'.$nid;
+                    $log['done'] = "权限添加: => {$data['title']}";
                     D('AdminLog')->logout($log);
                     $this->success('权限添加成功',$url);
                 }else{
@@ -47,6 +47,7 @@ class AuthRuleController extends CommonController{
             $id = I('post.id');
             $info = M('AuthRule')->where(array('id' => $id))->find();
             if ($info) {
+                $log['done'] = "权限删除: => {$info['title']}";
                 $where['path'] = array('like', "{$id}%");
                 $pathInfo = M('AuthRule')->where($where)->select();
                 if ($pathInfo) {
@@ -55,7 +56,6 @@ class AuthRuleController extends CommonController{
                     $res = M('AuthRule')->where(array('id'=>$id))->delete();
                 }
                 if($res){
-                    $log['done'] = '删除权限 ID_'.$res;
                     D('AdminLog')->logout($log);
                     $this->success('删除成功',U('Admin/AuthRule/index',array('pid'=>I('pid'))));
                 }else{
@@ -78,6 +78,9 @@ class AuthRuleController extends CommonController{
                 $pid = I('post.firstRule');
             }
 //如果选择的分类的pid=0则让添加的分类新path=它自己的id;
+            //原来的权限信息
+            $authInfo = M('AuthRule')->field('title,path')->where(array('id'=>$id))->find();
+            $log['done'] = "权限信息:{$authInfo['title']}({$authInfo['path']}) => ";
             if($pid==0){
                 $newpath=$id;
             }else{
@@ -91,7 +94,7 @@ class AuthRuleController extends CommonController{
             $data['id']=$id;
             $info=D('AuthRule')->edit($data);
             if($info){
-                $log['done'] = '编辑权限 ID_'.$id;
+                $log['done'] .= "{$data['title']}($newpath)";
                 D('AdminLog')->logout($log);
                 $this->success('编辑成功',U('Admin/AUthRule/index',array('pid'=>I('pid'))));
             }else{

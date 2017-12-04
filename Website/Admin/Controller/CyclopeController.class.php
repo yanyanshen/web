@@ -62,7 +62,7 @@ class CyclopeController extends CommonController{
                         $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
                         $res = M('cyclope')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url'],'picname'=>$name));
                         if($res){
-                            $log['done'] = '添加百科内容 ID_'.$id;
+                            $log['done'] = "百科添加: => {$_POST['title']}";
                             D('AdminLog')->logout($log);
                             $this->success('添加成功',U('cyclope/index',array('pid'=>$_POST['pid'],'p'=>$_POST['p'])));
                         }else{
@@ -125,7 +125,7 @@ class CyclopeController extends CommonController{
                     $res = 1;
                 }
                 if($res){
-                    $log['done'] = '添加百科子内容 ID_'.$id;
+                    $log['done'] = "百科添加: => {$_POST['title']}";
                     D('AdminLog')->logout($log);
                     $url = U('Admin/Cyclope/content_index?id='.I('type_id').'&pid='.I('pid').'&p='.I('p'));
                     $this->success('添加成功',$url);
@@ -167,7 +167,7 @@ class CyclopeController extends CommonController{
                             $ret = cloudCos($src,$name,'cyclope/'.date('Y-m-d'));//存储到腾讯云上
                             $res = M('CyclopeContent')->where(array('id'=>$id))->save(array('videourl'=>$ret['access_url'],'videoname'=>$name));
                             if($res){
-                                $log['done'] = '添加百科视频 ID_'.$id;
+                                $log['done'] = "百科视频添加: => {$_POST['tile']}";
                                 D('AdminLog')->logout($log);
                                 $this->success('上传成功！',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
                             }else{
@@ -190,13 +190,14 @@ class CyclopeController extends CommonController{
     public function set_header(){
         $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('set_header');
         if($set_header == 0){
+            $log['done'] = "百科置顶设置:$set_header => 1";
             $data['set_header'] = 1;
         }else{
+            $log['done'] = "百科置顶设置:$set_header => 0";
             $data['set_header'] = 0;
         }
         $res = M('Cyclope')->where(array('id'=>I('id')))->save($data);
         if($res){
-            $log['done'] = '设置/取消置顶百科 ID_'.I('id');
             D('AdminLog')->logout($log);
             $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
         }
@@ -206,13 +207,14 @@ class CyclopeController extends CommonController{
     public function Hnew(){
         $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('Hnew');
         if($set_header == 0){
+            $log['done'] = "热门百科设置:$set_header => 1";
             $data['Hnew'] = 1;
         }else{
+            $log['done'] = "热门百科设置:$set_header => 0";
             $data['Hnew'] = 0;
         }
         $res = M('Cyclope')->where(array('id'=>I('id')))->save($data);
         if($res){
-            $log['done'] = '设置/取消热门百科 ID_'.I('id');
             D('AdminLog')->logout($log);
             $this->redirect('index',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
         }

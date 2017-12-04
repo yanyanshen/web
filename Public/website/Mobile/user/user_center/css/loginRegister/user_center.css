@@ -21,8 +21,8 @@
 }
 .user_name h1{
     font-size: 14px;
-    font-family: "Î¢ÈíÑÅºÚ";
-    line-height: 24px;
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
+    line-height: 70px;
 }
 .user_tel{
     text-align: center;
@@ -30,7 +30,7 @@
 }
 .user_tel h2{
     font-size: 14px;
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     line-height: 14px;
 }
 .user_order{
@@ -74,7 +74,7 @@
     float: left;
     line-height: 50px;
     margin-left: 10px;
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     font-size: 14px;
     width: 70%;
 }
@@ -103,7 +103,7 @@
     margin-top: 6px;
 }
 .foot_box p{
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     font-size: 14px;
     color:#fff;
     text-align: center;

@@ -6,28 +6,20 @@
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
-    <style>
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
-    </style>
 </head>
 <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+    <div class="div_head">
         管理组列表
-        <if condition="get['add_group'] eq '0'">
-            <a style="text-decoration: none;color:#ff143f;font-size: 15px" href="javascript:alert('暂无权限')" >【管理组添加】</a>
-            <else/>
-            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U($get['add_group'],array('pid'=>$get['pid']))}">【管理组添加】</a>
-        </if>
+        <a style="text-decoration: none;color:#FA7124;" href="{:U('Admin/AuthGroup/add_group',array('pid'=>$get['pid'],'p'=>$get['p']))}" >【管理组添加】</a>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-        <table class="table_a" style="border:1px solid rgb(129, 191, 249)" width="100%">
+    <div style="margin: 10px 5px;">
+        <table class="table_a" width="100%">
             <tbody>
-                <tr style="font-weight: bold;height: 35px;background-color:  rgb(129, 191, 249);color: #ffffff">
+                <tr style="background-color:  rgb(19, 181, 177);">
                     <th>编号</th>
                     <th>管理组名称</th>
                     <th>成员</th>
-                    <th>操作</th>
+                    <th style="width: 400px">操作</th>
                 </tr>
                 <volist name="groupList" id="value" key="k">
                     <tr>

@@ -8,10 +8,10 @@ class PayModel extends Model{
     }
     // 在类初始化方法中，引入相关类库
     public function _initialize(){
-            vendor('Alipay.Corefunction');
-            vendor('Alipay.Md5function');
-            vendor('Alipay.AlipayNotify');
-            vendor('Alipay.AlipaySubmit');
+        vendor('Alipay.Corefunction');
+        vendor('Alipay.Md5function');
+        vendor('Alipay.AlipayNotify');
+        vendor('Alipay.AlipaySubmit');
     }
 
     /*

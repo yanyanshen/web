@@ -17,7 +17,7 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 
 
-//// 定义移动端模块
+// 定义移动端模块
 $mobile_agents = Array("240x320","acer","acoon","acs-","abacho","ahong","airness","alcatel","amoi","android","anywhereyougo.com",
 /* "applewebkit/525","applewebkit/532", */"asus","audio","au-mic","avantogo","becker","benq","bilbo","bird","blackberry","blazer","bleu","cdm-","compal","coolpad","danger","dbtel","dopod","elaine","eric","etouch","fly ","fly_","fly-","go.web","goodaccess","gradiente","grundig","haier","hedy","hitachi","htc","huawei","hutchison","inno","ipad","ipaq","ipod","jbrowser","kddi","kgt","kwc","lenovo","lg ","lg2","lg3","lg4","lg5","lg7","lg8","lg9","lg-","lge-","lge9","longcos","maemo","mercator","meridian","micromax","midp","mini","mitsu","mmm","mmp","mobi","mot-","moto","nec-","netfront","newgen","nexian","nf-browser","nintendo","nitro","nokia","nook","novarra","obigo","palm","panasonic","pantech","philips","phone","pg-","playstation","pocket","pt-","qc-","qtek","rover","sagem","sama","samu","sanyo","samsung","sch-","scooter","sec-","sendo","sgh-","sharp","siemens","sie-","softbank","sony","spice","sprint","spv","symbian","tablet","talkabout","tcl-","teleca","telit","tianyu","tim-","toshiba","tsm","up.browser","utec","utstar","verykool","virgin","vk-","voda","voxtel","vx","wap","wellco","wig browser","wii","windows ce","wireless","xda","xde","zte");
 if (preg_match("/(".implode('|',$mobile_agents).")/i",strtolower($_SERVER['HTTP_USER_AGENT']))) {
@@ -26,7 +26,7 @@ if (preg_match("/(".implode('|',$mobile_agents).")/i",strtolower($_SERVER['HTTP_
 }
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG',True);
+define('APP_DEBUG',true);
 
 // 定义应用目录
 define('APP_PATH','./Website/');
@@ -36,6 +36,11 @@ define('APP_PATH','./Website/');
 //define('BIND_MODULE','Mobile');//设置默认模块 如果该模块不存在则自动创建模块
 
 
+//if($_SERVER['HTTP_HOST'] == 'm.517xc.cn'){
+//    define('BIND_MODULE','Mobile');//设置默认模块 如果该模块不存在则自动创建模块
+//}else{
+//    define('BIND_MODULE','Home');//设置默认模块 如果该模块不存在则自动创建模块
+//}
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
 

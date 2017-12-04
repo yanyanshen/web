@@ -30,17 +30,17 @@ class TrainAddressController extends CommonController {
         $this->assign('get',$_GET);
         $this->display();
     }
-
     //添加基地   编辑
     public function add_trainaddress(){
         if(IS_AJAX){
+            $trainaddress = M('trainaddress')->where(array('id'=>$_POST['id']))->find();
             $_POST['time']=time();
             if($_POST['id']){
-                $log['done'] = '更新基地 ID_'.$_POST['id'];
+                $log['done'] = "基地信息:{$trainaddress['trname']} => {$_POST['trname']}";
                 $res=M('trainaddress')->where(array('id'=>$_POST['id']))->save($_POST);
             }else{
                 $res=M('trainaddress')->add($_POST);
-                $log['done'] = '添加基地 ID_'.$res;
+                $log['done'] = "基地添加: => {$trainaddress['trname']}";
             }
 
             if($res){
@@ -73,9 +73,10 @@ class TrainAddressController extends CommonController {
 
     public function del_train(){
         $cityid=$_GET['cityid'];
-        $res=M('trainaddress')->where(array('id'=>I('id'),'cityid'=>$cityid))->delete();
+        $trname= M('trainaddress')->field('trname')->where(array('id'=>I('id'),'cityid'=>$cityid))->find();
+        $res = M('trainaddress')->where(array('id'=>I('id'),'cityid'=>$cityid))->delete();
         if($res){
-            $log['done'] = '删除基地 ID_'.I('id');
+            $log['done'] = "基地删除: => {$trname['trname']}";
             D('AdminLog')->logout($log);
             $this->redirect('Admin/TrainAddress/index',array('cityid'=>$cityid,'p'=>I('p'),'pid'=>I('pid')),0,"<script>alert('删除成功')</script> ");
         }else{
@@ -83,7 +84,7 @@ class TrainAddressController extends CommonController {
         }
     }
 
-    public function train_Address(){
+    public function train_address(){
         $type=$_GET['type'];
         switch ($type){
             case 'jx':
@@ -101,7 +102,6 @@ class TrainAddressController extends CommonController {
         $data=D('school')->school_list($where,"id,nickname,cityid");
         $cityname=M('citys')->where("id={$data['cityid']}")->find();
         $this->assign("cityname",$cityname['cityname']);
-        $this->assign("id",$_GET['id']);
 /*改驾校已经有的基地*/
         $trainid=M('train')->field("trainaddress_id")->where("type_id={$_GET['id']} ")->find()['trainaddress_id'];
         $trainArr=explode(',',$trainid);
@@ -125,14 +125,14 @@ class TrainAddressController extends CommonController {
 
 
         $where['type_id']=$_POST['type_id'];
-        $data=M('train')->where($where)->field('id')->find();
+        $data=M('train')->where($where)->field('trainaddress_id,id')->find();
         if($data){
+            $log['done'] = "驾校/教练/指导员基地信息:{$data['trainaddress_id']} => {$_POST['trainaddress_id']}";
             $res=M('train')->where(array('id'=>$data['id']))->save($_POST);
-            $log['done'] = '更新驾校/教练/指导员基地 ID_'.$data['id'];
             D('AdminLog')->logout($log);
         }else{
             $res=M('train')->add($_POST);
-            $log['done'] = '添加驾校/教练/指导员基地 ID_'.$res;
+            $log['done'] = "驾校/教练/指导员基地信息: => {$_POST['trainaddress_id']}";
             D('AdminLog')->logout($log);
         }
         if($res){

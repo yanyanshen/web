@@ -10,15 +10,14 @@
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        div.error{  font-size: 14px;  font-weight: bold;display: inline-block;color: #FF0000;  }
-        div.ok{  font-size: 14px;  font-weight: bold;display: inline-block;  color: #38D63B;  }
+        div.error{  font-size: 12px;display: inline-block;color: #FA7124;  }
+        div.ok{  font-size: 12px;display: inline-block;  color:rgb(19, 181, 177);  }
 
         label{padding: 10px 20px 10px 0;}
         b{color: #fa7142}
-        li{ margin-top: 30px;list-style: none;}
-        .dfinput{margin-left: 10px;
-            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
-            width: 340px;padding: 10px 0 10px 5px}
+        li{ margin-top: 15px;list-style: none;}
+        .dfinput{margin-left: 10px;border:rgb(220,220,220) solid 1px;border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
     </style>
     <script>
         $(document).ready(function(e) {
@@ -35,44 +34,44 @@
     </script>
 </head>
 <body>
-<div class="div_head"  style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+<div class="div_head">
    子内容添加
-    <a style="text-decoration: none;font-weight: bolder;color: #FA7124"
+    <a style="text-decoration: none;font-weight: bold;color: #FA7124"
        href="{$url}">【返回】</a>
 </div>
-<div style="font-size: 13px;margin: 10px 5px ;" >
+<div style="margin: 10px 5px ;" >
     <form action="{:U('Admin/Cyclope/content_add')}" method="post" id="form1" enctype="multipart/form-data">
         <input type="hidden" value="{$get['type_id']}" name="type_id"/>
         <input type="hidden" value="{$get['pid']}" name="pid"/>
-        <ul>
+        <ul style="padding: 0;margin-left: 15px">
             <li>
                 <label>咨询标题<b>*</b></label>
                 <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value="{$cyclope['title']?$cyclope['title']:''}"/>
             </li>
             <li>
                 <label>图片<b>*</b></label>
-                <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:700px;height:230px;position: relative;margin-bottom: 15px">
+                <div class="usercity" style="margin-left:80px;border:3px dashed #e6e6e6;width:500px;height:200px;position: relative;margin-bottom: 15px">
                     (无图片则不选即可)
                     <p id="preview1" >
                         <if condition="$cyclope['id'] neq 0">
-                            <img id="imghead1"  border=0 src='{$cyclope["picurl"]}' width="230"/>
+                            <img id="imghead1"  border=0 src='{$cyclope["picurl"]}'  height="200" width="200"/>
                         </if>
                     </p>
                     <span></span>
                     <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                    <label for="image1"  style="margin:80px 290px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;
-                    line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                    <label for="image1"  style="margin:80px 180px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;
+                    line-height:30px;font-size:13px;background:rgb(19, 181, 177);padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                 </div>
             </li>
             <li>
                 <label>内容<b>*</b></label>
-                <div style="margin-left: 70px">
+                <div style="margin-left: 75px">
                     <textarea name="content"  id="content7" style="width:700px;height:250px;visibility:hidden;">{$cyclope['content']?$cyclope['content']:''}</textarea>
                 </div>
             </li>
             <li>
-                <label style="padding: 10px 70px 10px 0"></label>
-                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="submit" id="submit" value="{$btn?$btn:'添加'}"/>
+                <label style="padding: 10px 75px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="submit" id="submit" value="{$btn?$btn:'添加'}"/>
             </li>
         </ul>
     </form>
@@ -115,7 +114,7 @@
     });
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 200;
-        var MAXHEIGHT = 200;
+        var MAXHEIGHT =150;
         var div = document.getElementById(pre);
         if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
             $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');

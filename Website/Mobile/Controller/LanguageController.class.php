@@ -40,6 +40,7 @@ class LanguageController extends Controller{
         $page = $_POST['page']?$_POST['page']:1;
         $info = M('Language')->where($where)->page($page,15)->select();
         $this->assign('info',$info);
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 //语言教育详情页
@@ -133,7 +134,7 @@ class LanguageController extends Controller{
         $_GET['info'] = M('LanguageClass')->where(array('id'=>I('id')))->find();
 
         $id = M('Language')->where(array('id'=> $_GET['info']['type_id']))->getField('id');
-        $_GET['url'] = U('Mobile/Language/language_detail',array('id'=>$id));//返回详情页链接
+        $_GET['url'] = U('Mobile/Language/language_detail',array('id'=>$id)).'#detail';//返回详情页链接
         $this->assign('get',$_GET);
         $this->display();
     }

@@ -6,51 +6,42 @@
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
-    <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#fa7124;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;text-align: center}
-        .table_a td{border: dotted 1px rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a tr:hover{background-color: rgb(82, 249, 56);}
-    </style>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+<div class="div_head">
     管理员日志(一个月内)  <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
-    <span style="float:right;margin-right: 1%">总计：{$count}</span>
+    <a href="">刷新</a>
+    <span class="span">总计：{$count}</span>
 </div>
-<div class="div_search" style="height: 35px;background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
-        <span>
-            <form action="?" id='form1' method="get" name="form1">
-                <input type="hidden" name="uid" value="{$get['uid']}"/>
-                <input type="hidden" name="t" value="{$get['t']}"/>
-                <input type="hidden" name="p" value="{$get['p']}"/>
-                <input type="hidden" name="pid" value="{$get['pid']}"/>
-                时间：<input name="ntime" type="text" style="width: 100px"  onClick="WdatePicker()" value="{$get['ntime']?$get['ntime']:''}" />
-                至
-                <input type="text" style="width: 100px" value="{$get['ntime1']?$get['ntime1']:''}"  onClick="WdatePicker()" name="ntime1"/>
-                <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/AdminLog/admin_log_detail",array('t'=>1,'pid'=>$get['pid'],'p'=>$get['p']))}')"/>
-                <!--<input value="导出" type="button" id="button" onclick="submitYouFrom('http://www.517xc.cn/index.php/Admin/Order/push')"/>-->
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
-            </form>
-        </span>
+<div class="div_search" >
+    <span>
+        <form action="?" id='form1' method="get" name="form1">
+            <input type="hidden" name="uid" value="{$get['uid']}"/>
+            <input type="hidden" name="t" value="{$get['t']}"/>
+            <input type="hidden" name="p" value="{$get['p']}"/>
+            <input type="hidden" name="pid" value="{$get['pid']}"/>
+            时间：<input name="ntime" type="text" style="width: 100px"  onClick="WdatePicker()" value="{$get['ntime']?$get['ntime']:''}" />
+            至
+            <input type="text" style="width: 100px" value="{$get['ntime1']?$get['ntime1']:''}"  onClick="WdatePicker()" name="ntime1"/>
+            <input value="查询" style="font-size: 11px" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/AdminLog/admin_log_detail",array('t'=>1,'pid'=>$get['pid'],'p'=>$get['p']))}')"/>
+            <script type="text/javascript" language="javascript">
+                function submitYouFrom(path){
+                    $('#form1').attr('action',path);
+                    $('#form1').submit();
+                }
+            </script>
+        </form>
+    </span>
 </div>
-<div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid rgb(129, 191, 249)" width="100%">
+<div style=" margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <tbody>
-        <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);height: 35px;color: #ffffff">
-            <th width="2%">编号</th>
-            <th width="4%">管理员</th>
-            <th width="5%">done</th>
-            <th width="5%">创建时间</th>
-            <th width="3%">loginip</th>
+        <tr style="background-color: rgb(19, 181, 177);">
+            <th width="5%">编号</th>
+            <th width="5%">管理员</th>
+            <th width="75%">done</th>
+            <th width="10%">创建时间</th>
+            <th width="5%">loginip</th>
         </tr>
         <volist name='adminLog'  id='v' key="k" empty="$empty">
             <tr>
@@ -58,14 +49,14 @@
                 <td>
                     <div style="display:inline-block;width: 70px; ">{$v.username}</div>
                 </td>
-                <td>{$v['done']}</td>
+                <td style="text-align: left;word-break: break-all">{$v['done']}</td>
                 <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                 <td>{$v['lastip']}</td>
             </tr>
         </volist>
         </tbody>
     </table>
-    <div id="page" style="float: left">
+    <div id="page">
         {$page}
     </div>
 </div>

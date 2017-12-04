@@ -2,10 +2,17 @@
 namespace Mobile\Controller;
 use Think\Controller;
 use Think\Verify;
-
 class LoginController extends Controller{
     public function register(){
         if(IS_AJAX){
+            $verify = new Verify();
+            $code = I('post.verify');
+            if($verify->check($code,'')){
+                echo 'true';
+            }else{
+                echo 'false';
+            }
+            exit;
             $data['account']=trim(I('cd_tel'));
             $data['truename']=trim(I('cd_name'));
             $data['lastupdate']=trim(I('cd_name'));
@@ -25,7 +32,7 @@ class LoginController extends Controller{
                 }else{
                     $user->commit();
                     $log['uid'] = $info;
-                    $log['done'] = '用户注册';
+                    $log['done'] = '用户注册 ID_'.$info;
                     $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];;
                     D('UserLog')->add_user_log($log);
                     $this->success('注册成功',U('Mobile/Login/login'));
@@ -174,23 +181,22 @@ class LoginController extends Controller{
     }
 
     /*
-  * 忘记密码密码重置代码实现*/
+  * 未登录的时候忘记密码密码重置代码实现*/
     public function forgetPassword(){
         $account = trim(I('username'));
         $data['pass'] = md5(trim(I('pass')));
         $user = M('user');
-        $pass = $user->where(array('id'=>session('mid'),'account'=>$account))->getField('pass');
-        $res = $user->where(array('id'=>session('mid'),'account'=>$account))->save($data);
+        $pass = $user->field('id,pass')->where(array('account'=>$account))->find();
+        $res = $user->where(array('account'=>$account))->save($data);
         if($res){
             $log['done'] = '密码重置';
             $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-            $log['uid'] = session('mid');
+            $log['uid'] = $pass['id'];
             D('UserLog')->add_user_log($log);
-            session('mid',null);
-            $this->success('密码重置成功');
+            $this->success('密码重置成功',U('Mobile/Login/login'));
         }else{
-            if($pass == md5(trim(I('pass')))){
-                $this->success('密码重置成功');
+            if($pass['pass'] == md5(trim(I('pass')))){
+                $this->success('密码重置成功',U('Mobile/Login/login'));
             }else{
                 $url = U("Mobile/User/forgetPassword");
                 $this->error('网络忙请稍候再试',$url);

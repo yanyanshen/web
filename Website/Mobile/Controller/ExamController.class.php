@@ -30,24 +30,29 @@ class ExamController extends Controller{
     public function driver_type(){
         $type=M('type')->where(array('type'=>array('neq',5)))->select();
         $this->assign('type',$type);
-        $this->assign('empty',"<h1>暂无数据</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 /*沈艳艳
     @章节练习页面
 */
     public function chapter(){
+        if(I('mc')){
+            if(session('mid')){
+                $c = 1;
+            }else{
+                $this->redirect('Mobile/Login/login');
+            }
+        }else{
+            $c = 0;
+        }
         $type=$_GET['mt'];
         $subject=$_GET['ms'];
         $cityname=session('city');
         $cityid=M('citys')->where(array('cityname'=>array('like',"%$cityname%")))->find();
 
         $sub=M('subject')->where(array('subject'=>$subject))->select();
-        if(I('mc')){
-            $c = 1;
-        }else{
-            $c = 0;
-        }
+
         $this->assign('mc',$c);
         if($subject==1){
             if($type==1){
@@ -163,7 +168,7 @@ class ExamController extends Controller{
         $this->assign('mt',$type);
         $this->assign('ms',$subject);
         $this->assign('mp',$chap);
-        $this->assign('empty',"<h1>暂无数据</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 

@@ -11,12 +11,21 @@ class AdminLogController extends CommonController{
  * 管理员日志展示
  */
     public function index(){
-        if (IS_GET) {
-            //搜索;
-            $keywords = I('get.username');
-            $where['username'] = array('like', "%$keywords%");
-        } else {
-            $where = '';
+        $where = '';
+        $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
+        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
+            $_GET['uid'] = session('admin_id');
+        }
+
+        if(!empty($_GET)){
+            foreach($_GET as $key=>$val) {
+                if($key == 'username' && $val != ''){
+                    $where .= " username like '%".trim($_GET['username'])."%' and";
+                }elseif($key == 'uid' && $val != ''){
+                    $where .= " uid = ".urldecode($val)." and";
+                }
+            }$where=rtrim($where,'and');
+
         }
         $admins = M('Admin');
         //总记录数;
@@ -70,9 +79,7 @@ class AdminLogController extends CommonController{
         }
 
         //总记录数;
-        $count = $admins->table($table)
-            ->where($where)
-            ->count();
+        $count = $admins->table($table)->where($where)->count();
         $page = new Page($count, 20);
         //分页展示;
         $show = $page->show();

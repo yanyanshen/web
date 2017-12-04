@@ -5,9 +5,8 @@ class DetailController extends Controller{
     //驾校详情页
     public function index(){
         $this->assign('mobile_return',session('mobile_return'));
-        $where['type_id']=I('id');
         $info=M('school')->where(array('id'=>I('id')))
-            ->field('nickname,fullname,id,introduction,picurl,picname,evalutioncount,phone,allcount,timing,
+            ->field('id,nickname,minprice,fullname,introduction,picurl,picname,evalutioncount,phone,allcount,timing,
             address,type,age,teachage,driverage,school_id')->find();
        if(I('type') !='jx'){
            $info['school_id']=M('school')->where(array('id'=>$info['school_id']))->getField('nickname');
@@ -16,8 +15,6 @@ class DetailController extends Controller{
             $info['allcount']=sprintf("%.1f",$info['allcount']/10000).'万';
         }
         $this->assign('info',$info);//驾校
-        $classprice=M('trainclass')->where($where)->getField('wholeprice');
-        $this->assign('classprice',$classprice);//显示的课程价格
 
         $class=M('trainclass')->where(array('type_id'=>I('id')))->select();
         $this->assign('class',$class);//驾校课程
@@ -31,10 +28,9 @@ class DetailController extends Controller{
         $evaluate = D('Evaluate')->index(I('id'),5);
         $this->assign('evaluate',$evaluate);
         $this->assign('evaluate_count',count($evaluate));
-        $this->assign('id',I('id'));
-        $this->assign('http',C('HTTP'));
-        $this->assign('empty',"<h1>暂无信息</h1>");
 
+        $this->assign('http',C('HTTP'));
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 
@@ -43,8 +39,8 @@ class DetailController extends Controller{
         $cid=I('id');
         $info=M('trainclass')->where(array('id'=>$cid))->find();
         $info['jztype']=M('type')->where(array('id'=>$info['jztype']))->getField('jztype');
-        $this->assign('id',$info['type_id']);
         $this->assign('info',$info);
+
         $this->display();
     }
 
@@ -109,6 +105,7 @@ class DetailController extends Controller{
             $this->assign('until',$until);
             $this->assign('new',$new);
             $this->assign('get',$_GET);
+            $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
             $this->display();
         }
     }

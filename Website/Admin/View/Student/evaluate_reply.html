@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        .table_a{border:2px solid rgba(39, 164, 237, 0.22);width:100%;border-radius: 8px;font-size: 13px}
-        .table_a  td,th{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        .table_a td{text-align: left}
     </style>
     <script>
         $(document).ready(function(e) {
@@ -27,35 +27,35 @@
 <body>
 <div>
     <table class="table_a">
-        <tr style="background-color:  rgb(121,199,249);height: 50px">
+        <tr style="background-color: rgb(19, 181, 177);">
             <th width="10%">驾校</th>
             <th width="25%">评论内容</th>
             <th width="25%">回复内容</th>
         </tr>
-            <tr>
-                <td>{$info['nickname']}</td>
-                <td>
+        <tr>
+            <td>{$info['nickname']}</td>
+            <td>
+                <p>
+                    <span style="color: #FA7124">【{$info['ntime']}】</span>
+                    {$info['content']}
+                </p>
+                <notempty name="info['until']">
                     <p>
-                        <span style="color: #FA7124">【{$info['ntime']}】</span>
-                        {$info['content']}
+                        <span style="color: #FA7124">{$info['truename']}追加【{$info['until']['ntime']}】</span>
+                        {$info['until']['content']}
                     </p>
-                    <notempty name="info['until']">
-                        <p>
-                            <span style="color: #FA7124">{$info['truename']}追加【{$info['until']['content']}】</span>
-                            {$info['until']['content']}
-                        </p>
-                    </notempty>
-                </td>
-                <notempty name="reply">
-                    <td>
-                        <volist name="reply" id="data">
-                            <div><span style="color: #FA7124">{$data['lastupdate']}回复【{$data['ntime']}】</span>{$data['content']}</div>
-                        </volist>
-                    </td>
-                    <else/>
-                    <td>/</td>
                 </notempty>
-            </tr>
+            </td>
+            <notempty name="reply">
+                <td>
+                    <volist name="reply" id="data">
+                        <div><span style="color: #FA7124">{$data['lastupdate']}回复【{$data['ntime']}】</span>{$data['content']}</div>
+                    </volist>
+                </td>
+                <else/>
+                <td>/</td>
+            </notempty>
+        </tr>
     </table>
     <form action="" id="form1">
         <input type="hidden" name="eid" value="{$get['id']}"/>

@@ -18,8 +18,11 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back"><a href="{:U('Mobile/Detail/index',array('id'=>$info['type_id']))}">
-                    <img src="__PUBLIC__/public/images/back.png"></a></li>
+                <a href="{:U('Mobile/Detail/index',array('id'=>$info['type_id']))}">
+                    <li class="back" style="padding-right: 50px">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </li>
+                </a>
                 <li class="header_text">培训课程详情</li>
                 <div class="clearfix"></div>
             </ul>
@@ -29,30 +32,8 @@
         <div class="main">
             <div class="course_details">
                 <div class="course">
-                    <h1>
-                        {$info['name']}
-                        <if condition="$info.week eq 1">
-                            （本周特价）
-                        </if>
-                        <if condition="$info.recommand eq 1">
-                            （推荐）
-                        </if>
-                        <if condition="$info.hot eq 1">
-                            （热门）
-                        </if>
-                    </h1>
-                    <p>
-                        {$info['name']}
-                        <if condition="$info.week eq 1">
-                            （本周特价）
-                        </if>
-                        <if condition="$info.recommand eq 1">
-                            （推荐）
-                        </if>
-                        <if condition="$info.hot eq 1">
-                            （热门）
-                        </if>
-                    </p>
+                    <h1>{$info['name']}</h1>
+                    <p>{$info['name']}</p>
                     <ul>
                         <li>车型：{$info.cartype}</li>
                         <li>官方价：{$info.officeprice}元</li>
@@ -72,9 +53,9 @@
                         <li class="money_all">总学费</li>
                         <li class="include">包含</li>
                     </ul>
-                    <ul class="money_2">
+                    <ul class="money_1" style="width: 69%">
                         <li class="money_num">{$info.wholeprice}元</li>
-                        <li style="margin-top: -12px;margin-bottom: -13px;">
+                        <li>
                             <p class="include_text">
                                 {$info.include}
                             </p>
@@ -84,7 +65,7 @@
                 </div>
                 <div>
                     <p class="course_top">培训服务</p>
-                    <ul class="money_3">
+                    <ul class="money_3" style="text-align: center">
                         <li class="service">驾照类型</li>
                         <li class="service">教练车型</li>
                         <li class="service">排队时间</li>
@@ -128,8 +109,8 @@
 
     <footer id="footer">
         <div class="apply_submit">
-            <a href="{:U('Mobile/Order/apply_order',array('sub_button'=>$info['id']))}">
-                <input type="submit"  name="btn2" id="btn2" value="马上报名">
+            <a href="{:U('Mobile/Detail/index',array('id'=>$info['type_id']))}#detail">
+                <input type="submit"  name="btn2" id="btn2" style="-webkit-appearance: none" value="马上报名">
             </a>
         </div>
     </footer>

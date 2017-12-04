@@ -38,6 +38,8 @@ class LanguageController extends CommonController{
             }else{
                 $id = D('language')->add_language($_POST);
                 if($id){
+                    $log['done'] = "语言教育添加: => {$_POST['nickname']}";
+                    D('AdminLog')->logout($log);
                     $src = $_FILES['image']['tmp_name'];
                     $name = $_FILES['image']['name'];
                     //获取文件后缀名的几种方法
@@ -50,8 +52,6 @@ class LanguageController extends CommonController{
                     $ret = cloudCos($src,$name,'language/'.date('Y-m-d'));//存储到腾讯云上
                     $res = M('Language')->where(array('id'=>$id))->save(array('picurl'=>$ret['access_url'],'picname'=>$name));
                     if($res){
-                        $log['done'] = '添加语言教育 ID_'.$res;
-                        D('AdminLog')->logout($log);
                         $this->success('添加成功',U('Admin/Language/index',array('pid'=>I('pid'),'p'=>I('p'))));
                     }else{
                         $this->error('添加失败',U('Admin/Language/add_language',array('pid'=>I('pid'),'p'=>I('p'))));
@@ -74,9 +74,10 @@ class LanguageController extends CommonController{
     public function language_edit(){
         if(IS_AJAX){
             $_POST['lastupdate'] = session('admin_name');
+            $language_name = M('Language')->where(array('id'=>$_POST['id']))->getField('nickname');
+            $log['done'] = "语言教育信息:$language_name => {$_POST['nickname']}";
             $res = M('Language')->save($_POST);
             if($res){
-                $log['done'] = '编辑语言教育 ID_'.$_POST['id'];
                 D('AdminLog')->logout($log);
                 $this->success('编辑成功',U('Admin/Language/index',array('pid'=>I('pid'),'p'=>I('p'))));
             }else{
@@ -144,7 +145,7 @@ class LanguageController extends CommonController{
                 }
                 $res = M("$table")->add($_POST);
                 if($res){
-                    $log['done'] = '添加语言教育相关图片 ID_'.$res;
+                    $log['done'] = '语言教育相关图片添加id: => '.$res;
                     D('AdminLog')->logout($log);
                     $this->success('添加成功',
                         U('Admin/Language/abstract_pic',array('id'=>I('type_id'),'pid'=>I('pid'),'p'=>I('p'),'type'=>I('type'))));
@@ -178,13 +179,13 @@ class LanguageController extends CommonController{
         if(IS_AJAX){
             $_POST['lastupdate'] = session('admin_name');
             if(I('id')){
-                $log['done'] = '编辑语言教育课程 ID_'.I('id');
+                $language_class = M('language_class')->where(array('id'=>I('id')))->getField('name');
+                $log['done'] = "语言教育课程信息:$language_class => {$_POST['name']}";
                 $res = M('LanguageClass')->save($_POST);
             }else{
                 $_POST['ntime'] = time();
                 $res = M('LanguageClass')->add($_POST);
-                $log['done'] = '添加语言教育课程 ID_'.$res;
-
+                $log['done'] = "语言教育课程信息: => {$_POST['name']}";
                 M('Language')->where(array('id'=>I('type_id')))->setInc('class_num',1);
             }
             if($res){
@@ -206,9 +207,10 @@ class LanguageController extends CommonController{
     }
 //语言教育课程删除
     public function language_class_del(){
+        $language_class  = M('LanguageClass')->where(array('id'=>I('id')))->getField('name');
         $res = M('LanguageClass')->where(array('id'=>I('id')))->delete();
         if($res){
-            $log['done'] = '删除语言教育课程 ID_'.I('id');
+            $log['done'] = "语言教育课程删除: => $language_class";
             D('AdminLog')->logout($log);
             M('Language')->where(array('id'=>I('type_id')))->setDec('class_num',1);
             $this->redirect('Admin/Language/language_class',array('pid'=>I('pid'),'id'=>I('type_id'),'p'=>I('p')),0.1,'删除成功');
@@ -246,7 +248,8 @@ class LanguageController extends CommonController{
             $_POST['lastupdate'] = session('admin_name');
             $res = M('LanguageComment')->add($_POST);
             if($res){
-                $log['done'] = '语言教育评论添加 ID_'.$res;
+                M('Language')->where(array('id'=>I('type_id')))->setInc('comment_num',1);
+                $log['done'] = "语言教育评论: => ".session('admin_name');
                 D('AdminLog')->logout($log);
                 $this->success('添加成功',U('Admin/Language/language_comment',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
             }else{
@@ -271,6 +274,10 @@ class LanguageController extends CommonController{
 /*---------------------------2017-10-31shenyanyan----------------------------*/
 //语言教育预约列表
     public function language_apply(){
+        //消息中心
+        $count = D('Order')->order_count();
+        $this->assign('count',$count);
+
         $pid = I('pid');
         $add_order = D('AuthRule')->getRule($pid,'新建订单');
         $_GET['add_order'] = $add_order['name'];

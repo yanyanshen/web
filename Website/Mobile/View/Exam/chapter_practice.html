@@ -44,11 +44,11 @@
 <div class="header_box" style="position: fixed;z-index:1000;">
     <div class="header">
         <ul>
-            <li class="back" style="border: none">
-                    <a href="{:U('Mobile/Exam/chapter',array('mt'=>$Think.session('mt'),'ms'=>$ms,'mc'=>$mc))}">
-                        <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-            </li>
+            <a href="{:U('Mobile/Exam/chapter',array('mt'=>$Think.session('mt'),'ms'=>$ms,'mc'=>$mc))}">
+                <li class="back" style="border: none">
+                    <img src="__PUBLIC__/public/images/back.png">
+                </li>
+            </a>
             <li class="header_text" style="border: none">
                 {$title}
             </li>
@@ -56,9 +56,9 @@
         </ul>
     </div>
 </div>
-<div id="loadingDiv" class="mui-content">
-      <div class="mui-slider">
-        <div class="mui-slider-group " style="margin-bottom: 20%;margin-top:60px">
+<div class="mui-content" >
+    <div class="mui-slider" >
+        <div class="mui-slider-group" style="margin-bottom: 400px;margin-top:60px;">
             <volist name="chapter" id="chap" empty="$empty" key="k">
                 <div class="mui-slider-item" style="background-color: white">
                     <div class="title_{$chap.id}"  answer="{$chap.answer}">
@@ -158,7 +158,7 @@
                 </div>
             </volist>
         </div>
-          <footer id="foot_theoryStudy" style="z-index: 1000;margin-bottom: 0;">
+          <footer id="foot_theoryStudy">
               <ul  class="mui-slider-indicator" >
                   <li class="foot_option">
                       <if condition="$Think.session.mid eq ''">

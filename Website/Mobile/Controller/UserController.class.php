@@ -81,7 +81,7 @@ class UserController extends Controller{
     }
 
     /*设置模板渲染*/
-    public function setUp(){
+    public function setup(){
         if(session('mid')){
             $this->display();
         }else{
@@ -133,7 +133,7 @@ class UserController extends Controller{
             session('order_info',$order_info);
         }
         $this->assign('http',C('HTTP'));
-        $this->assign('empty',"<h2>暂无订单</h2>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
     /*用户中心订单详情模板渲染  数据展示*/
@@ -161,7 +161,7 @@ class UserController extends Controller{
     public function order_apply(){
         $apply_info = M('apply')->where(array('mid'=>session('mid')))->select();
         $this->assign('apply_info',$apply_info);
-        $this->assign('empty',"<h1>暂无数据</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 

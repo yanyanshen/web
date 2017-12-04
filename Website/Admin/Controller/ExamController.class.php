@@ -2,6 +2,8 @@
 namespace Admin\Controller;
 use Think\Controller;
 use Admin\Common\Controller\CommonController;
+use Think\Upload;
+
 class ExamController extends CommonController{
 //后台试题excel表导入数据
     public function exam(){
@@ -104,7 +106,7 @@ class ExamController extends CommonController{
         if(IS_AJAX){
             $res = D('Exam')->add_exam($_POST);
             if($res) {
-                $log['done'] = '添加交规题 ID_'.$res;
+                $log['done'] = '交规题添加: => '.$_POST['question'];
                 D('AdminLog')->logout($log);
                 $this->success('添加成功',U('Admin/Exam/chapter_list',array('pid'=>I('pid'))));
             }else{
@@ -126,15 +128,21 @@ class ExamController extends CommonController{
  * Date：2017/09/05
  * 删除试题
  */
-    public function del_exam(){
-        $id = I('id');
+    public function del_exam($id,$pid,$p){
+        $info = M('exam')->where(array('id'=>$id))->find();
+        $log['done'] = '交规题删除: => '.$info['question'];
+        if($info['image']){
+            $upload = new Upload();
+            $upload->rootPath="./Uploads";
+            $info = M('exam')->where("id = {$id}")->find();
+            unlink($upload->rootPath . $info['image']);
+        }
         $res = M('exam')->where(array('id'=>$id))->delete();
         if($res){
-            $log['done'] = '删除交规题 ID_'.I('id');
             D('AdminLog')->logout($log);
-            $this->redirect('Admin/Exam/exam_list',array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('操作成功')</script>");
+            $this->redirect('Admin/Exam/exam_list',array('pid'=>$pid,'p'=>$p),0,"<script>alert('操作成功')</script>");
         }else{
-            $this->redirect('Admin/Exam/exam_list',array('pid'=>I('pid'),'p'=>I('p')),0.1,"<script>alert('操作失败')</script>");
+            $this->redirect('Admin/Exam/exam_list',array('pid'=>$pid,'p'=>$p),0.1,"<script>alert('操作失败')</script>");
         }
     }
 }

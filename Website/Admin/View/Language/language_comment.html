@@ -5,44 +5,33 @@
     <title>语言教育评价</title>
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
-    <style>
-        #page a,#page span{
-            display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
-        }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
-        .table_a tr:hover{background-color: rgb(82, 249, 56)}
-    </style>
 </head>
 <body>
-    <div class="div_head"  style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder;">
+    <div class="div_head">
         {$get['nickname']} - 评价列表
-        <a style="text-decoration: none;color:#fa7124;font-size: 15px"
+        <a style="text-decoration: none;color:#fa7124;"
                href="{$get['add_url']}">【评价添加】</a>
-        <a style="text-decoration: none;color:#fa7124;font-size: 15px"
+        <a style="text-decoration: none;color:#fa7124;"
                href="{$get['url']}">【返回】</a>
-        <span style="float:right;margin-right: 1%">总计：{$get['count']}</span>
+        <span class="span">总计：{$get['count']}</span>
     </div>
-    <div class="div_search"  style="background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bold">
+    <div class="div_search">
         <span>
             <form action="{:U('Admin/Language/language_comment',array('pid'=>$get['pid'],'p'=>$get['p'],'id'=>$get['id']))}" id='form' method="get">
                 评价时间：<input type="text" style="width: 100px" name='ntime1' value="{$get['ntime1']?$get['ntime1']:''}" onClick="WdatePicker()"/>
                 至 <input type="text" style="width: 100px" name='ntime2' value="{$get['ntime2']?$get['ntime2']:''}" onClick="WdatePicker()"/>
-                <input value="查询" type="submit"/>
+                <input value="查询" style="font-size: 11px" type="submit"/>
             </form>
         </span>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid  rgb(129, 191, 249);" width="100%">
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <tbody>
-            <tr style="font-weight: bold;height:36px;background-color:  rgb(129, 191, 249);color:#ffffff">
+            <tr style="background-color: rgb(19, 181, 177);">
                 <th width="2%">编号</th>
                 <th width="2%">ID</th>
                 <th width="2%">评论人</th>
-                <th width="10%">内容</th>
+                <th width="15%">内容</th>
                 <th width="2%">时间</th>
                 <th width="2%">评分</th>
                 <th width="3%">最后操作人</th>
@@ -58,12 +47,13 @@
                     <td>{$v.score}</td>
                     <td>{$v.lastupdate}</td>
                     <td>
-                        <a href="{:U('Admin/Language/language_comment_del',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p'],'type_id'=>$get['id']))}" onclick="if(confirm('确认此操作吗？')==false) return false">删除</a>　
+                        <a class="tablelink" href="{:U('Admin/Language/language_comment_del',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p'],'type_id'=>$get['id']))}" onclick="if(confirm('确认此操作吗？')==false) return false">删除</a>
+                    </td>　
                 </tr>
         </volist>
         </tbody>
     </table>
-    <div id="page" style="float: left">
+    <div id="page">
         {$page}
     </div>
 </div>

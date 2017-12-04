@@ -19,11 +19,11 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back">
-                    <a href="{:U('Mobile/User/order_center')}">
+                <a href="{:U('Mobile/User/order_center')}">
+                    <li class="back" style="padding-right: 50px">
                         <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-                </li>
+                    </li>
+                </a>
                 <li class="header_text">订单详情页</li>
                 <div class="clearfix"></div>
             </ul>
@@ -34,8 +34,12 @@
             <form class="list_detail">
                 <div class="list_det">
                     <div class="list_det_img">
-                        <if condition="$info['picname'] neq ''">
+                        <if condition="$info['picname'] neq '' and $info['s_type'] eq 1">
                             <img src="{$http}/Uploads/School_logo/{$info['picurl']}{$info['picname']}">
+                            <elseif condition="$info['picname'] neq '' and $info['s_type'] eq 2"/>
+                            <img src="{$http}/Uploads/Coach_logo/{$info['picurl']}{$info['picname']}">
+                            <elseif condition="$info['picname'] neq '' and $info['s_type'] eq 2"/>
+                            <img src="{$http}/Uploads/guider_logo/{$info['picurl']}{$info['picname']}">
                             <else/>
                             <img src="{$http}/Uploads/default_logo/517.png">
                         </if>
@@ -44,7 +48,7 @@
                         <li class="text_detname">
                             {$info['s_nickname']}
                         </li>
-                        <li class="text_detcourse">{$info['class_name']}</li>
+                        <li class="text_detcourse" style="color:#FA7124;font-size: 12px">{$info['class_name']}</li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -60,7 +64,6 @@
                             <li class="detail_tow" >{$data['name']}</li>
                             <li  style="margin-left: 2%;"  class="detail_one">报名电话</li>
                             <li class="detail_tow" style="width: 21%">{$data['tel']}</li>
-                            <li class="detail_tow" style="width: 21%;text-align: center;color: rgb(250,113,36)">{$data['class_name']}</li>
                             <div class="clearfix"></div>
                         </ul>
                     </volist>
@@ -82,7 +85,7 @@
                     </ul>
                     <ul class="detail">
                         <li class="detail_one">下单时间</li>
-                        <li class="detail_tow">{:date('Y-m-d',$info['create_time'])}</li>
+                        <li class="detail_tow" style="width: 200px">{$info['create_time']}</li>
                         <div class="clearfix"></div>
                     </ul>
                     <ul class="detail">
@@ -103,11 +106,11 @@
             </form>
             <footer id="footer">
                 <if condition="$info['status'] eq 1 or ($info['status'] eq 5) or ($info['status'] eq 6)">
-                    <input type="submit" oid="{$info['id']}"  status="{$info['status']}"  name="btn2" class="foot_box1 btn" value="{$info['memberstatus']}">
+                    <input type="submit"  style="-webkit-appearance: none"  oid="{$info['id']}"  status="{$info['status']}"  name="btn2" class="foot_box1 btn" value="{$info['memberstatus']}">
                     <else/>
-                    <input type="submit" class="foot_box1" value="{$info['memberstatus']}"/>
+                    <input type="submit"  style="-webkit-appearance: none"  class="foot_box1" value="{$info['memberstatus']}"/>
                 </if>
-                <input type="submit" oid="{$info['id']}"  status="{$info['status']}"  name="btn2" class="foot_box2" value="{$info['statusname']}">
+                <input type="submit" oid="{$info['id']}"  status="{$info['status']}" style="-webkit-appearance: none"  name="btn2" class="foot_box2" value="{$info['statusname']}">
             </footer>
         </div>
     </div>
@@ -119,21 +122,30 @@
         var status = $(this).attr('status');
         var oid = $(this).attr('oid');
         $(this).attr('disabled','true');
-        layer.open({
-            type:2
-            ,content:'加载中'
-            ,time:2
-            ,end: function(index){
-                $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
-                    if(res.info){
-                        location.href = res.url;
-                    }else{
-                        location.href = '#';
-                    }
-                    layer.close(index);
-                },'json');
-            }
-        });
+        if(status == 2 || status==1){
+            layer.open({
+                content:'请耐心等待客服处理',time: 2 //2秒后自动关闭
+                ,end:function(){
+                    location.href='';
+                }
+            });
+        }else{
+            layer.open({
+                type:2
+                ,content:'加载中'
+                ,time:2
+                ,end: function(index){
+                    $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
+                        if(res.info){
+                            location.href = res.url;
+                        }else{
+                            location.href = '#';
+                        }
+                        layer.close(index);
+                    },'json');
+                }
+            });
+        }
     });
 /*取消订单*/
     $(".btn").click(function(){

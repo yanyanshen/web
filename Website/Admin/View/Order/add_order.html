@@ -5,110 +5,57 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
-    <link rel="stylesheet" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
-    <link rel="stylesheet" href="__STATIC__/ment/bootstrap/css/bootstrap-select.min.css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-    <script src="__STATIC__/ment/js/bootstrap.min.js"></script>
-    <script src="__STATIC__/ment/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script language="javascript">
        $(function(){
             var validate=$('#form1').validate({
-                rules:{
-                    phone:{required:true, phone:true},
-                    truename:{required:true}
-                },
-                messages:{
-                    phone:{required:'联系方式不能为空！'},
-                    truename:{required:'客户名不能为空!'}
-                },
+                rules:{phone:{required:true, phone:true}, truename:{required:true}},
+                messages:{phone:{required:' * 必填项！'}, truename:{required:' * 必填项！'}},
                 success:function(span){
-                    span.addClass('ok').text('通过验证')
+                    span.addClass('ok').text(' * ok')
                 },
                 validClass:'ok',
                 errorElement:'span'
             });
-
+            $("#form1").submit();
             jQuery.validator.addMethod("phone", function(value, element) {
                 var mobileReg = /^1[34578]{1}[0-9]{9}$/;
                 return this.optional(element) || (mobileReg.test(value));
-            }, "请正确填写您的手机号");
-
-        });
-        $("document").ready(function(){
-            $("#jx").change(function(){
-
-                id = $("#jx option:selected").val();
-                data={"id":id};
-                returntrain(data);
-            });
-            $("#jl").change(function(){
-                id = $("#jl option:selected").val();
-                data={"id":id};
-                returntrain(data);
-            });
-            $("#zd").change(function(){
-                id = $("#zd option:selected").val();
-                data={"id":id};
-                returntrain(data);
-            });
-            function returntrain(data){
-                $.ajax({
-                    type: "POST",
-                    url: '{:U("Order/returntrain")}',
-                    data:JSON.stringify(data),
-                    dataType: "json",//指定返回数据的类型
-                    success: function (message) {
-                        $('#train').html('');
-                        $('#train').append("<option value='0'>请选择</option>");
-                        $('#class').html('');
-                        $('#class').append("<option value='C1照全包'>请选择</option>");
-                        for(var i in message['train']){
-                            $('#train').append("<option value="+message['train'][i]['trname']+">"+message['train'][i]['trname']+"</option>");
-                        }
-                        for(var i in message['trainclass']){
-                            $('#class').append("<option value="+message['trainclass'][i]['name']+">"+message['trainclass'][i]['name']+"</option>");
-                        }
-                    },
-                    error: function (message) {
-                        alert(JSON.stringify(message));
-                    }
-                });
-            }
+            }, " * 手机号格式错误");
         });
     </script>
     <style>
-        table td{  height: 35px;border:1px solid #92d2ff }
-        .td {color: #000000;font-weight: bolder}
-        input{  margin-bottom: 8px;  }
-        span.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
-        span.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
+        .td {color: #646464;font-weight: bolder}
+        span.error{font-size: 12px;color: #FA7124;}
+        span.ok{font-size: 12px;color: rgb(19, 181, 177);}
+        .table_a  td{text-align: left}
 
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        #searchresult{top:205px;left: 260px;position: absolute;z-index:5; overflow:hidden;border-top:none;}
+        .line{font-size:12px; color: #ffffff; background:rgb(19, 181, 177); width:200px; padding:2px;height: 30px}
+        .hover{ color:#323232;background-color: transparent;cursor: pointer}
     </style>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);">
-    <span>
-        <span style="float:left;font-weight: bolder;color: #ffffff">新建订单</span>
-        <span style="margin-right: 8px;font-weight: bold">
-            <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
-        </span>
+<div class="div_head">
+    新建订单
+    <span style="margin-right: 8px;font-weight: bold">
+        <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
     </span>
+    <a href="" style="text-decoration: none;color: #646464">【刷新】</a>
 </div>
-<div style="font-size: 13px;margin: 10px 5px">
+<div style="margin: 10px 5px">
     <form action="{:U('Admin/Order/add_order')}" id="form1" method="post">
         <input type="hidden" value="{$get['p']}" name="p"/>
         <input type="hidden" value="{$get['pid']}" name="pid"/>
-        <table style="border:1px solid rgb(194, 230, 245)" width="100%" class="table_a">
-            <tr style="height: 25px;color: #536aff;font-weight: bolder">
+        <table width="100%" class="table_a">
+            <tr style="color: #000000">
                 <td>客户信息:</td>
                 <td>用户信息:</td>
             </tr>
             <tr>
-                <td class="td ">
+                <td class="td">
                     <div  id="copy">
                         客户姓名：<input type="text" id="account" name="truename" value=""/>
                         <select id="sex" name="user_sex" style="height: 25px">
@@ -118,7 +65,7 @@
                         联系电话：<input type="text" id="tel" name="phone" value=""/>
                         <input type="reset" value="清除"/>
                     </div>
-                    <span onclick="fuzhi_stu()" style="color: #536aff;cursor: pointer;">复制学员 =></span>
+                    <span onclick="fuzhi_stu()" style="color:rgb(19, 181, 177);cursor: pointer;margin-right: 20%;float: right">复制学员 =></span>
                     <script>
                         function fuzhi_stu(){
                             var account = $("#account").val();
@@ -135,7 +82,7 @@
                                 str += '<option value="1" selected>女</option>';
                             }
                             str += '</select>联系电话：<input type="text" value="'+tel+'" name="tel[]"/>' +
-                                    '<span class="delete_stu" style="color:#536aff;cursor: pointer; ">删除</span> </div>'
+                                    '<span class="delete_stu" style="color:rgb(19, 181, 177);cursor: pointer; ">删除</span> </div>';
                             $(".add_stu").prepend(str);
                             $('.delete_stu').on('click',function(){
                                 var a = $(this);
@@ -145,26 +92,14 @@
                     </script>
                 </td>
                 <td class="td  add_stu">
-                    <span onclick="add_stu()" style="color: #536aff;cursor: pointer;">+添加学员</span><br>
-                    <script>
-                        function add_stu(){
-                            $(".add_stu").prepend(' <div>学员姓名：<input type="text" value="" name="account[]"/>' +
-                           '<select style="height: 25px" name="sex[]"> <option value="0">男</option> <option value="1">女</option></select>' +
-                           ' 联系电话：<input type="text" value="" name="tel[]"/>' +
-                           '<span class="delete_stu" style="color:#536aff;cursor: pointer; ">删除</span> </div>');
-                            $('.delete_stu').on('click',function(){
-                                var a = $(this);
-                                a.parent('div').remove();
-                            });
-                        }
-                    </script>
+                    <span onclick="add_stu()" style="color:rgb(19, 181, 177);cursor: pointer;">+添加学员</span><br>
                     所在位置：
-                    <select name="cityid" id="city">
+                    <select name="cityid" id="city" style="width: 70px;height: 20px">
                     <volist name='citys' id='v'>
                         <option value="{$v.id}" {$cityid==$v['id']?'selected':''}>{$v.cityname}</option>
                     </volist>
                 </select>
-                    区/县<select name="countyname" id="county" >
+                    区/县<select name="countyname" id="county"  style="width: 70px;height: 20px" >
                     <volist name='countys' id='v'>
                         <option value="{$v.countyname}" {$countyid==$v['id']?'selected':''}>{$v.countyname}</option>
                     </volist>
@@ -173,92 +108,54 @@
                 </td>
             </tr>
             <tr style="height: 15px"></tr>
-            <tr style="height: 25px;color: #536aff;font-weight: bolder"><td colspan="2">意向课程：</td></tr>
+            <tr style="height: 25px;color: #000000;font-weight: bold"><td colspan="2">意向课程：</td></tr>
             <tr>
-                <td colspan="2"  class="td">选择订单类型：
-                    <select name="order_type" id="order_type">
-                        <option value=1 >驾校订单</option>
-                        <option value=2 >教练订单</option>
-                        <option value=3 >指导员订单</option>
-                        <option value=4 >计时预约订单</option>
-                        <option value=5 >人工订单</option>
-                    </select>
-                    驾校：<select id ='jx' name="jx"  data-live-search="true" >
-                        <option value="0">请选择</option>
-                        <volist name ="school" id='v'>
-                            <option value="{$v.id}"  {$list['school_id']==$v['id']?'selected':''}>{$v.nickname}</option>
-                        </volist>
-                    </select>
-                    教练：<select id ='jl' name="jl"  data-live-search="true" >
-                        <option value="0">请选择</option>
-                        <volist name ="coach" id='v'>
-                            <option value="{$v.id}" {$list['school_id']==$v['id']?'selected':''}>{$v.nickname}</option>
-                        </volist>
-                    </select>
-                    指导员：<select id ='zd' name="zd" data-live-search="true">
-                        <option value="0">请选择</option>
-                        <volist name ="guider" id='v'>
-                            <option value="{$v.id}" {$list['school_id']==$v['id']?'selected':''}>{$v.nickname}</option>
-                        </volist>
-                    </select>
+                <td class="td">
+                    <input type="hidden" name="school_id" id="sid"/>
+                    学车课程：<input type="text" style="height: 25px"  name="s_nickname" id="search"/>
+                    <span id="searchresult" class="td"></span>
+                    <span style="float:right;">
+                        <select name="class_name" id="class_name" style="width: 160px;height: 30px;margin-right: 20px"></select>
+                        <select name="trainaddress" id="class_base" style="width: 150px;height: 30px;margin-right: 20px"></select>
+                    </span>
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="td">选择基地：
-                    <select name="trainaddress" id="train">
-                        <option value='517基地' >517基地</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="td">选择课程：
-                    <select name="class_name" id="class">
-                        <option value='C1照全包' >C1照全包</option>
-                    </select>
+                <td class="td">
+                    门市价：<input type="text"  id="wholeprice" name="wholeprice" readonly/>
+                    <span style="margin-left: 50px">全包价：<input id="officeprice"  type="text" readonly/></span>
                 </td>
             </tr>
             <tr style="height: 15px"></tr>
-            <tr style="height: 25px;color: #536aff;font-weight: bolder"><td colspan="2">付款信息：</td></tr>
-            <tr>
-                <td colspan="2" class="td">下单类型：
-                    <select name="type">
-                        <option value=1 >全款</option>
-                        <option value=2 selected>预付款</option>
-                    </select>
-                    下单价格：
-                    <input type="text" name="price" value="0"/>元/人
-                      实际支付：
-                    <input type="text" name="total_fee" value="0"/>
-                </td>
-            </tr>
+            <tr style="height: 25px;color: #000000;font-weight: bold"><td colspan="2">付款信息：</td></tr>
             <tr>
                 <td colspan="2" class="td">支付类型：
-                    <select name="pay_type">
+                    <select name="pay_type" style="width: 70px;height: 20px">
                         <option value='0' >未支付</option>
                         <option value='1' >支付宝</option>
                         <option value='2' >微信</option>
                         <option value='3' >门店</option>
+                        <option value='4' >快递</option>
+                        <option value='5' >驾校</option>
                     </select>
                 </td>
             </tr>
             <tr style="height: 15px"></tr>
-            <tr style="height: 25px;color: #536aff;font-weight: bolder;"><td  colspan="2" >订单来源：</td></tr>
-            <tr style="height: 25px;font-weight: bolder">
-                <td colspan="2">来源：
+            <tr style="height: 25px;color: #000000;font-weight: bold;"><td  colspan="2" >订单来源：</td></tr>
+            <tr style="height: 25px;font-weight: bold">
+                <td colspan="2" style="color: #646464">来源：
                     <volist name="order_source" id="order_source">
-                        <div style="border-left:1px dotted rgba(39, 164, 237, 0.22);display: inline-block;width: 80px;text-align: center">
-                            <input type="radio" {$order_source['id'] == 9?'checked':''} value="{$order_source['id']}" name="order_source"/>{$order_source['name']}
+                        <div style="border-left:1px solid rgb(19, 181, 177);display: inline-block;width: 80px;text-align: center">
+                            <input type="radio" {$order_source['id'] == 16?'checked':''} value="{$order_source['id']}" name="order_source"/>{$order_source['name']}
                         </div>
                     </volist>
                 </td>
             </tr>
             <tr style="height: 15px"></tr>
-            <tr style="height: 25px;color: #536aff;font-weight: bolder"><td  colspan="2" >订单备注：</td></tr>
+            <tr style="height: 25px;color: #000000;font-weight: bold"><td  colspan="2" >订单备注：</td></tr>
             <tr>
-                <td  colspan="2" >
+                <td colspan="2" class="td">
                     <label for=""  style="margin-bottom: 20px">备注：</label>
                     <textarea name="customer_inform" id="" cols="40" rows="2"></textarea><br>
-                    设置回访日期: <input type="text" onClick="WdatePicker()" name="return_time"/>　
+                    设置回访日期: <input type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="return_time"/>　
                 </td>
             </tr>
             <tr>
@@ -271,6 +168,62 @@
 </div>
 </body>
 </html>
+<!--课程、驾校、基地选择-->
+<script>
+    $(document).ready(function(){
+        $("#class_name").html("<option value='0'>请选择课程</option>");
+        $("#class_base").html("<option value='0'>请选择基地</option>");
+        $('#search').keyup(function(){
+            var search_key = $('#search').val();
+            $.post("{:U('Admin/TrainClass/search_school')}",{search_key:search_key},function(res){
+                if(res.info) {
+                    var layer;
+                    layer = "<table>";     //创建一个table
+                    for (var i in res.info) {
+                        layer += "<tr><td class='line' onclick='line("+res.info[i]['id']+',"'+res.info[i]['nickname']+'"'+")'>" + res.info[i]['nickname'] + "</td></tr>";
+                    }
+                    layer += "</table>";
+                    $('#searchresult').empty();  //先清空#searchresult下的所有子元素
+                    $('#searchresult').append(layer);//将刚才创建的table插入到#searchresult内
+                    $('.line').hover(function(){  //监听提示框的鼠标悬停事件
+                        $(this).addClass("hover");
+                    },function(){
+                        $(this).removeClass("hover");
+                    });
+                }
+            },'json');
+        });
+    });
+    function line(id,nickname){
+        $('#search').val(nickname);
+        $("#sid").val(id);
+        $.post("{:U('Admin/TrainClass/get_class_name')}",{id:id},function(data){
+            if(data.info){
+                var str = '<option value="0">请选择课程</option>';
+                var str1 = '<option value="0">请选择基地</option>';
+                for(var i in data.info['trainclass']){
+                    str += "<option value='"+data.info['trainclass'][i]['id']+"'>"+data.info['trainclass'][i]['name']+" </option>";
+                }
+                for(var y in data.info['class_base']){
+                    str1 += "<option value='"+data.info['class_base'][y]['id']+"'>"+data.info['class_base'][y]['trname']+" </option>"
+                }
+                $("#class_name").html(str);
+                $("#class_base").html(str1);
+            }else{
+                alert('未查到课程或基地数据');
+            }
+        },'json');
+        $('#searchresult').empty();
+    }
+    $("#class_name").change(function(){
+        var id = $("#class_name option:selected").val();
+        $.post("{:U('Admin/TrainClass/return_prices')}",{id:id},function(price){
+            $("#wholeprice").val(price.info['wholeprice']);
+            $("#officeprice").val(price.info['officeprice']);
+        },'json');
+    });
+</script>
+<!--城市 、区县 选择-->
 <script>
     $("#city").change(function(){
         $("#cityname").val($("#city option:selected").val());
@@ -284,4 +237,17 @@
             }
         });
     });
+</script>
+<!--添加学生-->
+<script>
+    function add_stu(){
+        $(".add_stu").prepend(' <div>学员姓名：<input type="text" value="" name="account[]"/>' +
+        '<select style="height: 25px" name="sex[]"> <option value="0">男</option> <option value="1">女</option></select>' +
+        ' 联系电话：<input type="text" value="" name="tel[]"/>' +
+        '<span class="delete_stu" style="color:rgb(19, 181, 177);cursor: pointer; ">删除</span> </div>');
+        $('.delete_stu').on('click',function(){
+            var a = $(this);
+            a.parent('div').remove();
+        });
+    }
 </script>

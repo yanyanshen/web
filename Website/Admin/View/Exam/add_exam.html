@@ -9,23 +9,22 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        label.error{  font-size: 14px;  font-weight: bold;  color: #fa7124;  }
-        label.ok{  font-size: 14px;  font-weight: bold;  color: green;  }
+        label.error{  font-size: 12px; color: #fa7124; }
+        label.ok{  font-size: 12px;color: green;  }
 
         label{padding: 10px 20px 10px 0;}
         b{color: #FA7124}
         li{ margin-top: 15px;list-style: none;}
-        .dfinput{margin-left: 10px;
-            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
-            width: 340px;padding: 10px 0 10px 5px}
+        .dfinput{margin-left: 10px;border:rgb(220,220,220) solid 1px ;border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
     </style>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+<div class="div_head">
     试题添加
-    <a style="text-decoration: none;color:#ff143f" href="{$get['url']}">【返回】</a>
+    <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
 </div>
-<div style="font-size: 13px;margin: 10px 5px">
+<div style="margin: 10px 5px">
     <form action="{:U('Admin/Exam/add_exam')}" id="form1" method="post">
         <ul style="margin-left: 10px;padding: 0">
             <input type="hidden" name="subject" value="{$subject_info['subject']}"/>
@@ -39,7 +38,7 @@
                         <option value="2" {$subject_info['subject']==2?selected:''}>科四</option>
                     </select>
                     <input type="radio" value="1" name="lunshi"/>轮式
-                    <span style="color: #fa7124;font-weight: bold"> ( * 如果考轮式就选词按钮)</span>
+                    <span style="color: #fa7124;font-weight: bold"> ( * 如果考轮式就选此按钮)</span>
                 </li>
                 <else/>
                 <li>
@@ -73,7 +72,7 @@
                 </li>
             </if>
             <li>
-                <label style="padding: 10px 46px 10px 0;">问题<b>*</b></label>
+                <label style="padding: 10px 43px 10px 0;">问题<b>*</b></label>
                 <input name="question"  type="text" class="dfinput" placeholder="请填写问题" />
             </li>
             <li>
@@ -81,11 +80,11 @@
                 <input type="radio" name="img" value="0" checked/> 否
                 <input type="radio" name="img" value="1" style="margin-left:35px"/> 图片
                 <input type="radio" name="img" value="2" style="margin-left:35px"/> 视频
-                <span id="image" style="color: #fa7124;font-weight: bold"> ( * 默认是无图片无视频)</span>
+                <span id="image" style="color: #fa7124;"> ( * 默认是无图片无视频)</span>
                 <div class="usercity dfinput"  style="margin:25px 90px 10px 90px; border-radius: 3px;width:345px;height:130px;position: relative;display: none">
                     <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
                     <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                    <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                    <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:rgb(19, 181, 177);padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                 </div>
                 <script>
                     $("input[name='img']").click(function(){
@@ -107,7 +106,7 @@
                 <input type="radio" name="ifmul" value="0" checked/> 单选
                 <input type="radio" name="ifmul" value="1" style="margin-left:22px"/> 多选
                 <input type="radio" name="ifmul" value="2" style="margin-left:35px"/> 判断
-                <span style="color: #fa7124;font-weight: bold"> ( * 默认是单选)</span>
+                <span style="color: #fa7124;"> ( * 默认是单选)</span>
                 <script>
                     $("input[name='ifmul']").click(function(){
                         var val = $('input[name="ifmul"]:checked').val();
@@ -135,14 +134,14 @@
             <li>
                 <label style="padding-right: 24px">试题选项<b>*</b></label>
                 <input class="dfinput" type="text" name="s1" value="" placeholder="A选项"/>
-                <div style="margin-left: 84px;margin-top: 15px">
+                <div style="margin-left: 78px;margin-top: 15px">
                     <input class="dfinput" type="text" name="s2" value="" placeholder="B选项"/>
                 </div>
                 <div id="select">
-                    <div style="margin-left: 84px;margin-top: 15px">
+                    <div style="margin-left: 78px;margin-top: 15px">
                         <input class="dfinput" type="text" name="s3" value="" placeholder="C选项"/>
                     </div>
-                    <div style="margin-left: 84px;margin-top: 15px">
+                    <div style="margin-left: 78px;margin-top: 15px">
                         <input class="dfinput" type="text" name="s4" value="" placeholder="D选项"/>
                     </div>
                 </div>
@@ -153,14 +152,14 @@
             </li>
             <li>
                 <label>试题解析<b>*</b></label>
-                <div style="margin-left: 84px;">
+                <div style="margin-left: 78px;">
                     <textarea class="dfinput" name="analysis" id=""  rows="6"></textarea>
                 </div>
             </li>
             <li>
-                <label style="padding: 10px 92px 10px 0"></label>
-                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
-                <a href="{:U('Admin/Exam/exam',array('pid'=>$get['pid'],'type_id'=>$get['id']))}" style="margin-left: 40px;padding: 9px 25px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff ">Excel表格导入</a>
+                <label style="padding: 10px 90px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
+                <a href="{:U('Admin/Exam/exam',array('pid'=>$get['pid'],'type_id'=>$get['id']))}" style="margin-left: 40px;padding: 9px 25px;line-height: 35px;background-color:rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff ">Excel表格导入</a>
             </li>
         </ul>
     </form>
@@ -171,24 +170,14 @@
     $(function(){
         var validate=$('#form1').validate({
             rules:{
-                cityname:{required:true},
-                question:{required:true},
-                s1:{required:true},
-                s2:{required:true},
-                s3:{required:true},
-                s4:{required:true},
-                answer:{required:true},
-                analysis:{required:true}
+                cityname:{required:true}, question:{required:true},
+                s1:{required:true}, s2:{required:true}, s3:{required:true}, s4:{required:true},
+                answer:{required:true}, analysis:{required:true}
             },
             messages:{
-                cityname:{required:' * 请选择城市'},
-                question:{required:' * 请填写问题'},
-                s1:{required:' * 请填写'},
-                s2:{required:' * 请填写'},
-                s3:{required:' * 请填写'},
-                s4:{required:' * 请填写'},
-                answer:{required:' * 请填写答案'},
-                analysis:{required:' * 请填写解析'}
+                cityname:{required:' * 请选择城市'}, question:{required:' * 请填写问题'},
+                s1:{required:' * 请填写'},s2:{required:' * 请填写'}, s3:{required:' * 请填写'}, s4:{required:' * 请填写'},
+                answer:{required:' * 请填写答案'}, analysis:{required:' * 请填写解析'}
             },
             success:function(label){
                 label.addClass('ok').text(' * ok');
@@ -196,6 +185,7 @@
             validClass:'ok',
             errorElement:'label'
         });
+        $('#form1').submit();
         $('.btn').click(function(){
             $('#form1').submit();
         });

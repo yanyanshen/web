@@ -22,7 +22,7 @@ class CoachController extends CommonController {
             ->count();
         $field="s.id,s.sex,s.nickname,s.score,s.ntime,s.carnumber,s.class_num,s.type,s.picurl,s.picname,
                 s.serialid,s.numberId,s.address,s.cityid,s.verify,s.lastupdate,s.order,s.account,
-                s.recommand,s.week,s.hot,
+                s.recommand,s.week,s.hot,s.show_forbid,
                 ca.category_name,ca.id as caid,city.cityname,city.id as cityid";
         $p = new Page($count,10);
         $page = $p->show();
@@ -55,7 +55,7 @@ class CoachController extends CommonController {
             $_POST['lastupdate']=session('admin_name');
             $id=M('School')->add($_POST);
             if($id){
-                $log['done'] = '添加教练 ID_'.$id;
+                $log['done'] = '教练添加: => '.$_POST['nickname'];
                 D('AdminLog')->logout($log);
                 M('School')->where(array('id'=>$school_id,'type'=>'jx'))->setInc('coach_num',1);
             }
@@ -84,13 +84,14 @@ class CoachController extends CommonController {
         if(!empty($_POST)){
             $_POST['lastupdate']=session('admin_name');
             $where['id']=$_POST['id'];
+            $nickname1 = M('School')->where($where)->getField('nickname');
             $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
             $_POST['school_id']=$school_id;
-            $_POST['time']=time();
+            $_POST['ntime'] = time();
             D('school')->jx_editor($where,$_POST);//更新数据
             $res=editorPic('School','Coach_logo',$_POST['id']);
             if($res){
-                $log['done'] = '编辑教练 ID_'.$_POST['id'];
+                $log['done'] = "教练信息:$nickname1 => {$_POST['nickname']}";
                 D('AdminLog')->logout($log);
                 $url = U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid']));
                 $this->success('编辑成功',$url);
@@ -180,15 +181,17 @@ class CoachController extends CommonController {
             $_POST['time']=time();
             $_POST['update_people']=session('admin_name');
             if($_POST['cid']){
+                $category=M('CoachCategory')->where(array('id'=>$_POST['cid']))->getField('category_name');
+                $log['done'] = "教练分类信息:$category => {$_POST['category_name']}";
+
                 $res=M('CoachCategory')->where(array('id'=>$_POST['cid']))->save($_POST);
-                $log['done'] = '编辑教练分类 ID_'.$_POST['cid'];
             }else{
                 $cid=M('CoachCategory')->where(array('category_name'=>$_POST['category_name']))->getField('id');
                 if($cid){
                     $this->error('数据已经存在',U('Admin/Coach/category_index',array('pid'=>I('pid'))));
                 }else{
                     $res=M('CoachCategory')->add($_POST);
-                    $log['done'] = '添加教练分类 ID_'.$res;
+                    $log['done'] = '教练分类信息: => '.$_POST['category_name'];
                 }
             }
             if($res){
@@ -217,14 +220,30 @@ class CoachController extends CommonController {
  * Date：2017/09/04
  * 删除教练分类
  */
-    public function del_category($id){
-        $res = M('CoachCategory')->where(array('id'=>$id))->delete();
+    public function del_category($id,$pid,$type){
+        switch($type){
+            case 'jl':
+                $table = 'CoachCategory';
+                //原来的教练分类名称
+                $coach = M("$table")->where(array('id'=>$id))->getField('category_name');
+                $log['done'] = '教练分类删除 => '.$coach;
+                $url = 'Admin/Coach/category_index';
+                break;
+            case 'zd':
+                $table = 'GuiderCategory';
+                //原来的指导员分类名称
+                $guider = M("$table")->where(array('id'=>$id))->getField('category_name');
+                $log['done'] = '指导员分类删除 => '.$guider;
+                $url = 'Admin/Guider/category_index';
+                break;
+        }
+
+        $res = M("$table")->where(array('id'=>$id))->delete();
         if($res){
-            $log['done'] = '删除教练分类 ID_'.$_POST['id'];
             D('AdminLog')->logout($log);
-            $this->redirect('category_index',array('pid'=>I('pid')),0,"<script>alert('删除成功')</script>");
+            $this->redirect($url,array('pid'=>$pid),0,"<script>alert('删除成功')</script>");
         }else{
-            $this->redirect('category_index',array('pid'=>I('pid')),0,"<script>alert('删除失败')</script>");
+            $this->redirect($url,array('pid'=>I('pid')),0,"<script>alert('删除失败')</script>");
         }
     }
 }

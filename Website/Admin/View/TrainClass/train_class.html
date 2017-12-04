@@ -5,48 +5,73 @@
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-        <style>
-            /*#page a,#page span{*/
-                /*display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;*/
-                /*text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;*/
-            /*}*/
-            /*#page{ float: right; }*/
-            /*#page a:hover{background:#F27602;color:#FF0000;}*/
-            /*#page span{ background:#F27602; color:#FF0000; font-weight: bold;}*/
-
-            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
-            .table_a tr:hover{background-color: rgb(82, 249, 56)  }
-        </style>
+        <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     </head>
     <body>
-        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
-            <span>课程管理</span>
+        <div class="div_head">
+            <span>
+                <if condition="$type eq 'jx'">驾校：</if>
+                <if condition="$type eq 'jl'">教练：</if>
+                <if condition="$type eq 'zd'">指导员：</if>
+                {$nickname}--课程管理
+            </span>
             <div style="display: inline-block">
-                <form action="{:U('Admin/TrainClass/add_class')}" method="post">
+                <form action="" method="post">
                     <input type="hidden" name='id' value="{$get['id']}"/>
-                    <input type="hidden" name='p' value="{$get['p']}"/>
                     <input type="hidden" name='type' value="{$get['type']}"/>
-                    <input type="hidden" name='nickname' value="{$nickname}"/>
-                    <input type="submit" value="课程添加"/>
                 </form>
             </div>
+            <a style="text-decoration: none;color: #fa7142;font-weight: bold"
+               href="{:U('Admin/TrainClass/add_class',array('id'=>$get['id'],'p'=>$get['p'],'type'=>$get['type'],'pid'=>$get['pid']))}" >【课程添加】</a>
             <a style="text-decoration: none;color: #fa7142;font-weight: bold"  href="{$url}" >【返回】</a>
-            <span style="margin-right: 1%;float: right">总计：{$count}</span>
+            <span style="margin-right: 2%;float: right;font-weight: bold">总计：{$count}</span>
         </div>
-        <form action="{:U('trainsave')}" method="post">
-        <div style="font-size: 13px;margin: 10px 5px">
-            <table width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
-                <tr style="height:36px;font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff">
-                    <td colspan='20' style="text-align: left">
-                        <if condition="$type eq 'jx'">驾校：</if>
-                        <if condition="$type eq 'jl'">教练：</if>
-                        <if condition="$type eq 'zd'">指导员：</if>
-                        {$nickname}</td>
-                </tr>
-                <tr>
-               		<td width="2%">序号</td>
-                	<td width="6%">课程名</td>
+        <div style="margin-left: 6px">
+            <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #323232;width: 60px;padding: 2px 0;" type="button" value='全选' />
+            <input type="button" value='删除' onclick="batch_operate_del('{$get['type']}',{$get['pid']},{$get['p']?$get['p']:1})" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0"/>
+            <script>
+                $("document").ready(function(){
+                    $("#checkall").click(function(){
+                        if($(this).val() == '全选'){
+                            $("input[type='checkbox']").prop('checked',true);
+                            $("#checkall").val('取消全选');
+                        }else{
+                            $("input[type='checkbox']").prop('checked',false);
+                            $("#checkall").val('全选');
+                        }
+                    });
+                });
+
+                function batch_operate_del(){
+                    var id_arr = document.getElementsByName('id[]');
+                    var flag = false;
+                    for(var i in id_arr){
+                        if(id_arr[i].checked){
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag){
+                        $.post("{:U('Admin/Finance/batch_operate')}",$("#form2").serialize(),function(res){
+                            layer.msg('确定要删除吗？',{
+                                time:0,
+                                btn:['确定','取消'],
+                                yes:function(){
+                                    location.href = "{:U('Admin/TrainClass/batch_operate_del')}?type_id={$get['id']}&type={$get['type']}&pid={$get['pid']}&p={$get['p']}&str="+res.info['str']
+                                }
+                            });
+                        },'json')
+                    }else{
+                        layer.msg('请勾选后再操作',{time:2000,btn:['知道了']});
+                    }
+                }
+            </script>
+        </div>
+        <div style="margin: 10px 5px">
+            <table width="100%" class="table_a">
+                <tr style="background-color:  rgb(19, 181, 177);">
+               		<td width="2%">ID</td>
+                	<td width="5%">课程名</td>
                 	<td width="2%">车型</td>
                 	<td width="3%">驾照类型</td>
                 	<td width="4%">练车方式</td>
@@ -55,17 +80,16 @@
                 	<td width="3%">预付费</td>
                 	<td width="4%">等待时间</td>
                 	<td width="4%">班别</td>
-                	<td width="10%">费用包含</td>
+                	<td width="15%">费用包含</td>
                 	<td width="4%">是否接送</td>
                 	<td width="4%">学车课时</td>
-                	<td width="3%">本周特价</td>
-                	<td width="3%">热搜</td>
-                	<td width="3%">推荐驾校</td>
+                	<td width="4%">最后更新人</td>
                 	<td width="4%">操作</td>
                 </tr>
+                <form action="" method="post" id="form2">
                 <volist name="class" id='v' key="k" empty="$empty">
 	                <tr>
-	                	<td>{$k+$firstRow}</td>
+	                	<td><input type="checkbox" value="{$v.id}" name="id[]"/>{$v.id}</td>
 	                	<td>{$v.name}</td>
 	                	<td>{$v.cartype}</td>
 	                	<td>{$v.jztype}</td>
@@ -73,62 +97,24 @@
 	                	<td>{$v.officeprice}</td>
 	                	<td>{$v.wholeprice}</td>
 	                	<td>{$v.advanceprice}</td>
-	                	<td>{$v.timing}</td>
+	                	<td>{$v.waittime}</td>
 	                	<td>{$v.class_type}</td>
-                        <td>
-                            {$v.include}
-                        </td>
+                        <td>{$v.include}</td>
 	                	<td>
-                            <if condition="$v.shuttle_way eq 0">
-                                不接送
-                                <else/>
-                                接送
-                            </if>
+                            {$v['shuttle_way']?'接送':'不接送'}
                         </td>
 	                	<td>
                             科二：{$v.class_time2}课时</br>
                             科三：{$v.class_time3}课时
                         </td>
+                        <td>{$v.lastupdate}</td>
 	                	<td>
-                            <input type="button" value="{$v['week']==1?'取消':'支持'}" class="btn" btn="week" tid="{$v.id}"/>
-                        </td>
-	                	<td>
-                            <input type="button" value="{$v['hot']==1?'取消':'支持'}" class="btn" btn="hot" tid="{$v.id}" />
-                        </td>
-                        <td>
-                            <input type="button" value="{$v['recommand']==1?'取消':'支持'}" class="btn" btn="recommand" tid="{$v.id}"/>
-                        </td>
-	                	<td>
-	                	<a href="{:U('edit_class?type='.$get['type'].'&id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
-	                		<a href="{:U('del_class?id='.$id.'&t=jx&p='.$p.'&iid='.$v['id'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+	                	    <a class="tablelink" href="{:U('edit_class?type='.$get['type'].'&id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
 	                	</td>
 	                </tr>
                </volist>
-                </table>
+        </form>
+        </table>
         </div>
-       </form>
-      <!--  <div id="page" style="float: left">
-            {$page}
-        </div>-->
     </body>
 </html>
-
-<script>
-    $(function(){
-        $('.btn').click(function(){
-            var btn=$(this).attr('btn');
-            var id=$(this).attr('tid');
-
-            $(this).attr('disabled',true);
-            $.post ("{:U('Admin/TrainClass/status_update')}",{btn:btn,id:id},function(res){
-                if(res.status){
-                        alert('操作成功');
-                        location.href="";
-                }else{
-                        alert('操作失败');
-                        location.href="";
-                }
-            },'json')
-        })
-    })
-</script>

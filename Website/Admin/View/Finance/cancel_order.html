@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>退费列表</title>
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+    <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
+</head>
+<body>
+    <div class="div_head">
+        取消订单列表
+        <span class="span">总计：{$arr['count']}</span>
+    </div>
+    <div class="div_search">
+        <span>
+            <form action="?" id='form1' method="get" name="form1">
+                <div>
+                    <span>
+                        驾校简称：<input type="text" name='s_nickname' style="width: 100px"  value="{$get['s_nickname']?$get['s_nickname']:''}" />
+                    </span>
+                  <span style="padding-left: 5px">
+                    支付方式：<select name="pay_type" style="width: 90px;font-size: 12px">
+                        <option value="0" >全部</option>
+                        <option value="1" {$get['pay_type']==1?selected:''}>支付宝</option>
+                        <option value="2" {$get['pay_type']==2?selected:''}>微信</option>
+                        <option value="3" {$get['pay_type']==3?selected:''}>门店</option>
+                        <option value="4" {$get['pay_type']==4?selected:''}>快递</option>
+                        <option value="5" {$get['pay_type']==5?selected:''}>驾校</option>
+                    </select>
+                    </span>
+                     <span style="padding-left: 5px">
+                            学员姓名：<input type="text" name='truename' style="width: 100px"  value="{$get['truename']?$get['truename']:''}"/>
+                     </span>
+                     <span style="padding-left: 5px">
+                        取消时间：<input type="text" style="width: 120px;font-size: 12px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['cancel_time1']?$get['cancel_time1']:''}" name="cancel_time1"/>
+                        至
+                        <input type="text" style="width: 120px;font-size: 12px" value="{$get['cancel_time2']?$get['cancel_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="cancel_time2"/>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                       订单编号：<input type="text" name='ordcode' style="width: 100px"  value="{$get['ordcode']?$get['ordcode']:''}" />
+                    </span>
+                    <span style="padding-left: 5px">
+                        取消原因：<select name="cancel_reason" style="width: 90px;font-size: 12px">
+                            <option value="0">请选择</option>
+                            <volist name="order_cancel" id="val">
+                                <option value="{$val.id}" {$val['id']==$get['cancel_reason']?selected:''}>{$val.reason}</option>
+                            </volist>
+                        </select>
+                    </span>
+                    <span style="padding-left: 5px">
+                        跟单客服：<input type="text" name="customer" style="width: 100px;"  value="{$get['customer']?$get['customer']:''}"/>
+                    </span>
+                    <span style="padding-left: 5px">
+                        <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Finance/cancel_order",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
+                        <input value="清空" type="reset" />
+                        <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('flag'=>5))}')"/>
+                    </span>
+                </div>
+                <script type="text/javascript" language="javascript">
+                    function submitYouFrom(path){
+                        $('#form1').attr('action',path);
+                        $('#form1').submit();
+                    }
+                </script>
+            </form>
+        </span>
+    </div>
+    <div style="margin-left: 6px">
+        <input id="checkall" style="background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0;font-size: 12px;font-weight:bold;" type="button" value='全选' />
+        <input type="button" value='批量修改' onclick="cancel_reason()" style="font-size:12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 70px;padding: 2px 0"/>
+    </div>
+    <script>
+        function cancel_reason(){
+            var id_arr = document.getElementsByName("id[]");
+            var flag = false ;
+            for(var i in id_arr){
+                if(id_arr[i].checked){
+                    flag = true ;
+                    break ;
+                }
+            }
+            if(flag){
+                $.post("{:U('Admin/Finance/batch_operate')}",$("#form2").serialize(),function(res){
+                    layer.open({
+                        type: 1,
+                        title:'取消原因',
+                        skin: 'border:1px solid #27B7F3', //加上边框
+                        area: ['400px', '100px'], //宽高
+                        content:"<div style='text-align: center;'><form method='post' action='{:U("cancel_reason")}'>" +
+                        "<input type='hidden' value='{$get["pid"]}' name='pid'/>"+
+                        "<input type='hidden' value='{$get["p"]}' name='p'/>"+
+                        "<input type='hidden' value='"+res.info['str']+"' name='str'/>"+
+                        "取消原因：" +
+                        "<select name='cancel_reason' style='margin-top:10px;height: 30px'>"+
+                        "<volist name='order_cancel' id='v'>"+
+                        "<option value='{$v.id}'>{$v.reason}</option>"+
+                        "</volist>"+
+                        "</select>" +
+                        "<input type='submit' style='background-color:rgb(19, 181, 177);color: #ffffff;padding: 5px 20px;;border-radius: 3px;border:none;margin-left: 10px' value='确定'/>" +
+                        "</form></div>"
+                    });
+                },'json');
+            }else{
+                layer.msg('请勾选后再操作', {
+                    time: 20000, //20s后自动关闭
+                    btn: ['知道了']
+                });
+            }
+
+        }
+        $("document").ready(function(){
+            $("#checkall").click(function(){
+                if($(this).val()=='全选'){
+                    $("input[type='checkbox']").prop('checked', true);
+                    $("#checkall").val("取消全选");
+                }else{
+                    $("input[type='checkbox']").prop('checked', false);
+                    $("#checkall").val("全选");
+                }
+            });
+        });
+    </script>
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
+        <tbody>
+            <tr style="background-color:  rgb(19, 181, 177);">
+                <th width="2%">编号</th>
+                <th width="4%">用户名</th>
+                <th width="3%">联系电话</th>
+                <th width="4%">关联订单</th>
+                <th width="4%">驾校</th>
+                <th width="5%">课程</th>
+                <th width="4%">基地</th>
+                <th width="3%">支付方式</th>
+                <th width="5%">取消时间</th>
+                <th width="3%">取消人</th>
+                <th width="3%">取消原因</th>
+                <th width="2%">操作</th>
+            </tr>
+            <form action="" id="form2">
+                <volist name='arr["list"]'  id='v' key="k" empty="$empty">
+                    <tr>
+                        <td><input class="id_arr"  type="checkbox" name="id[]" value="{$v.id}" /> {$k+$arr['firstRow']}</td>
+                        <td>{$v.name}</td>
+                        <td>{$v.tel}</td>
+                        <td>{$v.ordcode}</td>
+                        <td>{$v.s_nickname}</td>
+                        <td>{$v.class_name}</td>
+                        <td>{$v.trname}</td>
+                        <td><if condition="$v.pay_type eq 1">支付宝
+                            <elseif condition="$v.pay_type eq 2"/>微信
+                            <elseif condition="$v.pay_type eq 3"/>门店
+                            <elseif condition="$v.pay_type eq 4"/>快递
+                            <elseif condition="$v.pay_type eq 5"/>驾校
+                        </if></td>
+                        <td>{$v.cancel_time}</td>
+                        <td>{$v.lastupdate}</td>
+                        <td>{$v.cancel_reason}</td>
+                        <td><a class="tablelink" onclick="edit_reason({$v.id})" href="javascript:void(0)">修改</a> </td>
+                        <script>
+                            function edit_reason(id){
+                                layer.open({
+                                    type: 1,
+                                    title:'取消原因',
+                                    skin: 'border:1px solid #27B7F3', //加上边框
+                                    area: ['300px', '100px'], //宽高
+                                    content:"<div style='text-align: center'><form method='post' action='{:U("cancel_order")}'>" +
+                                    "<input type='hidden' value='"+id+"' name='id'/>"+
+                                    "<input type='hidden' value='{$get["pid"]}' name='pid'/>"+
+                                    "<input type='hidden' value='{$get["p"]}' name='p'/>"+
+                                    "<input type='hidden' value='1' name='t'/>"+
+                                    "取消原因：" +
+                                    "<select name='cancel_reason' style='margin-top:10px;height: 30px'>"+
+                                    "<volist name='order_cancel' id='v'>"+
+                                    "<option value='{$v.id}'>{$v.reason}</option>"+
+                                    "</volist>"+
+                                    "</select>" +
+                                    "<input type='submit' style='background-color:rgb(19, 181, 177);color: #ffffff;border-radius: 3px;border:none;padding:5px 15px;margin-left: 10px' value='确定'/>" +
+                                    "</form></div>"
+                                });
+                            }
+                        </script>
+                    </tr>
+            </volist>
+        </form>
+        </tbody>
+    </table>
+    <div id="page">
+        {$arr['page']}
+    </div>
+</div>
+</body>
+</html>

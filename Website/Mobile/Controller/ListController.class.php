@@ -98,33 +98,26 @@ class ListController extends Controller{
             $info = array();
         }else{
             $page = $_POST['page']?$_POST['page']:1;
-            if(I('k')||I('countyid')||I('jztype')){
+            if(I('k')){
                 session('page',null);
                 session('order',null);
                 session('table',null);
                 session('field',null);
-                session('jztype',null);
                 session('r',null);
                 session('p',null);
                 session('e',null);
                 session('all',null);
                 session('k',I('k'));
-                if(I('countyid')){
-                    $countyname = M('countys')->where(array('id'=>I('countyid')))->getField('countyname');
-                    session('k',$countyname);
-                }elseif(I('jztype')){
-                    session('jztype',I('jztype'));
-                }
             }
             if(session('k')){
-                $field='DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.allcount,s.type,s.verify';
+                $field='s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.allcount,s.type,s.verify';
                 $k = session('k');
-                $table = 'xueches_school s,xueches_trainclass tc,xueches_type type';
-                $where = "s.id=tc.type_id and type.id=tc.jztype and s.cityid = $cityid and (s.nickname like '%$k%' or type.jztype like '%$k%')  and s.verify=3";
+                $table = 'xueches_school s';
+                $where = "s.show_forbid=1 and s.cityid = $cityid and (s.nickname like '%$k%' or s.jtype like '%$k%')  and s.verify=3";
             }else{
-                $table = 'xueches_school s,xueches_trainclass tc,xueches_type type';
-                $field='DISTINCT s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.allcount,s.type';
-                $where = "s.id=tc.type_id and type.id=tc.jztype and s.cityid = $cityid  and s.verify=3 and s.type='jx'";
+                $table = 'xueches_school s';
+                $field='DISTINCT s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.allcount,s.type';
+                $where = "s.show_forbid=1 and s.cityid = $cityid  and s.verify=3 and s.type='jx'";
             }
 
             /*推荐*/
@@ -153,32 +146,34 @@ class ListController extends Controller{
                 session('all',null);
                 session('r',null);
                 session('e',null);
-                session('p','wholeprice');
-                $order = 'tc.wholeprice';
+                session('p','minprice');
+                $order = 's.minprice';
             }
             $info = $this->select_table($table,$where,$page,20,$field,$order);
+
             if(IS_AJAX){//判断ajax请求
                 $page = $_POST['page']?$_POST['page']:1;
                 $num = 20;
                 $info = $this->select_table(session('table'),session('where'),$page,$num,$field,session('order'));
                 $count = count($info);
 
-                if ($count <= 0) {//判断是否到尾�?
-                    $info[]['id'] = 0;//到尾页返�?
+                if ($count <= 0) {//判断是否到尾?
+                    $info[]['id'] = 0;//到尾页返?
                 }
                 echo json_encode($info);
                 exit;//中断后面的display()
             }
+
             if(empty($info)){
                 $address = session('city');
                 $coordinate = curlGetWeb($address,$k);
                 $lat = $coordinate['lat'];
                 $lng = $coordinate['lng'];
                 if($coordinate){
-                    $table = 'xueches_school s,xueches_lands juli,xueches_trainclass tc,xueches_landmark l';
-                    $where = "l.id in (juli.landmarkid) and juli.type_id = s.id  and tc.type_id=s.id  and s.cityid = $cityid  and s.verify=3 and s.type='jx' ";
+                    $table = 'xueches_school s,xueches_lands juli,xueches_landmark l';
+                    $where = "l.id in (juli.landmarkid) and juli.type_id = s.id and s.show_forbid=1  and s.cityid = $cityid  and s.verify=3 and s.type='jx' ";
                     //经纬度计算距离公
-                    $field="s.id,tc.wholeprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,l.latitude,
+                    $field="s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,l.latitude,
                     l.longitude,s.allcount,s.type, ROUND(
                         6378.138 * 2 * ASIN(
                             SQRT(
@@ -195,7 +190,7 @@ class ListController extends Controller{
                     if(session('juli')){
                         $order = 'jl,rand()';
                     }elseif(session('p')){
-                        $order = 'tc.wholeprice';
+                        $order = 's.minprice';
                     }
                     $info = $this->select_table($table,$where,$page,20,$field,$order);
                 }else{
@@ -208,7 +203,7 @@ class ListController extends Controller{
         session('table',$table);
         session('field',$field);
         $this->assign('http', C('HTTP'));
-        $this->assign('empty', "<h1 style='height: 30px;background-color: #ffffff;padding-top: 10px;text-align: center;font-size: 15px'>暂无数据</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 

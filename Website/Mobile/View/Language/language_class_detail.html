@@ -19,11 +19,12 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back">
-                    <a href="{$get['url']}">
+                <a href="{$get['url']}">
+                    <li class="back" style="padding-right: 50px">
                         <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-                </li>
+                    </li>
+                </a>
+
                 <li class="header_text">培训课程详情</li>
                 <div class="clearfix"></div>
             </ul>
@@ -33,12 +34,8 @@
         <div class="main">
             <div class="course_details">
                 <div class="course">
-                    <h1>
-                        {$get['info']['name']}
-                    </h1>
-                    <p>
-                        {$get['info']['name']}
-                    </p>
+                    <h1>{$get['info']['name']}</h1>
+                    <p>{$get['info']['name']}</p>
                     <ul>
                         <li>授课方式：{$get['info'].way}</li>
                         <li>官方价：{$get['info'].officeprice}元</li>
@@ -107,7 +104,7 @@
     <footer id="footer">
         <div class="apply_submit">
             <a href="{:U('Mobile/Language/language_apply',array('id'=>$get['info']['type_id']))}">
-                <input type="submit"  name="btn2" id="btn2" value="马上报名">
+                <input type="submit"  name="btn2" id="btn2"  style="-webkit-appearance: none" value="马上报名">
             </a>
         </div>
     </footer>

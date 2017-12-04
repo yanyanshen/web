@@ -24,7 +24,7 @@ class AdminNavController extends CommonController{
             if($_POST){
                 $nid=$nav->add_nav($_POST);
                 if($nid){
-                    $log['done'] = '添加菜单 ID_'.$nid;
+                    $log['done'] = "菜单信息:=>{$_POST['navname']}({$_POST['navurl']})";
                     D('AdminLog')->logout($log);
                     $this->success('菜单添加成功',U('Admin/AdminNav/index',array('pid'=>I('ppid'))));
                 }else{
@@ -46,8 +46,10 @@ class AdminNavController extends CommonController{
             $data['navurl']=trim(I('post.navurl'));
             $info=$nav->where(array('id'=>$id))->find();
             if($info){
+                //原来的菜单信息、现在的菜单信息
+                $log = "菜单信息:{$info['navname']}({$info['navurl']}) => {$data['navname']}({$data['navurl']})";
                 if($nav->where(array('id'=>$id))->save($data)){
-                    $log['done'] = '编辑菜单 ID_'.$id;
+                    $log['done'] = $log;
                     D('AdminLog')->logout($log);
                     $this->success('编辑成功',U('index',array('pid'=>I('pid'))));
                 }else{
@@ -69,15 +71,17 @@ class AdminNavController extends CommonController{
     }
 //删除菜单
     public function del(){
-        $id=I('post.id');
-        $nav=M('AdminNav');
-        $info=$nav->where(array('id'=>$id))->find();
+        $id = I('post.id');
+        $nav = M('AdminNav');
+        $info = $nav->where(array('id'=>$id))->find();
+
         if($info){
-            $where['path']=array('like',"$id%");
-            $pathInfo=$nav->where($where)->select();
+            $where['path'] = array('like',"{$id}%");
+            $pathInfo = $nav->where($where)->select();
             if($pathInfo){
                 $res = $nav->where($where)->delete();
                 if($res){
+                    $log['done'] = '菜单删除: =>'.$info['navname'];
                     $this->success('删除成功',U('Admin/AdminNav/index',array('pid'=>I('pid'))));
                 }else{
                     $this->error('删除失败');
@@ -86,7 +90,6 @@ class AdminNavController extends CommonController{
                 $res = $nav->where(array('id'=>$id))->delete();
             }
             if($res){
-                $log['done'] = '删除了菜单 ID_'.$id;
                 D('AdminLog')->logout($log);
                 $this->success('删除成功',U('Admin/AdminNav/index',array('pid'=>I('pid'))));
             }else{
@@ -103,9 +106,12 @@ class AdminNavController extends CommonController{
             $nav=D('AdminNav');
             $data=$nav->create();
             if($data){
+                //原来的优先级
+                $priority = M('AdminNav')->where(array('id'=>$data['id']))->find();
+                $log['done'] = "菜单优先级信息:{$priority['priority']} => ";
                 $row=$nav->setPriority($data);
                 if($row){
-                    $log['done'] = "更新了左边菜单 ID_{$data['id']} 的优先级";
+                    $log['done'] = $log['done'].$data['priority'];
                     D('AdminLog')->logout($log);
                     $this->success('优先级更新成功');
                 }

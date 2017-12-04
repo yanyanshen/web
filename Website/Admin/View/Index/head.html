@@ -5,22 +5,20 @@
         <link href="__STATIC__/ment/css/admin.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <table cellspacing=0 cellpadding=0 width="100%" background="__STATIC__/ment/img/header_bg.jpg" border=0>
-            <tr height=56>
+        <table cellspacing=0 cellpadding=0 width="100%" border=0>
+            <tr height=61>
                 <td width=260>
-                    <img height=56 src="__STATIC__/ment/img/header_left.jpg" width=260>
+                    <img height=61 src="__STATIC__/ment/img/header_left.png" width=360>
                 </td>
-                <td style="font-weight: bold; color: #fff; padding-top: 20px" 
-                    align=middle>当前用户：{$Think.session.admin_name} &nbsp;&nbsp;
+                <td style="font-weight: bold; color: #fff; padding-top: 20px;background-color: #273b54" align=middle>
+                    当前用户：{$Think.session.admin_name} &nbsp;&nbsp;
                     <a style="color: #fff" onclick="if (confirm('确定要退出吗？')) return true; else return false;" href="{:U('Admin/Login/logout')}" target=_top>退出系统</a>
                 </td>
-                <td align=right width=268>
-                    <img height=56 src="__STATIC__/ment/img/header_right.jpg" width=268>
-                </td>
+                <td align=right width=268 style="background-color:#273b54"></td>
             </tr>
         </table>
         <table cellspacing=0 cellpadding=0 width="100%" border=0>
-            <tr bgcolor=#1c5db6 height=4>
+            <tr bgcolor=#1c5db6 height=2>
                 <td></td>
             </tr>
         </table>

@@ -6,31 +6,18 @@
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
         <script src="__PUBLIC__/public/js/layer/layer.js"></script>
-        <style>
-            #page a,#page span{
-                display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-                text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
-            }
-            #page a:hover{background:#F27602;color:#FF0000;}
-            #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-            #page{ float: left; }
-
-            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
-            .table_a tr:hover{background-color: rgb(82, 249, 56);}
-        </style>
     </head>
     <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+    <div class="div_head">
         内容列表
-        <a href="{:U('Admin/Cyclope/add',array('pid'=>$get['pid'],'p'=>$get['p']))}" style="text-decoration: none;color:red">【内容添加】</a>
-        <span style="float:right;margin-right: 1%">总计：{$count}</span>
+        <a href="{:U('Admin/Cyclope/add',array('pid'=>$get['pid'],'p'=>$get['p']))}" style="text-decoration: none;color:#FA7124">【内容添加】</a>
+        <span class="span">总计：{$count}</span>
     </div>
-    <div class="div_search" style="background-color:  rgb(129, 191, 249);color:#ffffff;font-weight: bolder;font-size: 15px">
+    <div class="div_search">
         <span>
             <form action="{:U('Admin/Cyclope/index',array('pid'=>$get['pid'],'p'=>$get['p']))}" id='form' method="get">
                 城市：
-                <select name="cityid" >
+                <select name="cityid" style="font-size: 11px;width: 70px;height: 20px">
                     <option value="0">请选择</option>
                     <volist name='citys' id='v'>
                         <option value="{$v.id}" {$v['id']==$get['cityid']?selected:''}>{$v.cityname}</option>
@@ -38,69 +25,69 @@
                </select>
                 题目：<input type="text" name='title' value="{$get['title']?$get['title']:''}" />
                 科目：
-                <select name="type" >
+                <select name="type" style="font-size: 11px;width: 70px;height: 20px">
                     <option value="0" selected>请选择</option>
                     <option value="1" {$get['type']==1?selected:''}>科目一</option>
                     <option value="2" {$get['type']==2?selected:''}>科目二</option>
                     <option value="3" {$get['type']==3?selected:''}>科目三</option>
                     <option value="4" {$get['type']==4?selected:''}>科目四</option>
                 </select>
-                <input value="查询" type="submit" id='btn'/>
-                <input value="清空全部" type="reset" id='btn'/>
+                <input value="查询" style="font-size:11px" type="submit" id='btn'/>
+                <input value="清空全部"  style="font-size:11px"  type="reset" id='btn'/>
             </form>
         </span>
     </div>
-    <div style="font-size: 13px;margin: 10px 5px ;" >
-        <table class="table_a" style="border:1px solid  rgb(129, 191, 249);width: 100%">
-            <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff;height: 35px">
-                    <td width="5%">序号id</td>
-                    <td width="10%">图片</td>
-                    <td width="15%">标题</td>
-                    <td width="20%">内容</td>
-                    <td width="10%">点击量</td>
-                    <td width="10%">添加时间</td>
-                    <td width="10%">最后更新人</td>
-                    <td width="30%">操作</td>
+    <div style="margin: 10px 5px ;" >
+        <table class="table_a" >
+            <tr style="background-color:  rgb(19, 181, 177);">
+                <td width="4%">序号id</td>
+                <td width="8%">图片</td>
+                <td width="15%">标题</td>
+                <td width="20%">内容</td>
+                <td width="5%">点击量</td>
+                <td width="10%">添加时间</td>
+                <td width="8%">最后更新人</td>
+                <td width="30%">操作</td>
+            </tr>
+            <volist name="info" id="v" key="k" empty="$empty">
+                <tr>
+                    <td><span style="{$v['set_header']?'color: #fa7124;font-weight: bold;':''}">{$v.id}</span>  </td>
+                    <td><img src="{$v.picurl}" alt="" width="50" height="40" align="center"/></td>
+                    <td>{$v['title']}</td>
+                    <td>{$v['content']}</td>
+                    <td>{$v['count']}</td>
+                    <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
+                    <td>{$v['update']}</td>
+                    <td>
+                        <a class="tablelink"
+                           href="{:U('Admin/Cyclope/set_header',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
+                            {$v['set_header']?'取消置顶':'置顶'}
+                        </a>
+                        <span>|</span>
+                        <a class="tablelink"  onclick="if(confirm('确认要操作吗？')==false)  return false;"
+                           href="{:U('Admin/Cyclope/Hnew',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
+                            {$v['hnew']?'取消热门资讯':'热门资讯'}
+                        </a>
+                        <span>|</span>
+                        <a class="tablelink"
+                           href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
+                        <span>|</span>
+                        <a class="tablelink"   id="del" href="javascript:void(0);"
+                           onclick="del({$v['id']},{$get['pid']},'cyclope',{$get['p']?$get['p']:1})">删除</a>
+                    </td>
+                    <script>
+                        function del(id,pid,type,p){
+                            layer.msg('确定要删除吗？', {
+                                time: 0, //不自动关闭
+                                btn: ["确定", '取消'],
+                                yes: function(){
+                                    location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                }
+                            });
+                        }
+                    </script>
                 </tr>
-                <volist name="info" id="v" key="k" empty="$empty">
-                    <tr>
-                        <td><span style="{$v['set_header']?'color: #fa7124;font-weight: bold;':''}">{$v.id}</span>  </td>
-                        <td><img src="{$v.picurl}" alt="" width="100"/></td>
-                        <td>{$v['title']}</td>
-                        <td>{$v['content']}</td>
-                        <td>{$v['count']}</td>
-                        <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
-                        <td>{$v['update']}</td>
-                        <td>
-                            <a style="text-decoration: none"
-                               href="{:U('Admin/Cyclope/set_header',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
-                                {$v['set_header']?'取消置顶':'置顶'}
-                            </a>
-                            <span>|</span>
-                            <a style="text-decoration: none" onclick="if(confirm('确认要操作吗？')==false)  return false;"
-                               href="{:U('Admin/Cyclope/Hnew',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
-                                {$v['hnew']?'取消热门资讯':'热门资讯'}
-                            </a>
-                            <span>|</span>
-                            <a style="text-decoration: none"
-                               href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
-                            <span>|</span>
-                            <a style="text-decoration: none"   id="del" href="javascript:void(0);"
-                               onclick="del({$v['id']},{$get['pid']},'cyclope',{$get['p']})">删除</a>
-                        </td>
-                        <script>
-                            function del(id,pid,type,p){
-                                layer.msg('确定要删除吗？', {
-                                    time: 0, //不自动关闭
-                                    btn: ["确定", '取消'],
-                                    yes: function(){
-                                        location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&p='+p; //此处只是为了演示，实际使用可以剔除
-                                    }
-                                });
-                            }
-                        </script>
-                    </tr>
-                </volist>
+            </volist>
             </table>
             <div id="page">{$page}</div>
         </div>

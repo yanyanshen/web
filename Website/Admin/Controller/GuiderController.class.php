@@ -18,9 +18,7 @@ class GuiderController extends CommonController {
         }
         $count = $Dao->table('xueches_boss b,xueches_school s,xueches_guider_category ca,xueches_citys city')
             ->where($where)->count();
-        $field="s.id,s.school_id,s.account,s.picurl,s.picname,s.sex,s.nickname,s.score,s.ntime,s.carnumber,s.class_num,
-                s.serialId,s.numberId,s.address,s.cityid,s.verify,s.lastupdate,s.type,s.recommand,s.week,s.hot,s.student_num,
-                ca.category_name,ca.id as caid,city.cityname,city.id as cityid";
+        $field="s.*,ca.category_name,ca.id as caid,city.cityname,city.id as cityid";
         $p = new Page($count,10);
         $page = $p->show();
         $list = $Dao->field($field)
@@ -37,16 +35,18 @@ class GuiderController extends CommonController {
         $this->assign('list', $list);
         $this->display();
     }
-
-
     public function add_zd(){
         if(IS_AJAX){
             $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
             $_POST['type']='zd';
             $_POST['school_id']=$school_id;
-            $_POST['time']=time();
+            $_POST['ntime']=time();
+            $_POST['lastupdate'] = session('admin_name');
             $id=M('school')->add($_POST);
             if($id){
+                $log['done'] = "指导员添加: => {$_POST['nickname']}";
+                D('AdminLog')->logout($log);
+
                 M('School')->where(array('id'=>$school_id,'type'=>'zd'))->setInc('guider_num',1);
                 $res=UploadPic('School','guider_logo',$id);
             }
@@ -73,12 +73,16 @@ class GuiderController extends CommonController {
     public function editor_zd(){
         if(!empty($_POST)){
             $where['id']=$_POST['id'];
+            $nickname1 = M('School')->where($where)->getField('nickname');
             $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
+            $log['done'] = "指导员信息:$nickname1 => ".$_POST['nickname'];
             $_POST['school_id']=$school_id;
             $_POST['ntime']=time();
+            $_POST['lastupdate']=session('admin_name');
             D('school')->jx_editor($where,$_POST);//更新数据
             $res=editorPic('School','guider_logo',$_POST['id']);
             if($res){
+                D('AdminLog')->logout($log);
                 $this->success('编辑成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
             }else{
                 $this->error('编辑失败',U('Admin/Guider/editor_zd',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'id'=>$_POST['id'],'type'=>I('type'))));
@@ -119,15 +123,16 @@ class GuiderController extends CommonController {
             $_POST['time']=time();
             $_POST['update_people']=session("admin_name");
             if($_POST['cid']){
+                $category=M('GuiderCategory')->where(array('id'=>$_POST['cid']))->getField('category_name');
                 $res=M('GuiderCategory')->where(array('id'=>$_POST['cid']))->save($_POST);
-                $log['done'] = '编辑指导员分类 ID_'.$_POST['cid'];
+                $log['done'] = "指导员分类信息:$category => ".$_POST['category_name'];
             }else{
                 $cid=M('GuiderCategory')->where(array('category_name'=>$_POST['category_name']))->getField('id');
                 if($cid){
                     $this->error('数据已经存在',U('Admin/Guider/category_index',array('pid'=>I('pid'))));
                 }else{
                     $res=M('GuiderCategory')->add($_POST);
-                    $log['done'] = '添加指导员分类 ID_'.$res;
+                    $log['done'] = '指导员分类信息: => '.$_POST['category_name'];
                 }
             }
             if($res){

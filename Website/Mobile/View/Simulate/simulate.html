@@ -13,9 +13,12 @@
     <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="__STATIC__/theory_study/css/style.css">
-    <link rel="stylesheet" href="___PUBLIC__/public/mui/css/mui.min.css">
     <script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
     <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/public/mui/css/app.css" />
     <style>
         .options li{
             cursor: pointer;border-bottom: 1px solid #eee;
@@ -46,11 +49,11 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back submit" ms="{$ms}" mt="{$mt}">
-                    <a href="javascript:;">
+                <a href="javascript:;">
+                    <li class="back submit" ms="{$ms}" mt="{$mt}">
                         <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-                </li>
+                    </li>
+                </a>
                 <li class="header_text">{$ms==1?'科一':'科四'}全真模拟</li>
                 <div class="clearfix"></div>
             </ul>
@@ -174,7 +177,8 @@
             </footer>
         </div>
     </div>
-<script>
+    <script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
+    <script>
     $(".select_A").click(function(){
         var id=$(this).attr('gid');
         var title='.title_'+id;

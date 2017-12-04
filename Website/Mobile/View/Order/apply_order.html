@@ -43,6 +43,7 @@
             var mobileReg = /^1[34578]{1}[0-9]{9}$/;
             return this.optional(element) || (mobileReg.test(value));
         }, "*手机格式错误");
+        $('#form1').submit();
     })
 </script>
 <body>
@@ -50,11 +51,12 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back">
-                    <a href="{$url}">
-                    <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-                </li>
+                <a href="{$url}" >
+                    <li class="back" style="padding-right: 50px">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </li>
+                </a>
+
                 <li class="header_text">马上报名</li>
                 <div class="clearfix"></div>
             </ul>
@@ -64,7 +66,7 @@
         <div class="main_box">
             <div class="main">
                 <input type="hidden" name="class_id" value="{$class_id}"/>
-                <input type="hidden" name="id" value="{$id}"/>
+                <input type="hidden" name="id" value="{$name['type_id']}"/>
                 <div class="apply">
                     <label class="label">真实姓名</label>
                     <input class="user" type="text" name="account" placeholder="请输入真实姓名" required>
@@ -92,9 +94,9 @@
                         $("input[name='num']").val(val);
                         if(val == 50 || val > 50){$("input[name='num']").val(50);}
                         $("#user").append('<div class="stu" style="border-bottom:1px solid rgb(245,245,245);"> <label class="label">姓名</label>' +
-                        '<input class="user" type="text" value="" name="name[]" style="width:30%;" placeholder="请输入真实姓名"/>' +
+                        '<input class="user" type="text" value="" name="name[]" style="width:30%;" placeholder="请如实填写"/>' +
                         '<label class="label">电话</label>' +
-                        '<input class="tel " type="text" value="" name="tel[]" style="width:31%;" placeholder="请输入手机号码"/>' +
+                        '<input class="tel " type="text" value="" name="tel[]" style="width:31%;" placeholder="请如实填写"/>' +
                         '</div>');
                     }
                     function down_num(){
@@ -115,7 +117,7 @@
                 </div>
                 <div class="apply">
                     <label class="label">培训课程</label>
-                    <a class="user" href="{:U('Mobile/Order/choose_course',array('id'=>$id))}">
+                    <a class="user" href="{:U('Mobile/Detail/index',array('id'=>$name['type_id']))}#detail">
                         {$name['name']}
                     </a>
                 </div>

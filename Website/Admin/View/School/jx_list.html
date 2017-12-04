@@ -5,28 +5,19 @@
     <title>驾校列表</title>
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-    <style>
-        #page a,#page span{
-            display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;
-        }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FA7124; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);;font-size: 13px}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
-        .table_a tr:hover{background-color: rgb(82, 249, 56)}
-    </style>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
 </head>
 <body>
-    <div class="div_head"  style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder;">
+    <div class="div_head">
         驾校列表
-        <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U('Admin/School/add_jx',array('type'=>'jx','pid'=>$get['pid'],'p'=>$get['p']))}">【驾校添加】</a>
-        <span style="float:right;margin-right: 1%">总计：{$count}</span>
+        <a style="text-decoration: none;color:#FA7124;" href="{:U('Admin/School/add_jx',array('type'=>'jx','pid'=>$get['pid'],'p'=>$get['p']))}">【驾校添加】</a>
+        <a href="" style="text-decoration: none;color: #646464">【刷新】</a>
+        <span class="span">总计：{$count}</span>
     </div>
-    <div class="div_search"  style="background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bold">
+    <div class="div_search">
         <span>
-            <form action="{:U('Admin/School/jx_list')}" id='form' method="get">
-                城市：<select name="cityid" >
+            <form action="{:U('Admin/School/jx_list',array('pid'=>$get['pid'],'p'=>$get['p']))}" id='form' method="get">
+                城市：<select name="cityid" style="font-size: 12px;width: 70px;height: 20px;">
                     <option value="0">请选择</option>
                     <volist name='city' id='v'>
                         <option value="{$v.id}" {$v['id']==$get['cityid']?selected:''}>{$v.cityname}</option>
@@ -34,74 +25,178 @@
                 </select>
                 驾校简称：<input type="text" name='nickname' value="{$get['nickname']?$get['nickname']:''}" />
                 驾校账号：<input type="text" name='account' value="{$get['account']?$get['account']:''}"/>
-                <input value="查询" type="submit" id='btn'/>
-                <input value="清空全部" type="reset" id='btn'/>
-                <a href="" style="background-color:rgb(224,224,224);padding: 2px 10px;text-decoration: none;color: #000000">刷新</a>
+                <input style="font-size: 11px" value="查询" type="submit" id='btn'/>
+                <input style="font-size: 11px" value="清空全部" type="reset" id='btn'/>
             </form>
         </span>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid  rgb(129, 191, 249);" width="100%">
+    <div style="margin-left: 6px">
+        <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0;" type="button" value='全选' />
+        <input type="button" value='删除' onclick="batch_operate_del('jx')" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0"/>
+        <script>
+            $("document").ready(function(){
+                $("#checkall").click(function(){
+                    if($(this).val() == '全选'){
+                        $("input[type='checkbox']").prop('checked',true);
+                        $("#checkall").val('取消全选');
+                    }else{
+                        $("input[type='checkbox']").prop('checked',false);
+                        $("#checkall").val('全选');
+                    }
+                });
+            });
+
+            function batch_operate_del(type){
+                var id_arr = document.getElementsByName('id[]');
+                var flag = false;
+                for(var i in id_arr){
+                    if(id_arr[i].checked){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    $.post("{:U('Admin/Finance/batch_operate')}",$("#form2").serialize(),function(res){
+                        layer.msg('确定要删除吗？',{
+                            time:0,
+                            btn:['确定','取消'],
+                            yes:function(){
+                                location.href = "{:U('Admin/School/batch_operate_del')}?pid={$get['pid']}&p={$get['p']}&str="+res.info['str']+"&type="+type
+                            }
+                        });
+                    },'json')
+                }else{
+                    layer.msg('请勾选后再操作',{time:2000,btn:['知道了']});
+                }
+            }
+        </script>
+    </div>
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <tbody>
-            <tr style="font-weight: bold;height:36px;background-color:  rgb(129, 191, 249);color:#ffffff">
-                <th width="2%">编号</th>
-                <th width="5%">账号</th>
-                <th width="4%">头像</th>
-                <th width="4%">城市</th>
-                <th width="8%">驾校简称</th>
-                <th width="8%">地址</th>
-                <th width="4%">进驻基地</th>
-                <th width="4%">开设课程</th>
-                <th width="5%">学员</th>
-                <th width="5%">教练</th>
-                <th width="3%">地标</th>
-                <th width="3%">评分</th>
-                <th width="8%">驾校联系人</th>
-                <th width="5%">最后操作人</th>
+            <tr style="background-color: rgb(19, 181, 177);">
+                <th width="2%">ID</th>
+                <th width="1%">账号</th>
+                <th width="2%">头像</th>
+                <th width="2%">城市</th>
+                <th width="4%">驾校简称</th>
+                <th width="2%">最低价格</th>
+                <th width="2%">进驻基地</th>
+                <th width="2%">课程数</th>
+                <th width="2%">学员数</th>
+                <th width="2%">教练数</th>
+                <th width="2%">地标</th>
+                <th width="2%">评分</th>
+                <th width="4%">联系人</th>
+                <th width="2%">本周特价</th>
+                <th width="2%">热门驾校</th>
+                <th width="2%">推荐驾校</th>
+                <th width="2%">计时培训</th>
+                <th width="2%">最后操作人</th>
                 <th width="10%">操作</th>
             </tr>
+            <form action="" id="form2">
             <volist name='jx_list'  id='v' key="k" empty="$empty">
                 <tr>
-                    <td>{$k+$firstRow}</td>
+                    <td><input name="id[]" type="checkbox" value="{$v.id}"/>{$v.id}</td>
                     <td>{$v.account}</td>
                     <td>
                         <if condition="$v['picname'] neq ''">
-                            <img src="{$http}/Uploads/School_logo/{$v['picurl']}{$v['picname']}" alt="" style="border-radius:50%" width="50" height="50" />
+                            <img src="{$http}/Uploads/School_logo/{$v['picurl']}{$v['picname']}" alt="" style="border-radius:50%" width="50" height="40" />
                         <else/>
-                            <img src="{$http}/Uploads/default_logo/517.png" alt="" style="border-radius:50%" width="50" height="50" />
+                            <img src="{$http}/Uploads/default_logo/517.png" alt="" style="border-radius:50%" width="50" height="40" />
                         </if>
                     </td>
                     <td>{$v.cityname}</td>
-                    <td>{$v.nickname}<br>
-                        <span style="color: #20c318">
+                    <td>{$v.nickname}
+                        <span style="color: rgb(19, 181, 177);">
                             <if condition="$v.hot eq 1">热搜</if>
                             <if condition="$v.recommand eq 1">推荐</if>
                             <if condition="$v.week eq 1">本周</if>
                         </span>
                     </td>
-                    <td>{$v.address}</td>
-                    <td><a href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
+                    <td>{$v.minprice}</td>
+                    <td><a  class="tablelink"  href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     <td>
-                        <a href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">{$v.class_num}个课程</a>
+                        <a  class="tablelink"  href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">{$v.class_num}</a>
                     </td>
-                    <td>{$v.student_num}个学员</td>
-                    <td>{$v.coach_num}个教练</td>
-                    <td><a href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
+                    <td>{$v.student_num}</td>
+                    <td>{$v.coach_num}</td>
+                    <td><a class="tablelink" href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     <td>{$v.score}</td>
                     <td>{$v.connectteacher}</td>
+                    <td>
+                        <a class="tablelink" href="javascript:;" onclick="status_update({$v['id']},{$get['pid']},'week',{$get['p']?$get['p']:1})">{$v['week']?'取消本周':'本周'}</a>
+                    </td>
+                    <td>
+                        <a class="tablelink" href="javascript:;" onclick="status_update({$v['id']},{$get['pid']},'hot',{$get['p']?$get['p']:1})">{$v['hot']?'取消热门':'热门'}</a>
+                    </td>
+                    <td>
+                        <a class="tablelink" href="javascript:;"  onclick="status_update({$v['id']},{$get['pid']},'recommand',{$get['p']?$get['p']:1})">{$v['recommand']?'取消推荐':'推荐'}</a>
+                    </td>
+                    <td>
+                        <a class="tablelink" href="javascript:;" onclick="status_update({$v['id']},{$get['pid']},'timing',{$get['p']?$get['p']:1})">{$v['timing']?'取消计时':'计时'}</a>
+                    </td>
                     <td>{$v.lastupdate}</td>
                     <td>
-                        <a href="{:U('Admin/Environment/abstract_pic',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p'],'t'=>1))}">驾考环境</a>
-                        <a href="{:U('Admin/Environment/abstract_pic',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p'],'t'=>0))}">简介图片</a>
-                        <a href="{:U('Admin/School/jx_editor?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>　
-                        <a href="{:U('Admin/School/del_school?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'].'&type='.$v['type'])}" onclick="if(confirm('确定删除?')==false)return false;">删除</a>
+                        <a class="tablelink" href="{:U('Admin/Environment/abstract_pic',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p'],'t'=>1))}">驾考环境</a>
+                        <span>|</span>
+                        <a class="tablelink" href="{:U('Admin/Environment/abstract_pic',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p'],'t'=>0))}">简介图片</a>
+                        <span>|</span>
+                        <a class="tablelink" href="{:U('Admin/School/jx_editor?id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>　
+                        <span>|</span>
+                        <a class="tablelink" onclick="show_forbid({$v['id']},{$get['pid']},{$get['p']?$get['p']:1})">{$v['show_forbid']?'禁止':'展示'}</a>
+                        <script>
+                            function show_forbid(id,pid,p){
+                                layer.msg('确定要这样吗？',{
+                                    time:0,
+                                    btn:['确定','取消'],
+                                    yes:function(){
+                                        location.href = "{:U('Admin/School/show_forbid')}?id="+id+'&pid='+pid+'&p='+p
+                                    }
+                                });
+                            }
+
+                            function status_update(id,pid,type,p){
+                                layer.msg('确定要这样吗？',{
+                                    time:0,
+                                    btn:['确定','取消'],
+                                    yes:function(){
+                                        location.href = "{:U('Admin/School/status_update')}?id="+id+'&pid='+pid+'&type='+type+'&p='+p
+                                    }
+                                });
+                            }
+                        </script>
+                    </td>
                 </tr>
         </volist>
+            </form>
         </tbody>
     </table>
-    <div id="page" style="float: left">
+    <div id="page">
         {$page}
     </div>
 </div>
 </body>
 </html>
+<script>
+    $(function(){
+        $('.btn').click(function(){
+            var btn=$(this).attr('btn');
+            var id=$(this).attr('tid');
+
+            $(this).attr('disabled',true);
+            $.post ("{:U('Admin/TrainClass/status_update')}",{btn:btn,id:id},function(res){
+                if(res.status){
+                    layer.msg(res.info,{icon:6,time:2000},function(){
+                        location.href=res.url;
+                    });
+                }else{
+                    layer.msg(res.info,{icon:5,time:2000},function(){
+                        location.href=res.url;
+                    });
+                }
+            },'json')
+        })
+    })
+</script>

@@ -10,10 +10,9 @@ class StudentController extends CommonController {
         if(!empty($_GET)){
             foreach($_GET as $key=>$val) {
                 if($key=='truename'){
-                    $where.="  $key like '%".urldecode($val)."%' and";
+                    $where.=" $key like '%".urldecode($val)."%' and";
                 }elseif($key=='account' && $val != 0){
-                    echo 'account';
-                    $where.="  $key like'%".urlencode($val)."%' and";
+                    $where.=" $key like'%".urlencode($val)."%' and";
                 }elseif($key=='cityid' && $val != 0){
                     $where.=" $key=".urlencode($val)." and";
                 }
@@ -34,25 +33,22 @@ class StudentController extends CommonController {
         $this->assign('city', $city);
 
         $this->assign('get', $_GET);
-
         $this->assign('page', $page);
         $this->assign('count', $count);
         $this->assign('list', $list);
         $this->assign('http', C('HTTP'));
         $this->display();
     }
-    //删除学员
-    public function del_stu($id){
-        if(M('user')->delete($id)){
-            $log['done'] = '删除学员 ID_'.$id;
+//批量,单个删除学员
+    public function batch_operate_del(){
+        $id_arr = explode(',',I('str'));
+        foreach($id_arr as $v){
+            $user = M('User')->field('account,truename')->where(array('id'=>$v))->find();
+            $log['done'] = "学员删除信息: => {$user['truename']}({$user['account']})";
             D('AdminLog')->logout($log);
-            $message="<script>alert('删除成功')</script>";
-            $tt=0;
-        }else{
-            $message="<script>alert('删除失败')</script>";
-            $tt=0.1;
+            M('user')->delete($v);
         }
-        $this->redirect("stu_list",array('p'=>I('p'),'pid'=>I('pid')),$tt,$message);
+        $this->redirect('Admin/Student/stu_list',array('pid'=>I('pid'),'p'=>I('p')));
     }
     //添加学员
     public function add_stu(){
@@ -69,7 +65,7 @@ class StudentController extends CommonController {
             $res = $user->add($stu);
             if($res){
                 $user->commit();
-                $log['done'] = '学生添加 ID_'.$res;
+                $log['done'] = "学生添加信息: => {$_POST['truename']}({$_POST['cd_tel']})";
                 D('AdminLog')->logout($log);
                 $this->success('添加成功',U('Admin/Student/add_stu',array('pid'=>I('pid'))));
             }else{
@@ -86,8 +82,9 @@ class StudentController extends CommonController {
         if(!empty($_POST)){
             $_POST['ntime'] = time();
             $_POST['lastupdate'] = session('admin_name');
+            $user = M('user')->where($_POST)->field('account,truename')->find();
+            $log['done'] = "学员信息:{$user['truename']} => {$user['account']}";
             if(M('user')->save($_POST)){
-                $log['done'] = '更新学员信息 ID_'.I('id');
                 D('AdminLog')->logout($log);
                 $this->redirect('stu_list',array('p'=>I('p'),'pid'=>I('pid')),0.1,"<script>alert('更新成功')</script>");
             }else{
@@ -107,12 +104,13 @@ class StudentController extends CommonController {
     //改变启用还是禁用
     public function verify($id,$flag){
         if($flag==1){
+            $log['done'] = "学员登录状态:1 => 0";
             $flag=0;
         }else{
+            $log['done'] = "学员登录状态:0 => 1";
             $flag=1;
         }
         if(M('user')->where("id=$id")->setField('verify',$flag)){
-            $log['done'] = "更新学员状态 ID_".$id;
             D('AdminLog')->logout($log);
             $message="<script>alert('更新失败');</script>";
             $t=0;
@@ -192,7 +190,7 @@ class StudentController extends CommonController {
             M('evaluate')->commit();
             M('EvaluateUntil')->where(array('eid' => $id))->delete();
             M('EvaluateReply')->where(array('eid' => $id))->delete();
-            $log['done'] = '删除驾校评价 ID_'.$id;
+            $log['done'] = '驾校评价删除id: => '.$id;
             D('AdminLog')->logout($log);
             $this->redirect('evaluate_list', array('p'=>I('p'),'pid'=>I('pid')), 0.1, "<script>alert('操作成功')</script>");
         }else{
@@ -203,39 +201,41 @@ class StudentController extends CommonController {
 /*----------------------------------2017-10-30shenyanyan---------------------------*/
 //驾校预约报名列表
     public function school_apply(){
-        $pid = I('pid');
-        $add_order = D('AuthRule')->getRule($pid,'新建订单');
-        $_GET['add_order'] = $add_order['name'];
+        //消息中心
+        $count = D('Order')->order_count();
+        $this->assign('count',$count);
+
         session('admin_return',U('Admin/Student/school_apply',array('pid'=>I('pid'),'p'=>I('p'))));
         foreach($_GET as $k=>$val){
             if($k == 'create_time1' && $val != ''){
-                $where .= "a.ntime >= '$val' and ";
+                $where .= "ntime >= '$val' and ";
             }elseif($k == 'create_time2' && $val != ''){
-                $where .= "a.ntime <= '$val' and ";
+                $where .= "ntime <= '$val' and ";
             }elseif($k == 'truename' && $val != ''){
-                $where .= "u.truename like '%$val%' and ";
+                $where .= "truename like '%$val%' and ";
             }elseif($k == 'lastupdate' && $val != ''){
-                $where .= "a.lastupdate like '%$val%' and ";
+                $where .= "lastupdate like '%$val%' and ";
             }elseif($k == 'phone' && $val != ''){
-                $where .= "a.phone like '%$val%' and ";
+                $where .= "phone like '%$val%' and ";
             }elseif($k == 'visit_time1' && $val != ''){
-                $where .= "a.visit_time >= '$val' and ";
+                $where .= "visit_time >= '$val' and ";
             }elseif($k == 'visit_time2' && $val != ''){
-                $where .= "a.visit_time <= '$val' and ";
+                $where .= "visit_time <= '$val' and ";
             }elseif($k == 'visit' && $val == 0){
-                $where .= "a.visit = 0 and ";
+                $where .= "visit = 0 and ";
             }elseif($k == 'flag' && $val == 0){
-                $where .= "a.flag = 0 and ";
+                $where .= "flag = 0 and ";
+            }elseif($k == 'mid' && $val != 0 ){
+                $where .= "mid = $val and ";
             }
         }$where = rtrim($where,' and ');
 
-        $count = M('Apply')->alias('a')->join('xueches_user u ON a.mid = u.id')->where($where)->count();
+        $count = M('Apply')->where($where)->count();
         $Page = new Page($count,10);
         $_GET['page'] = $Page->show();
         $_GET['firstRow'] = $Page->firstRow;
-        $_GET['info'] = M('apply')->alias('a')->join('xueches_user u ON a.mid = u.id')
-            ->limit($Page->firstRow.','.$Page->listRows)->order('a.ntime desc')
-            ->field('a.id,u.truename,a.ntime,a.phone,a.inform,a.customer_inform,a.visit,a.visit_time,a.lastupdate,a.flag')
+        $_GET['info'] = M('Apply')->limit($Page->firstRow.','.$Page->listRows)
+            ->order('ntime desc')->field('*')
             ->where($where)->select();
         $_GET['count'] = $count;
         $_GET['count1'] = M('Apply')->where("flag = 0")->count();
@@ -251,12 +251,13 @@ class StudentController extends CommonController {
         $info = M('apply')->where(array('id'=>$id))->getField($type);
         if($info == 0){
             $_POST[$type] = 1;
+            $log['done'] = "学员驾校预约订单状态:{$_POST[$type]} => 1";
         }else{
             $_POST[$type] = 0;
+            $log['done'] = "学员驾校预约订单状态:{$_POST[$type]} => 0";
         }
         $res = M('apply')->save($_POST);
         if($res){
-            $log['done'] = '学员驾校预约订单状态修改 ID_'.$id;
             D('AdminLog')->logout($log);
             $this->success('操作成功');
         }else{

@@ -10,11 +10,9 @@
         <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style type="text/css">
-            span.error{  font-size: 14px;  font-weight: bold;  color: #FA7124;  }
-            span.ok{  font-size: 14px;  font-weight: bold;  color: #38D63B;  }
-
-            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+            span.error{ font-size: 12px;color: #FA7124;}
+            span.ok{font-size: 12px; color: #38D63B;}
+            .table_a  td{text-align: left}
         </style>
         <script>
             $(document).ready(function(e) {
@@ -34,17 +32,15 @@
         $(function(){
             var validate=$('#form1').validate({
                 rules:{
-                    account:{required:true},
-                    pass:{required:true, rangelength:[5,32]},
-                    nickname:{required:true},
-                    fullname:{required:true},
-                    address:{required:true}
+                    account:{required:true}, nickname:{required:true},
+                    fullname:{required:true}, address:{required:true},
+                    jtype:{required:true}, highprice:{required:true},
+                    minprice:{required:true}
                 },
                 messages:{
-                    account:{required:' * 必填项！'},
-                    pass:{required:' * 必填项！', rangelength:' * 密码长度必须在5到12位之间！'},
-                    nickname:{required:' * 必填项！'},
-                    fullname: {required: ' * 必填项！'},
+                    account:{required:' * 必填项！'}, nickname:{required:' * 必填项！'},
+                    fullname: {required: ' * 必填项！'}, jtype: {required: ' * 必填项！'},
+                    minprice: {required: ' * 必填项！'}, highprice: {required: ' * 必填项！'},
                     address:{required:' * 必填项！'}
                 },
                 success:function(span){
@@ -53,7 +49,7 @@
                 validClass:'ok',
                 errorElement:'span'
             });
-
+            $("#form1").submit();
             $("#add_jx").click(function(){
                 if(validate.form()){
                     $("#add_jx").attr('disabled',true);
@@ -74,25 +70,21 @@
         });
     </script>
     <body>
-        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-size: 15px">
+        <div class="div_head">
             驾校添加
-            <a style="text-decoration: none;font-weight: bolder;color: red" href="{:U('jx_list',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+            <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{:U('jx_list',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+            <a href="" style="color: #646464;text-decoration: none">【刷新】</a>
         </div>
-        <div style="font-size: 13px;margin: 10px 5px">
+        <div>
             <form action="{:U('Admin/School/add_jx')}" method="post" enctype="multipart/form-data" id="form1">
                 <input type="hidden" name="type" value="{$get['type']}"/>
                 <input type="hidden" name="p" value="{$get['p']}"/>
                 <input type="hidden" name="pid" value="{$get['pid']}"/>
-                <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
+                <table width="100%" class="table_a">
                     <tr>
-                        <td width="7%">驾校账号</td>
-                        <td><input type="text" name="account" /><span style="color:red;">{$errorInfo.account|default=""}</span></td>
+                        <td width="7%" style="color: #646464">驾校账号</td>
+                        <td><input type="text" name="account" /></td>
                     </tr>
-                    <tr>
-                        <td>登录密码</td>
-                        <td><input type="text" name="pass" value="244ac348537069c3bfe9d633349b7334" style="width:500px" /><span style="color:red;">{$errorInfo.pass|default=""}(默认为517xueche)</span></td>
-                    </tr>
-
                     <tr>
                         <td>所在城市</td>
                         <td>
@@ -103,15 +95,13 @@
                             </select>
                         </td>
                     </tr>
-
                     <tr>
                         <td>驾校简称</td>
-                        <td><input type="text" name="nickname" /><span style="color:red;">{$errorInfo.nickname|default=""}</span></td>
+                        <td><input type="text" name="nickname" /></td>
                     </tr>
                     <tr>
                         <td>驾校全称</td>
                         <td><input type="text" id="keyword" name="fullname"/>
-                            <span style="color:red;">{$errorInfo.fullname|default=""}</span>
                         </td>
                     </tr>
                     <tr>
@@ -122,12 +112,11 @@
                     </tr>
                     <tr>
                         <td>驾校电话</td>
-                        <td><input type="text" name="phone" value="" /></td>
+                        <td><input type="text" name="phone" value="400-8040-517" /></td>
                     </tr>
-
                     <tr>
                         <td>优先级</td>
-                        <td><input type="text" name="order" value="" />(数字，优先级越大排名越靠前)</td>
+                        <td><input type="text" name="order" value="0" />(数字，优先级越大排名越靠前)</td>
                     </tr>
                     <tr>
                         <td>驾校logo</td>
@@ -135,7 +124,7 @@
                             <div class="usercity" style="border:3px dashed #e6e6e6;width:300px;height:200px;position: relative;margin-bottom: 15px">
                                 <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
                                 <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                                <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                                <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:rgb(19, 181, 177);padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                             </div>
                         </td>
                     </tr>
@@ -147,35 +136,58 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>签名</td>
-                        <td><input type="text" name="signature"/></td>
+                        <td>首页特价</td>
+                        <td>
+                            <label><input type="radio"  name='week' value=1 />支持</label>　
+                            <label><input type="radio" name='week' value=0 checked/>不支持</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>首页热门</td>
+                        <td>
+                            <label><input type="radio"  name='hot' value=1 />支持</label>　
+                            <label><input type="radio" name='hot' value=0 checked/>不支持</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>首页推荐</td>
+                        <td>
+                            <label><input type="radio"  name='recommand' value=1 />支持</label>　
+                            <label><input type="radio" name='recommand' value=0 checked/>不支持</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>最低价格</td>
+                        <td><input type="text" name="minprice"  placeholder="例如:4900"/></td>
+                    </tr>
+                    <tr>
+                        <td>原价</td>
+                        <td><input type="text" name="highprice"  placeholder="例如:7800"/></td>
                     </tr>
                     <tr>
                         <td>评分</td>
-                        <td><input type="text" name="score"/><span style="color:red;">{$errorInfo.score|default=""}</span></td>
+                        <td><input type="text" name="score" placeholder="例如:5(限制：1-5)"/></td>
                     </tr>
-
                     <tr>
                         <td>评论数</td>
-                        <td><input type="text" name="evalutioncount"  /><span style="color:red;">{$errorInfo.evalutioncount|default=""}</span></td>
+                        <td><input type="text" name="evalutioncount"  value="329"/></td>
                     </tr>
                     <tr>
-                        <td>好评数</td>
-                        <td><input type="text" name="praisecount" /><span style="color:red;">{$errorInfo.praisecount|default=""}</span></td>
+                        <td>驾照类型</td>
+                        <td><input type="text" name="jtype" style="font-size: 10px;width: 170px" placeholder="例如:C(多个用英文逗号隔开)"/></td>
                     </tr>
                     <tr>
                         <td>总学员数</td>
-                        <td><input type="text" name="allcount"  /><span style="color:red;">{$errorInfo.allcount|default=""}</span></td>
+                        <td><input type="text" name="allcount"  value="211"/></td>
                     </tr>
                     <tr>
                         <td>已通过人数</td>
-                        <td><input type="text" name="passedcount" /><span style="color:red;">{$errorInfo.passedcount|default=""}</span></td>
+                        <td><input type="text" name="passedcount" value="322"/></td>
                     </tr>
                     <tr>
                         <td>联系人/联系方式</td>
                         <td><input type="text" name="connectteacher" />（姓名 空格 手机号）</td>
                     </tr>
-
                     <tr>
                         <td>驾校简介</td>
                         <td>

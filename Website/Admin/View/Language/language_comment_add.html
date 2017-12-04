@@ -10,10 +10,9 @@
         <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style type="text/css">
-            span.error{  font-size: 14px;  font-weight: bold;  color: #FF0000;  }
-            span.ok{font-size: 14px;  font-weight: bold;  color: #38D63B;  }
-            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+            span.error{font-size: 12px;color: #FA7124;}
+            span.ok{font-size: 12px;color: rgb(19, 181, 177);}
+            .table_a  td{text-align: left}
         </style>
         <script>
             $(document).ready(function(e) {
@@ -33,12 +32,10 @@
         $(function(){
             var validate=$('#form1').validate({
                 rules:{
-                    username:{required:true},
-                    score:{required:true}
+                    username:{required:true}, score:{required:true}
                 },
                 messages:{
-                    username:{required:' * 必填项！'},
-                    score:{required:' * 必填项！'}
+                    username:{required:' * 必填项！'}, score:{required:' * 必填项！'}
                 },
                 success:function(span){
                     span.addClass('ok').text(' * ok')
@@ -46,7 +43,7 @@
                 validClass:'ok',
                 errorElement:'span'
             });
-
+            $("#form1").submit();
             $("#submit").click(function(){
                 if(validate.form()){
                     $("#submit").attr('disabled',true);
@@ -67,23 +64,23 @@
         });
     </script>
     <body>
-        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+        <div class="div_head">
             {$get['nickname']} - 评论添加
-                <span style="margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
-                </span>
+            <span style="margin-right: 8px;font-weight: bold">
+                <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
+            </span>
         </div>
         <form action="#" method="post" id="form1">
-        <div style="font-size: 13px;margin: 10px 5px">
-            <table width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
+        <div style="font-size: 12px;margin: 10px 5px">
+            <table width="100%" class="table_a">
                 <input type="hidden" name='type_id' value="{$get['type_id']}"/>
                  <input type="hidden" name='p' value="{$get['p']}"/>
                  <input type="hidden" name='pid' value="{$get['pid']}"/>
-               	<tr >
+               	<tr style="color: #323232">
                     <td width="5%">评论人</td>
                     <td><input type="text" name="username" value=""/></td>
                 </tr>
-                <tr >
+                <tr>
                     <td width="5%">评分</td>
                     <td><input type="text" name="score" value="" placeholder="请填写数字 1-5"/></td>
                 </tr>

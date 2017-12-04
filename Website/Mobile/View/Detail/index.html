@@ -16,33 +16,22 @@
     <script type="text/javascript">
         $(function(){
             $('#marquee_information2').kxbdSuperMarquee({
-                isEqual:false,
-                distance:18,
-                time:3,
-                direction:'up'
+                isEqual:false, distance:18, time:3, direction:'up'
             });
         });
     </script>
 </head>
 <body>
+
 <div id="pagewrap">
-	<div id="header_box">
-		<ul id="header">
-			<li id="header_logo"><a href="index.html"><img src="{$http}/__STATIC__/detail/images/logo.png"></a></li>
-			<li id="header_text"><h1>为改变驾校而生</h1></li>
-            <li id="header_phone"><a href=""><img src="{$http}/__STATIC__/detail/images/phone.png"></a></li>
-			<li id="header_number"><a href="tel:4008040517">400-8040-517</a></li>
-			<div class="clearfix"></div>
-		</ul>
-	</div>
     <div class="header_box1">
         <div class="header2">
             <ul>
-                <li class="header_back">
-                    <a href="{$mobile_return}">
+                <a href="{$mobile_return}">
+                    <li class="header_back" style="padding-right: 50px">
                         <img src="__PUBLIC__/public/images/back.png">
-                    </a>
-                </li>
+                    </li>
+                </a>
                 <li class="header_detail">
                     <if condition="$info.type eq 'jx'">
                         驾校详情
@@ -75,7 +64,7 @@
                 </div>
                 <ul class="top_m1_text">
                     <li id="tbt_mn">{$info.nickname}</li>
-                    <li id="tbt_mm">￥{$classprice}</li>
+                    <li id="tbt_mm">￥{$info.minprice}</li>
                     <li id="tbt_mnum">{$info.allcount}人已报名</li>
                 </ul>
                 <div class="clearfix"></div>
@@ -136,6 +125,7 @@
                 </ul>
             </div>
         </div>
+        <a name="detail"></a>
         <div id="content_mc">
             <div class="course_bm">
                 <div class="course_tbm">
@@ -160,24 +150,15 @@
                                         <td align="center" style="padding: 0;margin:0">
                                             <a href="{:U('Mobile/Detail/course_details',array('id'=>$v['id']))}" class="course_name">
                                                 {$v.name}
-                                                <if condition="$v.week eq 1">
-                                                    <br>（本周特价）
-                                                </if>
-                                                <if condition="$v.recommand eq 1">
-                                                    <br>（推荐）
-                                                </if>
-                                                <if condition="$v.hot eq 1">
-                                                    <br>（热门）
-                                                </if>
                                             </a>
                                         </td>
                                         <td align="center" style="padding: 0;margin:0">{$v.class_type}</td>
                                         <td align="center" style="padding: 0;margin:0">{$v.officeprice}</td>
                                         <td align="center" class="course_money" style="padding: 0;margin:0">{$v.wholeprice}</td>
                                         <td align="center">
-                                            <div class="course_apply">
-                                                <a href="{:U('Mobile/Order/apply_order',array('sub_button'=>$v['id']))}">报名</a>
-                                            </div>
+                                            <a href="{:U('Mobile/Order/apply_order',array('sub_button'=>$v['id']))}">
+                                                <div class="course_apply" style="color: #ffffff;padding: 3px 0">报名</div>
+                                            </a>
                                         </td>
                                     </tr>
                                 </volist>
@@ -326,8 +307,8 @@
                                     <else/>
                                     <div class="eval_text">
                                         <if condition="$data['ucontent'] neq ''">
-                                            <p style="border-bottom: none;padding:0">内容：{$data['content']}</p>
-                                            <p style="border-bottom: none"><span style="color:#fa7124">追加内容【{$data['untime']}】</span>{$data['ucontent']}</p>
+                                            <p style="border-bottom: none;padding:0">{$data['content']}</p>
+                                            <p><span style="color:#fa7124">追加内容【{$data['untime']}】</span>{$data['ucontent']}</p>
                                             <else/>
                                             <p>{$data['content']}</p>
                                         </if>
@@ -336,17 +317,21 @@
                             </div>
                         </volist>
                     </div>
-                    <div class="look_more"><div class="lm"><a href="{:U('Mobile/Detail/evaluate',array('id'=>$id))}">查看更多</a></div></div>
+                    <div class="look_more">
+                        <div class="lm">
+                            <a  style="padding:10px 100px;" href="{:U('Mobile/Detail/evaluate',array('id'=>$info['id']))}">查看更多</a>
+                        </div>
+                    </div>
                 </div>
             </div>
     </div>
     <footer id="footer">
         <ul>
-            <li class="foot_box">
-                <a href="{:U('Mobile/Order/choose_course',array('id'=>$id))}">
+            <a href="#detail">
+                <li class="foot_box">
                     <p>马上报名</p>
-                </a>
-               </li>
+                </li>
+            </a>
             <li class="foot_box">
                 <a href="">
                     <p>免费咨询</p>

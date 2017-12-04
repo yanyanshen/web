@@ -9,32 +9,33 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        label{padding: 10px 20px 10px 0}
-        li{ margin-top: 20px;list-style: none}
-        .dfinput{margin-left: 10px;
-            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
-            width: 340px;padding: 10px 0 10px 5px}
-        b{color: red}
+        label{padding: 10px 10px 10px 0}
+        li{ margin-top: 15px;list-style: none}
+        b{color: #FA7124}
+
+        .dfinput{margin-left: 10px;border:solid 1px rgb(220, 220, 220);border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px;background-color: #ffffff;
+        }
     </style>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+<div class="div_head" >
     <span >编辑管理员</span>
     <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
 </div>
-<div style="font-size: 13px;margin: 10px 5px">
+<div style="margin: 10px 5px">
     <form action="" id="form1" method="post">
         <input type="hidden" value="{$adminInfo.id}" name="id"/>
         <input type="hidden" value="{$get['p']}" name="p"/>
         <input type="hidden" value="{$get['pid']}" name="pid"/>
-        <ul >
+        <ul style="padding: 0;margin-left: 12px">
             <li>
                 <label>所属组<b>*</b></label>
-                <div style="width: 320px;display: inline-block;padding-left: 11px">
+                <div style="width: 320px;display: inline-block;">
                     <volist name="groupList" id="value">
                         <div style="display: inline-block;margin-left:10px;width: 150px;margin-bottom: 5px">
-                            <input type="text" value="{$value.title}" style="border:none;width: 90px;font-size: 15px" readonly/>
-                            <input   style="width:18px;font-size: 17px" name="group_id[]" {:in_array($value['id'],$adminInfo['gid'])?'checked':''} id="{$value.title}" type="checkbox" value="{$value.id}" class="dfinput"/>
+                            <input type="text" value="{$value.title}" style="border:none;width: 90px;" readonly/>
+                            <input style="width:18px;" name="group_id[]" {:in_array($value['id'],$adminInfo['gid'])?'checked':''} id="{$value.title}" type="checkbox" value="{$value.id}" class="dfinput"/>
                         </div>
                     </volist>
                 </div>
@@ -46,8 +47,8 @@
                 <input name="password" type="password" class="dfinput" value="" placeholder="不填写则保持原密码不变"/>
             </li>
             <li>
-                <label style="padding: 10px 80px 10px 0"></label>
-                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
+                <label style="padding: 10px 62px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
             </li>
         </ul>
     </form>
@@ -63,7 +64,9 @@
                     location=res.url;
                 });
             }else{
-                layer.msg(res.info);
+                layer.msg(res.info, {icon:5,time:2000},function(){
+                    location=res.url;
+                });
             }
         });
         return false;

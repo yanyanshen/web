@@ -10,15 +10,14 @@
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        div.error{  font-size: 14px;  font-weight: bold; display: inline-block; color: #FA7124;  }
-        div.ok{  font-size: 14px;  font-weight: bold; display: inline-block;  color: #38D63B;  }
+        div.error{font-size: 12px;display: inline-block;color: #FA7124;}
+        div.ok{font-size: 12px; display: inline-block;color: #38D63B;}
 
         label{padding: 10px 20px 10px 0;}
         b{color: #FA7124}
-        li{ margin-top: 30px;list-style: none;}
-        .dfinput{margin-left: 10px;
-            border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
-            width: 340px;padding: 10px 0 10px 5px}
+        li{ margin-top: 15px;list-style: none;}
+        .dfinput{margin-left: 10px;border:rgb(220,220,220) solid 1px;border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
     </style>
     <script>
         $(document).ready(function(e) {
@@ -35,18 +34,18 @@
     </script>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+<div class="div_head">
     内容添加
-    <a style="text-decoration: none;font-weight: bolder;color: red" href="{:U('index',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+    <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{:U('index',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
 </div>
     <div >
         <form action="{:U('Admin/Cyclope/add')}" method="post" id="form1" enctype="multipart/form-data">
             <input type="hidden" value="{$get['pid']}" name="pid"/>
             <input type="hidden" value="{$get['p']}" name="p"/>
-            <ul style="margin-left: 10px;padding: 0">
+            <ul style="margin-left: 15px;padding: 0">
                 <li>
                     <label style="padding: 10px 28px 10px 0">城市<b>*</b></label>
-                    <select name="cityid" style="width: 345px" class="dfinput">
+                    <select name="cityid" style="width: 345px;" class="dfinput">
                         <volist name="citys" id="v" style="height: 20px;">
                             <option value="{$v.id}" {$v['id'] == $cityid?selected:''}>{$v.cityname}</option>
                         </volist>
@@ -62,12 +61,12 @@
                     </select>
                 </li>
                 <li>
-                    <label style="padding: 10px 0px 10px 0">内容标题<b>*</b></label>
+                    <label style="padding: 10px 5px 10px 0">内容标题<b>*</b></label>
                     <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value=""/>
                 </li>
                 <li>
-                    <label style="padding: 10px 0px 10px 0">展示图片<b>*</b></label>
-                    <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:650px;height:230px;position: relative;margin-bottom: 15px">
+                    <label style="padding: 10px 0 10px 0">展示图片<b>*</b></label>
+                    <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:650px;height:200px;position: relative;margin-bottom: 15px">
                         <p id="preview1" >
                             <if condition="$cyclope['id'] neq 0">
                                 <img id="imghead1"  border=0 src='{$http}/Uploads/cyclope_logo/{$cyclope["picurl"]}{$cyclope["picname"]}' width="230"/>
@@ -75,19 +74,18 @@
                         </p>
                         <span></span>
                         <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                        <label for="image1"  style="margin:80px 250px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;line-height:30px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                        <label for="image1"  style="margin:80px 250px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;line-height:30px;font-size:14px;background:rgb(19, 181, 177);;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                     </div>
                 </li>
-
                 <li>
                     <label>内容<b>*</b></label>
-                    <div style="margin-left: 70px">
+                    <div style="margin-left: 68px">
                         <textarea name="content"  id="content7" class="dfinput" style="padding-left:70px;width:600px;height:250px;visibility:hidden;"></textarea>
                     </div>
                 </li>
                 <li>
                     <label style="padding: 10px 70px 10px 0"></label>
-                    <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);border: none;border-radius: 4px;color: #ffffff "
+                    <input style="width: 137px;height: 35px;line-height: 35px;background-color:rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff "
                            type="submit" id="submit" value="添加"/>
                 </li>
             </ul>
@@ -128,7 +126,7 @@
 
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 200;
-        var MAXHEIGHT = 200;
+        var MAXHEIGHT = 150;
         var div = document.getElementById(pre);
         if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
             $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');

@@ -49,7 +49,8 @@
             <ul>
                 <li class="back" style="border: none">
                     <a href="{:U('Mobile/Exam/wrong_topic',array('ms'=>$ms))}">
-                       <img src="__PUBLIC__/public/images/back.png">                    </a>
+                       <img src="__PUBLIC__/public/images/back.png">
+                    </a>
                 </li>
                 <li class="header_text" style="border: none">
                     错题练习
@@ -60,7 +61,7 @@
     </div>
     <div class="mui-content" >
         <div class="mui-slider " >
-            <div class="mui-slider-group" style="margin-bottom: 20%;margin-top:60px">
+            <div class="mui-slider-group" style="margin-bottom: 300px;margin-top:60px">
                 <volist name="chapter" id="chap" empty="$empty" key="k">
                     <div class="mui-slider-item" style="background-color:white">
                         <div class="title_{$chap.id}"  answer="{$chap.answer}">
@@ -160,7 +161,7 @@
                     </div>
                 </volist>
             </div>
-            <footer id="foot_theoryStudy" style="z-index:20">
+            <footer id="foot_theoryStudy">
                 <ul  class="mui-slider-indicator">
                     <li class="foot_option">
                         <if condition="$Think.session.mid eq ''">

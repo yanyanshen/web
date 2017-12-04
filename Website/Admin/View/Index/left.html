@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv=content-type content="text/html; charset=utf-8" />
        <link href="__STATIC__/ment/css/admin.css" type="text/css" rel="stylesheet" />
-               <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+        <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
         <script>
             function expand(el) {
                 childobj = document.getElementById("child" + el);
@@ -28,6 +28,9 @@
 				}
 		});
 		</script>
+        <style>
+            a:hover{color: #13b5b1}
+        </style>
     </head>
     <body>
     <!--<table height="100%" cellspacing=0 cellpadding=0 width=170 background=__STATIC__/ment/img/menu_bg.jpg border=0>
@@ -437,49 +440,47 @@
             <td width=1 bgcolor=#d1e6f7></td>
         </tr>
     </table>-->
-    <table height="100%" cellspacing=0 cellpadding=0 width=170 background=__STATIC__/ment/img/menu_bg.jpg border=0>
+    <table height="100%"  cellspacing=0 cellpadding=0 width=170 background=__STATIC__/ment/img/menu_bg.jpg border=0>
         <tr>
             <volist name="navList" id="v1">
                 <empty name="v1['child']">
                     <div id={$v1['priority']}>
-                        <table style="background-color: #fbe095;" cellspacing=0 cellpadding=0 width=150 border=0 >
+                        <table cellspacing=0 cellpadding=0 width=150 border=0 >
                             <tr height=30>
-                                <td style="padding-left: 30px;background-color: #25a8f9;" >
+                                <td style="padding-left: 30px;background-color: #13b5b1;" >
                                     <a  href="javascript:void(0);" style="color: #ffffff;text-decoration: none;font-weight: bolder;" class=menuparent onclick=expand({$v1['priority']})>{$v1['navname']}</a>
                                 </td>
                             </tr>
-                            <tr height=4><td></td></tr>
+                            <tr><td style="border-bottom: 1px #71cdca solid"></td></tr>
                         </table>
                     </div>
                     <else/>
-                    <div id={$v1['priority']}>
-                        <table  style="background-color: #fbe095;" cellspacing=0 cellpadding=0 width=150 border=0 >
-                            <tr height=30 >
-                                <td style="padding-left: 30px;background-color: #25a8f9;">
-                                    <a style="color: #ffffff;text-decoration: none;font-weight: bolder;"  class=menuparent  onclick=expand({$v1['priority']})  href="javascript:void(0);">{$v1['navname']}</a>
+                    <div id={$v1['priority']} style="padding:0">
+                        <table cellspacing=0 cellpadding=0 width=150 border=0 >
+                            <tr height=30>
+                                <td style="padding-left: 30px;background-color: #13b5b1;">
+                                    <a style="color: #ffffff;text-decoration: none;font-weight: bold;"  class=menuparent  onclick=expand({$v1['priority']})  href="javascript:void(0);">{$v1['navname']}</a>
                                 </td>
                             </tr>
-                            <tr height=4><td></td></tr>
+                            <tr><td style="border-bottom: 1px #71cdca solid"></td></tr>
                         </table>
                     </div>
                 </empty>
                 <table id=child{$v1['priority']} style="display: none;background-color: rgba(247, 241, 236, 0.07)"  cellspacing=0 cellpadding=0 width=150 border=0>
                     <notempty name="v1['child']">
                         <volist name="v1['child']" id="v2" key="k">
-                            <tr height=25 >
-                                <td align=middle width=30>
+                            <tr height=25>
+                                <td align=middle width=30 style="border:1px solid #ffffff">
                                     <img height=9 src="__STATIC__/ment/img/menu_icon.gif" width=9>
                                 </td>
-                                <td>
+                                <td style="border: none">
                                     <a style="text-decoration: none;" class=menuchild href="{:U($v2['navurl'])}?pid={$v2['id']}" target=right>{$v2.navname}</a>
                                 </td>
                             </tr>
-                            <tr height=4><td colspan=2></td></tr>
                         </volist>
                     </notempty>
                 </table>
             </volist>
-            <td width=1 bgcolor=#d1e6f7></td>
         </tr>
     </table>
     </body>

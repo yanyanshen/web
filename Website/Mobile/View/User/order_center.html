@@ -19,7 +19,7 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back"><a href="{:U('Mobile/User/user_center')}"><img src="__PUBLIC__/public/images/back.png"></a></li>
+                <a href="{:U('Mobile/User/user_center')}"><li class="back" style="padding-right: 50px"><img src="__PUBLIC__/public/images/back.png"></li></a>
                 <li class="header_text">订单中心</li>
                 <div class="clearfix"></div>
             </ul>
@@ -31,7 +31,7 @@
                 <ul class="order_s">
                     <li class="list status" status="0"><a style="color: #fa7124;" href="javascript:;">全部</a></li>
                     <li class="status" status="1"><a  href="javascript:;">待付款</a></li>
-                    <li class="status" status="2"><a href="javascript:;">待确认</a></li>
+                    <li class="status" status="2"><a href="javascript:;">已付款</a></li>
                     <li class="status" status="3"><a  href="javascript:;">待评价</a></li>
                     <li class="status" status="4"><a href="javascript:;">已完成</a></li>
                     <div class="clearfix"></div>
@@ -73,10 +73,8 @@
                         </div>
                         <div class="list_bottom">
                             <a href="javascript:;"  status="{$v['status']}" oid="{$v['id']}"  class="submit1">{$v['statusname']}</a>
-                            <if condition="$v['status'] eq 1 or ($v['status'] eq 5) or ($v['status'] eq 6)">
-                                <a href="javascript:;"  status="{$v['status']}" oid="{$v['id']}" class="submit2 btn">{$v['memberstatus']}</a>
-                                <else/>
-                                <a href="javascript:;"  class="submit2">{$v['memberstatus']}</a>
+                            <if condition="$v['status'] neq 1 and $v['status'] neq 6">
+                                <a href="javascript:;" class="submit2">{$v['memberstatus']}</a>
                             </if>
                             <div class="clearfix"></div>
                         </div>
@@ -95,7 +93,7 @@
         var str = '';
         $.post('{:U("Mobile/User/order_center")}',{status:status},function(res){
             if(res == 0){
-                $("#content").html("<h1>暂无数据</h1>");
+                $("#content").html("<h1 style='height: 30px;background-color: #ffffff;padding-top: 20px;text-align: center;font-size: 15px'>没有查到数据</h1>");
             }else{
                 for(var i in res){
                 str += '<form class="list_box"> ';
@@ -124,9 +122,7 @@
                 str += '</div>';
                 str += '<div class="list_bottom">';
                     str += '<a href="javascript:;"  status="'+res[i]['status']+'" oid="'+res[i]['id']+'"  class="submit1">'+res[i]['statusname']+'</a>';
-                    if(res[i]['status'] == 1 || res[i]['status'] == 5 || res[i]['status'] == 6){
-                        str += '<a href="javascript:;"  status="'+res[i]['status']+'" oid="'+res[i]['id']+'" class="submit2 btn">'+res[i]['memberstatus']+'</a>';
-                    }else{
+                    if(res[i]['status'] != 1 &&  res[i]['status'] != 6){
                         str += '<a href="javascript:;"  class="submit2">'+res[i]['memberstatus']+'</a>';
                     }
                 str += '<div class="clearfix"></div>';
@@ -143,38 +139,25 @@
         var status = $(this).attr('status');
         var oid = $(this).attr('oid');
         $(this).attr('disabled','true');
-        layer.open({
-            type:2
-            ,content:'加载中'
-            ,time:2
-            ,end: function(index){
-                $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
-                    if(res.info){
-                        location.href = res.url;
-                    }else{
-                        location.href = '#';
-                    }
-                    layer.close(index);
-                },'json');
-            }
-        });
-    });
-    $('.btn').live('click',function(){
-        var status = $(this).attr('status');
-        var oid = $(this).attr('oid');
-        $(this).attr('disabled','true');
-        layer.open({
-            content: '您确定不要了吗？'
-            ,btn: ['是', '不要']
-            ,yes: function(index){
-                $.post('{:U("Mobile/Order/delete_order")}',{status:status,oid:oid},function(res){
-                    if(res.status == 1){
-                        location.href = res.url;
-                    }else{
-                    }
-                    layer.close(index);
-                },'json');
-            }
-        });
+        if(status == 2){
+            layer.open({
+                content:'请耐心等待客服处理',time: 2 //2秒后自动关闭
+                ,end:function(){
+                    location.href='';
+                }
+            });
+        }else{
+            layer.open({type:2,content:'加载中',time:2,end: function(index){
+                    $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
+                        if(res.info){
+                            location.href = res.url;
+                        }else{
+                            location.href = '#';
+                        }
+                        layer.close(index);
+                    },'json');
+                }
+            });
+        }
     });
 </script>

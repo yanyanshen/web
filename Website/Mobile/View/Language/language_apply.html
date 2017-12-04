@@ -27,10 +27,11 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <li class="back">
-                    <a href="{:U('Mobile/Language/language_detail',array('id'=>$get['id']))}">
-                    <img src="__PUBLIC__/public/images/back.png"></a>
-                </li>
+                <a href="{:U('Mobile/Language/language_detail',array('id'=>$get['id']))}#detail">
+                    <li class="back" style="padding-right: 50px">
+                        <img src="__PUBLIC__/public/images/back.png">
+                    </li>
+                </a>
                 <li class="header_text">语言教育报名页面</li>
                 <div class="clearfix"></div>
             </ul>
@@ -68,7 +69,7 @@
                     <label class="label" for="ap_position">地址</label>
                     <input class="city_position" type="text" name="address" id="ap_position" placeholder="请输入所在地址" required>
                 </div>
-                <div class="apply">
+                <div class="apply" style="margin-bottom: 40px">
                     <label class="ap_note" for="ap_textarea">备注</label>
                     <input class="message" type="text" name="inform" id="ap_textarea" placeholder="更多">
                 </div>
@@ -89,18 +90,10 @@
         //validate表单验证
         var validate=$('#form1').validate({
             //设置验证规则
-            rules:{
-                truename:{required:true},
-                phone:{required:true,phone:true},
-                address:{required:true}
-            },
-            messages: {
-                truename: {required: '*必填项'},
-                phone: {required: '*必填项'},
-                address: {required: '*必填项'}
-            },
+            rules:{truename:{required:true}, phone:{required:true,phone:true}, address:{required:true}},
+            messages: {truename: {required: '*必填项'}, phone: {required: '*必填项'}, address: {required: '*必填项'}},
             success: function(span) {
-                span.addClass("ok").text('OK');
+                span.addClass("ok").text('*ok');
             },
             validClass:'ok',
             errorElement:'span'
@@ -110,9 +103,8 @@
             var mobileReg = /^1[34578]{1}[0-9]{9}$/;
             return this.optional(element) || (mobileReg.test(value));
         }, "*手机格式不正确");
-
+        $("#form1").submit();
         $('#btn2').click(function(){
-            $(this).attr('disabled',true);
             //表单提交之前判断前端验证是否通过，只有通过时才提交表单
             if(validate.form()){
                 $.post("{:U('Mobile/Language/language_apply')}",$('#form1').serialize(),function(res){

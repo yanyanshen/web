@@ -21,8 +21,8 @@
     </div>
         <div style="width: 100%;text-align: center;">
             <volist name="school" id="school" empty="$empty">
-                <ul >
-                    <li style="list-style: none;float: left;margin-left: 0px;text-align: center;width: 170px" >
+                <ul>
+                    <li style="list-style: none;margin-left: 0px;text-align: center;width: 170px" >
                         <input type="radio" name="school_id" style="float: left;margin-top:5px" {$info['school_id']==$school['id']?checked:''} value="{$school.id}"/>
                         <p style="float: left;">{$school['nickname']}</p>
                     </li>

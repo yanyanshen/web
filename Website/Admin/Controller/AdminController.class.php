@@ -49,14 +49,15 @@ class AdminController extends CommonController{
                 $data['password'] = md5($data['password']);
                 $res = $admin->add_admin($data);
                 if($res){
-                    $log['done'] = '添加管理员 ID_'.$res;
+                    $log['done'] = "管理员添加: => {$data['username']}";
                     D('AdminLog')->logout($log);
-                    $this->success();
+                    $this->success('添加成功',U('Admin/Admin/add_admin',array('pid'=>I('pid'))));
                 }else{
-                    $this->error();
+                    $this->error('添加失败');
                 }
             }
         }else{
+            $this->assign('get',$_GET);
             $this->display();
         }
     }
@@ -69,13 +70,14 @@ class AdminController extends CommonController{
         if(IS_AJAX){
             $_POST['id'] = session('admin_id');
             $_POST['password'] = md5($_POST['password']);
+            $password = M('Admin')->where(array('id'=>session("admin_id")))->find();
             $res = M('Admin')->where(array('id'=>session("admin_id")))->save($_POST);
             if($res){
-                $log['done'] = '修改管理员 '.session('admin_name').' 的登录密码';
+                $log['done'] = "管理员".session('admin_name')."密码:{$password['password']} => {$_POST['password']}";
                 D('AdminLog')->logout($log);
                 $this->success('修改成功',U('Admin/set_password',array('pid'=>I('pid'))));
             }else{
-                $this->error('修改失败',U('Admin/set_password',array('pid'=>I('pid'))));
+                $this->error('修改失败');
             }
         }else{
             $admin = M('admin')->where(array('id'=>session("admin_id")))->find();
@@ -99,11 +101,12 @@ class AdminController extends CommonController{
                 $psInfo=$admin->where($data)->find();
                 //只能操作非超级管理员的权限;
                 if($psInfo['permissions']!=1){
+                    $log['done'] = "管理员状态:{$psInfo['status']} => ";
                     //更改要操作的管理员状态;
                     $psInfo['status']=($psInfo['status']==0)?1:0;
                     $a=$admin->where($data)->field('status')->save($psInfo);
                     if($a){
-                        $log['done'] = '更新管理员状态';
+                        $log['done'] = $log['done'].$psInfo['status'];
                         D('AdminLog')->logout($log);
                         $this->success('更新管理员状态成功',U('Admin/Admin/index',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
                     }else{
@@ -133,11 +136,12 @@ class AdminController extends CommonController{
                 $psInfo=$admin->where($data)->find();
                 //只能操作非超级管理员的权限;
                 if($psInfo['permissions']!=1){
+                    $log['done'] = "管理员登录状态:{$psInfo['online']} => ";
                     //更改要操作的管理员状态;
                     $psInfo['online']=0;
                     $a=$admin->where($data)->field('online')->save($psInfo);
                     if($a){
-                        $log['done'] = '变更管理员登录状态';
+                        $log['done'] = $log['done'].$psInfo['online'];
                         D('AdminLog')->logout($log);
                         $this->success('更新管理员登录状态成功',U('Admin/Admin/index',array('pid'=>I('pid'),'p'=>I('p'))));
                     }else{

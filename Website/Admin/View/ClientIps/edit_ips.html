@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑ClientIps</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+    <style>
+        lable.error{font-size: 12px;color: #FA7124;}
+        lable.ok{font-size: 12px;color: #38D63B;}
+        label{padding: 10px 20px 10px 0}
+        li{margin-top: 15px;list-style: none}
+        .dfinput{margin-left: 10px;border:solid 1px rgb(220, 220,220);border-radius: 3px;width: 328px;padding: 10px 0 10px 15px;}
+        b{color: #FA7124}
+    </style>
+</head>
+<body>
+<div class="div_head">
+    ClientIps编辑
+    <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
+</div>
+<div style="margin: 10px 5px">
+    <form action="" id="form1" method="post">
+        <input name="pid" type="hidden" class="dfinput" value="{$get['pid']|default=0}"/>
+        <input name="p" type="hidden" class="dfinput" value="{$get['p']|default=0}"/>
+        <input name="id" type="hidden" class="dfinput" value="{$get['id']|default=0}"/>
+        <ul style="padding: 0;margin-left: 10px">
+            <li><label>IP描述<b>*</b></label>
+                <input name="description" type="text" class="dfinput" value="{$iplist.description}" />
+            </li>
+            <li><label style="padding: 10px 45px 10px 0">IP<b>*</b></label>
+                <input name="ip" type="text" class="dfinput" value="{$iplist.ip}"/>
+            </li>
+            <li>
+                <label>IP状态<b>*</b></label>
+                <select class="dfinput" name="status" style="width: 345px">
+                    <option value="1" {$iplist['status']==1?selected:''}>开启</option>
+                    <option value="0" {$iplist['status']==0?selected:''}>禁止</option>
+                </select>
+            </li>
+            <li>
+                <label style="padding: 10px 75px 10px 0"></label>
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="submit" class="btn" value="确定"/>
+            </li>
+        </ul>
+    </form>
+</div>
+</body>
+</html>
+<script>
+    $(function(){
+        var validate=$('#form1').validate({
+            rules:{
+                ip:{required:true},
+                description:{required:true}
+            },
+            messages:{ip:{required:' * 必填项！'},description:{required:' * 必填项！'}},
+            success:function(lable){
+                lable.addClass('ok').text(' * ok');
+            },
+            validClass:'ok',
+            errorElement:'lable'
+        });
+        //异步提交表单
+        $('#form1').submit(function(){
+            if(validate.form()){
+                $.post("{:U('Admin/ClientIps/edit_ips')}",$('#form1').serialize(),function(res){
+                if(res.status==1){
+                    layer.msg(res.info, {icon:6,time:2000}, function(){
+                            location.href=res.url;
+                        }
+                    );
+                }else{
+                    layer.msg(res.info,{icon:5,time:2000}, function(){
+                        location.href=res.url;
+                    });
+                }
+            });
+            return false;
+            }
+        });
+    })
+</script>

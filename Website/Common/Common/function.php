@@ -81,7 +81,7 @@ function push($data,$name='Excel'){
     error_reporting(E_ALL);
     date_default_timezone_set('Europe/London');
     $objPHPExcel = new PHPExcel();
-    /*以下是一些设置 ，什么作者  标题啊之类的*/
+/*以下是一些设置 ，什么作者  标题啊之类的*/
     $objPHPExcel->getProperties()->setCreator("转弯的阳光")
         ->setLastModifiedBy("转弯的阳光")
         ->setTitle("数据EXCEL导出")
@@ -89,24 +89,37 @@ function push($data,$name='Excel'){
         ->setDescription("备份数据")
         ->setKeywords("excel")
         ->setCategory("result file");
-    /*以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
+/*以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
     $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A1', 'id')
         ->setCellValue('B1', '订单编号')
         ->setCellValue('C1', '创建时间')
-        ->setCellValue('D1', '用户名')
-        ->setCellValue('E1', '性别')
-        ->setCellValue('F1', '电话')
-        ->setCellValue('G1', '数量')
-        ->setCellValue('H1', '驾校/教练/指导员')
-        ->setCellValue('I1', '课程')
-        ->setCellValue('J1', '基地')
-        ->setCellValue('K1', '支付类型')
-        ->setCellValue('L1', '支付时间')
-        ->setCellValue('M1', '跟单客服')
-        ->setCellValue('N1', '客服备注')
-        ->setCellValue('O1', '回访时间')
-        ->setCellValue('P1', '最新更新人');
+        ->setCellValue('D1', '订单数量')
+        ->setCellValue('E1', '学员姓名')
+        ->setCellValue('F1', '性别')
+        ->setCellValue('G1', '电话')
+        ->setCellValue('H1', '应付金额')
+        ->setCellValue('I1', '实付金额')
+        ->setCellValue('J1', '支付状态')
+        ->setCellValue('K1', '订单状态')
+        ->setCellValue('L1', '驾校')
+        ->setCellValue('M1', '基地')
+        ->setCellValue('N1', '课程')
+        ->setCellValue('o1', '买家邮箱')
+        ->setCellValue('P1', '回访时间')
+        ->setCellValue('Q1', '结算时间')
+        ->setCellValue('R1', '退费时间')
+        ->setCellValue('S1', '退费金额')
+        ->setCellValue('T1', '支付时间')
+        ->setCellValue('U1', '学员地址')
+        ->setCellValue('V1', '支付方式')
+        ->setCellValue('W1', '订单类型')
+        ->setCellValue('X1', '订单来源')
+        ->setCellValue('Y1', '取消时间')
+        ->setCellValue('Z1', '跟单客服')
+        ->setCellValue('AA1', '客服备注')
+        ->setCellValue('AB1', '最新更新人');
+
     foreach($data as $k => $v){
         $num=$k+2;
         if($v['sex'] == 0){
@@ -114,29 +127,90 @@ function push($data,$name='Excel'){
         }else{
             $v['sex'] = '女';
         }
-        if($v['pay_type'] == 0){
-            $v['pay_type'] = '其他';
-        }else{
-            $v['pay_type'] = '支付宝';
+        //支付状态
+        if($v['status'] == 1){
+            $v['status'] = '未支付待处理';
+        }elseif($v['status'] == 2){
+            $v['status'] = '已付款待结算';
+        }elseif($v['status'] == 3){
+            $v['status'] = '已完成';
+        }elseif($v['status'] == 4){
+            $v['status'] = '已评价';
+        }elseif($v['status'] == 5){
+            $v['status'] = '已取消';
+        }elseif($v['status'] == 6){
+            $v['status'] = '已退款';
         }
+        //订单状态
+        if($v['order_status'] == 1){
+            $v['order_status'] = '待处理';
+        }elseif($v['order_status'] == 2){
+            $v['order_status'] = '待回访';
+        }elseif($v['order_status'] == 3){
+            $v['order_status'] = '待结算';
+        }elseif($v['order_status'] == 4){
+            $v['order_status'] = '已完成';
+        }elseif($v['order_status'] == 5){
+            $v['order_status'] = '已取消';
+        }elseif($v['order_status'] == 6){
+            $v['order_status'] = '已退款';
+        }
+        //支付方式
+        if($v['pay_type'] == 0){
+            $v['pay_type'] = '未支付';
+        }elseif($v['pay_type'] == 1){
+            $v['pay_type'] = '支付宝';
+        }elseif($v['pay_type'] == 2){
+            $v['pay_type'] = '微信';
+        }elseif($v['pay_type'] == 3){
+            $v['pay_type'] = '门店';
+        }elseif($v['pay_type'] == 4){
+            $v['pay_type'] = '快递';
+        }elseif($v['pay_type'] == 5){
+            $v['pay_type'] = '驾校';
+        }
+        //订单类型
+        if($v['order_type'] == 1){
+            $v['order_type'] = '学车需求';
+        }elseif($v['order_type'] == 2){
+            $v['order_type'] = '在线订单';
+        }elseif($v['order_type'] == 3){
+            $v['order_type'] = '人工订单';
+        }elseif($v['order_type'] == 4){
+            $v['order_type'] = '其他类型';
+        }
+
+
         $objPHPExcel->setActiveSheetIndex(0)
-            //Excel的第A列，uid是你查出数组的键值，下面以此类推
+//Excel的第A列，uid是你查出数组的键值，下面以此类推
             ->setCellValue('A'.$num, $v['id'])
             ->setCellValue('B'.$num, $v['ordcode'])
-            ->setCellValue('C'.$num, date('Y-m-d H:i:s',$v['create_time']))
-            ->setCellValue('D'.$num, $v['name'])
-            ->setCellValue('E'.$num, $v['sex'])
-            ->setCellValue('F'.$num, $v['tel'])
-            ->setCellValue('G'.$num, $v['num'])
-            ->setCellValue('H'.$num, $v['nickname'])
-            ->setCellValue('I'.$num, $v['class_name'])
-            ->setCellValue('J'.$num, $v['trainaddress'])
-            ->setCellValue('K'.$num, $v['pay_type'])
-            ->setCellValue('L'.$num, $v['pay_time'])
-            ->setCellValue('M'.$num, $v['customer'])
-            ->setCellValue('N'.$num, $v['customer_inform'])
-            ->setCellValue('O'.$num, $v['return_time'])
-            ->setCellValue('P'.$num, $v['lastupdate']);
+            ->setCellValue('C'.$num, $v['create_time'])
+            ->setCellValue('D'.$num, $v['num'])
+            ->setCellValue('E'.$num, $v['name'])
+            ->setCellValue('F'.$num, $v['sex'])
+            ->setCellValue('G'.$num, $v['tel'])
+            ->setCellValue('H'.$num, $v['price'])
+            ->setCellValue('I'.$num, $v['total_fee'])
+            ->setCellValue('J'.$num, $v['status'])
+            ->setCellValue('K'.$num, $v['order_status'])
+            ->setCellValue('L'.$num, $v['s_nickname'])
+            ->setCellValue('M'.$num, $v['trname'])
+            ->setCellValue('N'.$num, $v['class_name'])
+            ->setCellValue('O'.$num, $v['buyer_email'])
+            ->setCellValue('P'.$num,$v['return_time'])
+            ->setCellValue('Q'.$num,$v['end_time'])
+            ->setCellValue('R'.$num,$v['return_fee'])
+            ->setCellValue('S'.$num,$v['return_money'])
+            ->setCellValue('T'.$num,$v['notify_time'])
+            ->setCellValue('U'.$num,$v['address'])
+            ->setCellValue('V'.$num,$v['pay_type'])
+            ->setCellValue('W'.$num,$v['order_type'])
+            ->setCellValue('X'.$num,$v['cancel_reason'])
+            ->setCellValue('Y'.$num,$v['cancel_time'])
+            ->setCellValue('Z'.$num,$v['customer'])
+            ->setCellValue('AA'.$num,$v['customer_inform'])
+            ->setCellValue('AB'.$num,$v['lastupdate']);
     }
     $objPHPExcel->getActiveSheet()->setTitle('id');
     $objPHPExcel->setActiveSheetIndex(0);

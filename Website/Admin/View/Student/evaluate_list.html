@@ -8,46 +8,43 @@
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
     <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FA7124;}
-        #page span{ background:#F27602; color:#FA7124; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a td{border: dotted 1px rgba(39, 164, 237, 0.22);font-size: 13px;}
+        .table_a td{text-align: left}
     </style>
 </head>
 <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);">
+    <div class="div_head">
+        评论列表
+        <span style="margin-left: 20%;"><a href='{:U("Admin/Student/evaluate_list",array("flag"=>0,"pid"=>$get["pid"]))}' style="text-decoration: none">{$no_reply} 条未回复</a></span>
+        <span class="span">总计：{$count}</span>
+    </div>
+    <div class="div_search">
         <span>
-            <span style="float: left;font-weight: bolder;color: #ffffff">评论列表</span>
-            <span style="margin-left: 20%;"><a href='{:U("Admin/Student/evaluate_list",array("flag"=>0,"pid"=>$get["pid"]))}' style="color: red;text-decoration: none">{$no_reply} 条未回复</a></span>
+            <form action="?" id='form1' method="get" name="form1">
+                <span>
+                    驾校简称：<input type="text" name='nickname' style="width: 100px"  value="{$nickname?$nickname:''}" />
+                </span>
+                <span>
+                    评论时间：<input type="text" style="width: 100px"  onClick="WdatePicker()" value="{$create_time1?$create_time1:''}" name="create_time1"/>
+                    至
+                    <input type="text" style="width: 100px" value="{$create_time2?$create_time2:''}"  onClick="WdatePicker()" name="create_time2"/>
+                </span>
+                <span style="margin-left: 5px">
+                    <input style="font-size: 11px" value="查询" type="submit" id="b"  onclick="submitYouFrom('{:U("Admin/Student/evaluate_list",array('p'=>$get['p'],'pid'=>$get['pid']))}')"/>
+                    <input style="font-size: 11px" value="清空" type="reset" id="b" />
+                </span>
+                <script type="text/javascript" language="javascript">
+                    function submitYouFrom(path){
+                        $('#form1').attr('action',path);
+                        $('#form1').submit();
+                    }
+                </script>
+            </form>
         </span>
-        <span style="float:right;color:#ffffff;margin-right: 35px">总计：{$count}</span>
     </div>
-    <div class="div_search" style="height: 35px;background-color:  rgb(129, 191, 249)">
-        <form action="?" id='form1' method="get" name="form1">
-            <span style="color: #ffffff;font-weight: bolder;">驾校简称：<input type="text" name='nickname' style="width: 100px"  value="{$nickname?$nickname:''}" /></span>
-            <span style="color: #ffffff;font-weight: bolder;margin-left:10px;">
-                评论时间：<input type="text" style="width: 100px"  onClick="WdatePicker()" value="{$create_time1?$create_time1:''}" name="create_time1"/>
-            至
-            <input type="text" style="width: 100px" value="{$create_time2?$create_time2:''}"  onClick="WdatePicker()" name="create_time2"/>
-            </span>
-
-            <input value="查询" type="submit" id="b"  onclick="submitYouFrom('{:U("Admin/Student/evaluate_list",array('p'=>$get['p'],'pid'=>$get['pid']))}')"/>
-            <input value="清空" type="reset" id="b" />
-            <!--<input value="导出" type="button" id="button" onclick="submitYouFrom('http://www.517xc.cn/index.php/Admin/Order/push')"/>-->
-            <script type="text/javascript" language="javascript">
-                function submitYouFrom(path){
-                    $('#form1').attr('action',path);
-                    $('#form1').submit();
-                }
-            </script>
-        </form>
-    </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid rgb(129, 191, 249)" width="100%">
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <tbody>
-            <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);height: 35px;color: #ffffff">
+            <tr style="background-color:rgb(19, 181, 177);">
                 <th width="2%">编号</th>
                 <th width="2%">ID</th>
                 <th width="3%">用户</th>
@@ -81,19 +78,19 @@
                     <td>
                         {$v['flag']==0?'未回复':'已回复'}
                     </td>
-                    <td style="text-align: center">
+                    <td>
                         <if condition="$v['flag'] eq 0">
-                            <a onclick="evaluate_reply({$v['id']},{$get['pid']},{$get['p']})" href="javascript:;">回复</a>
+                            <a class="tablelink" onclick="evaluate_reply({$v['id']},{$get['pid']},{$get['p']?$get['p']:1})" href="javascript:;">回复</a>
                         <else/>
-                            <a onclick="evaluate_reply({$v['id']},{$get['pid']},{$get['p']})" href="javascript:;">查看</a>
+                            <a class="tablelink" onclick="evaluate_reply({$v['id']},{$get['pid']},{$get['p']?$get['p']:1})" href="javascript:;">查看</a>
                         </if>
-                        <a style="margin-left: 10px" href="{:U('Student/evaluate_del',array('id'=>$v['id'],'p'=>$get['p'],'pid'=>$get['pid']))}" onclick="if(confirm('确认删除吗?')==false)  return;">删除</a>
+                        <a class="tablelink" href="{:U('Student/evaluate_del',array('id'=>$v['id'],'p'=>$get['p'],'pid'=>$get['pid']))}" onclick="if(confirm('确认删除吗?')==false)  return false;">删除</a>
                     </td>
                 </tr>
         </volist>
         </tbody>
     </table>
-    <div id="page" style="float: left">
+    <div id="page">
         {$page}
     </div>
 </div>

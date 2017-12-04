@@ -7,70 +7,63 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
     <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
-    <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#FA7124; color:#FF0000; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);text-align: center}
-        .table_a tr:hover{background-color: rgb(82, 249, 56);}
-    </style>
 </head>
 <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);">
-        <span style="font-weight: bolder;color: #ffffff">语言教育预约列表</span>
+    <div class="div_head">
+        语言教育预约列表
+        <a href="" style="padding: 2px 10px;text-decoration: none;color: #323232">【刷新】</a>
         <span style=" margin-right: 8px; font-weight: bold;color: #ffffff">
             <if condition="get['add_order'] neq '0'" name="">
-                <a style="text-decoration: none;color:#FA7124;font-size: 15px" href="{:U($get['add_order'],array('p'=>$get['p'],'pid'=>$get['pid']))}">【新建订单】</a>
+                <a style="text-decoration: none;color:#FA7124;" href="{:U($get['add_order'],array('p'=>$get['p'],'pid'=>$get['pid']))}">【新建订单】</a>
                 <else/>
-                <a style="text-decoration: none;color:#FA7124;font-size: 15px" href="javascript:alert('暂无权限')" >【新建订单】</a>
+                <a style="text-decoration: none;color:#FA7124;" href="javascript:alert('暂无权限')" >【新建订单】</a>
             </if>
 
-             <a href="{:U('Admin/Language/language_apply',array('pid'=>$get['pid'],'p'=>$get['p'],'flag'=>0))}" class="span"
-                   style="color: #fa7124;margin-left:200px;cursor: pointer;display: none">{$get['count1']}条未处理</a>
-             <a href="{:U('Admin/Language/language_apply',array('pid'=>$get['pid'],'p'=>$get['p'],'visit'=>0))}" class="span"
-                   style="color: #fa7124;margin-left:30px;cursor: pointer;display: none">{$get['count2']}未回访</a>
+            <a href="{:U('Admin/Order/pay_list',array('pid'=>16,'p'=>$get['p']))}"  class="span1"
+                 style="margin-left:100px;color: #FA7124">消息中心：{$count['count1']}条支付宝支付并未处理</a>
+            <a href="{:U('Admin/Order/order_list',array('pid'=>16,'p'=>$get['p'],'order_status'=>2))}"  class="span1"
+                style="margin-left:30px;color: #FA7124">{$count['count2']}条待回访</a>
+            <a href="{:U('Admin/Order/order_list',array('pid'=>16,'p'=>$get['p'],'order_status'=>3))}" class="span1"
+                style="margin-left:30px;color: #FA7124">{$count['count3']}条待结算需回访</a>
 
             <script language="javascript">
                 function codefans(){
-                    var box=$(".span");
+                    var box=$(".span1");
                     box.show();
                 }
                 setTimeout("codefans()",1500);//2秒，可以改动
             </script>
         </span>
-        <span style="float:right;color:#ffffff;font-weight: bold;margin-right:1%">总计：{$get['count']}</span>
+        <span class="span">总计：{$get['count']}</span>
     </div>
-    <div class="div_search" style="height: 60px;background-color:rgb(129, 191, 249)">
-        <span style="float:left;color: #ffffff;font-weight: bolder">
+    <div class="div_search">
+        <span>
             <form action="?" id='form1' method="get" name="form1">
                 <div>
                     <span>
                           学员名称：<input type="text" name='truename' style="width: 100px"  value="{$get['truename']?$get['truename']:''}" />
                     </span>
-                     <span style="padding-left:15px">学员电话：
+                     <span style="padding-left:5px">学员电话：
                         <input type="text" name='phone' style="width:100px"  value="{$get['phone']?$get['phone']:''}"/>
                     </span>
-                     <span style="padding-left: 15px">
-                        跟单客服：<input type="text" name="customer" style="width: 100px"  value="{$get['customer']?$get['customer']:''}"/>
+                     <span style="padding-left: 5px">
+                        跟单客服：<input type="text" name="lastupdate" style="width: 100px"  value="{$get['lastupdate']?$get['lastupdate']:''}"/>
                     </span>
-                    <span style="padding-left: 15px">
-                        创建时间：<input type="text" style="width: 125px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['create_time1']?$get['create_time1']:''}" name="create_time1"/>
+                    <span style="padding-left: 5px">
+                        创建时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['create_time1']?$get['create_time1']:''}" name="create_time1"/>
                         至
-                        <input type="text" style="width: 125px" value="{$get['create_time2']?$get['create_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="create_time2"/>
+                        <input type="text" style="width: 120px" value="{$get['create_time2']?$get['create_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="create_time2"/>
                     </span>
                 </div>
                 <div>
                     <span>
-                        回访时间：<input type="text" style="width: 125px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['visit_time1']?$get['visit_time1']:''}" name="visit_time1"/>
+                        回访时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['visit_time1']?$get['visit_time1']:''}" name="visit_time1"/>
                             至
-                        <input type="text" style="width: 125px" value="{$get['visit_time2']?$get['visit_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="visit_time2"/>
+                        <input type="text" style="width: 120px" value="{$get['visit_time2']?$get['visit_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="visit_time2"/>
                     </span>
-                     <span style="padding-left:30px">
-                        <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Language/language_apply",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
-                        <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('pid'=>$get['pid']))}')"/>
-                        <a href="" style="background-color:rgb(224,224,224);padding: 2px 10px;text-decoration: none;color: #000000">刷新</a>
+                     <span style="padding-left:5px">
+                        <input style="font-size: 11px" value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Language/language_apply",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
+                        <input style="font-size: 11px" value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('pid'=>$get['pid']))}')"/>
                     </span>
                 </div>
                 <script type="text/javascript" language="javascript">
@@ -82,10 +75,10 @@
             </form>
         </span>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid  rgb(129, 191, 249);" width="100%">
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <tbody>
-            <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);color:#ffffff;height: 30px">
+            <tr style="background-color:  rgb(19, 181, 177);">
                 <th width="2%">编号</th>
                 <th width="2%">ID</th>
                 <th width="4%">创建时间</th>
@@ -114,21 +107,21 @@
                     <td>
                         <div>
                             {$v['flag']==0?'未处理':'已处理'}
-                            <a href="javascript:;" onclick="flag_visit('flag',{$v['id']},{$get['pid']},{$get['p']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['flag']==0?'已处理':'未处理'}</a>
+                            <a class="tablelink" href="javascript:;" onclick="flag_visit('flag',{$v['id']},{$get['pid']},{$get['p']?$get['p']:1})">{$v['flag']==0?'已处理':'未处理'}</a>
                         </div>
                         <div>
                             {$v['visit']==0?'未回访':'已回访'}
-                            <a href="javascript:;" onclick="flag_visit('visit',{$v['id']},{$get['pid']},{$get['p']})" style="border:1px solid #FA7124;padding:2px;height: 15px;text-decoration: none;">{$v['visit']==0?'已回访':'未回访'}</a>
+                            <a class="tablelink" href="javascript:;" onclick="flag_visit('visit',{$v['id']},{$get['pid']},{$get['p']?$get['p']:1})">{$v['visit']==0?'已回访':'未回访'}</a>
                         </div>
                     </td>
-                    <td style="text-align: center">
-                        <a  style="height: 5px" href="{:U('Admin/Language/apply_handler',array('pid'=>$get['pid'],'p'=>$get['p'],'id'=>$v['id']))}">处理</a>　
+                    <td>
+                        <a class="tablelink" href="{:U('Admin/Language/apply_handler',array('pid'=>$get['pid'],'p'=>$get['p'],'id'=>$v['id']))}">处理</a>　
                     </td>
                 </tr>
         </volist>
         </tbody>
     </table>
-    <div id="page" style="float: left">
+    <div id="page">
         {$get['page']}
     </div>
 </div>

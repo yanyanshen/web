@@ -73,7 +73,7 @@ class PayController extends Controller{
                     $aa=$pay->usespay($data);
                     break;
                 case 'weixin':// 微信
-                    $pay=A('Home/Weixin');
+                    $pay=A('Home1/Weixin');
                     break;
             }
     }

@@ -10,17 +10,17 @@
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        div.error{  font-size: 14px;  font-weight: bold; display: inline-block; color: #FA7124;  }
-        div.ok{  font-size: 14px;  font-weight: bold; display: inline-block;  color: #38D63B;  }
+        div.error{  font-size: 12px;display: inline-block; color: #FA7124;  }
+        div.ok{  font-size: 12px;display: inline-block;  color:  rgb(19, 181, 177);  }
 
         label{padding: 10px 20px 10px 0;}
         b{color: #FA7124}
-        li{ margin-top: 30px;list-style: none;}
-        .dfinput{margin-left: 10px;  border:solid 2px rgba(39, 183, 243, 0.87);border-radius: 3px;
-            width: 340px;padding: 10px 0 10px 5px}
-        #progressbar{  width:343px;  height:20px;  border:1px solid darkgray;  background-color: #6caf00;  }
+        li{ margin-top: 15px;list-style: none;}
+        .dfinput{margin-left: 10px;  border:rgb(220,220, 220) solid 1px;border-radius: 3px;
+            width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
+        #progressbar{ width:343px;  height:20px;  border:1px solid darkgray;  background-color: rgb(19, 181, 177);  }
         /*在进度条元素上调用动画*/
-        #fill{  animation: move 2s;  text-align: center;  background-color: #6caf00;  }
+        #fill{  animation: move 2s;  text-align: center;  background-color:  rgb(19, 181, 177);  }
         /*实现元素宽度的过渡动画效果*/
         @keyframes move { 0%{  width:0;  } 100%{  width:100%;  } }
     </style>
@@ -39,18 +39,18 @@
     </script>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff;font-size: 15px">
+<div class="div_head" >
     视频添加
-    <a style="text-decoration: none;font-weight: bolder;color: #FA7124" href="{$url}">【返回】</a>
+    <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{$url}">【返回】</a>
 </div>
 <div >
     <form action="{:U('Admin/Cyclope/add_video')}" method="post" id="form1" enctype="multipart/form-data">
         <input type="hidden" value="{$get['pid']}" name="pid"/>
         <input type="hidden" value="{$get['p']}" name="p"/>
         <input type="hidden" value="{$get['type_id']}" name="type_id"/>
-        <ul style="margin-left: 10px;padding: 0">
+        <ul style="margin-left: 15px;padding: 0">
             <li>
-                <label style="padding: 10px 0px 10px 0">内容标题<b>*</b></label>
+                <label style="padding: 10px 5px 10px 0">内容标题<b>*</b></label>
                 <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value=""/>
             </li>
             <li>
@@ -66,7 +66,7 @@
                     <span></span>
                     <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
                     <label for="image1"  style="float:right;color:#fff;text-align:center;
-                    border-radius:4px;width:90px;height:20px;line-height:20px;font-size:14px;background:#00b7ee;
+                    border-radius:4px;width:90px;height:20px;line-height:20px;font-size:14px;background:rgb(19, 181, 177);
                     cursor:pointer;padding:5px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择封面</label>
                 </div>
             </li>
@@ -76,7 +76,7 @@
                     <input id="test" type="file" multiple="multiple" class="dfinput" name='video' style="display: none"/>
                     <video id="audio" controls="" style="display: none;width:220px;height: 150px"></video>
                     <label for="test"  style="float:right;color:#fff;text-align:center;
-                    border-radius:4px;width:90px;height:20px;line-height:20px;font-size:14px;background:#00b7ee;
+                    border-radius:4px;width:90px;height:20px;line-height:20px;font-size:14px;background:rgb(19, 181, 177);
                     cursor:pointer;padding:5px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择视频</label>
                 </div>
                 <div id="wrapper" style="margin-left: 70px">
@@ -85,7 +85,6 @@
                         <div id="fill"></div>
                     </div>
                 </div>
-
             </li>
             <li>
                 <label>内容<b>*</b></label>
@@ -95,7 +94,7 @@
             </li>
             <li>
                 <label style="padding: 10px 70px 10px 0"></label>
-                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(129, 191, 249);
+                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);
                         border: none;border-radius: 4px;color: #ffffff "
                        type="submit" id="submit" value="添加"/>
             </li>

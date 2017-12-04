@@ -7,27 +7,23 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        .table_a td,th{padding-bottom: 0;padding-top: 0;text-align: left}
+        .table_a th{text-align: center}
     </style>
 </head>
 <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+    <div class="div_head">
         菜单列表
-        <if condition="get['add_nav'] neq '0'">
-            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="{:U($get['add_nav'],array('pid'=>$get['pid']))}">【菜单添加】</a>
+        <if condition="$get['add_nav'] neq '0'">
+            <a style="text-decoration: none;color:#fa7124;" href="{:U($get['add_nav'],array('ppid'=>$get['pid']))}">【菜单添加】</a>
             <else/>
-            <a style="text-decoration: none;color:#fa7124;font-size: 15px" href="javascript:alert('暂无权限')">【菜单添加】</a>
+            <a style="text-decoration: none;color:#fa7124;" href="javascript:alert('暂无权限')">【菜单添加】</a>
         </if>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid rgba(119, 163, 218, 0.79)" width="100%">
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <thead>
-        <tr style="height:35px;color: #ffffff;font-weight: bold;background-color:  rgb(129, 191, 249);">
+        <tr style="background-color:rgb(19, 181, 177)">
             <th>排序</th>
             <th>菜单名</th>
             <th>链接</th>
@@ -36,9 +32,9 @@
         </thead>
         <tbody>
             <volist name="navList" id="value">
-                <tr>
-                    <td width="100">
-                        <input type="text" id="pri{$value.id}" value="{$value.priority}" onchange="setPriority(this,{$value.id})"  style="height:30px;width: 50px"/>
+                <tr style="color: #323232">
+                    <td style="width: 80px;">
+                        <input type="text" id="pri{$value.id}" value="{$value.priority}" onchange="setPriority(this,{$value.id})"  style="height:30px;width: 40px;padding-left: 10px"/>
                     </td>
                     <td>{:str_repeat('&nbsp;',12*($value['level']-1))}|--{$value.navname}</td>
                     <td>{$value.navurl}</td>
@@ -61,11 +57,13 @@
         var pid=$(this).attr('pid');
         $.post("{:U('del')}",{id:id,pid:pid},function(res){
             if(res.status==1){
-                layer.msg(res.info,{icon:1},function(){
+                layer.msg(res.info,{icon:6},function(){
                     location.href=res.url;
                 })
             }else{
-                layer.msg(res.info,{icon:5});
+                layer.msg(res.info,{icon:5},function(){
+                    location.href=res.url;
+                });
             }
         })
     });

@@ -1,7 +1,6 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
-//    'SERVER'=>'http://'.$_SERVER['HOST'],
     //数据库连接
     'SESSION_PREFIX'        =>  'xueches_', // session 前缀
     'COOKIE_PREFIX'         =>  'xueches_',      // Cookie前缀 避免冲突
@@ -18,8 +17,20 @@ return array(
 //    'DB_DSN'                =>  'sqlserver:host=SqlServer;port=3306;dbname=xueche3;charset=utf8',
     'HTTP'                  =>  'http://'.$_SERVER['HTTP_HOST'],
 
-    'SHOW_PAGE_TRACE'       =>  true,
+    'SHOW_PAGE_TRACE'       =>  false,
+    //关闭数据字段缓存
+    'DB_FIELD_CACHE' => false,
 
+    'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名或者IP配置
+    'APP_SUB_DOMAIN_RULES'    =>    array(
+        /* 域名部署配置*/
+        'm.517xc.cn'=> 'Mobile',
+        'a.517xc.cn'=> 'Admin',
+        /*格式2: '子域名或泛域名或IP'=> array('模块名[/控制器名]','var1=a&var2=b&var3=*');*/
+    ),
+
+    'MODULE_ALLOW_LIST' => array('Admin','Home','Mobile'),
+    'DEFAULT_MODULE' => 'Mobile',
 
     'config_qiniu'=>array(
         'secretKey' => 'MMXpW90zVGR8jZpN98VZKl2Tgs5E7O_yNJz2oZiE',

@@ -5,28 +5,19 @@
     <title>试题列表</title>
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-    <style>
-        #page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px 10px 5px 3px;margin: 2px;text-decoration: none;
-            text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7; }
-        #page a:hover{background:#F27602;color:#FF0000;}
-        #page span{ background:#F27602; color:#FF0000; font-weight: bold;}
-        #page{ float: right; }
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px;}
-        .table_a td{border: dotted 1px rgba(39, 164, 237, 0.22);font-size: 13px;text-align: center}
-        .table_a tr:hover{background-color: rgb(82, 249, 56);}
-    </style>
+    <script src="__PUBLIC__/public/js/layer/layer.js"></script>
 </head>
 <body>
-    <div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+    <div class="div_head">
        试题列表
-        <span style="float:right;margin-right: 1%">总计：{$exam_list['count']}</span>
+        <span class="span">总计：{$exam_list['count']}</span>
     </div>
-    <div class="div_search" style="height: 35px;background-color:  rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+    <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
                 查找内容：<input type="text" name='question' style="width: 130px;"  value="{$get['question']?$get['question']:''}" />
-                <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Exam/exam_list",array('pid'=>$get['pid']))}')"/>
-                <input value="清空全部" type="reset" id="btn"/>
+                <input style="font-size: 11px" value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Exam/exam_list",array('pid'=>$get['pid']))}')"/>
+                <input style="font-size: 11px" value="清空全部" type="reset" id="btn"/>
                 <script type="text/javascript" language="javascript">
                     function submitYouFrom(path){
                         $('#form1').attr('action',path);
@@ -36,10 +27,10 @@
             </form>
         </span>
     </div>
-    <div style="font-size: 13px; margin: 10px 5px;">
-    <table class="table_a" style="border:1px solid rgb(129, 191, 249)" width="100%">
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
         <tbody>
-            <tr style="font-weight: bold;background-color:  rgb(129, 191, 249);height: 35px;color: #ffffff">
+            <tr style="background-color:rgb(19, 181, 177);">
                 <th width="10%">试题ID</th>
                 <th width="70%">试题名称</th>
                 <th width="10%">操作</th>
@@ -49,14 +40,25 @@
                     <td>{$v['id']}</td>
                     <td>{$v.question}</td>
                     <td>
-                        <a href="{:U('del_exam',array('id'=>$v['id'],'pid'=>$get['pid']))}" onclick="if(confirm('确定删除吗？')==false) return false">删除</a>
-                        <!--<a href="{:U('edit_exam',array('id'=>$v['id']))}">编辑</a>-->
+                        <a class="tablelink" href="javascript:void(0);"
+                           onclick="del_exam({$v['id']},{$get['pid']},{$get['p']?$get['p']:1})">删除</a>　
+                        <script>
+                            function del_exam(id,pid,p){
+                                layer.msg('确定要删除吗？', {
+                                    time: 0, //不自动关闭
+                                    btn: ["确定", '取消'],
+                                    yes: function(){
+                                        location.href='{:U("Admin/Exam/del_exam")}?id='+id+'&pid='+pid+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                    }
+                                });
+                            }
+                        </script>
                     </td>
                 </tr>
         </volist>
         </tbody>
     </table>
-    <div id="page" style="float: left">
+    <div id="page">
         {$exam_list['page']}
     </div>
 </div>

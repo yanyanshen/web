@@ -7,26 +7,26 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);padding:10px}
+        .table_a  td{ text-align: left;color: #646464}
     </style>
 </head>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);font-weight: bolder;color: #ffffff">
+<div class="div_head">
     分配权限
 </div>
-<div style="font-size: 13px; margin: 10px 5px;">
+<div style="font-size: 11px; margin: 10px 5px;">
     <form action="{:U('allocateRule')}" method="post" id="form1">
         <input type="hidden" name='id' value="{$Think.get.gid}"/>
         <input type="hidden" name='pid' value="{$get['pid']}"/>
-        <table class="table_a" style="border:1px solid rgb(129, 191, 249)" width="100%">
-        <thead style="background-color:rgb(129, 191, 249)">
-            <tr style="height: 35px">
-                <th colspan="2" style="color: #ffffff;text-align: left">为 {$Think.get.member} 分配权限</th>
+        <table class="table_a" width="100%">
+        <thead>
+            <tr style="background-color:rgb(19, 181, 177);">
+                <th colspan="2" style="color: #ffffff;">为 {$Think.get.member} 分配权限</th>
             </tr>
         </thead>
         <tbody>
         <volist name="ruleList" id="v1">
-            <tr class="chkList" style="height: 10px">
+            <tr class="chkList" style="height: 5px">
                 <td width="10%" >
                     <label for="{$v1.id}">{$v1.title}
                         <input id="{$v1.id}" type="checkbox" value="{$v1.id}" name="rules[]" onclick="checkAll(this)"  {:in_array($v1['id'],$groupInfo['rules'])?"checked":''} />
@@ -35,14 +35,14 @@
                 <td>
                     <notempty name="v1.child">
                         <volist name="v1.child" id="v2">
-                            <table width="99%" cellpadding="20"   style="margin: 10px;">
+                            <table width="99%" style="margin: 5px;">
                                 <tr class="chkList">
                                     <td width="10%">
                                         <label for="{$v2.id}">{$v2.title}
                                             <input id="{$v2.id}" type="checkbox" value="{$v2.id}" name="rules[]" onclick="checkAll(this)"  {:in_array($v2['id'],$groupInfo['rules'])?"checked":''}  />
                                         </label>
                                     </td>
-                                    <td style="border-left: none">
+                                    <td style="border-left: none;height: 20px">
                                         <notempty name="v2.child">
                                             <volist name="v2.child" id="v3">
                                                 <label for="{$v3.id}">{$v3.title}
@@ -60,7 +60,7 @@
         </volist>
             <tr>
                 <td colspan="2" style="padding:15px;">
-                    <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(37,168,249);border: none;border-radius: 4px;color: #ffffff " type="submit" value="确定分配" class="btn"/>
+                    <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="submit" value="确定分配" class="btn"/>
                 </td>
             </tr>
         </tbody>

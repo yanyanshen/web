@@ -8,8 +8,7 @@
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
         <style>
-            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+            .table_a td{text-align: left}
         </style>
     </head>
         <script language="javascript">
@@ -32,18 +31,18 @@
                 });
     </script>
     <body>
-        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-size: 15px;font-weight: bold">
+        <div class="div_head">
                 {$get['title']}添加
-            <a style="text-decoration: none;font-weight: bolder;color: #FA7124" href="{$url}">【返回】</a>
+            <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{$url}">【返回】</a>
         </div>
-        <div style="font-size: 13px;margin: 10px 5px">
+        <div style="font-size: 11px;margin: 10px 5px">
             <form action="{:U('Admin/Environment/abstract_pic_add')}" method="post" enctype="multipart/form-data" id="form1">
                 <input type="hidden" name="p" value="{$get['p']}"/>
                 <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <input type="hidden" name="type_id" value="{$get['id']}"/>
                 <input type="hidden" name="type" value="{$get['type']}"/>
                 <input type="hidden" name="t" value="{$get['t']}"/>
-                <table style="border:1px solid rgb(129, 191, 249)" width="100%" class="table_a">
+                <table width="100%" class="table_a">
                     <tr>
                         <td style="width: 5%">名称</td>
                         <td>{$nickname}</td>
@@ -54,7 +53,7 @@
                             <div class="usercity" style="border:3px dashed #e6e6e6;width:210px;height:200px;position: relative;margin-bottom: 15px">
                                 <p id="preview1" ><img id="imghead1"  border=0 src=''></p><span></span>
                                 <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                                <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:#00b7ee;padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
+                                <label for="image1"  style="margin:50px 20px;color:#fff;text-align:center;border-radius:4px;width:110px;height:26px;line-height:26px;font-size:14px;background:rgb(19, 181, 177);padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                             </div>
                         </td>
                     </tr>

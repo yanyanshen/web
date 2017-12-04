@@ -8,8 +8,7 @@
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <style type="text/css">
-        .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-        .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+        .table_a  td{text-align: left}
     </style>
     <script>
         $(document).ready(function(e) {
@@ -45,15 +44,15 @@
     });
 </script>
 <body>
-<div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+<div class="div_head">
     语言教育预约订单详情
     <span style="margin-right: 8px;font-weight: bold">
         <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
     </span>
 </div>
 <form action="#" method="post" id="form1">
-    <div style="font-size: 13px;margin: 10px 5px">
-        <table width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
+    <div style="margin: 10px 5px">
+        <table width="100%" class="table_a">
             <input type="hidden" name='id' value="{$get['id']}"/>
             <input type="hidden" name='p' value="{$get['p']}"/>
             <input type="hidden" name='pid' value="{$get['pid']}"/>

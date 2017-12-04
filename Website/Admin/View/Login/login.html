@@ -8,21 +8,9 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        input{
-            margin-bottom: 8px;
-        }
-        div.error{
-            position: absolute;
-            font-size: 14px;
-            font-weight: bold;
-            color: #FF0000;
-        }
-        div.ok{
-            position: absolute;
-            font-size: 14px;
-            font-weight: bold;
-            color: #38D63B;
-        }
+        input{margin-bottom: 8px;}
+        div.error{ position: absolute; font-size: 12px; color: #FA7124;}
+        div.ok{ position: absolute; font-size: 12px;color: #38D63B;}
     </style>
 
     <script language="javascript">
@@ -33,43 +21,20 @@
             });
             var validate=$('#form1').validate({
                 rules:{
-                    username:{
-                        required:true,
-                        rangelength:[5,12],
-                        remote:{
-                            url:"{:U('chkAdmin')}",
-                            type:'post'
-                        }
+                    username:{required:true, rangelength:[5,12],
+                        remote:{url:"{:U('chkAdmin')}", type:'post'}
                     },
-                    password:{
-                        required:true,
-                        rangelength:[5,12]
-                    },
-                    verify:{
-                        required:true,
-                        remote:{
-                            url:"{:U('chkVerify')}",
-                            type:'post'
-                        }
-                    }
+                    password:{required:true, rangelength:[5,12]},
+                    verify:{required:true, remote:{url:"{:U('chkVerify')}", type:'post'}}
                 },
                 messages:{
-                    username:{
-                        required:'用户名不能为空！',
-                        rangelength:'用户名长度必须在5到12位之间！',
-                        remote:'用户名不存在！'
+                    username:{required:'用户名不能为空！', rangelength:'用户名长度必须在5到12位之间！', remote:'用户名不存在！'
                     },
-                    password:{
-                        required:'密码不能为空！',
-                        rangelength:'密码长度必须在5到12位之间！'
-                    },
-                    verify:{
-                        required:'验证码不能为空!',
-                        remote:'验证码不正确!'
-                    }
+                    password:{required:'密码不能为空！', rangelength:'密码长度必须在5到12位之间！'},
+                    verify:{required:'验证码不能为空!', remote:'验证码不正确!'}
                 },
                 success:function(div){
-                    div.addClass('ok').text('通过验证')
+                    div.addClass('ok').text('*ok')
                 },
                 validClass:'ok',
                 errorElement:'div'
@@ -101,9 +66,7 @@
             })
         });
     </script>
-
 </head>
-
 <body style="background-color:rgba(0, 207, 0, 0.16); background-image:url(__STATIC__/ment/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;" id="body">
 <div id="mainBody">
     <div id="cloud1" class="cloud"></div>
@@ -117,7 +80,6 @@
         <li><a href="#">关于</a></li>
     </ul>
 </div>
-
 <div class="loginbody">
     <span class="systemlogo"></span>
     <div class="loginbox loginbox1">

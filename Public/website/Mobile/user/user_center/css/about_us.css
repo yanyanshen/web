@@ -19,12 +19,12 @@
     height: auto;
 }
 .header_text{
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     font-size: 18px;
     line-height: 50px;
     font-weight: bold;
     text-align: center;
-    margin-right: 24px;
+    margin-right: 70px;
 }
 .main_box{
     width: 100%;
@@ -46,12 +46,12 @@
 }
 .about_us_text p{
     padding-top: 8px;
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     font-size: 12px;
     line-height: 18px;
 }
 .text{
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     font-size: 14px;
     font-weight: bold;
     line-height: 18px;
@@ -61,7 +61,7 @@
 
 
 /****************************************************
-µ×²¿
+ï¿½×²ï¿½
 ****************************************************/
 .apply_submit{
     width: 160px;
@@ -73,7 +73,7 @@
     height: 42px;
     line-height: 42px;
     text-align: center;
-    font-family: "Î¢ÈíÑÅºÚ";
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½";
     font-size: 16px;
     margin-top: 7px;
     color: #fff;

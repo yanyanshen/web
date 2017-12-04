@@ -5,6 +5,7 @@ class SimulateController extends Controller{
     /*沈艳艳
         模拟考试首页
     */
+
     public function test_system(){
         if(!session('mid')){
             $this->redirect('Mobile/Login/login');
@@ -187,7 +188,7 @@ class SimulateController extends Controller{
         $this->assign('chapter',$info);
         $this->assign('mt',$type);
         $this->assign('ms',$subject);
-        $this->assign('empty',"<h1>暂无数据</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->assign('http',C('HTTP'));
         $this->display();
     }

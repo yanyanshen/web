@@ -47,22 +47,20 @@ class CyclopeController extends Controller{
         }
         $this->assign('info',$info);
         $this->assign('kemu',$kemu);
-        $this->assign('empty',"<h1>暂无内容</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
     /*视频*/
     public function baike_detail(){
         $id = I('id');
-        $info = M('cyclope_content')
-            ->where(array('type_id'=>$id))
+        $info = M('cyclope_content')->where(array('type_id'=>$id))
             ->field('title,content,ntime,picurl,videourl,od,type')
-            ->order("od desc")
-            ->select();
+            ->order("od desc")->select();
         M('cyclope')->where("id = $id")->setInc('count',1);
         $this->assign('info',$info);
         $this->assign('kemu',I('kemu'));
         $this->assign('mobile_return',session('mobile_return'));
-        $this->assign('empty',"<h1>暂无内容</h1>");
+        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
         $this->display();
     }
 }

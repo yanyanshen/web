@@ -7,142 +7,130 @@
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/js/jquery.form.js"></script>
         <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+        <script src="__PUBLIC__/public/js/layer/layer.js"></script>
         <style type="text/css">
-            span.error{
-                font-size: 14px;
-                font-weight: bold;
-                color: #FF0000;
-            }
-            span.ok{
-                font-size: 14px;
-                font-weight: bold;
-                color: #38D63B;
-            }
+            span.error{ font-size: 12px;color: #FA7124; }
+            span.ok{ font-size: 12px; color: rgb(19, 181, 177); }
 
-            .table_a td,th{border:1px solid rgba(39, 164, 237, 0.22);font-size: 13px}
-            .table_a  td{  border: dotted 1px rgba(39, 164, 237, 0.22);}
+            .table_a  td{text-align: left}
+            .table_a  input{font-size: 11px}
         </style>
     </head>
     <script>
         $(function(){
             var validate=$('#form1').validate({
                 rules:{
-                    cartype:{required:true},
-                    name:{required:true},
-                    way:{required:true},
-                    officeprice:{required:true},
-                    wholeprice:{required:true},
-                    include:{required:true},
-                    advanceprice:{required:true},
-                    class_type:{required:true}
+                    cartype:{required:true},name:{required:true},
+                    way:{required:true},officeprice:{required:true},
+                    wholeprice:{required:true}, include:{required:true},
+                    advanceprice:{required:true}, class_type:{required:true}
                 },
                 messages:{
-                    cartype:{required:'此项不能为空！'},
-                    name:{required:'此项不能为空！'},
-                    way:{required:'此项不能为空!'},
-                    officeprice: {required: '此项不能为空'},
-                    wholeprice:{required:'此项不能为空'},
-                    include:{required:'此项不能为空'},
-                    advanceprice:{required:'预付款不能为空'},
-                    class_type:{required:'班别不能为空'}
+                    cartype:{required:' * 必填项！'}, name:{required:' * 必填项！'},
+                    way:{required:' * 必填项！'}, officeprice: {required: ' * 必填项！'},
+                    wholeprice:{required:' * 必填项！'}, include:{required:' * 必填项！'},
+                    advanceprice:{required:' * 必填项！'}, class_type:{required:' * 必填项！'}
                 },
                 success:function(span){
-                    span.addClass('ok').text('通过验证')
+                    span.addClass('ok').text(' * ok')
                 },
                 validClass:'ok',
                 errorElement:'span'
             });
-
+            $("#submit").submit();
             $("#submit").click(function(){
                 if(validate.form()){
                     $("#submit").attr('disabled',true);
-                    $.post('{:U("Admin/TrainClass/save_class")}',$("#form1").serialize(),function(res){
-                        if(res.info==1){
-                            alert('保存成功');
-                            location.href=res.url;
+                    $.post('{:U("Admin/TrainClass/add_class")}',$("#form1").serialize(),function(res){
+                        if(res.status==1){
+                            layer.msg(res.info,{icon:6,time:2000},function(){
+                                location.href=res.url;
+                            })
                         }else{
-                            alert('保存失败');
-                            location.href='';
+                            layer.msg(res.info,{icon:5,time:2000},function(){
+                                location.href=res.url;
+                            })
                         }
                     },'json');
                     return false;
                 }
-
             });
-
         });
     </script>
     <body>
-        <div class="div_head" style="background-color: rgb(129, 191, 249);color: #ffffff;font-weight: bolder">
+        <div class="div_head">
             课程添加
-                <span style="margin-right: 8px;font-weight: bold">
-                    <a style="text-decoration: none;color:#FA7124" href="{:U('train_class',array('id'=>$post['id'],'type'=>$post['type'],'p'=>$post['p']))}">【返回】</a>
-                </span>
+            <span style="margin-right: 8px;font-weight: bold">
+                <a style="text-decoration: none;color:#FA7124"
+                   href="{:U('train_class',array('id'=>$get['id'],'type'=>$get['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+            </span>
         </div>
         <form action="#" method="post" id="form1">
-        <div style="font-size: 13px;margin: 10px 5px">
-            <table width="100%" class="table_a" style="border:1px solid  rgb(129, 191, 249);">
+        <div style="margin: 10px 5px">
+            <table width="100%" class="table_a">
                 <tr>
-                <input type="hidden" name='type_id' value="{$post['id']}"/>
-                 <input type="hidden" name='type' value="{$post['type']}"/>
-                    <td colspan='2'>
-                        <if condition="$post['type'] eq 'jx'">驾校：</if>
-                        <if condition="$post['type'] eq 'jl'">教练：</if>
-                        <if condition="$post['type'] eq 'zd'">指导员：</if>
-                        {$post['nickname']}
+                <input type="hidden" name='type_id' value="{$get['id']}"/>
+                 <input type="hidden" name='type' value="{$get['type']}"/>
+                 <input type="hidden" name='pid' value="{$get['pid']}"/>
+                    <input type="hidden" name='p' value="{$get['p']}"/>
+                    <td colspan='2' style="color: #323232">
+                        <if condition="$get['type'] eq 'jx'">驾校：</if>
+                        <if condition="$get['type'] eq 'jl'">教练：</if>
+                        <if condition="$get['type'] eq 'zd'">指导员：</if>
+                        {$get['nickname']}
                     </td>
                 </tr>
-               	<tr ><td width="5%">课程名</td>
+               	<tr><td width="5%">课程名</td>
                     <td><input type="text" name="name"/></td>
                 </tr>
-               	<tr >
+               	<tr>
                     <td>车型</td>
                     <td><input type="text" name="cartype"/></td>
                 </tr>
-                <tr >
+                <tr>
                     <td>驾照类型</td>
                     <td>
-                        <select name="jztype" >
+                        <select name="jztype"  style="width: 90px;height: 20px;font-size: 12px">
                             <volist name="jztype" id="v">
-                                <option value="{$v.id}" style="width: 20px;">{$v.jztype}</option>
+                                <option value="{$v.id}">{$v.jztype}</option>
                             </volist>
                         </select>
                     </td>
                 </tr>
-               	<tr >
+               	<tr>
                     <td>练车方式</td>
-                    <td><input type="text" name="way"/>(多人一车/一人一车/四人学车)</td>
+                    <td><input type="text" name="way" value="多人一车"/>(多人一车/一人一车/四人学车)</td>
                 </tr>
-                <tr >
+                <tr>
                     <td>接送方式</td>
                     <td>
                         <input type="radio" name="shuttle_way" value="0" checked/>不接送
                         <input type="radio" name="shuttle_way" value="1"/>接送
                     </td>
                 </tr>
-                <tr >
+                <tr>
                     <td>学车课时</td>
                     <td>
-                        科二：<input type="text" name="class_time2" value="0" />课时&nbsp;(请填写0-30)</br>
-                        科三：<input type="text" name="class_time3" value="0"/>课时&nbsp;(请填写0-30)
+                        科二：<input type="text" name="class_time2" value="30" />课时&nbsp;(请填写0-30)</br>
+                        科三：<input type="text" name="class_time3" value="30"/>课时&nbsp;(请填写0-30)
                     </td>
                 </tr>
-               	<tr >
+               	<tr>
                     <td>官方价</td>
                     <td><input type="text" name="officeprice"/>(元)</td>
                 </tr>
-               	<tr ><td>全款价</td>
+               	<tr><td>全款价</td>
                     <td><input type="text" name="wholeprice"/>(元)</td>
                 </tr>
-               	<tr >
+               	<tr>
                     <td>预付费</td>
                     <td><input type="text"  name="advanceprice"/>(元)</td>
                 </tr>
-               	<tr >
+               	<tr>
                     <td>等待时间</td>
-                    <td><input type="text" name="waittime"/>(天)</td>
+                    <td><input type="text" name="waittime" value="0"/>(天)</td>
                 </tr>
-               	<tr >
+               	<tr>
                     <td>班别</td>
                     <td><input type="text" name="class_type"/>(例如 平时班)</td>
                 </tr>
@@ -152,34 +140,6 @@
                         <textarea name="include" cols="30" rows="10">    教材费、办证费、IC卡费、理科术科培训费燃油费、车辆及人员使用费、经营管理等费用，以及科目一、科目二、科目三考试费、一次补考费</textarea>
                     </td>
                 </tr>
-                <!--<tr >-->
-                    <!--<td>设为本周特价</td>-->
-                    <!--<td>-->
-                        <!--<input type="radio" name="week" value="1"/>是-->
-                        <!--<input type="radio" name="week" value="0"/>否-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr >-->
-                    <!--<td>设为热搜</td>-->
-                    <!--<td>-->
-                        <!--<input type="radio" name="hot" value="1"/>是-->
-                        <!--<input type="radio" name="hot" value="0"/>否-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr >-->
-                    <!--<td>设为计时培训</td>-->
-                    <!--<td>-->
-                        <!--<input type="radio" name="timing" value="1"/>是-->
-                        <!--<input type="radio" name="timing" value="0"/>否-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr >-->
-                    <!--<td>设为推荐驾校</td>-->
-                    <!--<td>-->
-                        <!--<input type="radio" name="recommand" value="1"/>是-->
-                        <!--<input type="radio" name="recommand" value="0"/>否-->
-                    <!--</td>-->
-                <!--</tr>-->
                 <tr>
         			<td colspan='2'>
         				<input type="submit" id="submit" value="添加"/>

@@ -7,12 +7,12 @@ class AdminLogModel extends Model{
  * @param array $log 添加的数组
  * @param string $res 添加的日志的最后的id值
 */
-    public function addOrderLog($log){
+    public function addOrderLog($log,$oid){
         //添加日志
         if ($log) {
             $OrderLog['lastip'] = I("server.REMOTE_ADDR");
             $OrderLog['ntime'] = time();
-            $OrderLog['oid'] = session('oid');
+            $OrderLog['oid'] = $oid;
             $OrderLog['uid'] = session('admin_id');
             $OrderLog['done'] = $log;
             $res = M('OrderLog')->add($OrderLog);
@@ -49,12 +49,12 @@ class AdminLogModel extends Model{
  *@return array $order_log 订单操作日志
  *订单详情的操作日志
 */
-    public function order_log(){
+    public function order_log($oid){
         $order_log = M('OrderLog')->alias('ol')
             ->join('xueches_admin a ON a.id=ol.uid')
             ->field('a.username,ol.ntime,ol.done,ol.lastip')
-            ->where(array('ol.oid'=>session('oid')))
-            ->order('ntime desc')
+            ->where(array('ol.oid'=>$oid))
+            ->order('ol.ntime')
             ->select();
         return $order_log;
     }

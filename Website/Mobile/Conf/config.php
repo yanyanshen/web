@@ -4,6 +4,7 @@ return array(
     'TMPL_PARSE_STRING' =>array(
         '__STATIC__'=> __ROOT__.'/Public/website/'.MODULE_NAME//前台模块的样式路径
     ),
+
 //支付宝配置参数
     'alipay_config'=>array(
         'partner' =>'2088111222703104',   //这里是你在成功申请支付宝接口后获取到的PID；

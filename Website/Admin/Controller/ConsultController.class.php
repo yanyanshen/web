@@ -5,10 +5,6 @@ use Admin\Common\Controller\CommonController;
 use Think\Page;
 class ConsultController extends CommonController{
     public function index(){
-//判断是否有资讯添加按钮权限
-        $consult = D('AuthRule')->getRule(I('pid'),'资讯添加');
-        $this->assign('consult',$consult['name']);
-
         $where = "s.cityid=c.id and s.flag=0";
         $count=M('Consult')->table('xueches_consult s,xueches_citys c')->where($where)->count();
         $this->assign('count',$count);
@@ -31,8 +27,10 @@ class ConsultController extends CommonController{
         if(IS_AJAX){
             $_POST['update_people']=session('admin_name');
             $_POST['ntime']=date('Y-m-d H:i:s',time());
+            //原来的信息
             if(I('id')){
-                $log['done'] = '修改驾校资讯 ID_'.I('id');
+                $consult = M('Consult')->where(array(I('id')))->find();
+                $log['done'] = "驾校资讯信息:{$consult['title']} => {$_POST['title']}";
                 $res = M('consult')->where(array('id'=>$_POST['id']))->save($_POST);
             }else{
                 if($_FILES['image']){
@@ -46,7 +44,7 @@ class ConsultController extends CommonController{
 
                     $res=M('consult')->add($_POST);
 
-                    $log['done'] = '添加驾校资讯 ID_'.$res;
+                    $log['done'] = "驾校资讯信息: =>{$_POST['title']}";
                 }else{
                     $this->error('请上传文件');
                 }
@@ -93,13 +91,13 @@ class ConsultController extends CommonController{
         $id = I('id');
         $info = M('consult')->where(array('id'=>$id))->find();
         if($info){
+            $log['done'] = '驾校资讯删除: => '.$info['title'];
             cloudMove("consult/{$info['picname']}");
             $res = M('consult')->where(array('id'=>$id))->delete();
         }else{
             echo '未查到数据';
         }
         if($res){
-            $log['done'] = '删除驾校资讯 ID_'.$id;
             D('AdminLog')->logout($log);
             $this->redirect('Admin/Consult/index',array('p'=>I('p'),'pid'=>I('pid')),0,"<script>alert('删除成功')</script>");
         }else{
@@ -111,16 +109,18 @@ class ConsultController extends CommonController{
     public function statusUpdate(){
         $id=I('id');
         $flag=M('consult')->where(array('id'=>$id))->getField('flag');
+
         if($flag==1){
+            $log['done'] = "驾校资讯首页推荐:$flag=>0";
             $data['flag']=0;
             $data['order1']=0;
         }else{
+            $log['done'] = "驾校资讯首页推荐:$flag=>1";
             $data['flag']=1;
         }
         $res=M('consult')->where(array('id'=>$id))->save($data);
         $url = U('Admin/Consult/index',array('pid'=>I('pid'),'p'=>I('p')));
         if($res){
-            $log['done'] = '设置/取消首页驾校资讯 ID_'.$id;
             D('AdminLog')->logout($log);
             $this->success('操作成功',$url);
         }else{
@@ -129,10 +129,11 @@ class ConsultController extends CommonController{
     }
 
     public function setPriority(){
+        $consult = M('consult')->where(array('id'=>I('id')))->find();
+        $log['done'] = "驾校资讯优先级:{$consult['order1']} => {$_POST['order1']}";
         $row=M('consult')->save($_POST);
         $url = U('Admin/Consult/first_index',array('pid'=>I('pid'),'p'=>I('p')));
         if($row){
-            $log['done'] = '首页驾校资讯优先级更新 ID_'.I('id');
             D('AdminLog')->logout($log);
             $this->success('优先级更新成功',$url);
         }else{

@@ -3,66 +3,128 @@ namespace Admin\Model;
 use Think\Model;
 class OrderModel extends Model {
 /*沈艳艳
-  @param array $get 参数
+    @param array $get 参数
     @param return excel倒出是否成功
+    @param $flag 导出列表的类型
 */
-    public function push($get){
-        $where = 'o.school_id = s.id';
+    public function push($get,$flag){
+        $where = '';
+        $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
+        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
+            $get['customer'] = session('admin_name');
+        }
         if(!empty($get)){
             foreach($get as $key=>$val) {
                 if($key == 's_nickname' && $val != ''){
-                    $where.=" and o.s_nickname like '%".trim($get['s_nickname'])."%'";
+                    $where.=" o.s_nickname like '%".trim($get['s_nickname'])."%' and";
                 }elseif($key == 'tel' && $val != ''){
-                    $where.=" and o.$key like '%".urldecode($val)."%'";
-                }elseif($key == 'status' && $val != 0){
-                    $where.=" and o.$key = ".urldecode($val);
-                }elseif($key == 'order_type' && $val != 0){
-                    $where.=" and o.$key =".urldecode($val);
+                    $where.=" o.$key like '%".urldecode($val)."%' and";
+                } elseif($key == 'order_type' && $val != 0){
+                    $where.=" o.$key =".urldecode($val)." and";
                 }elseif($key == 'ordcode' && $val != ''){
-                    $where.=" and o.$key like '%".urldecode($val)."%'";
+                    $where.=" o.$key like '%".urldecode($val)."%'".' and';
                 }elseif($key == 'cityname' && $val != 0){
-                    $where.=" and o.$key =".urldecode($val);
+                    $where.=" o.$key =".urldecode($val)." and" ;
                 }elseif($key == 'pay_type' && $val != 0){
-                    $where.=" and o.$key =".urldecode($val);
+                    $where.=" o.$key =".urldecode($val)." and";
                 }elseif($key == 'customer' && $val != ''){
-                    $where.=" and o.$key like '%".trim($val)."%'";
+                    $where.=" o.$key like '%".trim($val)."%'".' and';
                 }elseif($key == 'class_name' && $val != '0'){
-                    $where.=" and o.$key like '%".trim($val)."%'";
+                    $where.=" c.name like '%".trim($val)."%'".' and';
                 }elseif($key == 'trainaddress' && $val != ''){
-                    $where.=" and o.$key like '%".trim($val)."%'";
-                }elseif($key == 'create_time1' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.=" and o.create_time  > $val";
+                    $where.=" ta.trname like '%".trim($val)."%'"." and";
+                }elseif($key == 'create_time1' && $val != ''){//下单时间
+                    $where.=" o.create_time  > '$val' and";
                 }elseif($key == 'create_time2' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.=" and o.create_time  < $val";
-                }elseif($key == 'notify_time1' && $val != ''){
-                    $where.=" and o.notify_time  > '$val'";
+                    $where.=" o.create_time  < '$val' and";
+                }elseif($key == 'notify_time1' && $val != ''){//支付时间
+                    $where.=" o.notify_time  > '$val' and";
                 }elseif($key == 'notify_time2' && $val != ''){
-                    $where.=" and notify_time  < '$val'";
-                }elseif($key == 'return_time1' && $val != ''){
-                    $where.=" and o.return_time  > '$val'";
+                    $where.=" notify_time  < '$val' and";
+                }elseif($key == 'return_time1' && $val != ''){//回访时间
+                    $where.=" o.return_time  > '$val' and";
                 }elseif($key == 'return_time2' && $val != ''){
-                    $where.="  and o.return_time  < '$val'";
-                }elseif($key == 'return_fee1' && $val != ''){
-                    $where.=" and o.return_fee  >'$val'";
+                    $where.=" o.return_time  < '$val' and";
+                }elseif($key == 'return_fee1' && $val != ''){//退款时间
+                    $where.=" o.return_fee  >'$val' and";
                 }elseif($key == 'return_fee2' && $val != ''){
-                    $where.=" and o.return_fee  <'$val'";
-                }elseif($key == 'flag' && $val != ''){
-                    $where.=" and o.flag  = $val";
-                }elseif($key == 'visit' && $val != ''){
-                    $where.=" and o.visit  = $val";
+                    $where.=" o.return_fee  <'$val' and";
+                }elseif($key == 'cancel_reason' && $val != 0){//取消原因
+                    $where.=" o.cancel_reason  = $val and";
+                }elseif($key == 'cancel_time1' && $val != ''){//取消时间
+                    $where.=" o.cancel_time  > '$val' and";
+                }elseif($key == 'cancel_time2' && $val != ''){
+                    $where.=" o.cancel_time  < '$val' and";
+                }elseif($key == 'truename' && $val != ''){
+                    $where.=" o.name like '%".trim($val)."%'".' and';
+                }elseif($key == 'end_time1' && $val != ''){//结算时间
+                    $where.=" o.end_time  > '$val' and";
+                }elseif($key == 'end_time2' && $val != ''){//结算时间
+                    $where.=" o.end_time  < '$val' and";
+                }elseif($key == 'userid' && $val != 0){//学员id
+                    $where.=" o.userid  = $val and";
+                }elseif($key == 'orderStatus' && $val != 0){
+                    $where.=" o.order_status  = $val and";
+                }elseif($key == 'status' && $val == 2){//支付宝已支付未处理
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 1){//未处理
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 2){//待回访订单
+                    $egt_time = date('Y-m-d 22:00:00',time());//当天晚上10以前的所有的订单
+                    $where.=" o.$key  = $val and o.return_time <= '$egt_time' and";
+                }elseif($key == 'order_status' && $val == 3){//待结算订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 4){//已结算订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 5){//已退款订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 6){//已取消订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'customer' && $val != ''){//已取消订单条件
+                    $where.=" o.$key  = '$val' and";
                 }
+            }$where=rtrim($where,'and');
+        }
+
+        if($flag == 1){//已支付未处理
+            if($where == ''){
+                $where = 'o.status = 2 and o.order_status = 1';
+            }else{
+                $where .= " and o.status = 2 and o.order_status = 1";
+            }
+        }elseif($flag == 2){//待结算
+            if($where == ''){
+                $where = 'order_status = 3 ';
+            }else{
+                $where .= " and order_status = 3 ";
+            }
+        }elseif($flag == 3){//已结算
+            if($where == ''){
+                $where = 'order_status = 4 ';
+            }else{
+                $where .= " and order_status = 4 ";
+            }
+        }elseif($flag == 4){//已退费
+            if($where == ''){
+                $where = 'order_status = 6 ';
+            }else{
+                $where .= " and order_status = 6 ";
+            }
+        }elseif($flag == 5){//已退费
+            if($where == ''){
+                $where = 'order_status = 5 ';
+            }else{
+                $where .= " and order_status = 5 ";
             }
         }
-        $field="o.id,o.ordcode,o.create_time,o.inform,o.status,o.pay_type,o.userid,o.return_time,o.class_name,
-               o.lastupdate,o.order_type,o.pay_type,o.return_time,o.flag,s.nickname,o.userid,o.customer,
-               o.trainaddress,o.tel,o.num,o.notify_time,o.customer_inform,o.create_time,o.return_time";
-        $list = $this->table('xueches_order o,xueches_school s')
-            ->where($where)
-            ->field($field)
-            ->order('id desc')
-            ->select();
+
+        $list = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
+            ->where($where)->field('o.*,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
+            ->order('o.create_time desc')->select();
+        foreach($list as $k=>$v){
+            $list[$k]['cancel_reason'] = M('OrderCancelReason')->where(array('id'=>$v['cancel_reason']))->getField('reason');
+        }
         $name='Excelfile';    //生成的Excel文件文件名
         $res = push($list,$name);
         return $res;
@@ -74,13 +136,24 @@ class OrderModel extends Model {
     @param return 是否更新成功
 */
     public function returndate($oid,$id){
-        $this->where(array('id'=>$id))->save(array('return_time'=>$_POST['return_time'],'customer'=>session('admin_name')));
+        $data['lastupdate'] = session('admin_name');
+        $data['customer_inform'] = $_POST['content'];
+        $data['return_time'] = $_POST['return_time'];
+        $info = $this->field('status,order_status')->where(array('id'=>$id))->find();
+        if($info['status']==1 || $info['order_status']==1){
+            $data['order_status'] = 2;//待回访状态
+        }
+
+        $this->where(array('id'=>$id))->save($data);
         $customer['create_time'] = date('Y-m-d H:i:s');
         $customer['operator'] = session('admin_name');
         $customer['return_time'] = $_POST['return_time'];
         $customer['content'] = $_POST['content'];
         $customer['ordcode'] = $oid;
         if(M('customer')->add($customer)){
+            $log = '给订单添加回访记录 ID_'.$id;
+            D('AdminLog')->addOrderLog($log,$id);
+
             $message="<script>alert('更新成功')</script>";
         }else{
             $message="<script>alert('更新失败')</script>";
@@ -90,92 +163,140 @@ class OrderModel extends Model {
 /*沈艳艳
   @param array $get 参数
   @param return 返回查询条件
-  @param $flag 条件
 */
-    public function order_list($get,$flag=''){
+    public function order_list($get){
         $where = '';
+        $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
+        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
+            $get['customer'] = session('admin_name');
+        }
         if(!empty($get)){
             foreach($get as $key=>$val) {
                 if($key == 's_nickname' && $val != ''){
                     $where.=" o.s_nickname like '%".trim($get['s_nickname'])."%' and";
                 }elseif($key == 'tel' && $val != ''){
                     $where.=" o.$key like '%".urldecode($val)."%' and";
-                }elseif($key == 'status' && $val != 0){
-                    $where.=" o.$key = ".urldecode($val).' and';
-                }elseif($key == 'order_type' && $val != 0){
-                    $where.=" o.$key =".urldecode($val).' and';
+                } elseif($key == 'order_type' && $val != 0){
+                    $where.=" o.$key =".urldecode($val)." and";
                 }elseif($key == 'ordcode' && $val != ''){
                     $where.=" o.$key like '%".urldecode($val)."%'".' and';
                 }elseif($key == 'cityname' && $val != 0){
-                    $where.=" o.$key =".urldecode($val).' and';
+                    $where.=" o.$key =".urldecode($val)." and" ;
                 }elseif($key == 'pay_type' && $val != 0){
-                    $where.=" o.$key =".urldecode($val).' and';
+                    $where.=" o.$key =".urldecode($val)." and";
                 }elseif($key == 'customer' && $val != ''){
                     $where.=" o.$key like '%".trim($val)."%'".' and';
                 }elseif($key == 'class_name' && $val != '0'){
-                    $where.=" o.$key like '%".trim($val)."%'".' and';
+                    $where.=" c.name like '%".trim($val)."%'".' and';
                 }elseif($key == 'trainaddress' && $val != ''){
-                    $where.=" o.$key like '%".trim($val)."%'".' and';
-                }elseif($key == 'create_time1' && $val != ''){
+                    $where.=" ta.trname like '%".trim($val)."%'"." and";
+                }elseif($key == 'create_time1' && $val != ''){//下单时间
                     $where.=" o.create_time  > '$val' and";
                 }elseif($key == 'create_time2' && $val != ''){
                     $where.=" o.create_time  < '$val' and";
-                }elseif($key == 'notify_time1' && $val != ''){
+                }elseif($key == 'notify_time1' && $val != ''){//支付时间
                     $where.=" o.notify_time  > '$val' and";
                 }elseif($key == 'notify_time2' && $val != ''){
                     $where.=" notify_time  < '$val' and";
-                }elseif($key == 'return_time1' && $val != ''){
+                }elseif($key == 'return_time1' && $val != ''){//回访时间
                     $where.=" o.return_time  > '$val' and";
                 }elseif($key == 'return_time2' && $val != ''){
                     $where.=" o.return_time  < '$val' and";
-                }elseif($key == 'return_fee1' && $val != ''){
+                }elseif($key == 'return_fee1' && $val != ''){//退款时间
                     $where.=" o.return_fee  >'$val' and";
                 }elseif($key == 'return_fee2' && $val != ''){
                     $where.=" o.return_fee  <'$val' and";
-                }elseif($key == 'flag' && $val != ''){
-                    $where.=" o.flag  = $val and";
-                }elseif($key == 'visit' && $val != ''){
-                    $where.=" o.visit  = $val and";
+                }elseif($key == 'cancel_reason' && $val != 0){//取消原因
+                    $where.=" o.cancel_reason  = $val and";
+                }elseif($key == 'cancel_time1' && $val != ''){//取消时间
+                    $where.=" o.cancel_time  > '$val' and";
+                }elseif($key == 'cancel_time2' && $val != ''){
+                    $where.=" o.cancel_time  < '$val' and";
+                }elseif($key == 'truename' && $val != ''){
+                    $where.=" o.name like '%".trim($val)."%'".' and';
+                }elseif($key == 'end_time1' && $val != ''){//结算时间
+                    $where.=" o.end_time  > '$val' and";
+                }elseif($key == 'end_time2' && $val != ''){//结算时间
+                    $where.=" o.end_time  < '$val' and";
+                }elseif($key == 'userid' && $val != 0){//学员id
+                    $where.=" o.userid  = $val and";
+                }elseif($key == 'orderStatus' && $val != 0){
+                    $where.=" o.order_status  = $val and";
+                }elseif($key == 'status' && $val == 2){//支付宝已支付未处理
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 1){//未处理
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 2){//待回访订单
+                    $egt_time = date('Y-m-d 22:00:00',time());//当天晚上10以前的所有的订单
+                    $where.=" o.$key  = $val and o.return_time <= '$egt_time' and";
+                }elseif($key == 'order_status' && $val == 3){//待结算订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 4){//已结算订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 5){//已退款订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'order_status' && $val == 6){//已取消订单条件
+                    $where.=" o.$key  = $val and";
+                }elseif($key == 'customer' && $val != ''){//已取消订单条件
+                    $where.=" o.$key  = '$val' and";
                 }
             }$where=rtrim($where,'and');
         }
-        if($flag){
-            if($where == ''){
-                $where = $flag;
-            }else{
-                $where .= " and $flag";
-            }
-        }
-        $count = $this->alias('o')->join('xueches_user u ON o.userid = u.id')->where($where)->count();
+        $count = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
+            ->where($where)->count();
         $p = new \Think\Page($count,10);
-        $list = $this->alias('o')->join('xueches_user u ON o.userid = u.id')
-            ->where($where)
-            ->field('o.*, u.truename')
-            ->order('o.create_time desc')
-            ->limit($p->firstRow.','.$p->listRows)->select();
-        foreach($list as $k=>$v){
-            $list[$k]['name'] = M('user')->where("id = {$v['userid']}")->getField('truename');
-        }
+        $list = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)
+            ->field('o.*,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
+            ->order('o.create_time desc')->limit($p->firstRow.','.$p->listRows)->select();
+
         $page = $p->show();
+        foreach($list as $k=>$v){
+            $list[$k]['cancel_reason'] = M('OrderCancelReason')->where(array('id'=>$v['cancel_reason']))->getField('reason');
+        }
         $arr['list'] = $list;
         $arr['count'] = $count;
         $arr['page'] = $page;
         $arr['firstRow'] = $p->firstRow;
         return $arr;
     }
+/*-----------------------------2017-11-23shenyanyan---------------------------*/
+//支付宝已支付未处理、待回访、待结算待回访 数量
+    public function order_count(){
+        $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
+        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
+            $where['customer'] = session('admin_name');
+        }
+        //用户在网上支付但后台客服未处理订单数量
+        $where['order_status'] = 1;
+        $count['count1'] = M('Order')->where(array('status'=>2,$where))->count();
+        //待结算需回访
+        $where['order_status'] = 3;
+        $count['count3'] = M('Order')->where($where)->count();
+        //待回访订单数量
+        $where['return_time'] = array('elt', date('Y-m-d 22:00:00',time()));//当天晚上10点半以前的所有订单
+        $where['order_status'] = 2;
+        $count['count2'] = M('Order')->where($where)->count();
+        return $count;
+    }
 /*沈艳艳
   @param array $post 参数
   @param return 是否添加成功
 */
     public function update_class($post){
-        $log = '修改课程:'.$this->where(array('id'=>$post['id']))->getField('class_name').'=>';
-        if($post['class_name']){
-            $post['class_name'] = M('trainclass')->where("id = {$post['class_name']}")->getField('name');
-            $log .= $post['class_name'];
-        }else{
-            $log .= 'C照全包';
-        }
-        $post['customer'] = session('admin_name');
+        //得到课程 id、基地 id、驾校名称
+        $info = $this->where(array('id'=>$post['id']))->field('class_name,trainaddress,s_nickname')->find();
+        //得到未改之前课程名称 基地名称
+        $class_name = M('trainclass')->where("id = {$info['class_name']}")->getField('name');
+        $trainaddress = M('trainaddress')->where("id = {$info['trainaddress']}")->getField('trname');
+
+        //修改之后的课程、基地名称
+        $class_name1 = M('trainclass')->where("id = {$post['class_name']}")->getField('name');
+        $trainaddress1 = M('trainaddress')->where("id = {$post['trainaddress']}")->getField('trname');
+
+        $log = "意向课程:{$info['s_nickname']}-{$class_name}-{$trainaddress} => {$post['s_nickname']}-{$class_name1}-{$trainaddress1}";
+
         $post['lastupdate'] = session('admin_name');
         $res = $this->save($post);
         if($res){
@@ -183,7 +304,7 @@ class OrderModel extends Model {
             unset($post['id']);
             M('OrderUser')->where(array('oid'=>$post['oid']))->save($post);
             if($log){
-                D('AdminLog')->addOrderLog($log);
+                D('AdminLog')->addOrderLog($log,$post['oid']);
             }
         }
         return $res;
@@ -195,75 +316,73 @@ class OrderModel extends Model {
     public function add_order($post){
         $cityname = M('citys')->where("id = {$post['cityid']}")->getField('cityname');
         $userid = M('User')->where("account = {$post['phone']}")->getField('id');
-        if($post['jx']){
-            $order['school_id'] = $_POST['jx'];
-            $order['s_type'] = 1;//0是驾校 1是教练 2是指导员
-        }elseif($post['jl']){
-            $order['school_id'] = $_POST['jl'];
-            $order['s_type'] = 2;//0是驾校 1是教练 2是指导员
-        }else if($post['zd']){
-            $order['school_id'] = $_POST['zd'];
-            $order['s_type'] = 3;
-        }
-        if($order['school_id']){
-            $order['s_nickname'] = M('school')->where("id = {$order['school_id']}")->getField('nickname');
-        }
+
         $order['address'] = $cityname.' '.$post['countyname'].' '.$post['address'];
+        $order['s_nickname'] = $post['s_nickname'];
+        $order['school_id'] = $post['school_id'];
         $order['trainaddress'] = $post['trainaddress'];
         $order['countyname'] = $post['countyname'];
         $order['cityname'] = $post['cityid'];
         $order['class_name'] = $post['class_name'];
-        $order['type'] = $post['type'];
         $order['pay_type'] = $post['pay_type'];
         $order['order_source'] = $post['order_source'];
         $order['customer_inform'] = $post['customer_inform'];
         $order['return_time'] = $post['return_time'];
-        $order['order_type'] = $post['order_type'];
-        $order['create_time'] = time();
+        $order['create_time'] = date('Y-m-d H:i:s',time());
         if($userid){
             $order['userid'] = $userid;
-            M('user')->where("id = $userid")->save(array('truename'=>$post['truename']));
         }else{
             $user['cityid'] = $post['cityid'];
             $user['truename'] = $post['truename'];
             $user['phone'] = $post['phone'];
             $user['account'] = $post['phone'];
-            $user['pass'] = md5($post['phone']);
+            $user['pass'] = md5('517xueche');
             $user['ntime'] = time();
-            $user['lastupdate'] = session('admin_name');
+            $user['jz_type'] = M('trainclass')->where(array('id'=>$post['class_name']))->getField('name');
             $user['sex'] = $post['user_sex'];
-            $user['jz_type'] = $post['class_name'];
             $user['address'] = $cityname.' '.$post['countyname'].' '.$post['address'];
             $order['userid'] = M('User')->add($user);
         }
-        $order['total_fee'] = $post['total_fee'];
         $order['tel'] = $post['phone'];
-        $order['phone'] = $post['phone'];
-        $order['ordcode'] = getordcode();
-        $order['num'] = count($post['account'])?(count($post['account'])+1):1;
-        $order['price'] = $post['price'] * $order['num'];
-        $order['lastupdate'] = session('admin_name');
-        $oid = $this->add($order);
-        session('oid',$oid);
-        $order['name'] = $post['truename'];
-        $order['oid'] = $oid;
         $order['price'] = $post['price'];
-        $log .= " 添加学员 name[0]: {$post['truename']}, tel:  {$post['phone']}; ";
+        $order['ordcode'] = getordcode();
+        $order['lastupdate'] = session('admin_name');
+        $order['customer'] = session('admin_name');
+        $order['num'] = count($post['account'])?(count($post['account'])+1):1;
+        $order['price'] = $post['wholeprice'] * $order['num'];
+        $order['name'] = $post['truename'];
+        $order['sex'] = $post['user_sex'];
+
+        $order['order_status'] = 2;
+        $oid = $this->add($order);
+        $order['oid'] = $oid;
+        $order['price'] = $post['wholeprice'];
+
         M('order_user')->add($order);
         if($post['account']){
             $order['num'] = 1;
             for($i=0;$i<count($post['account']);$i++){
                 $order['name'] = $post['account'][$i];
                 $order['tel'] = $post['tel'][$i];
+                $order['sex'] = $post['sex'][$i];
                 M('order_user')->add($order);
-                $log .= "  name:[".($i+1)."] ".$post['account'][$i].", tel: ".$post['tel'][$i]." ; ";
+                $log1 .= "{$post['account'][$i]}({$post['tel'][$i]}) | ";
             }
+            $log = "学员信息:{$post['truename']}({$post['phone']}) | $log1 => {$post['truename']}({$post['phone']}) |$log1";
+        }else{
+            $log .= " 学员信息:{$post['truename']}({$post['phone']}) => {$post['truename']}({$post['phone']})";
         }
         if($oid){
-            $order_num = count($post['account'])?(count($post['account'])+1):1;
-            M('OrderSource')->where(array('id'=>$_POST['order_source']))->setInc('order_num',$order_num);
+            //添加回访记录
+            $customer['ordcode'] = $order['ordcode'];
+            $customer['create_time'] = date('Y-m-d H:i:s',time());
+            $customer['content'] = $post['customer_inform'];
+            $customer['operator'] = session('admin_name');
+            $customer['return_time'] = $post['return_time'];
+            M('customer')->add($customer);
+
             if($log){
-                D('AdminLog')->addOrderLog($log);
+                D('AdminLog')->addOrderLog($log,$oid);
             }
             $message="<script>alert('更新成功')</script>";
         }else{
@@ -278,38 +397,38 @@ class OrderModel extends Model {
  * 订单详情支付信息修改和确认订单
  * @param array $post 提交的数据
  */
-    public function zhifu($post){
-        $info = $this->where(array('id'=>$post['id']))->find();
-        $price = $info['price']-$post['price'];
-        if($price>0){
-            $post['sale_price'] = $price;
-        }else{
-            $post['sale_price'] = 0;
-        }
+    public function pay_type($post){
+        //原有的支付方式
         $post['lastupdate'] = session('admin_name');
-        if($post['pay_type'] == 0){
-            $pay_type = '未支付';
-        }elseif($post['pay_type'] == 1){
-            $pay_type = '支付宝';
-        }elseif($post['pay_type'] == 2){
-            $pay_type = '微信';
-        }elseif($post['pay_type'] == 3){
-            $pay_type = '门店';
+        $order = M('Order')->where(array('id'=>$post['id']))->find();
+        if($order['pay_type'] == 0){
+            $log = "支付方式:未支付 => ";
+        }elseif($order['pay_type'] == 1){
+            $log = "支付方式:支付宝 => ";
+        }elseif($order['pay_type'] == 2){
+            $log = "支付方式:微信 => ";
+        }elseif($order['pay_type'] == 3){
+            $log = "支付方式:门店 => ";
+        }elseif($order['pay_type'] == 4){
+            $log = "支付方式:快递 => ";
+        }elseif($order['pay_type'] == 5){
+            $log = "支付方式:驾校 => ";
         }
-        if($post['pay_address'] == 0){
-            $pay_address = '无';
-        }elseif($post['pay_address'] == 1){
-            $pay_address = '手机端';
-        }elseif($post['pay_address'] == 2){
-            $pay_address = 'PC端';
-        }elseif($post['pay_address'] == 3){
-            $pay_address = '门店';
-        }elseif($post['pay_address'] == 4){
-            $pay_address = '其他';
+        if($post['pay_type'] == 0){
+            $log .= '未支付';
+        }elseif($post['pay_type'] == 1){
+            $log .= '支付宝';
+        }elseif($post['pay_type'] == 2){
+            $log .= '微信';
+        }elseif($post['pay_type'] == 3){
+            $log .= '门店';
+        }elseif($post['pay_type'] == 4){
+            $log .= '快递';
+        }elseif($post['pay_type'] == 5){
+            $log .= '驾校';
         }
         $res = $this->save($post);
         if($res){
-            $log = '修改支付方式/地点:'.$pay_type.'=>'.$pay_address .'; 修改金额=>'.$post['price'];
             return $log;
         }else{
             return 0;
@@ -326,26 +445,82 @@ class OrderModel extends Model {
         if(is_array($get)){
             foreach($get as $key=>$val) {
                 if($key == 'create_time' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.="  create_time > $val and";
+                    $where.="  create_time >= '$val' and";
                 }elseif($key == 'create_time1' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.="  create_time  < $val and";
+                    $where.="  create_time  <= '$val' and";
                 }
             }$where=rtrim($where,'and ');
         }
         $order_source = M('OrderSource')->select();
         foreach($order_source as $k=>$v){
-            $order_source[$k]['order_num'] = $this->where(array('order_source'=>$v['id'], $where))->sum('num');
-            $order_source[$k]['completed_num'] = $this
-                ->where(array('order_source'=>$v['id'],"status != 1 and status != 5 and $where"))
-                ->sum('num');
+            $order_source[$k]['order_num'] = $this->where(array('order_source'=>$v['id'], $where))->sum('num');//订单总量
+
+            //成单量
+            $order_source[$k]['completed_num'] = $this->where(array('order_source'=>$v['id'],"order_status = 3 and $where"))->sum('num');
+            //成单率
             if($order_source[$k]['completed_num']){
                 $order_source[$k]['completed_lv'] = sprintf('%.2f',$order_source[$k]['completed_num']/$order_source[$k]['order_num']*100).'%';
             }else{
                 $order_source[$k]['completed_lv'] = 0;
             }
-            $order_source[$k]['cancel_num'] = $this->where(array('order_source'=>$v['id'],'status'=>5, $where))->sum('num');
+
+
+            //结算量
+            $order_source[$k]['end_num'] = $this->where(array('order_source'=>$v['id'],"order_status = 4 and $where"))->sum('num');
+            //结算率
+            if($order_source[$k]['end_num']){
+                $order_source[$k]['end_lv'] = sprintf('%.2f',$order_source[$k]['end_num']/$order_source[$k]['order_num']*100).'%';
+            }else{
+                $order_source[$k]['end_lv'] = 0;
+            }
+
+
+            $order_source[$k]['cancel_num'] = $this->where(array('order_source'=>$v['id'],'order_status'=>5, $where))->sum('num');
+            if($order_source[$k]['cancel_num']){
+                $order_source[$k]['cancel_lv'] = sprintf('%.2f',$order_source[$k]['cancel_num']/$order_source[$k]['order_num']*100).'%';
+            }else{
+                $order_source[$k]['cancel_lv'] = 0;
+            }
+        }
+        return $order_source;
+    }
+/*------------------------------------------2017-11-06shenyanyan--------------------------------*/
+    public function order_keyword($get){
+        if(is_array($get)){
+            foreach($get as $key=>$val) {
+                if($key == 'create_time' && $val != ''){
+                    $where.="  create_time >= '$val' and";
+                }elseif($key == 'create_time1' && $val != ''){
+                    $where.="  create_time  <= '$val' and";
+                }
+            }$where=rtrim($where,'and ');
+        }
+
+        $order_source = M('OrderKeyword')->select();
+        foreach($order_source as $k=>$v){
+            $source_id = $this->where(array('order_keyword'=>$v['id']))->getField('order_source');//订单来源
+            $order_source[$k]['source'] = M('OrderSource')->where(array('id'=>$source_id))->getField('name');//订单来源
+
+            $order_source[$k]['order_num'] = $this->where(array('order_keyword'=>$v['id'], $where))->sum('num');//各个关键词订单总数量
+            //各个关键词 已完成订单数量
+            $order_source[$k]['completed_num'] = $this->where(array('order_keyword'=>$v['id'],"order_status = 3 and $where"))->sum('num');
+            //成单率
+            if($order_source[$k]['completed_num']){
+                $order_source[$k]['completed_lv'] = sprintf('%.2f',$order_source[$k]['completed_num']/$order_source[$k]['order_num']*100).'%';
+            }else{
+                $order_source[$k]['completed_lv'] = 0;
+            }
+            //结算量
+            $order_source[$k]['end_num'] = $this->where(array('order_source'=>$v['id'],"order_status = 4 and $where"))->sum('num');
+            //结算率
+            if($order_source[$k]['end_num']){
+                $order_source[$k]['end_lv'] = sprintf('%.2f',$order_source[$k]['end_num']/$order_source[$k]['order_num']*100).'%';
+            }else{
+                $order_source[$k]['end_lv'] = 0;
+            }
+            //取消总量
+            $order_source[$k]['cancel_num'] = $this->where(array('order_keyword'=>$v['id'],'order_status'=>5, $where))->sum('num');
+            //取消率
             if($order_source[$k]['cancel_num']){
                 $order_source[$k]['cancel_lv'] = sprintf('%.2f',$order_source[$k]['cancel_num']/$order_source[$k]['order_num']*100).'%';
             }else{
@@ -365,23 +540,32 @@ class OrderModel extends Model {
         if(is_array($get)){
             foreach($get as $key=>$val) {
                 if($key == 'create_time' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.=" create_time > $val and";
+                    $val = trim($val);
+                    $where.=" create_time > '$val' and ";
                 }elseif($key == 'create_time1' && $val != ''){
-                    $val = strtotime(trim($val));
-                    $where.=" create_time  < $val and";
-                }elseif($key == 'cityname'){
-                    $where.=" $key  = $val and";
+                    $val = trim($val);
+                    $where.=" create_time  < '$val' and ";
+                }elseif($key == 'cityname'  && $val != 0){
+                    $where.=" $key  = $val and ";
                 }
-            }$where=rtrim($where,'and');
+            }$where=rtrim($where,' and ');
         }
-        $order_statistics['order_num'] = $this->where($where)->count('num');
-        $order_statistics['completed_num'] = $this->where("status != 1 and status != 5 and $where")->count('num');
-        if($order_statistics['completed_num']){
+        $order_statistics['order_num'] = $this->where($where)->sum('num');//总订单量
+
+        $order_statistics['completed_num'] = $this->where("order_status=3 and $where")->sum('num');//成单量（只要点击确认付款就计入）
+        if($order_statistics['completed_num']){//成单量
             $order_statistics['completed_lv'] = sprintf('%.2f',$order_statistics['completed_num']/$order_statistics['order_num']*100).'%';
         }else{
             $order_statistics['completed_lv'] = 0;
         }
+
+        $order_statistics['end_num'] = $this->where("order_status=4 and $where")->sum('num');//已结算订单量（只要点击结算就计入）
+        if($order_statistics['end_num']){//结算率
+            $order_statistics['end_lv'] = sprintf('%.2f',$order_statistics['end_num']/$order_statistics['order_num']*100).'%';
+        }else{
+            $order_statistics['end_lv'] = 0;
+        }
+
         $order_statistics['pay_type'] = $this->where("status != 1 and status != 5 and pay_type = 1 and $where")->count('num');
         return $order_statistics;
     }

@@ -68,25 +68,25 @@ class EnvironmentController extends CommonController{
                     case 'jx':
                         $file = 'School_logo';
                         if(I('t')){
-                            $log['done'] = '添加驾校环境图片 pic ID_'.$id;
+                            $log['done'] = '驾校环境图片添加id: => '.$id;
                         }else{
-                            $log['done'] = '添加驾校简介图片 pic ID_'.$id;
+                            $log['done'] = '驾校简介图片添加id: => '.$id;
                         }
                         break;
                     case 'jl':
                         $file = 'Coach_logo';
                         if(I('t')){
-                            $log['done'] = '添加教练环境图片 pic ID_'.$id;
+                            $log['done'] = '教练环境图片添加id: => '.$id;
                         }else{
-                            $log['done'] = '添加教练简介图片 pic ID_'.$id;
+                            $log['done'] = '教练简介图片添加id: => '.$id;
                         }
                         break;
                     case 'zd':
                         $file = 'guider_logo';
                         if(I('t')){
-                            $log['done'] = '添加指导员环境图片 pic ID_'.$id;
+                            $log['done'] = '指导员环境图片添加id: => '.$id;
                         }else{
-                            $log['done'] = '添加指导员简介图片 pic ID_'.$id;
+                            $log['done'] = '指导员简介图片添加id: => '.$id;
                         }
                         break;
                 }
@@ -139,30 +139,30 @@ class EnvironmentController extends CommonController{
                 $file_name = 'School_logo';
                 if($t){
                     $table = 'environment';
-                    $log['done'] = '删除驾校环境图片 environment ID_'.$id;
+                    $log['done'] = '驾校环境图片删除id => '.$id;
                 }else{
                     $table = 'pic';
-                    $log['done'] = '删除驾校简介图片 pic ID_'.$id;
+                    $log['done'] = '驾校简介图片删除id => '.$id;
                 }
                 break;
             case 'jl':
                 $file_name = 'Coach_logo';
                 if($t){
                     $table = 'environment';
-                    $log['done'] = '删除教练环境图片 environment ID_'.$id;
+                    $log['done'] = '教练环境图片删除id: => '.$id;
                 }else{
                     $table = 'pic';
-                    $log['done'] = '删除教练简介图片 pic ID_'.$id;
+                    $log['done'] = '教练简介图片删除id: => '.$id;
                 }
                 break;
             case 'zd':
                 $file_name = 'guider_logo';
                 if($t){
                     $table = 'environment';
-                    $log['done'] = '删除指导员环境图片 environment ID_'.$id;
+                    $log['done'] = '指导员环境图片删除id: => '.$id;
                 }else{
                     $table = 'pic';
-                    $log['done'] = '删除指导员简介图片 pic ID_'.$id;
+                    $log['done'] = '指导员简介图片删除id => '.$id;
                 }
                 break;
         }

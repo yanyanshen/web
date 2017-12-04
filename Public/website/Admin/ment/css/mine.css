@@ -1,33 +1,46 @@
 body{
-    font-size: 13px;
+    font-size: 11px;
+    background: #ffffff;
+    font-family:"Microsoft yahei";
 }
+
 .div_search{
-    font-size: 13px;
+    font-size: 11px;
     margin: 10px 5px;
     padding-left: 10px;
     line-height: 30px;
-    height:30px;
-    background-color: #E8F2FC;
-    border: solid #1c94c4 1px;
+    background-color:rgb(247, 247, 247);
+    border-bottom: solid rgb(220,220,220) 1px;color: #323232;
 }
 .table_a{
     border-collapse:collapse;
-    border: 2px solid gray
+    width: 100%;
+    border: 1px solid rgb(19, 181, 177);
 }
 .table_a td{
     line-height: 25px;
     padding-left: 8px;
-    text-align: left;
+    text-align: center;
+    border: dotted 1px rgb(19, 181, 177);
+    font-size: 11px;
 }
+.table_a td,th{border:1px solid rgb(220, 220, 220);font-size: 11px;}
+.table_a tr:first-child{height: 35px;font-weight: bold;font-size: 11px;color: #ffffff}
+.table_a tr:hover{background-color: rgb(240, 240, 240);}
 .div_head{
-    font-size: 13px;
-    margin: 10px 5px;
-    padding-left: 10px;
-    line-height: 25px;
-    height:25px;
-    background-color: #E8F2FC;
-    border-bottom: solid #1c94c4 1px
+    font-size: 13px;margin: 10px 5px;padding-left: 10px;line-height: 25px;height:25px;
+    font-weight: bold;color: #323232;background-color: rgb(247, 247, 247);border-bottom: solid rgb(220,220,220) 1px
 }
+
+/*分页样式*/
+#page a,#page span{display: inline-block; width:15px;height:15px ;padding: 5px 10px 5px 5px;margin: 2px;text-decoration: none;
+    text-align: center; line-height: 15px;background: #f0ead8; color:#000000;  border: 1px solid #c2d2d7;}
+#page a:hover{background:rgb(247,247,247);color:#FA7124;}
+#page span{ background:rgb(247,247,247); color:#FA7124; font-weight: bold;}
+
+.tablelink{color: rgb(19, 181, 177);cursor: pointer}
+
+.div_head .span{float:right;margin-right: 2%;color: #646464;}
 .left1{
 	float:left;
 }

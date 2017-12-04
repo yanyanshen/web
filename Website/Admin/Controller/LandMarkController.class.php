@@ -50,13 +50,12 @@ class LandMarkController extends CommonController{
             $info=D('landmark')->lands_list(array('countyid'=>$_POST['countyid'],'cityid'=>$_POST['cityid'],'landname'=>$_POST['landname']),'id');
             if($info){
                 $res=D('landmark')->land_save(array('id'=>$info['id']),$_POST);
-                $log['done'] = '更新地标 ID_'.$res;
             }else{
                 $res=D('landmark')->land_add($_POST);
-                $log['done'] = '添加地标 ID_'.$res;
+                $log['done'] = '地标添加: => '.$_POST['landname'];
+                D('AdminLog')->logout($log);
             }
             if($res){
-                D('AdminLog')->logout($log);
                 $this->success('操作成功',U('Admin/LandMark/index',array('pid'=>I('pid'))));
             }else{
                 $this->error('操作失败',U('Admin/LandMark/index',array('pid'=>I('pid'))));
@@ -68,9 +67,11 @@ class LandMarkController extends CommonController{
     //删除地标
     public function del_land(){
         $id=$_GET['id'];
+        $landname = M('landmark')->where(array('id'=>$id))->getField('landname');
+        $log['done'] = "地标删除: => $landname";
+
         $res=D('landmark')->land_del($id);
         if($res){
-            $log['done'] = '删除地标 ID_'.$id;
             D('AdminLog')->logout($log);
             $this->redirect('Admin/LandMark/index',array('pid'=>I('pid')),0,"<script>alert('删除成功')</script> ");
         }else{
@@ -132,30 +133,34 @@ class LandMarkController extends CommonController{
         $where['type_id']=$id;
         $data['type_id']=$id;
         $data['type']=$type;
-
+//原来的地标信息
+        $landmarkid= M('lands')->where($where)->getField('landmarkid');
+        $log['done'] = "地标信息:$landmarkid => ";
         $markArr=$_POST['mark_id'];
-        $info = M('landsjuli')->where($where)->getField('id');
-        if($info){
-            M('landsjuli')->where($where)->delete();
-        }
+
+//        $info = M('landsjuli')->where($where)->getField('id');
+//        if($info){
+//            M('landsjuli')->where($where)->delete();
+//        }
 
         foreach($markArr as $v){
             $idstr.=$v.',';
-            $data['landmarkid'] = $v;
-            M('landsjuli')->add($data);
+//            $data['landmarkid'] = $v;
+//            M('landsjuli')->add($data);
         }
         $str=substr($idstr,0,-1);
-        $info=M('lands')->where($where)->find();
+//        print_r($str);
+//        exit;
+        if(M('lands')->where($where)->find()){
+            $res = M('lands')->where($where)->save(array('landmarkid'=>$str));
+            $log['done'] .= $str;
 
-        if($info){
-            $res=M('lands')->where($where)->save(array('landmarkid'=>$str));
         }else{
-            $data['landmarkid']=$str;
+            $log['done'] = "地标信息: => $str";
+            $data['landmarkid'] = $str;
             $res=M('lands')->add($data);
         }
-
         if($res){
-            $log['done'] = '更新地标 ID_'.$res;
             D('AdminLog')->logout($log);
             $message="<script>alert('更新成功')</script>";
         }else{

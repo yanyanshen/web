@@ -276,6 +276,7 @@
     font-family: "微软雅黑";
     line-height: 4px;
     margin-left: 10px;
+    font-weight: bold;
     margin-top: 4px;
 }
 #more-school{
@@ -358,7 +359,7 @@
 #weekPrice_box1 h1{
     font-family: "微软雅黑";
     font-size: 14px;
-    color: #d13f38;
+    color: #FA7124;
     line-height: 6px;
     margin-top: 6px;
     font-weight: bold;
@@ -399,7 +400,7 @@
 }
 .wps_ul h1{
     font-weight: bold;
-    color:#d13f38;
+    color:#FA7124;
 }
 .wps_ul h2{
     color: #a0a0a0;
