@@ -11,17 +11,26 @@ class OrderController extends CommonController {
    public function order_list(){
        //用户在网站上下单 并未付款 订单状态是未支付 未处理状态  系统自动 分配给  在线的 客服
        //1.先查询未支付未处理订单
-       $order = M('Order')->where(array('status'=>1,'order_status'=>1))->select();
-       if(!empty($order)){
-           //2.查询在线的客服
-           $admin = M('Admin')->where(array('permissions'=>2,'online'=>1))->select();
-           $count = count($admin);
-           //3.分配订单
-           foreach($order as $k => $v){
-               $k = $v['id']%$count;
-               M('Order')->where(array('id'=>$v['id']))->save(array('customer'=>$admin[$k]['username']));
+       $permissions = M('Admin')->where(array('id'=>session('admin_id')))->getField('permissions');
+       if($permissions == 2){
+           $order = M('Order')->field('id,status,order_status,customer')->where(array("status"=>array('in',"1,2"),'order_status'=>1))->select();
+           if(!empty($order)){
+               //2.查询在线的客服
+               $admin = M('Admin')->where(array('permissions'=>2,'online'=>1))->select();
+               $count = count($admin);
+               //3.分配订单
+               if($count){
+                   //4.设置订单分配的时间为每天早上的9点以后
+                   if(time() > strtotime(date('Y-m-d 9:10:00')) && time() < strtotime(date('Y-m-d 22:00:00'))){
+                       foreach($order as $k => $v){
+                           $k = $v['id']%$count;
+                           M('Order')->where(array('id'=>$v['id']))->save(array('customer'=>$admin[$k]['username']));
+                       }
+                   }
+               }
            }
        }
+
        session('admin_return',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
 //判断是否有新建订单权限
        $pid = I('pid');
@@ -51,8 +60,8 @@ class OrderController extends CommonController {
 */
     public function pay_list(){
         session('admin_return',U('Admin/Order/pay_list',array('pid'=>I('pid'),'p'=>I('p'))));
-        $_GET['order_status'] = 1;
         $_GET['status'] = 2;
+        $_GET['order_status'] = 1;
         $arr = D('order')->order_list($_GET);
         $citys = D('citys')->city_one("flag=1","id,cityname",1);
         $this->assign('citys', $citys);
@@ -294,8 +303,8 @@ class OrderController extends CommonController {
  * 订单列表到处excel表
  * @$flag  string 条件
  */
-    public function push($flag){
-        $res = D('Order')->push($_GET,$flag);
+    public function push(){
+        $res = D('Order')->push($_GET);
         $this->success($res);
     }
 /*
@@ -353,8 +362,8 @@ class OrderController extends CommonController {
         $this->assign('city',$city);
 
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01 H:i:s',strtotime('-1 month'));
-            $_GET['create_time1'] = date('Y-m-t  H:i:s',strtotime("-1 month - 1 day"));
+            $_GET['create_time'] = date('Y-m-01 H:i:s',strtotime('-2 month'));
+            $_GET['create_time1'] = date('Y-m-t  H:i:s',time());
         }
         $order_statistics = D('Order')->order_statistics($_GET);
         $this->assign('order_statistics',$order_statistics);
@@ -368,11 +377,11 @@ class OrderController extends CommonController {
 */
     public function order_source(){
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01', strtotime('-1 month'));
+            $_GET['create_time'] = date('Y-m-01 H:i:s');
         } else{
             if($_GET['t'] == 1){
-                $_GET['create_time'] = date('Y-m-01', strtotime('-1 month'));
-                $_GET['create_time1'] = date('Y-m-t', strtotime('-1 month'));
+                $_GET['create_time'] = date('Y-m-01 H:i:s', strtotime('-1 month'));
+                $_GET['create_time1'] = date('Y-m-t H:i:s', strtotime('-1 month'));
             }
         }
         $this->assign('get',$_GET);
@@ -411,7 +420,7 @@ class OrderController extends CommonController {
 */
     public function order_keyword(){
         if(!$_GET['create_time']){
-            $_GET['create_time'] = date('Y-m-01 H:i:s', strtotime('-1 month'));
+            $_GET['create_time'] = date('Y-m-01 H:i:s');
         } else{
             if($_GET['t'] == 1){
                 $_GET['create_time'] = date('Y-m-01 H:i:s', strtotime('-1 month'));
@@ -463,6 +472,7 @@ class OrderController extends CommonController {
     public function cancel_order(){
         $_POST['status'] = 5;
         $_POST['order_status'] = 5;
+        $_POST['lastupdate'] = session('admin_name');
         $res =  M('Order')->save($_POST);
         if($res){
             $log = '取消订单';

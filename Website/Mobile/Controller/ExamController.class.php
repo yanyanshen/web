@@ -1,7 +1,8 @@
 <?php
 namespace Mobile\Controller;
 use Think\Controller;
-class ExamController extends Controller{
+use Mobile\Common\Controller\CommonController;
+class ExamController extends CommonController{
 /*沈艳艳
     @从首页进入理论学习页面
 */
@@ -319,16 +320,17 @@ class ExamController extends Controller{
     public function wrong_topic(){
         if(!session('mid')){
             $this->redirect('Mobile/Login/login');
+        }else{
+            $subject=I('ms');
+            $userid = session('mid');
+            $count=$count=M('exam_error')
+                ->table('xueches_exam_error er,xueches_exam em')
+                ->where("er.questionid=em.id and er.userid=$userid and em.subject = $subject")
+                ->count();
+            $this->assign('count',$count);
+            $this->assign('ms',$subject);
+            $this->display();
         }
-        $subject=I('ms');
-        $userid = session('mid');
-        $count=$count=M('exam_error')
-            ->table('xueches_exam_error er,xueches_exam em')
-            ->where("er.questionid=em.id and er.userid=$userid and em.subject = $subject")
-            ->count();
-        $this->assign('count',$count);
-        $this->assign('ms',$subject);
-        $this->display();
     }
 
 /*沈艳艳

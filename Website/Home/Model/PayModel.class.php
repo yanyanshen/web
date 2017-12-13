@@ -8,8 +8,8 @@ class PayModel extends Model{
             'alipay_partner'=>C('ALIPAY_PARTNER'),
             'alipay_account'=>C('ALIPAY_ACCOUNT'),
             'alipay_key'=>C('ALIPAY_KEY'),
-            'return_url' => 'http://'.HOST_NAME.U('Pay/response'),
-            'notify_url' => 'http://'.HOST_NAME.U('Pay/notify'),
+            'return_url' => 'http://'.HOST_NAME.U('Pay--老版的支付宝支付/response'),
+            'notify_url' => 'http://'.HOST_NAME.U('Pay--老版的支付宝支付/notify'),
         );
     }
     public  function  get_payment_code($form){

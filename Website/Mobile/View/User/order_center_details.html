@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta content="telephone=no" name="format-detection">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>订单中心</title>
+    <title>订单详情页</title>
     <link href="__STATIC__/user/user_center/css/main.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/user/user_center/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/user/user_center/css/initialize.css" rel="stylesheet" type="text/css">
@@ -104,69 +104,44 @@
                     </ul>
                 </div>
             </form>
-            <footer id="footer">
-                <if condition="$info['status'] eq 1 or ($info['status'] eq 5) or ($info['status'] eq 6)">
-                    <input type="submit"  style="-webkit-appearance: none"  oid="{$info['id']}"  status="{$info['status']}"  name="btn2" class="foot_box1 btn" value="{$info['memberstatus']}">
-                    <else/>
-                    <input type="submit"  style="-webkit-appearance: none"  class="foot_box1" value="{$info['memberstatus']}"/>
+            <footer id="footer" style="text-align: center">
+                <if condition="$info.status eq 1">
+                    <input class="foot_box2" onclick="status_submit({$info['status']},{$info['id']})" type="button" style="background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即付款"/>
+                    <elseif condition="$info.status eq 2"/>
+                    <input class="foot_box2" onclick="status_submit({$info['status']},{$info['id']})" type="button" style="background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="等待处理"/>
+                    <elseif condition="$info.status eq 3"/>
+                    <input class="foot_box2" onclick="status_submit({$info['status']},{$info['id']})" type="button" style="background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即评价"/>
+                    <elseif onclick="status_submit({$info['status']},{$info['id']})" condition="$v.status eq 4"/>
+                    <input class="foot_box2" onclick="status_submit({$info['status']},{$info['id']})" type="button" style="background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即追加"/>
+                    <elseif condition="$info.status eq 5"/>
+                    <input class="foot_box2" onclick="status_submit({$info['status']},{$info['id']})" type="button" style="background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="重新报名"/>
+                    <elseif condition="$info.status eq 6"/>
+                    <input class="foot_box2" type="button" style="background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="已退费"/>
                 </if>
-                <input type="submit" oid="{$info['id']}"  status="{$info['status']}" style="-webkit-appearance: none"  name="btn2" class="foot_box2" value="{$info['statusname']}">
+
             </footer>
         </div>
     </div>
 
 </div>
-
 <script>
-    $(".foot_box2").click(function(){
-        var status = $(this).attr('status');
-        var oid = $(this).attr('oid');
-        $(this).attr('disabled','true');
-        if(status == 2 || status==1){
-            layer.open({
-                content:'请耐心等待客服处理',time: 2 //2秒后自动关闭
-                ,end:function(){
-                    location.href='';
-                }
-            });
-        }else{
-            layer.open({
-                type:2
-                ,content:'加载中'
-                ,time:2
-                ,end: function(index){
-                    $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
-                        if(res.info){
-                            location.href = res.url;
-                        }else{
-                            location.href = '#';
-                        }
-                        layer.close(index);
-                    },'json');
-                }
-            });
-        }
-    });
-/*取消订单*/
-    $(".btn").click(function(){
-        var status = $(this).attr('status');
-        var oid = $(this).attr('oid');
-        $(this).attr('disabled','true');
-        layer.open({
-            content: '您确定不要了吗？'
-            ,btn: ['是', '不要']
-            ,yes: function(index){
-                $.post('{:U("Mobile/Order/delete_order")}',{status:status,oid:oid},function(res){
-                    if(res.status == 1){
+    function status_submit(status,oid){
+        if(status != 2){
+            layer.open({type:2,content:'加载中',time:2,end: function(index){
+                $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
+                    if(res.info){
                         location.href = res.url;
                     }else{
-                        location.href = '';
+                        location.href = '#';
                     }
                     layer.close(index);
                 },'json');
             }
-        });
-    });
+            });
+        }else{
+            alert('请耐心等待客服处理');
+        }
+    }
 </script>
 </body>
 </html>

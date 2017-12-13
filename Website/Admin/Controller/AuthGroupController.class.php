@@ -70,7 +70,7 @@ class AuthGroupController extends CommonController{
             $data['rules']=implode(',',I('post.rules'));
             $row=$group->editRule($data);
             if($row){
-                $log['done'] = session('admin_name')."权限信息: => ".I('post.rules');
+                $log['done'] = session('admin_name')."权限信息: => ".$data['rules'];
                 D('AdminLog')->logout($log);
                 $this->success('分配成功',U('index',array('pid'=>I('pid'))));
             }else{

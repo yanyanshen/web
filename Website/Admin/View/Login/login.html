@@ -44,11 +44,11 @@
                     $('#form1').submit();
                 }
             });
-            $('.loginbtn').click(function(){
+//            $('.loginbtn').click(function(){
                 $('#form1').submit();
-            });
+//            });
             $('#form1').submit(function(){
-                $(this).attr('disabled',true);
+                $('.loginbtn').attr('disabled',true);
                 if(validate.form()){
                     $.post("{:U('Admin/Login/login')}",$('#form1').serialize(),function(res){
                         if(res.status==1){
@@ -94,7 +94,7 @@
                 <li class="">
                     <input name="" type="button" class="loginbtn" value="登录" />
                     <label><input name="remember" type="checkbox" value="" id="remember"/>记住密码</label>
-                    <label><a href="{:U('forgetPwd')}">忘记密码？</a></label>
+                    <label><a href="">忘记密码？</a></label>
                 </li>
             </ul>
         </form>

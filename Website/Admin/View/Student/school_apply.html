@@ -11,7 +11,7 @@
 <body>
     <div class="div_head">
         驾校预约列表
-        <a href="" style="color: #323232;text-decoration: none">【刷新】</a>
+        <a href="" style="color: #FA7124;text-decoration: none">【刷新】</a>
         <span style=" margin-right: 8px; font-weight: bold;color: #ffffff">
             <a href="{:U('Admin/Order/pay_list',array('pid'=>16,'p'=>$get['p']))}"  class="span1"
                style="margin-left:100px;color: #fa7142">消息中心：{$count['count1']}条支付宝支付并未处理</a>
@@ -36,11 +36,8 @@
                     <span>
                           学员名称：<input type="text" name='truename' style="width: 100px"  value="{$get['truename']?$get['truename']:''}" />
                     </span>
-                     <span style="padding-left:5px">学员电话：
-                        <input type="text" name='phone' style="width:100px"  value="{$get['phone']?$get['phone']:''}"/>
-                    </span>
-                     <span style="padding-left: 5px">
-                        跟单客服：<input type="text" name="lastupdate" style="width: 100px"  value="{$get['lastupdate']?$get['lastupdate']:''}"/>
+                     <span style="padding-left:5px">
+                         学员电话：<input type="text" name='phone' style="width:100px"  value="{$get['phone']?$get['phone']:''}"/>
                     </span>
                     <span style="padding-left: 5px">
                         创建时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['create_time1']?$get['create_time1']:''}" name="create_time1"/>
@@ -50,6 +47,9 @@
                 </div>
                 <div>
                     <span>
+                        跟单客服：<input type="text" name="lastupdate" style="width: 100px"  value="{$get['lastupdate']?$get['lastupdate']:''}"/>
+                    </span>
+                    <span style="padding-left: 5px">
                         回访时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['visit_time1']?$get['visit_time1']:''}" name="visit_time1"/>
                             至
                         <input type="text" style="width: 120px" value="{$get['visit_time2']?$get['visit_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="visit_time2"/>

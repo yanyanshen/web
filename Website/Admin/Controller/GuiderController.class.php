@@ -23,7 +23,7 @@ class GuiderController extends CommonController {
         $page = $p->show();
         $list = $Dao->field($field)
             ->table('xueches_boss b,xueches_school s,xueches_guider_category ca,xueches_citys city')
-            ->where($where)->order("s.id desc")->limit($p->firstRow.','.$p->listRows)->select();
+            ->where($where)->order("s.order desc")->limit($p->firstRow.','.$p->listRows)->select();
         //城市
         $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
         $this->assign('page', $page);
@@ -37,9 +37,7 @@ class GuiderController extends CommonController {
     }
     public function add_zd(){
         if(IS_AJAX){
-            $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
             $_POST['type']='zd';
-            $_POST['school_id']=$school_id;
             $_POST['ntime']=time();
             $_POST['lastupdate'] = session('admin_name');
             $id=M('school')->add($_POST);
@@ -47,22 +45,20 @@ class GuiderController extends CommonController {
                 $log['done'] = "指导员添加: => {$_POST['nickname']}";
                 D('AdminLog')->logout($log);
 
-                M('School')->where(array('id'=>$school_id,'type'=>'zd'))->setInc('guider_num',1);
+                M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('guider_num',1);
                 $res=UploadPic('School','guider_logo',$id);
             }
             $this->success('添加成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
         }else{
             $category=M('GuiderCategory')->field('id,category_name')->select();
             $this->assign('category', $category);
+
             $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
             $this->assign('city',$citys);
 
             $boss=M('boss')->where(array('type'=>'zd'))->field('id,boss_name')->select();
             $this->assign('boss',$boss);
 
-            $nickname=session('nickname');
-            session('nickname',null);
-            $this->assign('school_nickname',$nickname);
             $this->assign('url',U('Admin/Guider/index_list',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
             $this->assign('get',$_GET);
             $this->display();
@@ -74,15 +70,13 @@ class GuiderController extends CommonController {
         if(!empty($_POST)){
             $where['id']=$_POST['id'];
             $nickname1 = M('School')->where($where)->getField('nickname');
-            $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
             $log['done'] = "指导员信息:$nickname1 => ".$_POST['nickname'];
-            $_POST['school_id']=$school_id;
-            $_POST['ntime']=time();
             $_POST['lastupdate']=session('admin_name');
             D('school')->jx_editor($where,$_POST);//更新数据
             $res=editorPic('School','guider_logo',$_POST['id']);
             if($res){
                 D('AdminLog')->logout($log);
+                M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('guider',1);
                 $this->success('编辑成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
             }else{
                 $this->error('编辑失败',U('Admin/Guider/editor_zd',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'id'=>$_POST['id'],'type'=>I('type'))));
@@ -96,15 +90,14 @@ class GuiderController extends CommonController {
             $this->assign('school_nickname',$school_nickname['nickname']);
             $category=M('GuiderCategory')->field('id,category_name')->select();
             $this->assign('category',$category);
+
             $boss=M('boss')->where(array('type'=>'zd'))->field('id,boss_name')->select();
             $this->assign('boss',$boss);
+
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();
             $this->assign("city",$city);
-            $this->assign("jl",$data);
-            $nickname=session('nickname');
-            session('nickname',null);
-            $this->assign('nickname',$nickname);
 
+            $this->assign("jl",$data);
             $this->assign("get",$_GET);
             $this->assign('url',U('Admin/Guider/index_list',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
             $this->display();
@@ -153,5 +146,19 @@ class GuiderController extends CommonController {
             $this->assign('category',$info);
             $this->display();
         }
+    }
+/*--------------------------2017-12-07shenyanyan------------------------*/
+//指导员排行榜
+    public function guider_top(){
+        $where['_string']="c.id=s.cityid and s.recommand=1 and s.type='zd'";
+        $info=M('School')->table('xueches_school s,xueches_citys c')
+            ->field('s.id as school_id,s.nickname,s.connectteacher,s.score,s.address,s.picurl,s.picname,
+                s.student_num,s.class_num,s.account,s.order,s.type,c.cityname')
+            ->where($where)->order('s.order')->select();
+        $this->assign('jx_list',$info);
+        $this->assign('http',C('HTTP'));
+        $this->assign('count',count($info));
+        $this->assign('get',$_GET);
+        $this->display();
     }
 }

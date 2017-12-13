@@ -12,6 +12,7 @@ body{
     background-color:rgb(247, 247, 247);
     border-bottom: solid rgb(220,220,220) 1px;color: #323232;
 }
+.div_search input{font-size: 11px}
 .table_a{
     border-collapse:collapse;
     width: 100%;

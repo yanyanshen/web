@@ -190,7 +190,7 @@
             $('#form1').submit();
         });
         $('#form1').submit(function(){
-            $(this).attr('disabled',true);
+            $('.btn').attr('disabled',true);
             if(validate.form()){
                 $("#form1").ajaxSubmit(function(res){
                     if(res.status){

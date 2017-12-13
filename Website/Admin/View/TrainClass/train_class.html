@@ -13,7 +13,7 @@
                 <if condition="$type eq 'jx'">驾校：</if>
                 <if condition="$type eq 'jl'">教练：</if>
                 <if condition="$type eq 'zd'">指导员：</if>
-                {$nickname}--课程管理
+                {$get['nickname']}--课程管理
             </span>
             <div style="display: inline-block">
                 <form action="" method="post">
@@ -22,7 +22,7 @@
                 </form>
             </div>
             <a style="text-decoration: none;color: #fa7142;font-weight: bold"
-               href="{:U('Admin/TrainClass/add_class',array('id'=>$get['id'],'p'=>$get['p'],'type'=>$get['type'],'pid'=>$get['pid']))}" >【课程添加】</a>
+               href="{:U('Admin/TrainClass/add_class',array('id'=>$get['id'],'p'=>$get['p'],'type'=>$get['type'],'pid'=>$get['pid'],'pp'=>$get['pp']))}" >【课程添加】</a>
             <a style="text-decoration: none;color: #fa7142;font-weight: bold"  href="{$url}" >【返回】</a>
             <span style="margin-right: 2%;float: right;font-weight: bold">总计：{$count}</span>
         </div>
@@ -57,7 +57,7 @@
                                 time:0,
                                 btn:['确定','取消'],
                                 yes:function(){
-                                    location.href = "{:U('Admin/TrainClass/batch_operate_del')}?type_id={$get['id']}&type={$get['type']}&pid={$get['pid']}&p={$get['p']}&str="+res.info['str']
+                                    location.href = "{:U('Admin/TrainClass/batch_operate_del')}?type_id={$get['id']}&type={$get['type']}&pid={$get['pid']}&p={$get['p']}&pp={$get['pp']}&str="+res.info['str']
                                 }
                             });
                         },'json')
@@ -109,12 +109,15 @@
                         </td>
                         <td>{$v.lastupdate}</td>
 	                	<td>
-	                	    <a class="tablelink" href="{:U('edit_class?type='.$get['type'].'&id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'])}">编辑</a>
+	                	    <a class="tablelink" href="{:U('edit_class?type='.$get['type'].'&id='.$v['id'].'&pid='.$get['pid'].'&p='.$get['p'].'&pp='.$get['pp'])}">编辑</a>
 	                	</td>
 	                </tr>
                </volist>
         </form>
         </table>
+            <div id="page">
+                {$get['page']}
+            </div>
         </div>
     </body>
 </html>

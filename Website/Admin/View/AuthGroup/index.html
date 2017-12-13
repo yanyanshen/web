@@ -28,7 +28,7 @@
                         <td>{$value.member}</td>
                         <td>
                             <a href="{:U('add_member',array('gid'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">添加组员</a> ｜
-                            <a href="{:U('allocateRule',array('gid'=>$value['id'],'member'=>$value['member'],'pid'=>$get['pid']))}" class="tablelink">分配权限</a> ｜
+                            <a href="{:U('allocaterule',array('gid'=>$value['id'],'member'=>$value['member'],'pid'=>$get['pid']))}" class="tablelink">分配权限</a> ｜
                             <a href="{:U('add_group',array('id'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">编辑</a> ｜
                             <a href="#" id="{$value.id}" pid="{$get['pid']}" class="tablelink del">删除</a>
                         </td>

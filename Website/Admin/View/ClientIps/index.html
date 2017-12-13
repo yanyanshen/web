@@ -23,6 +23,9 @@
                 <span style="padding-left: 5px">
                     最后更新人：<input type="text" name='last_name' style="width: 100px"  value="{$get['last_name']?$get['last_name']:''}" />
                 </span>
+                   <span style="padding-left: 5px">
+                    城市：<input type="text" name='cityname' style="width: 100px"  value="{$get['cityname']?$get['cityname']:''}" />
+                </span>
                 <span style="padding-left: 5px">
                     添加时间：<input type="text" style="width: 120px;"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['ntime1']?$get['ntime1']:''}" name="ntime1"/>
                     至
@@ -30,13 +33,13 @@
                 </span>
                 <input style="font-size: 11px" value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/ClientIps/index",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
                 <input  style="font-size: 11px" value="清空" type="reset" id="btn"/>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+            <script type="text/javascript" language="javascript">
+                function submitYouFrom(path){
+                    $('#form1').attr('action',path);
+                    $('#form1').submit();
+                }
+            </script>
         </span>
     </div>
     <div style="margin-left: 6px">
@@ -88,19 +91,23 @@
                 <th width="5%">IP</th>
                 <th width="5%">城市</th>
                 <th width="4%">IP描述</th>
+                <th width="3%">创建人</th>
                 <th width="5%">添加时间</th>
+                <th width="3%">最新编辑人</th>
                 <th width="5%">编辑时间</th>
                 <th width="5%">状态</th>
                 <th width="5%">操作</th>
             </tr>
             <form action="" id="form2">
-                <volist name='iplist'  id='v' key="k" empty="$empty">
+                <volist name='iplist["iplist"]'  id='v' key="k" empty="$empty">
                     <tr>
                         <td><input type="checkbox" value="{$v.id}" name="id[]"/>{$v.id}</td>
                         <td>{$v.ip}</td>
                         <td>{$v.cityname}</td>
                         <td>{$v.description}</td>
+                        <td>{$v.create_name}</td>
                         <td>{$v['ntime']}</td>
+                        <td>{$v.last_name}</td>
                         <td>{$v['edit_time']}</td>
                         <td>{$v['status']?'开启':'禁止'}</td>
                         <td><a class="tablelink" href="{:U('Admin/ClientIps/edit_ips',array('pid'=>$get['pid'],'id'=>$v['id'],'p'=>$get['p']))}">编辑</a></td>
@@ -109,7 +116,7 @@
             </form>
         </tbody>
     </table>
-    <div id="page">{$page}</div>
+    <div id="page">{$iplist['page']}</div>
 </div>
 </body>
 </html>

@@ -13,7 +13,11 @@
    <script src="__STATIC__/index/js/click.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/cityselect.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mbF3FSfdd6Kyprj0xUlrk40RB0F5tpj2"></script>
-
+    <style>
+        #searchresult{left: -200px;position: absolute;z-index:5; overflow:hidden;border-top:none;}
+        .line{font-size:12px; color: #ffffff; background:rgb(19, 181, 177); width:200px; padding:2px;height: 30px}
+        .hover{ color:#323232;background-color: transparent;cursor: pointer}
+    </style>
 </head>
 <body>
 <div class="top_box">
@@ -37,14 +41,13 @@
        </div>
        <script type="text/javascript">
            var test=new Vcity.CitySelector({input:'citySelect'});
-
        </script>
    </div>
    <div class="logo_right">
       <ul>
          <li><a href="">首页</a></li>
          <li><a href="">报名学车</a></li>
-         <li><a href="">理论学习1</a></li>
+         <li><a href="">理论学习</a></li>
          <li><a href="">行业资讯</a></li>
          <li><a href="">软件下载</a></li>
          <li><a href="">关于我们</a></li>
@@ -78,11 +81,40 @@
                         <option value="1">驾校</option>
                         <option value="2">位置</option>
                     </select>
-                    <input type="text" value="" id="lng" name="lng"/>
-                    <input type="text" value="" id="lat" name="lat"/>
-                    <input id="search" type="text"  name="k" value="" placeholder="广源驾校" />
+                    <input id="search" type="text"  name="k" value=""  placeholder="广源驾校" />
+                    <span id="searchresult" class="td"></span>
+
                     <input id="submit" type="submit" value=""/>
                 </form>
+                <script>
+                    $(document).ready(function(){
+                        $('#search').keyup(function(){
+                            var search_key = $('#search').val();
+                            $.post("{:U('Admin/TrainClass/search_school')}",{search_key:search_key},function(res){
+                                if(res.info) {
+                                    var layer;
+                                    layer = "<table>";     //创建一个table
+                                    for (var i in res.info) {
+                                        layer += "<tr><td class='line' onclick='line("+res.info[i]['id']+',"'+res.info[i]['nickname']+'"'+")'>" + res.info[i]['nickname'] + "</td></tr>";
+                                    }
+                                    layer += "</table>";
+                                    $('#searchresult').empty();  //先清空#searchresult下的所有子元素
+                                    $('#searchresult').append(layer);//将刚才创建的table插入到#searchresult内
+                                    $('.line').hover(function(){  //监听提示框的鼠标悬停事件
+                                        $(this).addClass("hover");
+                                    },function(){
+                                        $(this).removeClass("hover");
+                                    });
+                                }
+                            },'json');
+                        });
+                    });
+                    function line(id,nickname){
+                        $('#search').val(nickname);
+                        $("#sid").val(id);
+                        $('#searchresult').empty();
+                    }
+                </script>
             </div>
         </div>
         <div id="search_school">
@@ -99,11 +131,8 @@
     </div>
 </div>
 <div class="main_box">
-
    <div class="main_box2">
-
       <div class="main2">
-
          <div class="main2_top">
             <h1>排行榜</h1>
             <div class="main2_top2">
@@ -113,7 +142,6 @@
                <div class="clearfix"></div>
             </div>
          </div>
-
          <div class="main2_bottom">
             <div class="main2_bottom1">
                <div class="main2_bt1">
@@ -127,9 +155,9 @@
                                 <else/>
                                <div class="number_box"><div class="number{$k}">{$k}</div></div>
                            </if>
-                           <div class="name_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}">{$schools.schools_name}</a></div>
-                           <div class="cost_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}">{$schools.schools_price}/起</a></div>
-                           <div class="human_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}"><span style="color:#ff5a00; font-size: 14px;">{$schools.schools_num}</span>人已报名</a></div>
+                           <div class="name_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}">{$schools.nickname}</a></div>
+                           <div class="cost_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}">{$schools.minprice}/起</a></div>
+                           <div class="human_school"><a href="{:U('Home/SchoolsDetail/index',array('id'=>$schools['id']))}"><span style="color:#FA7124; font-size: 14px;">{$schools.student_num}</span>人已报名</a></div>
                        </div>
                    </volist>
                   <div class="more"><a href="">查看更多</a></div>
@@ -151,12 +179,12 @@
                          <div class="head_portrait"><div class="head"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div></div>
                          <div class="teacher_box">
                             <div class="teacher1">
-                               <a href="" class="name_teacher">{$coachs.coachs_name}</a>
+                               <a href="" class="name_teacher">{$coachs.nickname}</a>
                                <img src="__STATIC__/index/images/5_07.png" class="star">
                             </div>
                             <div class="teacher2">
-                               <a href="" class="cost_teacher">{$coachs.coachs_price}元/起</a>
-                               <a href="" class="apply_teacher"><span style="color:#ff5a00; font-size: 16px; font-family:"微软雅黑";>{$coachs.coachs_num}</span>人已报名</a>
+                               <a href="" class="cost_teacher">{$coachs.minprice}元/起</a>
+                               <a href="" class="apply_teacher"><span style="color:#FA7124; font-size: 16px; font-family:"微软雅黑";>{$coachs.student_num}</span>人已报名</a>
                             </div>
                          </div>
                       </div>
@@ -170,7 +198,7 @@
                   <h1>指导员</h1>
                </div>
                <div class="main2_bb3">
-                   <volist name="offers" id="offers" key="k" empty="$empty">
+                   <volist name="guiders" id="offers" key="k" empty="$empty">
                        <div class="main2_teacher">
                            <if condition="$k gt 4">
                                <div class="number_box1"><div class="number4">{$k}</div></div>
@@ -180,12 +208,12 @@
                            <div class="head_portrait"><div class="head"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div></div>
                            <div class="teacher_box">
                                <div class="teacher1">
-                                   <a href="" class="name_teacher">{$offers.offers_name}</a>
+                                   <a href="" class="name_teacher">{$offers.nickname}</a>
                                    <img src="__STATIC__/index/images/5_07.png" class="star">
                                </div>
                                <div class="teacher2">
-                                   <a href="" class="cost_teacher">{$offers.offers_price}元/起</a>
-                                   <a href="" class="apply_teacher">已教学员<span style="color:#ff5a00; font-size: 16px; font-family:"微软雅黑";>{$offers.offers_num}</span>人</a>
+                                   <a href="" class="cost_teacher">{$offers.minprice}元/起</a>
+                                   <a href="" class="apply_teacher">已教学员<span style="color:#FA7124; font-size: 16px; font-family:"微软雅黑";>{$offers.student_num}</span>人</a>
                                </div>
                            </div>
                        </div>
@@ -195,11 +223,83 @@
             </div>
             <div class="clearfix"></div>
          </div>
-
       </div>
-
    </div>
+    <div class="main_box3_1">
+        <div class="main3_1">
+            <div class="main3_1_top">
+                <h1>热门驾校</h1>
+                <div class="main3_1_top3">
+                    <img src="__STATIC__/index/images/27.png">
+                    <h2>一流服务、专业高效</h2>
+                    <img src="__STATIC__/index/images/27.png">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="main3_1_bottom">
+                <div class="hot_10">
+                    <volist name="hots" id="hots" key="k" empty="$empty">
+                        <div class="main3_school">
+                            <if condition="$k lt 4">
+                                <div class="number_box3"><div class="number{$k}_1">{$k}</div></div>
+                                <else/>
+                                <div class="number_box3"><div class="number4_1">{$k}</div></div>
+                            </if>
 
+                            <div class="name_school3">
+                                <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotLeft['id']))}">{$hots.nickname}</a>
+                            </div>
+                        </div>
+                    </volist>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="hot_box">
+                    <div class="hot_left">
+                        <volist name="hotsRight" id="hotsRight" empty="$empty">
+                            <div id="hot_school">
+                                <div class="hot_school_top">
+                                    <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_name">{$hotsRight.nickname}</a>
+                                    <p class="hot_s_jz">{$hotsRight.jtype}照</p>
+                                    <p class="hot_s_h">￥{$hotsRight.highprice}</p>
+                                    <p class="hot_s_n">￥{$hotsRight.minprice}起</p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="hot_school_bottom">
+                                    <p class="hot_s_t">已有{$hotsRight.student_num}名学员报名</p>
+                                    <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_b">详情>></a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </volist>
+                    </div>
+                    <div class="hot_right">
+                        <volist name="hotsRight1" id="hotsRight" empty="$empty">
+                            <div id="">
+                                <div class="hot_school_top">
+                                    <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_name">{$hotsRight.nickname}</a>
+                                    <p class="hot_s_jz">{$hotsRight.jtype}照</p>
+                                    <p class="hot_s_h">￥{$hotsRight.highprice}</p>
+                                    <p class="hot_s_n">￥{$hotsRight.minprice}起</p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="hot_school_bottom">
+                                    <p class="hot_s_t">已有{$hotsRight.student_num}名学员报名</p>
+                                    <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_b">详情>></a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </volist>
+                    </div>
+                </div>
+                <div class="hot_image">
+                    <volist name="hotsRight1" id="v">
+                        <div class="image_every"><a href=""><img src="/Uploads/School_logo/{$v.picurl}{$v.picname}"></a></div>
+                    </volist>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
    <div class="main_box1">
       <div class="main1">
          <div class="main1_top">
@@ -246,85 +346,7 @@
    </div>
 
 
-   <div class="main_box3_1">
-      <div class="main3_1">
-         <div class="main3_1_top">
-            <h1>热门驾校</h1>
-            <div class="main3_1_top3">
-               <img src="__STATIC__/index/images/27.png">
-               <h2>一流服务、专业高效</h2>
-               <img src="__STATIC__/index/images/27.png">
-               <div class="clearfix"></div>
-            </div>
-         </div>
-         <div class="main3_1_bottom">
-            <div class="hot_10">
-                <volist name="hots" id="hots" key="k" empty="$empty" offset="0" length="10">
-                    <div class="main3_school">
-                        <if condition="$k lt 4">
-                            <div class="number_box3"><div class="number{$k}_1">{$k}</div></div>
-                            <else/>
-                            <div class="number_box3"><div class="number4_1">{$k}</div></div>
-                        </if>
 
-                        <div class="name_school3">
-                            <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotLeft['id']))}">{$hots.schools_name}</a>
-                        </div>
-                    </div>
-                </volist>
-               <div class="clearfix"></div>
-            </div>
-            <div class="hot_box">
-               <div class="hot_left">
-                   <volist name="hotsRight" id="hotsRight" empty="$empty" offset="10" length="8">
-                       <div id="hot_school">
-                           <div class="hot_school_top">
-                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_name">{$hotsRight.schools_name}</a>
-                               <p class="hot_s_jz">{$hotsRight.type_name}照</p>
-                               <p class="hot_s_h">￥{$hotsRight.schools_price}</p>
-                               <p class="hot_s_n">￥{$hotsRight.schools_nowprice}</p>
-                               <div class="clearfix"></div>
-                           </div>
-                           <div class="hot_school_bottom">
-                               <p class="hot_s_t">已有{$hotsRight.schools_num}名学员报名</p>
-                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_b">详情>></a>
-                               <div class="clearfix"></div>
-                           </div>
-                       </div>
-                   </volist>
-               </div>
-               <div class="hot_right">
-                   <volist name="hotsRight1" id="hotsRight" empty="$empty" offset="18" length="26">
-                       <div id="">
-                           <div class="hot_school_top">
-                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_name">{$hotsRight.schools_name}</a>
-                               <p class="hot_s_jz">{$hotsRight.type_name}照</p>
-                               <p class="hot_s_h">￥{$hotsRight.schools_price}</p>
-                               <p class="hot_s_n">￥{$hotsRight.schools_nowprice}</p>
-                               <div class="clearfix"></div>
-                           </div>
-                           <div class="hot_school_bottom">
-                               <p class="hot_s_t">已有{$hotsRight.schools_num}名学员报名</p>
-                               <a href="{:U('Home/SchoolsDetail/index',array('id'=>$hotsRight['id']))}" class="hot_s_b">详情>></a>
-                               <div class="clearfix"></div>
-                           </div>
-                       </div>
-                   </volist>
-               </div>
-            </div>
-            <div class="hot_image">
-               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
-               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
-               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
-               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
-               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
-               <div class="image_every"><a href=""><img src="__STATIC__/index/images/head1.png"></a></div>
-            </div>
-            <div class="clearfix"></div>
-         </div>
-
-      </div>
-   </div>
 
 
    <div class="main_box3">

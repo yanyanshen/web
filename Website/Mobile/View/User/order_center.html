@@ -7,11 +7,13 @@
     <meta content="telephone=no" name="format-detection">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>订单中心</title>
+    <link rel="stylesheet" href="__PUBLIC__/public/mui/css/mui.min.css">
     <link href="__STATIC__/user/user_center/css/main.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/user/user_center/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/user/user_center/css/initialize.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/user/user_center/css/order_center.css" rel="stylesheet" type="text/css">
-    <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
     <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
 </head>
 <body>
@@ -19,8 +21,8 @@
     <div class="header_box">
         <div class="header">
             <ul>
-                <a href="{:U('Mobile/User/user_center')}"><li class="back" style="padding-right: 50px"><img src="__PUBLIC__/public/images/back.png"></li></a>
-                <li class="header_text">订单中心</li>
+                <a href="{:U('Mobile/User/user_center')}"><li class="back"><img src="__PUBLIC__/public/images/back.png"></li></a>
+                <li class="header_text" style="margin-left: 50px;">订单中心</li>
                 <div class="clearfix"></div>
             </ul>
         </div>
@@ -29,135 +31,226 @@
         <div class="main">
             <div class="order_select">
                 <ul class="order_s">
-                    <li class="list status" status="0"><a style="color: #fa7124;" href="javascript:;">全部</a></li>
-                    <li class="status" status="1"><a  href="javascript:;">待付款</a></li>
-                    <li class="status" status="2"><a href="javascript:;">已付款</a></li>
-                    <li class="status" status="3"><a  href="javascript:;">待评价</a></li>
-                    <li class="status" status="4"><a href="javascript:;">已完成</a></li>
+                    <if condition="$Think.session.total eq 'total'">
+                        <li class="list">
+                        <else/>
+                        <li>
+                    </if>
+                        <a style="padding: 5px 15px;" href="{:U('Mobile/User/order_center',array('status'=>'0','total'=>'total'))}">全部</a>
+                    </li>
+
+                    <if condition="$Think.session.pay eq 'pay'">
+                        <li class="list">
+                            <else/>
+                        <li>
+                    </if>
+                    <a style="padding: 5px 15px;" href="{:U('Mobile/User/order_center',array('status'=>'1','pay'=>'pay'))}">待付款</a>
+                    </li>
+
+                    <if condition="$Think.session.already eq 'already'">
+                        <li class="list">
+                            <else/>
+                        <li>
+                    </if>
+                    <a style="padding: 5px 15px;" href="{:U('Mobile/User/order_center',array('status'=>'2','already'=>'already'))}">已付款</a>
+                    </li>
+
+                    <if condition="$Think.session.evaluate eq 'evaluate'">
+                        <li class="list">
+                            <else/>
+                        <li>
+                    </if>
+                    <a style="padding: 5px 15px;" href="{:U('Mobile/User/order_center',array('status'=>'3','evaluate'=>'evaluate'))}">待评价</a>
+                    </li>
+
+                    <if condition="$Think.session.end eq 'end'">
+                        <li class="list">
+                            <else/>
+                        <li>
+                    </if>
+                    <a style="padding: 5px 15px;" href="{:U('Mobile/User/order_center',array('status'=>'4','end'=>'end'))}">已完成</a>
+                    </li>
                     <div class="clearfix"></div>
                 </ul>
             </div>
-            <div id="content">
-                <volist name="order_info" id="v" empty="$empty">
-                    <form class="list_box">
-                        <div class="list_top">
-                            <div class="list_top_img">
-                                <if condition="$v['s_type'] eq 2">
-                                    <img src="{$http}/__STATIC__/user/user_center/images/ot.png">
-                                    <elseif condition="$v['s_type'] eq 3"/>
-                                    <img src="{$http}/__STATIC__/user/user_center/images/oz.png">
-                                    <else/>
-                                    <img src="{$http}/__STATIC__/user/user_center/images/os.png">
-                                </if>
-                            </div>
-                            <p>{$v['adminstatus']}</p>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="list_body" >
-                            <div class="list_body_img">
-                            </div>
-                            <ul class="list_body_text">
-                                <a href="{:U('Mobile/User/order_center_details',array('id'=>$v['id']))}">
-                                    <li class="text_name">{$v['s_nickname']}</li>
-                                    <li class="text_course" style="margin:3% 0">{$v['class_name']}</li>
-                                    <li class="text_apply">{$v['type']==1?"全款报名":"预付费报名"}</li>
-                                </a>
-                            </ul>
-                            <ul class="list_body_money">
-                                <li class="money1">￥{$v['price']}元</li>
-                                <br/>
-                                <li class="money2">实付：{$v['total_fee']}元</li>
-                                <div class="clearfix"></div>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="list_bottom">
-                            <a href="javascript:;"  status="{$v['status']}" oid="{$v['id']}"  class="submit1">{$v['statusname']}</a>
-                            <if condition="$v['status'] neq 1 and $v['status'] neq 6">
-                                <a href="javascript:;" class="submit2">{$v['memberstatus']}</a>
-                            </if>
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
-                </volist>
+            <div id="pullrefresh" style="margin-top: 80px" class="mui-content mui-scroll-wrapper">
+                <div class="main mui-scroll" >
+                    <div id="content">
+                        <volist name="order_info" id="v" empty="$empty">
+                            <form class="list_box">
+                                <div class="list_top">
+                                    <div class="list_top_img">
+                                        <if condition="$v['s_type'] eq 2">
+                                            <img src="{$http}/__STATIC__/user/user_center/images/ot.png">
+                                            <elseif condition="$v['s_type'] eq 3"/>
+                                            <img src="{$http}/__STATIC__/user/user_center/images/oz.png">
+                                            <else/>
+                                            <img src="{$http}/__STATIC__/user/user_center/images/os.png">
+                                        </if>
+                                    </div>
+                                    <p>{$v['create_time']}</p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="list_body" >
+                                    <div class="list_body_img">
+                                    </div>
+                                    <ul class="list_body_text">
+                                        <a href="{:U('Mobile/User/order_center_details',array('id'=>$v['id']))}">
+                                            <li class="text_name">{$v['s_nickname']}</li>
+                                            <li class="text_course" style="margin:3% 0">{$v['class_name']}</li>
+                                            <li class="text_apply">{$v['type']==1?"全款报名":"预付费报名"}</li>
+                                        </a>
+                                    </ul>
+                                    <ul class="list_body_money">
+                                        <li class="money1">￥{$v['price']}元</li>
+                                        <br/>
+                                        <li class="money2">实付：{$v['total_fee']}元</li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="list_bottom">
+                                    <if condition="$v.status eq 1">
+                                        <input onclick="status_submit({$v['status']},{$v['id']})" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即付款"/>
+                                        <elseif condition="$v.status eq 2"/>
+                                        <input onclick="status_submit({$v['status']},{$v['id']})" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="等待处理"/>
+                                        <elseif condition="$v.status eq 3"/>
+                                        <input onclick="status_submit({$v['status']},{$v['id']})" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即评价"/>
+                                        <elseif onclick="status_submit({$v['status']},{$v['id']})" condition="$v.status eq 4"/>
+                                        <input onclick="status_submit({$v['status']},{$v['id']})" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即追加"/>
+                                        <elseif condition="$v.status eq 5"/>
+                                        <input onclick="status_submit({$v['status']},{$v['id']})" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="重新报名"/>
+                                        <elseif condition="$v.status eq 6"/>
+                                        <input type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="已退费"/>
+                                    </if>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        </volist>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+<script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
 </html>
 <script>
-    $(".status").click(function(){
-        var status = $(this).attr('status');
-        $(this).addClass('list').siblings().removeClass('list');
-        var str = '';
-        $.post('{:U("Mobile/User/order_center")}',{status:status},function(res){
-            if(res == 0){
-                $("#content").html("<h1 style='height: 30px;background-color: #ffffff;padding-top: 20px;text-align: center;font-size: 15px'>没有查到数据</h1>");
-            }else{
-                for(var i in res){
-                str += '<form class="list_box"> ';
-                str += '<div class="list_top"> ';
-                str += '<div class="list_top_img"><img src="__STATIC__/user/user_center/images/os.png"></div> ';
-                str += '<p>'+res[i]['adminstatus']+'</p>';
-                str += '<div class="clearfix"></div>';
-                str += '</div>';
-                str += '<div class="list_body">';
-                str += '<div class="list_body_img">';
-                str += '</div>';
-                str += '<ul class="list_body_text">';
-                str += '<a href="'+"{:U('Mobile/User/order_center_details')}?id="+res[i]['id']+'">';
-                str += '<li class="text_name">'+res[i]['s_nickname']+'</li>';
-                str += '<li class="text_course">'+res[i]['class_name']+'</li>';
-                str += '<li class="text_apply">'+res[i]==1?"全款报名":"预付费报名"+'</li>';
-                str += '</a>';
-                str += '</ul>';
-                str += '<ul class="list_body_money">';
-                str += '<li class="money1">￥'+res[i]['price']+'元</li><br/>';
-                str += '<li class="money2">实付：' + res[i]['total_fee'];
-                str += '元</li>';
-                str += '<div class="clearfix"></div>';
-                str += '</ul>';
-                str += '<div class="clearfix"></div>';
-                str += '</div>';
-                str += '<div class="list_bottom">';
-                    str += '<a href="javascript:;"  status="'+res[i]['status']+'" oid="'+res[i]['id']+'"  class="submit1">'+res[i]['statusname']+'</a>';
-                    if(res[i]['status'] != 1 &&  res[i]['status'] != 6){
-                        str += '<a href="javascript:;"  class="submit2">'+res[i]['memberstatus']+'</a>';
+    function status_submit(status,oid){
+        if(status != 2){
+            layer.open({type:2,content:'加载中',time:2,end: function(index){
+                $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
+                    if(res.info){
+                        location.href = res.url;
+                    }else{
+                        location.href = '#';
                     }
-                str += '<div class="clearfix"></div>';
-                str += '</div>';
-                str += '</form>';
-                $("#content").html(str);
-                }
+                    layer.close(index);
+                },'json');
             }
-        },'json');
-    });
-</script>
-<script>
-    $('.submit1').live('click',function(){
-        var status = $(this).attr('status');
-        var oid = $(this).attr('oid');
-        $(this).attr('disabled','true');
-        if(status == 2){
-            layer.open({
-                content:'请耐心等待客服处理',time: 2 //2秒后自动关闭
-                ,end:function(){
-                    location.href='';
-                }
             });
         }else{
-            layer.open({type:2,content:'加载中',time:2,end: function(index){
-                    $.post('{:U("Mobile/Order/confirm_order")}',{status:status,oid:oid},function(res){
-                        if(res.info){
-                            location.href = res.url;
-                        }else{
-                            location.href = '#';
-                        }
-                        layer.close(index);
-                    },'json');
-                }
-            });
+            alert('请耐心等待客服处理');
+        }
+    }
+</script>
+<script>
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                callback: pulldownRefresh
+            },
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
         }
     });
+    /**
+     * 下拉刷新具体业务实现
+     */
+    function pulldownRefresh() {
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        setTimeout(function() {
+            $(".mui-pull-caption").show();
+        }, 1500);
+    };
+    var count = 0;
+    /**
+     * 上拉加载具体业务实现
+     */
+    var ys = 2; //从第二页开始获取数据
+
+    function pullupRefresh() {
+        setTimeout(function() {
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+            var table = document.body.querySelector('.mui-table-view');
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '{:U("Mobile/User/order_center")}',
+                data: {page: ys},
+                success: function (data) {
+                    var str = "";//定义变量保存内容
+                    $.each(data, function (index, array) {
+                        if(array['id']){
+                            str += '<form class="list_box"> ';
+                            str += '<div class="list_top"> ';
+                            str += '<div class="list_top_img"><img src="__STATIC__/user/user_center/images/os.png"></div> ';
+                            str += '<p>'+array['create_time']+'</p>';
+                            str += '<div class="clearfix"></div>';
+                            str += '</div>';
+                            str += '<div class="list_body">';
+                            str += '<div class="list_body_img">';
+                            str += '</div>';
+                            str += '<ul class="list_body_text">';
+                            str += '<a href="'+"{:U('Mobile/User/order_center_details')}?id="+array['id']+'">';
+                            str += '<li class="text_name">'+array['s_nickname']+'</li>';
+                            str += '<li class="text_course">'+array['class_name']+'</li>';
+                            if(array['type']==1){
+                                str += '<li class="text_apply">全款报名</li>';
+                            }else{
+                                str += '<li class="text_apply">预付费报名</li>';
+                            }
+                            str += '</a>';
+                            str += '</ul>';
+                            str += '<ul class="list_body_money">';
+                            str += '<li class="money1">￥'+array['price']+'元</li><br/>';
+                            str += '<li class="money2">实付：' + array['total_fee'];
+                            str += '元</li>';
+                            str += '<div class="clearfix"></div>';
+                            str += '</ul>';
+                            str += '<div class="clearfix"></div>';
+                            str += '</div>';
+                            str += '<div class="list_bottom">';
+                            if(array['status'] == 1){
+                                str += '<input onclick="status_submit('+array['status']+','+array['id']+')" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即付款"/>'
+                            }else if(array['status'] == 2){
+                                str += '<input onclick="status_submit('+array['status']+','+array['id']+')" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="等待处理"/>'
+                            }else if(array['status'] == 3){
+                                str += '<input onclick="status_submit('+array['status']+','+array['id']+')" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即评价"/>'
+                            }else if(array['status'] == 4){
+                                str += '<input onclick="status_submit('+array['status']+','+array['id']+')" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="立即追加"/>'
+                            }else if(array['status'] == 5){
+                                str += '<input onclick="status_submit('+array['status']+','+array['id']+')" type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="重新报名"/>'
+                            }else if(array['status'] == 6){
+                                str += '<input type="button" style="margin-right: 10px;float: right;background-color: #FA7124;color: #ffffff;border:0;-webkit-appearance: none" value="已退款"/>'
+                            }
+                            str += '<div class="clearfix"></div>';
+                            str += '</div>';
+                            str += '</form>';
+                        }else{
+                            $("#content").html("<h1 style='height: 30px;background-color: #ffffff;padding-top: 20px;text-align: center;font-size: 15px'>没有查到数据</h1>");
+                        }
+                        //下拉刷新，新纪录插到最前面；
+                    });
+                    $("#content").append(str); //把HTML添加到容器
+                    ys++;//页数+1
+                }
+            });
+        }, 1500);
+    }
+    mui('body').on('tap','a',function(){document.location.href=this.href;});
 </script>

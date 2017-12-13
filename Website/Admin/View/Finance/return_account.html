@@ -6,6 +6,9 @@
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+    <style>
+        .table_a input{font-size: 11px}
+    </style>
 </head>
 <body>
     <div class="div_head">
@@ -15,22 +18,24 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <div>
                     <span>
                         订单编号：<input type="text" name='ordcode' style="width: 100px"  value="{$get['ordcode']?$get['ordcode']:''}" />
                     </span>
-                     <span style="padding-left: 5px">订单状态：
-                        <select name="orderStatus" style="width: 70px;height: 20px;font-size: 11px;">
+                     <span style="padding-left:5px">支付方式：
+                        <select name="pay_type" style="width: 60px;height: 20px;font-size: 11px;">
                             <option value="0" >全部</option>
-                            <option value="1" {$get['orderStatus']==1?selected:''}>待处理</option>
-                            <option value="2" {$get['orderStatus']==2?selected:''}>待回访</option>
-                            <option value="3" {$get['orderStatus']==3?selected:''}>待结算</option>
-                            <option value="4" {$get['orderStatus']==4?selected:''}>已完成</option>
-                            <option value="5" {$get['orderStatus']==5?selected:''}>已取消</option>
+                            <option value="1" {$get['pay_type']==1?selected:''}>支付宝</option>
+                            <option value="2" {$get['pay_type']==2?selected:''}>微信</option>
+                            <option value="3" {$get['pay_type']==3?selected:''}>门店</option>
+                            <option value="4" {$get['pay_type']==4?selected:''}>快递</option>
+                            <option value="5" {$get['pay_type']==5?selected:''}>驾校</option>
                         </select>
                     </span>
-                     <span  style="padding-left:5px">订单类型：
-                        <select name="order_type" style="width: 75px;height: 20px;font-size: 11px;">
+                     <span style="padding-left:5px">
+                         订单类型：<select name="order_type" style="width: 78px;height: 20px;font-size: 11px;">
                             <option value="0" >全部</option>
                             <option value="1" {$get['order_type']==1?selected:''}>学车需求</option>
                             <option value="2" {$get['order_type']==2?selected:''}>在线订单</option>
@@ -38,18 +43,16 @@
                             <option value="4" {$get['order_type']==4?selected:''}>其他类型</option>
                         </select>
                     </span>
-                     <span style="padding-left:5px">
-                        跟单客服：<input type="text" name="customer" style="width: 75px"  value="{$get['customer']?$get['customer']:''}"/>
-                    </span>
+
                     <span style="padding-left:5px">
-                        退款时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['return_fee1']?$get['return_fee1']:''}" name="return_fee1"/>
+                        退款时间：<input type="text" style="width: 120px;font-size: 11px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['return_fee1']?$get['return_fee1']:''}" name="return_fee1"/>
                         至
-                        <input type="text" style="width: 120px" value="{$get['return_fee2']?$get['return_fee2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="return_fee2"/>
+                        <input type="text" style="width: 120px;font-size: 11px" value="{$get['return_fee2']?$get['return_fee2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="return_fee2"/>
                     </span>
                      <span style="padding-left:5px">
-                        支付时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['notify_time1']?$get['notify_time1']:''}" name="notify_time1"/>
+                        支付时间：<input type="text" style="width: 120px;font-size: 11px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['notify_time1']?$get['notify_time1']:''}" name="notify_time1"/>
                         至
-                        <input type="text" style="width: 120px" value="{$get['notify_time2']?$get['notify_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="notify_time2"/>
+                        <input type="text" style="width: 120px;font-size: 11px" value="{$get['notify_time2']?$get['notify_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="notify_time2"/>
                     </span>
                 </div>
                 <div>
@@ -57,7 +60,7 @@
                       驾校简称：<input type="text" name='s_nickname' style="width:100px"  value="{$get['s_nickname']?$get['s_nickname']:''}" />
                     </span>
                      <span style="padding-left: 5px">驾照类型：
-                         <select name="class_name" style="width: 70px;height: 20px;font-size: 11px;">
+                         <select name="class_name" style="width: 60px;height: 20px;font-size: 11px;">
                          <option value="0" >全部</option>
                          <option value="C1" {$get['class_name']=="C1"?selected:''}>C1</option>
                          <option value="C2" {$get['class_name']=="C2"?selected:''}>C2</option>
@@ -72,37 +75,39 @@
                          <option value="D" {$get['class_name']=="D"?selected:''}>D</option>
                      </select>
                     </span>
-                    <span style="padding-left:5px">支付方式：
-                        <select name="pay_type" style="width: 75px;height: 20px;font-size: 11px;">
-                        <option value="0" >全部</option>
-                        <option value="1" {$get['pay_type']==1?selected:''}>支付宝</option>
-                        <option value="2" {$get['pay_type']==2?selected:''}>微信</option>
-                        <option value="3" {$get['pay_type']==3?selected:''}>门店</option>
-                        <option value="4" {$get['pay_type']==4?selected:''}>快递</option>
-                        <option value="5" {$get['pay_type']==5?selected:''}>驾校</option>
-                    </select>
-                    </span>
                    <span style="padding-left:5px">
                          学员姓名：<input type="text" name='truename' style="width: 75px"  value="{$get['truename']?$get['truename']:''}"/>
+                   </span>
+                    <span style="padding-left:5px">
+                        跟单客服：<input type="text" name="customer" style="width: 75px"  value="{$get['customer']?$get['customer']:''}"/>
                     </span>
+                    <span style="padding-left:5px">手机号：<input type="text" name='tel' style="width:100px"  value="{$get['tel']?$get['tel']:''}"/></span>
                     <span style="padding-left:5px">
                         下单时间：<input type="text" style="width: 120px"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" value="{$get['create_time1']?$get['create_time1']:''}" name="create_time1"/>
                         至
                         <input type="text" style="width: 120px" value="{$get['create_time2']?$get['create_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="create_time2"/>
                     </span>
-                    <span style="padding-left:5px">手机号：<input type="text" name='tel' style="width:100px"  value="{$get['tel']?$get['tel']:''}"/></span>
                     <span style="padding-left: 5px">
-                        <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Finance/return_account",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
-                        <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('flag'=>4))}')"/>
+                        <input value="查询" style="font-size: 11px" type="submit" id='btn'/>
+                        <input value="导出" style="font-size: 11px" type="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('order_status'=>6))}')"/>
                     </span>
                 </div>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+             <script type="text/javascript" language="javascript">
+                 function submitYouFrom(path){
+                     layer.msg('确定导出吗?',{
+                         time:0,
+                         btn:['确定','取消'],
+                         yes:function(){
+                             $('#form1').attr('action',path);
+                             $('#form1').submit();
+                             setTimeout(function(){
+                                 location.href = '';
+                             },1000)
+                         }
+                     });
+                 }
+             </script>
         </span>
     </div>
     <div style="margin: 10px 5px;">

@@ -32,25 +32,24 @@ class EvaluateModel extends Model{
 */
     public function  evaluate($post){
         if(session('until')){
-            $where = "e.sid = {$post['id']} and e.append = 1";
+            $where = "sid = {$post['id']} and append = 1";
         }else{
-            $where = "e.sid = {$post['id']}";
+            $where = "sid = {$post['id']}";
         }
-
         foreach($post as $k=>$v){
             if($k == 'total'){
                 $where .= '';
             }elseif($k == 'new'){
                 $date = date('Y-m-t',strtotime('-1 month'));
-                $where .= " and e.ntime > '$date'";
+                $where .= " and ntime > '$date'";
             }
         }
         $num = 15;
         $page = $post['page']?$post['page']:1;
-        $evaluate =  $this->alias('e')->join('xueches_user u ON u.id=e.uid')
-            ->field('e.id,u.truename,e.content,e.ntime,e.score,e.append')
+        $evaluate = $this->field('id,content,ntime,score,append,sid,uid')
             ->where($where)->page($page,$num)->select();//用户评价
         foreach($evaluate as $k=>$v){
+            $evaluate[$k]['truename'] = M('User')->where(array('id'=>$v['uid']))->getField('truename');
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
             if($v['append']){
                 $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');

@@ -6,6 +6,7 @@
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+    <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
 </head>
 <body>
     <div class="div_head">
@@ -39,6 +40,8 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <div>
                     <span>
                         所在城市：<select name="cityname" style="width: 65px;height: 20px;font-size: 11px;">
@@ -126,17 +129,27 @@
                         <input type="text" style="width: 120px;font-size: 12px" value="{$get['return_time2']?$get['return_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="return_time2"/>
                     </span>
                     <span style="padding-left:5px;">
-                        <input value="查询" style="font-size: 11px" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/order_list",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
+                        <input value="查询" style="font-size: 11px" type="submit" id='btn' />
+                        <input value="清空" style="font-size: 11px" type="reset" id='btn' />
                         <input value="导出" style="font-size: 11px" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('pid'=>$get['pid'],'flag'=>0))}')"/>
                     </span>
                 </div>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+             <script type="text/javascript" language="javascript">
+                 function submitYouFrom(path){
+                     layer.msg('确定导出吗?',{
+                         time:0,
+                         btn:['确定','取消'],
+                         yes:function(){
+                             $('#form1').attr('action',path);
+                             $('#form1').submit();
+                             setTimeout(function(){
+                                 location.href = '';
+                             },1000)
+                         }
+                     });
+                 }
+             </script>
         </span>
     </div>
     <div style="margin: 10px 5px;">

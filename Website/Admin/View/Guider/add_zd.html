@@ -13,6 +13,11 @@
             .table_a td{text-align: left}
             span.error{font-size: 12px;color: #FA7124;}
             span.ok{font-size: 12px;color: #38D63B;}
+            .table_a  input{font-size: 12px}
+
+            #searchresult{top:50px;left: 280px;position: absolute;z-index:5; overflow:hidden;border-top:none;}
+            .line{font-size:12px; color: #ffffff; background:rgb(19, 181, 177); width:200px; padding:2px;height: 30px}
+            .hover{ color:#323232;background-color: transparent;cursor: pointer}
        </style>
         <script>
             $(document).ready(function(e) {
@@ -31,7 +36,7 @@
     <body>
         <div class="div_head">
             指导员添加
-            <a style="text-decoration: none;" href="{$url}">【返回】</a>
+            <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
             <a href="" style="text-decoration: none;color: #646464">【刷新】</a>
         </div>
         <div style="font-size: 12px;margin: 10px 5px">
@@ -43,8 +48,9 @@
                 <tr style="color: #646464">
                     <td>所属驾校：</td>
                     <td>
-                        <input type="text" name="school_nickname" value="{$school_nickname}"/>
-                        <input type="button" value="选择" id="school_id"/>
+                        <input type="hidden" name="school_id" id="sid"/>
+                        <input type="text" value=""  name="school_nickname" id="search" placeholder="请输入驾校"/>
+                        <span id="searchresult" class="td"></span>
                     </td>
                 </tr>
                 <tr style="margin-top: 10px">
@@ -151,7 +157,7 @@
                 </tr>
                  <tr>
                     <td>总学员数：</td>
-                    <td><input type="text" name="allcount"  value="332" /></td>
+                    <td><input type="text" name="student_num"  value="332" /></td>
                 </tr>
                  <tr>
                     <td>已通过人数：</td>
@@ -224,6 +230,35 @@
         </div>
     </body>
 </html>
+<script>
+    $(document).ready(function(){
+        $('#search').keyup(function(){
+            var search_key = $('#search').val();
+            $.post("{:U('Admin/TrainClass/search_school')}",{search_key:search_key},function(res){
+                if(res.info) {
+                    var layer;
+                    layer = "<table>";     //创建一个table
+                    for (var i in res.info) {
+                        layer += "<tr><td class='line' onclick='line("+res.info[i]['id']+',"'+res.info[i]['nickname']+'"'+")'>" + res.info[i]['nickname'] + "</td></tr>";
+                    }
+                    layer += "</table>";
+                    $('#searchresult').empty();  //先清空#searchresult下的所有子元素
+                    $('#searchresult').append(layer);//将刚才创建的table插入到#searchresult内
+                    $('.line').hover(function(){  //监听提示框的鼠标悬停事件
+                        $(this).addClass("hover");
+                    },function(){
+                        $(this).removeClass("hover");
+                    });
+                }
+            },'json');
+        });
+    });
+    function line(id,nickname){
+        $('#search').val(nickname);
+        $("#sid").val(id);
+        $('#searchresult').empty();
+    }
+</script>
 <script>
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 100;

@@ -16,12 +16,14 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <div>
                     <span>
                         驾校简称：<input type="text" name='s_nickname' style="width: 100px"  value="{$get['s_nickname']?$get['s_nickname']:''}" />
                     </span>
                   <span style="padding-left: 5px">
-                    支付方式：<select name="pay_type" style="width: 90px;font-size: 12px">
+                    支付方式：<select name="pay_type" style="width: 90px;font-size: 11px;height: 20px">
                         <option value="0" >全部</option>
                         <option value="1" {$get['pay_type']==1?selected:''}>支付宝</option>
                         <option value="2" {$get['pay_type']==2?selected:''}>微信</option>
@@ -44,7 +46,7 @@
                        订单编号：<input type="text" name='ordcode' style="width: 100px"  value="{$get['ordcode']?$get['ordcode']:''}" />
                     </span>
                     <span style="padding-left: 5px">
-                        取消原因：<select name="cancel_reason" style="width: 90px;font-size: 12px">
+                        取消原因：<select name="cancel_reason" style="width: 90px;font-size: 11px;height: 20px">
                             <option value="0">请选择</option>
                             <volist name="order_cancel" id="val">
                                 <option value="{$val.id}" {$val['id']==$get['cancel_reason']?selected:''}>{$val.reason}</option>
@@ -55,18 +57,27 @@
                         跟单客服：<input type="text" name="customer" style="width: 100px;"  value="{$get['customer']?$get['customer']:''}"/>
                     </span>
                     <span style="padding-left: 5px">
-                        <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Finance/cancel_order",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
-                        <input value="清空" type="reset" />
-                        <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('flag'=>5))}')"/>
+                        <input value="查询" style="font-size: 11px" type="submit" id='btn'/>
+                        <input value="清空" style="font-size: 11px" type="reset" />
+                        <input value="导出" style="font-size: 11px" type="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('order_status'=>5))}')"/>
                     </span>
                 </div>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+               <script type="text/javascript" language="javascript">
+                   function submitYouFrom(path){
+                       layer.msg('确定导出吗?',{
+                           time:0,
+                           btn:['确定','取消'],
+                           yes:function(){
+                               $('#form1').attr('action',path);
+                               $('#form1').submit();
+                               setTimeout(function(){
+                                   location.href = '';
+                               },1000)
+                           }
+                       });
+                   }
+               </script>
         </span>
     </div>
     <div style="margin-left: 6px">

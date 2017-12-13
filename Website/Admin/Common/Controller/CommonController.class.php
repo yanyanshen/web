@@ -10,13 +10,20 @@ class CommonController extends Controller{
         for($i=0;$i<count($iplist);$i++){
             $list[$i] = $iplist[$i]['ip'];
         }
-//        print_r($IP);
-//        if(!in_array($IP,$list)){
-//            exit('You don\'t have permission to access!');
-//        }
         if(!session('admin_id')){
             $this->redirect('Admin/Login/login');
+        }else{
+            $adminInfo = M('Admin')->field('permissions')->where(array('id'=>session('admin_id')))->find();
+            if($adminInfo['permissions'] == 2 ){//超级管理员
+                if(!in_array($IP,$list)){
+                    exit('You don\'t have permission to access!');
+                }
+            }
         }
+    }
+    function _empty($name){
+        //把所有城市的操作解析到city方法
+        echo "页面有误";
     }
 }
 

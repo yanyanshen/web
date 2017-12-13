@@ -5,14 +5,6 @@ use Think\Verify;
 class LoginController extends Controller{
     public function register(){
         if(IS_AJAX){
-            $verify = new Verify();
-            $code = I('post.verify');
-            if($verify->check($code,'')){
-                echo 'true';
-            }else{
-                echo 'false';
-            }
-            exit;
             $data['account']=trim(I('cd_tel'));
             $data['truename']=trim(I('cd_name'));
             $data['lastupdate']=trim(I('cd_name'));
@@ -32,10 +24,11 @@ class LoginController extends Controller{
                 }else{
                     $user->commit();
                     $log['uid'] = $info;
-                    $log['done'] = '用户注册 ID_'.$info;
+                    
+                    $log['done'] = '用户注册信息: =>'.trim(I('cd_name'));
                     $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];;
                     D('UserLog')->add_user_log($log);
-                    $this->success('注册成功',U('Mobile/Login/login'));
+                    $this->success('注册成功',U('Mobile/User/user_center'));
                 }
             }else{
                 $this->error('网络忙，请稍候再试',U('Mobile/Login/register'));
@@ -56,7 +49,7 @@ class LoginController extends Controller{
             'fontSize' => 80,
             'length'   => 4,
             'userCurve'=>false,
-//            'useNoise'=>false,
+            'useNoise'=>false,
             'codeSet' => '1234567890'
         );
         $verify = new \Think\Verify($config);
@@ -86,16 +79,16 @@ class LoginController extends Controller{
             if($info){
                if($info['verify'] == 1){
                     $this->error('账号被禁止',U('Mobile/Login/login'));
-                }else{
+               }else{
                     $data['lasttime'] = time();
                     $data['lastip'] = getIp();
                     M('user')->where(array('id'=>$info['id']))->save($data);
-                    session('mid',$info['id']);
-                   $log['uid'] = session('mid');
+                  
+                   $log['uid'] = $info['id'];
                    $log['done'] = '用户登录';
                    $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
                    D('UserLog')->add_user_log($log);
-                    $this->success('登录成功',U('Mobile/Index/index'));
+                   $this->success('登录成功',U('Mobile/Index/index'));
                 }
             }else{
                 $this->error('网络繁忙，请稍候再试！',U('Mobile/Login/login'));
@@ -166,7 +159,7 @@ class LoginController extends Controller{
         if($pass){
             $log['done'] = '密码重置';
             $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-            $log['uid'] = session('mid');
+            $log['mid'] = session('mid');
             D('UserLog')->add_user_log($log);
             session('mid',null);
             $this->success('密码重置成功');

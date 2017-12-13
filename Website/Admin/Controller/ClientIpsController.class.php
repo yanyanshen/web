@@ -6,10 +6,6 @@ class ClientIpsController extends CommonController{
 /*----------------------------------2017-12-04shenyanyan----------------------------*/
 //clientIps列表展示
     public function index(){
-        $aa = gethostname();
-        $bIp = gethostbyname($_ENV['COMPUTERNAME']);
-        dump($aa);
-//        dump(long2ip ( ip2long ( "116.226.88.165" )));
         $iplist = D('ClientIps')->index($_GET);
         $this->assign('get',$_GET);
         $this->assign('iplist',$iplist);

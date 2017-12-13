@@ -63,21 +63,13 @@
             <div class="user_order">
                 <div class="order_center">
                     <div class="order_img"><img src="__STATIC__/user/user_center/images/order.png"></div>
-                    <if condition="$Think.session.mid eq ''">
-                        <a href="{:U('Mobile/Login/login')}">订单中心</a>
-                    <else/>
-                        <a href="{:U('Mobile/User/order_center')}">订单中心</a>
-                    </if>
+                    <a href="{:U('Mobile/User/order_center')}">订单中心</a>
                     <div class="order_back"><img src="__STATIC__/user/user_center/images/back1.png"></div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="order_center">
                     <div class="order_img"><img src="__STATIC__/user/user_center/images/record.png"></div>
-                    <if condition="$Think.session.mid eq ''">
-                        <a href="{:U('Mobile/Login/login')}">预约报名记录</a>
-                        <else/>
-                            <a href="{:U('Mobile/User/order_apply')}">预约报名记录</a>
-                        </if>
+                    <a href="{:U('Mobile/User/order_apply')}">预约报名记录</a>
                     <div class="order_back"><img src="__STATIC__/user/user_center/images/back1.png"></div>
                     <div class="clearfix"></div>
                 </div>

@@ -14,7 +14,7 @@ class FinanceController extends CommonController{
             $res = M('Order')->save($_POST);
             $log = "退费{$_POST['return_money']}元";
         }elseif(I('t') == 3){//取消
-            $log = '订单取消id: => '.I('id');
+            $log = '订单取消';
             $_POST['order_status'] = 5;
             $_POST['status'] = 5;
             $_POST['cancel_time'] = date('Y-m-d H:i:s',time());
@@ -43,7 +43,7 @@ class FinanceController extends CommonController{
             $data['id'] = I('id');
             $res = M('Order')->save($data);
             if($res){
-                $log = '结算id: => '.I('id');
+                $log = '订单结算';
                 D('AdminLog')->addOrderLog($log,I('id'));
                 $this->redirect('wait_account',array('pid'=>I('pid'),'p'=>I('p')),0,'');
             }else{
@@ -82,7 +82,7 @@ class FinanceController extends CommonController{
         }
     }
 
-//已取消订单列表 展示
+//订单取消原因修改
     public function cancel_order(){
         if(I('t')){//取消原因修改
             $_POST['lastupdate'] = session('admin_name');
@@ -94,7 +94,7 @@ class FinanceController extends CommonController{
             $new_cancel_reason = M('order_cancel_reason')->where(array('id'=>$_POST['cancel_reason']))->getField('reason');
 
             if($cancel_reason_id == 0){
-                $log = "订单取消原因:0 => $new_cancel_reason";
+                $log = "订单取消原因: => $new_cancel_reason";
             }else{
                 $old_cancel_reason = M('order_cancel_reason')->where(array('id'=>$cancel_reason_id))->getField('reason');
                 $log = "订单取消原因: $old_cancel_reason=> {$new_cancel_reason}";
@@ -160,6 +160,7 @@ class FinanceController extends CommonController{
 //批量修改取消订单原因
     function cancel_reason(){
         $_POST['lastupdate'] = session('admin_name');
+        $_POST['cancel_time'] = date('Y-m-d H:i:s',time());
         $id_arr = explode(',',I('str'));
         $log = '订单取消原因: => '.I('cancel_reason');
         foreach($id_arr as $v){
@@ -169,11 +170,14 @@ class FinanceController extends CommonController{
         }
         $this->redirect('Admin/Finance/cancel_order',array('pid'=>I('pid'),'p'=>I('p')));
     }
-//在已结算订单列表里 批量退款
+//在已结算订单列表里 批量退费
     function batch_return_money(){
         $_POST['lastupdate'] = session('admin_name');
+        $_POST['return_fee'] = date('Y-m-d H:i:s',time());
+        $_POST['status'] = 6;
+        $_POST['order_status'] = 6;
         $id_arr = explode(',',I('str'));
-        $log = '订单取消原因: => '.I('cancel_reason');
+        $log = "退费{$_POST['return_money']}元";
         foreach($id_arr as $v){
             $_POST['id'] = $v;
             M('Order')->save($_POST);

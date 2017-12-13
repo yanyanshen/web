@@ -89,10 +89,11 @@
             <table class="table_a"  width="100%" >
                 <tbody>
                     <tr style="background-color:  rgb(19, 181, 177);">
-                        <th width="3%">编号|ID</th>
+                        <th width="3%">ID</th>
 						<th width="3%">账号</th>
 						<th width="1%">头像</th>
 						<th width="3%">姓名</th>
+						<th width="3%">最低价格</th>
 						<th width="2%">性别</th>
 						<th width="2%">课程数</th>
 						<th width="3%">类型</th>
@@ -103,17 +104,17 @@
 						<th width="2%">评分</th>
 						<th width="4%">车牌号</th>
 						<th width="2%">城市</th>
-                        <th width="2%">本周特价</th>
-                        <th width="2%">热门驾校</th>
+                        <!--<th width="2%">本周特价</th>-->
+                        <!--<th width="2%">热门驾校</th>-->
                         <th width="2%">推荐驾校</th>
                         <th width="2%">计时培训</th>
 						<th width="3%">最后操作人</th>
-						<th width="9%">操作</th>
+                        <th width="8%">操作</th>
                     </tr>
                     <form action="" id="form2">
                         <volist name='list'  id='v' key='k'>
                             <tr>
-                                <td><input type="checkbox" name="id[]" value="{$v.id}"/> {$k+$firstRow}</td>
+                                <td><input type="checkbox" name="id[]" value="{$v.id}"/> {$v.id}</td>
                                 <td>{$v.account}</td>
                                 <td>
                                     <if condition="$v['picname'] neq ''">
@@ -122,13 +123,14 @@
                                         <img src="{$http}/Uploads/default_logo/517.png" alt="" style="border-radius:50%" width="50" height="50" />
                                     </if>
                                 </td>
-                                <td>{$v.nickname}<br>
+                                <td>{$v.nickname}
                                 <span style="color: rgb(19, 181, 177);">
                                     <if condition="$v.hot eq 1">热搜</if>
                                     <if condition="$v.recommand eq 1">推荐</if>
                                     <if condition="$v.week eq 1">本周</if>
                                 </span>
                                 </td>
+                                <td>{$v.minprice}</td>
                                 <td>{$v['sex']==0?'男':($v['sex']==1?'女':'保密')}</td>
                                 <td>
                                     <a class="tablelink" href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">{$v['class_num']}</a>
@@ -143,12 +145,12 @@
                                 <td>{$v.score}</td>
                                 <td>{$v.carnumber}</td>
                                 <td>{$v.cityname}</td>
-                                <td>
-                                    <a  href="javascript:;" class="tablelink" onclick="status_update({$v['id']},{$get['pid']},'week',{$get['p']?$get['p']:1})">{$v['week']?'取消本周':'本周'}</a>
-                                </td>
-                                <td>
-                                    <a href="javascript:;" class="tablelink"  onclick="status_update({$v['id']},{$get['pid']},'hot',{$get['p']?$get['p']:1})">{$v['hot']?'取消热门':'热门'}</a>
-                                </td>
+                                <!--<td>-->
+                                    <!--<a  href="javascript:;" class="tablelink" onclick="status_update({$v['id']},{$get['pid']},'week',{$get['p']?$get['p']:1})">{$v['week']?'取消本周':'本周'}</a>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--<a href="javascript:;" class="tablelink"  onclick="status_update({$v['id']},{$get['pid']},'hot',{$get['p']?$get['p']:1})">{$v['hot']?'取消热门':'热门'}</a>-->
+                                <!--</td>-->
                                 <td>
                                     <a href="javascript:;" class="tablelink" onclick="status_update({$v['id']},{$get['pid']},'recommand',{$get['p']?$get['p']:1})">{$v['recommand']?'取消推荐':'推荐'}</a>
                                 </td>

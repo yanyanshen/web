@@ -18,13 +18,13 @@
                 至 <input type="text" style="width: 125px;font-size: 12px" value="{$get['create_time1']?$get['create_time1']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="create_time1"/>
                 <input value="查询" style="font-size: 11px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_source",array('pid'=>$get['pid']))}')"/>
                 <input value="上月" style="font-size: 11px" type="submit" onclick="submitYouForm('{:U("Admin/Order/order_source",array('t'=>1,'pid'=>$get['pid']))}')"/>
-                <script>
-                    function submitYouForm(path){
-                        $("#form1").attr('action',path);
-                        $("#form1").submit();
-                    }
-                </script>
             </form>
+            <script>
+                function submitYouForm(path){
+                    $("#form1").attr('action',path);
+                    $("#form1").submit();
+                }
+            </script>
         </span>
     </div>
     <div style="margin: 10px 5px;">

@@ -2,6 +2,8 @@
 namespace Admin\Controller;
 use Think\Controller;
 use Admin\Common\Controller\CommonController;
+use Think\Crypt\Driver\Think;
+
 class TrainClassController extends CommonController {
     //课程管理
     public function train_class(){
@@ -12,21 +14,22 @@ class TrainClassController extends CommonController {
         $where['_string']="tr.jztype=jztype.id and tr.type = '$type' and tr.type_id = {$_GET['id']}";
         $count=M('trainclass')->table('xueches_trainclass tr,xueches_type jztype')
             ->where($where)->count();
+        $page = new \Think\Page($count,4);
+        $_GET['page'] = $page->show();
         $class=M('trainclass')->table('xueches_trainclass tr,xueches_type jztype')
-            ->field($field)->where($where)->select();
+            ->field($field)->limit($page->firstRow.','.$page->listRows)->where($where)->select();
         $this->assign('class',$class);
-        $nickname=M('School')->where(array('id'=>$_GET['id']))->getField('nickname');
-        $this->assign('nickname',$nickname);
+        $_GET['nickname'] = M('School')->where(array('id'=>$_GET['id']))->getField('nickname');
         $this->assign('get',$_GET);
         switch($type){
             case 'jx':
-                $this->assign('url',U('Admin/School/jx_list',array('pid'=>I('pid'),'p'=>I('p'))));
+                $this->assign('url',U('Admin/School/jx_list',array('pid'=>I('pid'),'p'=>I('pp'))));
                 break;
             case 'jl':
-                $this->assign('url',U('Admin/Coach/index_list',array('pid'=>I('pid'),'p'=>I('p'))));
+                $this->assign('url',U('Admin/Coach/index_list',array('pid'=>I('pid'),'p'=>I('pp'))));
             break;
             case 'zd':
-                $this->assign('url',U('Admin/Guider/index_list',array('pid'=>I('pid'),'p'=>I('p'))));
+                $this->assign('url',U('Admin/Guider/index_list',array('pid'=>I('pid'),'p'=>I('pp'))));
                 break;
         }
         $this->assign('count',$count);
@@ -43,7 +46,7 @@ class TrainClassController extends CommonController {
             D('AdminLog')->logout($log);
         }
         M('School')->where(array('id'=>I('type_id')))->setDec('class_num',$count);
-        $this->redirect('train_class',array('id'=>I('type_id'),'pid'=>I('pid'),'type'=>I('type'),'p'=>I('p')));
+        $this->redirect('train_class',array('id'=>I('type_id'),'pid'=>I('pid'),'type'=>I('type'),'p'=>I('p'),'pp'=>I('pp')));
     }
     //添加课程
     public function add_class(){
@@ -54,7 +57,7 @@ class TrainClassController extends CommonController {
 
             if($res){
                 M('school')->where(array('id'=>$_POST['type_id']))->setInc('class_num',1);
-                $url=U('Admin/TrainClass/train_class?id='.I('type_id').'&type='.I('type').'&p='.I('p'),'&pid='.I('pid'));
+                $url=U('Admin/TrainClass/train_class?id='.I('type_id').'&type='.I('type').'&p='.I('p'),'&pid='.I('pid').'&pp='.I('pp'));
                 $log['done'] = "课程添加信息: => {$_POST['name']}";
                 D('AdminLog')->logout($log);
                 $this->success('操作成功',$url);
@@ -76,7 +79,7 @@ class TrainClassController extends CommonController {
             $res=M('trainclass')->save($_POST);
 
             if($res){
-                $url=U('Admin/TrainClass/train_class?id='.I('school_id').'&type='.I('type').'&pid='.I('pid').'&p='.I('p'));
+                $url=U('Admin/TrainClass/train_class?id='.I('school_id').'&type='.I('type').'&pid='.I('pid').'&p='.I('p').'&pp='.I('pp'));
                 $log['done'] = "课程信息:$class => {$_POST['name']}";
                 D('AdminLog')->logout($log);
                 $this->success('编辑成功',$url);
@@ -95,7 +98,7 @@ class TrainClassController extends CommonController {
             $this->assign('jztype',$jztype);
             $this->assign('data',$data);
             $this->assign('get',$_GET);
-            $this->assign('url',U('Admin/TrainClass/train_class',array('id'=>$data['type_id'],'pid'=>$_GET['pid'],'type'=>$_GET['type'])));
+            $this->assign('url',U('Admin/TrainClass/train_class',array('id'=>$data['type_id'],'pid'=>$_GET['pid'],'p'=>I('p'),'pp'=>I('pp'),'type'=>$_GET['type'])));
             $this->display();
         }
     }

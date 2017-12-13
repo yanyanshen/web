@@ -7,7 +7,7 @@ class OrderModel extends Model {
     @param return excel倒出是否成功
     @param $flag 导出列表的类型
 */
-    public function push($get,$flag){
+    public function push($get){
         $where = '';
         $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
         if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
@@ -85,43 +85,10 @@ class OrderModel extends Model {
                 }
             }$where=rtrim($where,'and');
         }
-
-        if($flag == 1){//已支付未处理
-            if($where == ''){
-                $where = 'o.status = 2 and o.order_status = 1';
-            }else{
-                $where .= " and o.status = 2 and o.order_status = 1";
-            }
-        }elseif($flag == 2){//待结算
-            if($where == ''){
-                $where = 'order_status = 3 ';
-            }else{
-                $where .= " and order_status = 3 ";
-            }
-        }elseif($flag == 3){//已结算
-            if($where == ''){
-                $where = 'order_status = 4 ';
-            }else{
-                $where .= " and order_status = 4 ";
-            }
-        }elseif($flag == 4){//已退费
-            if($where == ''){
-                $where = 'order_status = 6 ';
-            }else{
-                $where .= " and order_status = 6 ";
-            }
-        }elseif($flag == 5){//已退费
-            if($where == ''){
-                $where = 'order_status = 5 ';
-            }else{
-                $where .= " and order_status = 5 ";
-            }
-        }
-
         $list = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
-            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
-            ->where($where)->field('o.*,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
-            ->order('o.create_time desc')->select();
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)
+            ->field('o.*,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
+            ->select();
         foreach($list as $k=>$v){
             $list[$k]['cancel_reason'] = M('OrderCancelReason')->where(array('id'=>$v['cancel_reason']))->getField('reason');
         }
@@ -179,7 +146,7 @@ class OrderModel extends Model {
                 } elseif($key == 'order_type' && $val != 0){
                     $where.=" o.$key =".urldecode($val)." and";
                 }elseif($key == 'ordcode' && $val != ''){
-                    $where.=" o.$key like '%".urldecode($val)."%'".' and';
+                    $where.=" o.$key like '%$val%' and";
                 }elseif($key == 'cityname' && $val != 0){
                     $where.=" o.$key =".urldecode($val)." and" ;
                 }elseif($key == 'pay_type' && $val != 0){
@@ -213,7 +180,7 @@ class OrderModel extends Model {
                 }elseif($key == 'cancel_time2' && $val != ''){
                     $where.=" o.cancel_time  < '$val' and";
                 }elseif($key == 'truename' && $val != ''){
-                    $where.=" o.name like '%".trim($val)."%'".' and';
+                    $where.=" o.name like '%".trim($val)."%' and";
                 }elseif($key == 'end_time1' && $val != ''){//结算时间
                     $where.=" o.end_time  > '$val' and";
                 }elseif($key == 'end_time2' && $val != ''){//结算时间
@@ -243,8 +210,7 @@ class OrderModel extends Model {
             }$where=rtrim($where,'and');
         }
         $count = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
-            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
-            ->where($where)->count();
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)->count();
         $p = new \Think\Page($count,10);
         $list = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
             ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)
@@ -355,6 +321,7 @@ class OrderModel extends Model {
 
         $order['order_status'] = 2;
         $oid = $this->add($order);
+        M('School')->where(array('id'=>$post['school_id']))->setInc('student_num',$order['num']);
         $order['oid'] = $oid;
         $order['price'] = $post['wholeprice'];
 

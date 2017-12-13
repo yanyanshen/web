@@ -52,20 +52,26 @@
         <div id="content_mt">
             <div id="top_m1">
                 <div class="top_m1_img">
-                    <if condition="$info.type eq 'jx'">
+                    <if condition="$info.type eq 'jx' and $info['picname'] neq ''">
                         <img style="border-radius: 3px" src="{$http}/Uploads/School_logo/{$info.picurl}/{$info.picname}"/>
+                        <else/>
+                        <img class="img1" style="width: 80px;height: 60px" src="{$http}/Uploads/default_logo/517.png"/>
                     </if>
-                    <if condition="$info.type eq 'zd'">
+                    <if condition="$info.type eq 'zd' and $info['picname'] neq ''">
                         <img style="border-radius: 3px" src="{$http}/Uploads/guider_logo/{$info.picurl}/{$info.picname}"/>
+                        <else/>
+                        <img class="img1" style="width: 80px;height: 60px" src="{$http}/Uploads/default_logo/517.png"/>
                     </if>
-                    <if condition="$info.type eq 'jl'">
+                    <if condition="$info.type eq 'jl' and $info['picname'] neq ''">
                         <img style="border-radius: 3px" src="{$http}/Uploads/Coach_logo/{$info.picurl}/{$info.picname}"/>
+                        <else/>
+                        <img class="img1" style="width: 80px;height: 60px" src="{$http}/Uploads/default_logo/517.png"/>
                     </if>
                 </div>
                 <ul class="top_m1_text">
                     <li id="tbt_mn">{$info.nickname}</li>
                     <li id="tbt_mm">￥{$info.minprice}</li>
-                    <li id="tbt_mnum">{$info.allcount}人已报名</li>
+                    <li id="tbt_mnum">{$info.student_num}人已报名</li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -87,7 +93,7 @@
                 <div class="top-m3">
                     <ul class="like_box">
                         <li class="like_img"><img src="__STATIC__/detail/images/like.png"></li>
-                        <li class="like_text">共有{$info.evalutioncount}条评假</li>
+                        <li class="like_text">共有{$evaluate_count}条评价</li>
                         <div class="clearfix"></div>
                     </ul>
                     <div class="shuffling">
@@ -95,11 +101,17 @@
                         <div class="shuffling_text">
                             <div id="marquee_information2">
                                 <ul>
-                                    <li>冯先生一天前报了上海市中心驾校</li>
-                                    <li>冯先生一天前报了上海市中心驾校</li>
-                                    <li>冯先生一天前报了上海市中心驾校</li>
-                                    <li>冯先生一天前报了上海市中心驾校</li>
-                                    <li>冯先生一天前报了上海市中心驾校</li>
+                                    <notempty name="order">
+                                        <volist name="order" id="v">
+                                            <if condition="$v.day eq 0">
+                                                <li>{$v.name} 刚刚报了{$v.s_nickname}</li>
+                                                <else/>
+                                                <li>{$v.name} {$v.day}天前报了{$v.s_nickname}</li>
+                                            </if>
+                                        </volist>
+                                        <else/>
+                                        <li>冯先生一天前报了上海市中心驾校</li>
+                                    </notempty>
                                 </ul>
                             </div>
                         </div>
@@ -180,10 +192,9 @@
                         <div id="introduce_m">
                             <p>{$info.introduction}</p>
                             <volist name="abstract_pic" id="data">
-                                <if condition="$data.type eq 'jx' and $data.picname neq ''">
+                                <if condition="$data['type'] eq 'jx' and $data['picname'] neq ''">
                                     <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
                                 </if>
-
                                 <if condition="$data.type eq 'zd' and $data.picname neq ''">
                                     <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/guider_logo/{$data.picurl}{$data.picname}"/>
                                 </if>

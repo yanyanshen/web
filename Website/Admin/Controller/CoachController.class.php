@@ -16,21 +16,15 @@ class CoachController extends CommonController {
                 $where.="and s.account like '%".$_GET['account']."%' ";
             }
         }
-        $count = $Dao
-            ->table('xueches_boss b,xueches_school s,xueches_coach_category ca,xueches_citys city')
-            ->where($where)
-            ->count();
-        $field="s.id,s.sex,s.nickname,s.score,s.ntime,s.carnumber,s.class_num,s.type,s.picurl,s.picname,
-                s.serialid,s.numberId,s.address,s.cityid,s.verify,s.lastupdate,s.order,s.account,
-                s.recommand,s.week,s.hot,s.show_forbid,
-                ca.category_name,ca.id as caid,city.cityname,city.id as cityid";
+        $count = $Dao->table('xueches_boss b,xueches_school s,xueches_coach_category ca,xueches_citys city')
+            ->where($where)->count();
+        $field="s.*,ca.category_name,ca.id as caid,city.cityname,city.id as cityid";
         $p = new Page($count,10);
         $page = $p->show();
-        $list = $Dao
-            ->field($field)
+        $list = $Dao->field($field)
             ->table('xueches_boss b,xueches_school s,xueches_coach_category ca,xueches_citys city')
-            ->where($where)
-            ->limit($p->firstRow.','.$p->listRows)
+            ->where($where)->limit($p->firstRow.','.$p->listRows)
+            ->order('s.order desc')
             ->select();
 
         //城市
@@ -44,20 +38,15 @@ class CoachController extends CommonController {
         $this->assign('list', $list);
         $this->display();
     }
-
-
-  
     public function add_jl(){
         if(IS_AJAX){
-            $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
-            $_POST['school_id']=$school_id;
             $_POST['ntime']=time();
             $_POST['lastupdate']=session('admin_name');
             $id=M('School')->add($_POST);
             if($id){
                 $log['done'] = '教练添加: => '.$_POST['nickname'];
                 D('AdminLog')->logout($log);
-                M('School')->where(array('id'=>$school_id,'type'=>'jx'))->setInc('coach_num',1);
+                M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('coach_num',1);
             }
             $res=UploadPic('School','Coach_logo',$id);
             if($res){
@@ -66,14 +55,15 @@ class CoachController extends CommonController {
                 $this->success('添加失败',U('Admin/Coach/add_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'type'=>I('type'))));
             }
         }else{
+            $category=M('CoachCategory')->field('id,category_name')->select();
+            $this->assign('category', $category);
+
             $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
             $this->assign('city',$citys);
 
             $boss=M('boss')->where(array('type'=>I('type')))->field('id,boss_name')->select();
             $this->assign('boss',$boss);
 
-            $nickname=session('nickname');
-            $this->assign('school_nickname',$nickname);
             $this->assign("get",$_GET);
             $this->display();
         }
@@ -85,16 +75,13 @@ class CoachController extends CommonController {
             $_POST['lastupdate']=session('admin_name');
             $where['id']=$_POST['id'];
             $nickname1 = M('School')->where($where)->getField('nickname');
-            $school_id=M('School')->where(array('nickname'=>$_POST['school_nickname'],'type'=>'jx'))->getField('id');
-            $_POST['school_id']=$school_id;
-            $_POST['ntime'] = time();
+            $log['done'] = "教练信息:$nickname1 => {$_POST['nickname']}";
             D('school')->jx_editor($where,$_POST);//更新数据
             $res=editorPic('School','Coach_logo',$_POST['id']);
             if($res){
-                $log['done'] = "教练信息:$nickname1 => {$_POST['nickname']}";
                 D('AdminLog')->logout($log);
-                $url = U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid']));
-                $this->success('编辑成功',$url);
+                M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('coach_num',1);
+                $this->success('编辑成功',U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
             }else{
                 $url = U('Admin/Coach/editor_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'id'=>$_POST['id'],'type'=>I('type')));
                 $this->error('编辑失败',$url);
@@ -104,7 +91,7 @@ class CoachController extends CommonController {
             $where['id']=$id;
             $where['type']= $_GET['type'];
             $data=D('school')->school_list($where);
-            $school_nickname=D('School')->school_list(array('id'=>$data['school_id'],'type'=>'jx'),'nickname');
+            $school_nickname = D('School')->school_list(array('id'=>$data['school_id'],'type'=>'jx'),'nickname');
             $this->assign('school_nickname',$school_nickname['nickname']);
             $category=M('CoachCategory')->field('id,category_name')->select();
             $this->assign('category',$category);
@@ -113,58 +100,8 @@ class CoachController extends CommonController {
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();
             $this->assign("city",$city);
             $this->assign("jl",$data);
-            $nickname=session('nickname');
-            session('nickname',null);
-            $this->assign('nickname',$nickname);
-
             $this->assign('url',U('Admin/Coach/index_list',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
-
             $this->assign("get",$_GET);
-            $this->display();
-        }
-    }
-
-    public function school(){
-        if(IS_AJAX){
-            $nickname=M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->getField('nickname');
-            session('nickname',$nickname);
-            switch($_POST['type']){
-                case 'jl':
-                    $url = U('Admin/Coach/add_jl',array('pid'=>$_POST['pid'],'p'=>$_POST['p'],'type'=>'jl'));
-                    break;
-                case 'zd':
-                    $url = U('Admin/Guider/add_zd',array('pid'=>$_POST['pid'],'p'=>$_POST['p'],'type'=>'zd'));
-            }
-            $this->success(1,$url);
-        }else{
-            $school=M('School')->field('id,nickname')->where(array('cityid'=>$_GET['cityid'],'type'=>'jx'))->select();
-            $this->assign('school',$school);
-            $this->assign('get',$_GET);
-            $this->display();
-        }
-    }
-
-    public function edit_school(){
-        if(IS_AJAX){
-            $nickname=M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->getField('nickname');
-            session('nickname',$nickname);
-            switch($_POST['type']){
-                case 'jl':
-                    $url = U('Admin/Coach/editor_jl',array('pid'=>$_POST['pid'],'p'=>$_POST['p'],'type'=>'jl','id'=>$_POST['id']));
-                    break;
-                case 'zd':
-                    $url = U('Admin/Guider/editor_zd',array('pid'=>$_POST['pid'],'p'=>$_POST['p'],'type'=>'zd','id'=>$_POST['id']));
-            }
-            $this->success(1,$url);
-        }else{
-            if($_GET['id']){
-                $data=D('School')->school_list(array('id'=>$_GET['id'],'type'=>'jl'),'school_id');
-                $this->assign('info',$data);
-                $this->assign('id',$_GET['id']);
-            }
-            $this->assign('get',$_GET);
-            $school=M('School')->field('id,nickname')->where(array('cityid'=>$_GET['cityid'],'type'=>'jx'))->select();
-            $this->assign('school',$school);
             $this->display();
         }
     }
@@ -245,5 +182,19 @@ class CoachController extends CommonController {
         }else{
             $this->redirect($url,array('pid'=>I('pid')),0,"<script>alert('删除失败')</script>");
         }
+    }
+/*-------------------------------2017-12-07shenyanyan------------------------*/
+//教练排行榜
+    public function coach_top(){
+        $where['_string']="c.id=s.cityid and s.recommand=1 and s.type='jl'";
+        $info=M('School')->table('xueches_school s,xueches_citys c')
+            ->field('s.id as school_id,s.nickname,s.connectteacher,s.score,s.address,s.picurl,s.picname,
+                s.student_num,s.class_num,s.account,s.order,s.type,c.cityname')
+            ->where($where)->order('s.order')->select();
+        $this->assign('jx_list',$info);
+        $this->assign('http',C('HTTP'));
+        $this->assign('count',count($info));
+        $this->assign('get',$_GET);
+        $this->display();
     }
 }

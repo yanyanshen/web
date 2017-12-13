@@ -2,57 +2,79 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
-    public function Index(){
-        $this->display('index');
+    public function index(){
+        if(I('city')){
+            session('city',I('city'));
+        }else{
+            $city = getCity();
+            session('city',$city);
+        }
+        $cityname = session('city');
+        $cityid = M('citys')->where(array('cityname'=>array('like',"%$cityname%")))->getField('id');
+
+        $this->schools_list($cityid);
+        $this->coach_top($cityid);
+        $this->guider_top($cityid);
+        $this->schools_hot($cityid);
+        $this->display();
     }
 
 
-    //获取首页驾校的数据
-    public function schools_list($id){
-        $where['citys_id']=$id;
-        $where['schools_search']=1;
-        $where['schools_order']=array('neq',0);
-        $where['schools_status']=1;
-        $order='schools_order';
-        $schools=D('Schools')->getSchoolList($where,$order);
+/*--------------------------2017-12-06shenyanyan---------------------------*/
+//pc端首页排行榜--驾校
+    public function schools_list($cityid){
+        $where['s.cityid'] = $cityid;
+        $where['s.recommand'] = 1;
+        $where['s.type'] = 'jx';
+        $where['s.show_forbid'] = 1;
+        $order='s.order desc';
+        $schools=D('School')->schools_list($where,$order);
         $empty='<h1 style="text-align: center;padding-top: 50px">暂时没有数据<h1>';
         $this->assign('schools',$schools);
         $this->assign('empty',$empty);
     }
-    //获取首页热门驾校数据
-    public function schools_hot($id){
-        $where['citys_id']=$id;
-        $where['schools_hot']=1;
-        $where['schools_status']=1;
-        $where['schools_order']=array('neq',0);
-        $order='schools_order';
-        $type_name='C1';
-        $hots=D('Schools')->getHotList($where,$order,$type_name);
+//pc端首页排行榜--教练
+    public function coach_top($cityid){
+        $where['s.cityid'] = $cityid;
+        $where['s.recommand'] = 1;
+        $where['s.type'] = 'jl';
+        $where['s.show_forbid'] = 1;
+        $order='s.order desc';
+        $coachs=D('School')->schools_list($where,$order);
+        $empty='<h1 style="text-align: center;padding-top: 50px">暂时没有数据<h1>';
+        $this->assign('coachs',$coachs);
+        $this->assign('empty',$empty);
+    }
+//pc端首页排行榜--指导员
+    public function guider_top($cityid){
+        $where['s.cityid'] = $cityid;
+        $where['s.recommand'] = 1;
+        $where['s.type'] = 'zd';
+        $where['s.show_forbid'] = 1;
+        $order='s.order desc';
+        $coachs=D('School')->schools_list($where,$order);
+        $empty='<h1 style="text-align: center;padding-top: 50px">暂时没有数据<h1>';
+        $this->assign('guiders',$coachs);
+        $this->assign('empty',$empty);
+    }
+//获取首页热门驾校数据
+    public function schools_hot($cityid){
+        $where['s.cityid']=$cityid;
+        $where['s.cityid']=$cityid;
+        $where['s.hot']=1;
+        $where['s.type']='jx';
+        $where['s.show_forbid'] = 1;
+        $order='s.order desc';
+        $field = 's.nickname,s.id,s.student_num,s.minprice,s.jtype,s.highprice,s.picurl,s.picname';
+        $hots=D('School')->getHotList($where,$order,$field,0,5);
+        $hotsRight=D('School')->getHotList($where,$order,$field,5,4);
+        $hotsRight1=D('School')->getHotList($where,$order,$field,9,4);
         $this->assign('hots',$hots);
-        $this->assign('hotsRight',$hots);
-        $this->assign('hotsRight1',$hots);
+        $this->assign('hotsRight',$hotsRight);
+        $this->assign('hotsRight1',$hotsRight1);
     }
 
-    //获取首页教练的数�?
-    public function coachs_list($id){
-        $where['citys_id']=$id;
-        $where['coachs_search']=1;
-        $where['coachs_status']=1;
-        $where['coachs_order']=array('neq',0);
-        $order='coachs_order';
-        $coachs=D('Coachs')->getCoachList($where,$order);
-        $this->assign('coachs',$coachs);
-    }
-    //获取首页指导员的数据
-    public function offers_list($id){
-        $where['citys_id']=$id;
-        $where['offers_search']=1;
-        $where['offers_status']=1;
-        $where['offers_order']=array('neq',0);
-        $order='offers_order';
-        $offers=D('Offers')->getOfferList($where,$order);
-        $this->assign('offers',$offers);
-    }
+
 
     //....测试....
     /**

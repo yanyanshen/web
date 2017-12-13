@@ -62,7 +62,7 @@
             课程添加
             <span style="margin-right: 8px;font-weight: bold">
                 <a style="text-decoration: none;color:#FA7124"
-                   href="{:U('train_class',array('id'=>$get['id'],'type'=>$get['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
+                   href="{:U('train_class',array('id'=>$get['id'],'type'=>$get['type'],'pid'=>$get['pid'],'p'=>$get['p'],'pp'=>$get['pp']))}">【返回】</a>
             </span>
         </div>
         <form action="#" method="post" id="form1">
@@ -72,6 +72,7 @@
                 <input type="hidden" name='type_id' value="{$get['id']}"/>
                  <input type="hidden" name='type' value="{$get['type']}"/>
                  <input type="hidden" name='pid' value="{$get['pid']}"/>
+                 <input type="hidden" name='pp' value="{$get['pp']}"/>
                     <input type="hidden" name='p' value="{$get['p']}"/>
                     <td colspan='2' style="color: #323232">
                         <if condition="$get['type'] eq 'jx'">驾校：</if>

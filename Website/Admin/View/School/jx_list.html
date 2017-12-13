@@ -31,7 +31,7 @@
         </span>
     </div>
     <div style="margin-left: 6px">
-        <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0;" type="button" value='全选' />
+        <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #323232;width: 60px;padding: 2px 0;" type="button" value='全选' />
         <input type="button" value='删除' onclick="batch_operate_del('jx')" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0"/>
         <script>
             $("document").ready(function(){
@@ -93,7 +93,7 @@
                 <th width="2%">推荐驾校</th>
                 <th width="2%">计时培训</th>
                 <th width="2%">最后操作人</th>
-                <th width="10%">操作</th>
+                <th width="6%">操作</th>
             </tr>
             <form action="" id="form2">
             <volist name='jx_list'  id='v' key="k" empty="$empty">
@@ -118,7 +118,7 @@
                     <td>{$v.minprice}</td>
                     <td><a  class="tablelink"  href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     <td>
-                        <a  class="tablelink"  href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'p'=>$get['p']))}">{$v.class_num}</a>
+                        <a  class="tablelink"  href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'pp'=>$get['p']))}">{$v.class_num}</a>
                     </td>
                     <td>{$v.student_num}</td>
                     <td>{$v.coach_num}</td>

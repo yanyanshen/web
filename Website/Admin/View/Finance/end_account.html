@@ -16,12 +16,14 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <div>
                     <span>
                         订单编号：<input type="text" name='ordcode' style="width: 100px"  value="{$get['ordcode']?$get['ordcode']:''}" />
                     </span>
-                    <span  style="padding-left:5px">
-                        订单类型：<select name="order_type" style="width: 75px;font-size: 11px;height: 20px;">
+                    <span style="padding-left:5px">
+                        订单类型：<select name="order_type" style="width: 76px;font-size: 11px;height: 20px;">
                         <option value="0" >全部</option>
                         <option value="1" {$get['order_type']==1?selected:''}>学车需求</option>
                         <option value="2" {$get['order_type']==2?selected:''}>在线订单</option>
@@ -86,17 +88,26 @@
                         至
                         <input type="text" style="width: 120px" value="{$get['end_time2']?$get['end_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="end_time2"/>
                     </span>
-                    <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Finance/end_account",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
+                    <input value="查询" type="submit" id='btn'/>
                     <input value="清空" type="reset" />
-                    <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('flag'=>3))}')"/>
+                    <input value="导出" type="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('order_status'=>4))}')"/>
                 </div>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+            <script type="text/javascript" language="javascript">
+                function submitYouFrom(path){
+                    layer.msg('确定导出吗?',{
+                        time:0,
+                        btn:['确定','取消'],
+                        yes:function(){
+                            $('#form1').attr('action',path);
+                            $('#form1').submit();
+                            setTimeout(function(){
+                                location.href = '';
+                            },1000)
+                        }
+                    });
+                }
+            </script>
         </span>
     </div>
     <div style="margin-left: 6px">

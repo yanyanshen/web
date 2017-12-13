@@ -29,12 +29,14 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
                 <div>
                     <span>
                         驾校简称：<input type="text" name='s_nickname' style="width: 100px"  value="{$get['s_nickname']?$get['s_nickname']:''}" />
                     </span>
                     <span style="padding-left:5px">
-                        所在城市：<select name="cityname" style="width: 60px;height: 20px;font-size: 12px">
+                        所在城市：<select name="cityname" style="width: 55px;height: 20px;font-size: 11px">
                             <option value="">全部</option>
                             <volist name="citys" id="v">
                                 <option value="{$v.id}" {$get['cityname']==$v['id']?selected:''}>{$v.cityname}</option>
@@ -42,7 +44,7 @@
                         </select>
                     </span>
                     <span style="padding-left:5px">
-                        订单状态：<select name="orderStatus" style="width: 81px;height: 20px;font-size: 12px">
+                        订单状态：<select name="orderStatus" style="width: 70px;height: 20px;font-size: 11px">
                             <option value="0" >全部</option>
                             <option value="1" {$get['orderStatus']==1?selected:''}>待处理</option>
                             <option value="2" {$get['orderStatus']==2?selected:''}>待回访</option>
@@ -53,7 +55,7 @@
                     </span>
                     <span style="padding-left:5px">手机号：<input type="text" name='tel' style="width:80px"  value="{$get['tel']?$get['tel']:''}"/></span>
                     <span style="padding-left:5px">
-                       支付方式：<select name="pay_type" style="width: 65px;height: 20px;font-size: 12px">
+                       支付方式：<select name="pay_type" style="width: 60px;height: 20px;font-size: 11px">
                             <option value="0" >全部</option>
                             <option value="1" {$get['pay_type']==1?selected:''}>支付宝</option>
                             <option value="2" {$get['pay_type']==2?selected:''}>微信</option>
@@ -75,7 +77,7 @@
                 <div>
                     <span>学车基地：<input type="text" name='trainaddress' style="width: 100px"  value="{$get['trainaddress']?$get['trainaddress']:''}"/></span>
                     <span style="padding-left: 5px">
-                        驾照类型：<select name="class_name" style="width: 60px;height: 20px;font-size: 12px;">
+                        驾照类型：<select name="class_name" style="width: 55px;height: 20px;font-size: 11px;">
                             <option value="0" >全部</option>
                             <option value="C1" {$get['class_name']=="C1"?selected:''}>C1</option>
                             <option value="C2" {$get['class_name']=="C2"?selected:''}>C2</option>
@@ -91,7 +93,7 @@
                         </select>
                     </span>
                     <span style="padding-left: 5px">
-                        订单类型：<select name="order_type" style="width: 80px;height: 20px;font-size: 12px;">
+                        订单类型：<select name="order_type" style="width: 70px;height: 20px;font-size: 11px;">
                          <option value="0" >全部</option>
                          <option value="1" {$get['order_type']==1?selected:''}>学车需求</option>
                          <option value="2" {$get['order_type']==2?selected:''}>在线订单</option>
@@ -111,17 +113,26 @@
                         <input type="text" style="width: 120px" value="{$get['return_time2']?$get['return_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="return_time2"/>
                     </span>
                      <span style="padding-left: 5px">
-                        <input style="font-size: 11px" value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Order/pay_list",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
-                        <input style="font-size: 11px" value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('flag'=>1))}')"/>
+                        <input style="font-size: 11px" value="查询" type="submit" id='btn'/>
+                        <input style="font-size: 11px" value="导出" type="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('status'=>2,'order_status'=>1))}')"/>
                     </span>
                 </div>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+           <script type="text/javascript" language="javascript">
+               function submitYouFrom(path){
+                   layer.msg('确定导出吗?',{
+                       time:0,
+                       btn:['确定','取消'],
+                       yes:function(){
+                           $('#form1').attr('action',path);
+                           $('#form1').submit();
+                           setTimeout(function(){
+                               location.href = '';
+                           },1000)
+                       }
+                   });
+               }
+           </script>
         </span>
     </div>
     <div style="margin: 10px 5px;">
@@ -140,7 +151,7 @@
                 <th width="3%">支付方式</th>
                 <th width="3%">支付状态</th>
                 <th width="6%">支付时间</th>
-                <th width="5%">跟单客服</th>
+                <th width="3%">跟单客服</th>
                 <th width="5%">最新备注</th>
                 <th width="6%">回访日期</th>
                 <th width="3%">最后更新人</th>

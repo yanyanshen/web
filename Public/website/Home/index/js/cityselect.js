@@ -335,7 +335,7 @@ createHotCity:function(){
                     var city=oCity[key][sortKey[j]][i];
                     // 此处需设置中文输入法也可用onpropertychange
                     var k1=this.ConvertPinyin(oCity[key][sortKey[j]][i]);
-                    str='<a id="a" href="http://www.xctest.com/index.php/Home/Index/index?city='+k1+'">'+oCity[key][sortKey[j]][i]+'</a>';
+                    str='<a id="a" href="http://www.517xc.cn/index.php/Index/index?city='+oCity[key][sortKey[j]][i]+'">'+oCity[key][sortKey[j]][i]+'</a>';
                     odda.push(str);
                 }
                 //window.location.href="b.html";
@@ -496,9 +496,9 @@ createHotCity:function(){
                 if (reg.test(Vcity.allCity[i])) {
                     var match = Vcity.regEx.exec(Vcity.allCity[i]);
                     if (searchResult.length !== 0) {
-                        str = '<a href="http://www.xctest.com/Home/Index/index?city='+match[2]+'">'+ '<li><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>'+'</a>'
+                        str = '<a href="http://www.517xc.cn/Index/index?city='+match[2]+'">'+ '<li><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>'+'</a>'
                     } else {
-                        str = '<a href="http://www.xctest.com/Home/Index/index?city='+match[2]+'">'+
+                        str = '<a href="http://www.517xc.cn/Index/index?city='+match[2]+'">'+
                         '<li class="on"><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>'+'</a>';
                     }
                     searchResult.push(str);

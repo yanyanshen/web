@@ -44,8 +44,8 @@
                     <td>{$k+$firstRow}</td>
                     <td>
                         <div style="display:inline-block;width: 70px; ">{$v.username}</div>
-                        <a style="color:rgb(121,199,249);text-decoration: none;" href="{:U('Admin/AdminLog/admin_log_detail')}?uid={$v['id']}&t=0&pid={$get['pid']}&p={$get['p']}">查看日志</a>
-                        <a style="color:rgb(121,199,249);text-decoration: none;" href="{:U('Admin/AdminLog/admin_log_detail')}?uid={$v['id']}&t=1&pid={$get['pid']}&p={$get['p']}">订单日志</a>
+                        <a style="color:rgb(121,199,249);text-decoration: none;" href="{:U('Admin/AdminLog/admin_log_detail')}?uid={$v['id']}&t=0&pid={$get['pid']}&pp={$get['p']}">查看日志</a>
+                        <a style="color:rgb(121,199,249);text-decoration: none;" href="{:U('Admin/AdminLog/admin_log_detail')}?uid={$v['id']}&t=1&pid={$get['pid']}&pp={$get['p']}">订单日志</a>
                     </td>
                     <if condition="$v.permissions eq 1">
                         <td>超级管理员</td>
@@ -61,9 +61,7 @@
         </volist>
         </tbody>
     </table>
-    <div id="page">
-        {$page}
-    </div>
+    <div id="page">{$page}</div>
 </div>
 </body>
 </html>

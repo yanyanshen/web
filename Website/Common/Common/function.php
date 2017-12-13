@@ -18,14 +18,7 @@ function getCity($ip = ''){
     $str = iconv("GB2312", "UTF-8", $str); //因为最新版为GBK 转为UTF8
     return trim($str);
 }
-//百度地址解析
-function addressToCoordinate($address){
-    $url='http://api.map.baidu.com/geocoder/v2/?address='.$address.'&output=json&ak=rHruEsFhSddDI9biwwFosjMKcZ35Og9o';
-    $json=file_get_contents($url);
-    $decodeJson=json_decode($json,true);
-    return $decodeJson;
-}
-/*沈艳艳*/
+/*获得ip地址 沈艳艳*/
 function getIp() {
     if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
         $ip = getenv("HTTP_CLIENT_IP");
@@ -221,14 +214,109 @@ function push($data,$name='Excel'){
     $objWriter->save('php://output');
     exit;
 }
-
+function push_data($data,$name='Excel'){
+    error_reporting(E_ALL);
+    date_default_timezone_set('Europe/London');
+    $objPHPExcel = new PHPExcel();
+    /*以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
+    $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A1', 'id')
+        ->setCellValue('B1', '管理员')
+        ->setCellValue('C1', '创建时间')
+        ->setCellValue('D1', '登录ip')
+        ->setCellValue('E1', '操作');
+    foreach($data as $k => $v){
+        $num=$k+2;
+        $objPHPExcel->setActiveSheetIndex(0)
+//Excel的第A列，uid是你查出数组的键值，下面以此类推
+            ->setCellValue('A'.$num, $v['id'])
+            ->setCellValue('B'.$num, $v['username'])
+            ->setCellValue('C'.$num, date('Y-m-d H:i:s',$v['ntime']))
+            ->setCellValue('D'.$num, $v['lastip'])
+            ->setCellValue('E'.$num, $v['done']);
+    }
+    $objPHPExcel->getActiveSheet()->setTitle('管理员操作日志');
+    $objPHPExcel->setActiveSheetIndex(0);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$name.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    exit;
+}
+function push_data1($data,$name='Excel'){
+    error_reporting(E_ALL);
+    date_default_timezone_set('Europe/London');
+    $objPHPExcel = new PHPExcel();
+    /*以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
+    $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A1', 'id')
+        ->setCellValue('B1', '订单编号')
+        ->setCellValue('C1', '管理员')
+        ->setCellValue('D1', '创建时间')
+        ->setCellValue('E1', '登录ip')
+        ->setCellValue('F1', '操作');
+    foreach($data as $k => $v){
+        $num=$k+2;
+        $objPHPExcel->setActiveSheetIndex(0)
+//Excel的第A列，uid是你查出数组的键值，下面以此类推
+            ->setCellValue('A'.$num, $v['id'])
+            ->setCellValue('B'.$num, $v['ordcode'])
+            ->setCellValue('C'.$num, $v['username'])
+            ->setCellValue('D'.$num, date('Y-m-d H:i:s',$v['ntime']))
+            ->setCellValue('E'.$num, $v['lastip'])
+            ->setCellValue('F'.$num, $v['done']);
+    }
+    $objPHPExcel->getActiveSheet()->setTitle('管理员操作日志');
+    $objPHPExcel->setActiveSheetIndex(0);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$name.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    exit;
+}
+function user_log_push($data,$name='Excel'){
+    error_reporting(E_ALL);
+    date_default_timezone_set('Europe/London');
+    $objPHPExcel = new PHPExcel();
+    /*以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
+    $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A1', 'id')
+        ->setCellValue('B1', '用户名')
+        ->setCellValue('C1', '操作')
+        ->setCellValue('D1', 'url')
+        ->setCellValue('E1', '添加时间')
+        ->setCellValue('F1', '最后登陆时间')
+        ->setCellValue('G1', '登录ip');
+    foreach($data as $k => $v){
+        $num=$k+2;
+        $objPHPExcel->setActiveSheetIndex(0)
+//Excel的第A列，uid是你查出数组的键值，下面以此类推
+            ->setCellValue('A'.$num, $v['id'])
+            ->setCellValue('B'.$num, $v['truename'])
+            ->setCellValue('C'.$num, $v['done'])
+            ->setCellValue('D'.$num, $v['url'])
+            ->setCellValue('E'.$num, $v['ntime'])
+            ->setCellValue('F'.$num, date('Y-m-d H:i:s',$v['lasttime']))
+            ->setCellValue('G'.$num, $v['lastip']);
+    }
+    $objPHPExcel->getActiveSheet()->setTitle('用户操作日志');
+    $objPHPExcel->setActiveSheetIndex(0);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$name.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    exit;
+}
 ///在线交易订单支付处理函数
 //函数功能：根据支付接口传回的数据判断该订单是否已经支付成功；
 //返回值：如果订单已经成功支付，返回true，否则返回false；
 
-function checkorderstatus($ordid){
+function checkorderstatus($where){
     $order=M('order');
-    $ordstatus=$order->where("ordcode='$ordid'")->getField('status');
+    $ordstatus=$order->where($where)->getField('status');
     if($ordstatus == 1){
         return false;
     }else{
@@ -238,21 +326,10 @@ function checkorderstatus($ordid){
 //处理订单函数
 //更新订单状态，写入订单支付后返回的数据
 function orderhandle($parameter){
-    $data['status'] = 2;
-    $data['total_fee'] = $parameter['total_fee'];
-    $data['notify_id'] = $parameter['notify_id'];
-    $data['buyer_email'] = $parameter['buyer_email'];
-    $data['trade_no'] = $parameter['trade_no'];
-    $data['notify_time'] = $parameter['notify_time'];
+    $parameter['status'] = 2;
     $item_order=M('order');
     //有的订单 是有相同的订单号  所以不能给这些订单的实际付款 是总的付款额
-    $res = $item_order ->where("ordcode='{$parameter['out_trade_no']}'")->save($data);
-    if($res){
-        $log['done'] = '订单支付';
-        $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].'Mobile/Pay/pay_money';
-        $log['uid'] = session('mid');
-        D('UserLog')->add_user_log($log);
-    }
+    $item_order ->where("ordcode='{$parameter['out_trade_no']}'")->save($parameter);
 }
 
 /*-----------------------------------

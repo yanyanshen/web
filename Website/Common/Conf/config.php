@@ -17,7 +17,10 @@ return array(
 //    'DB_DSN'                =>  'sqlserver:host=SqlServer;port=3306;dbname=xueche3;charset=utf8',
     'HTTP'                  =>  'http://'.$_SERVER['HTTP_HOST'],
 
+    'URL_MODEL'             => 2,//设置REWRITE模式
+
     'SHOW_PAGE_TRACE'       =>  false,
+
     //关闭数据字段缓存
     'DB_FIELD_CACHE' => false,
 
@@ -28,17 +31,9 @@ return array(
         'a.517xc.cn'=> 'Admin',
         /*格式2: '子域名或泛域名或IP'=> array('模块名[/控制器名]','var1=a&var2=b&var3=*');*/
     ),
-
+//设置可访问的模块和默认的模块
     'MODULE_ALLOW_LIST' => array('Admin','Home','Mobile'),
-    'DEFAULT_MODULE' => 'Mobile',
-
-    'config_qiniu'=>array(
-        'secretKey' => 'MMXpW90zVGR8jZpN98VZKl2Tgs5E7O_yNJz2oZiE',
-        'accessKey' => 'TskTfW3Reppda7c0ilwHuNwjWqMMKwXA1ful-_a_',
-        'domain' => 'opewopy53.bkt.clouddn.com',//这里是查看七牛图片时的图片链接地址的域名
-        'bucket' => 'uploads'//这里是七牛中的“空间”
-    )
-
+//    'DEFAULT_MODULE' => 'Mobile',
 );
 
 

@@ -12,8 +12,12 @@
         <style>
             span.error{  font-size: 12px;color: #FA7124;  }
             span.ok{  font-size: 12px; color: #38D63B;  }
-
             .table_a  td{text-align: left}
+            .table_a  input{font-size: 12px}
+
+            #searchresult{top:50px;left: 280px;position: absolute;z-index:5; overflow:hidden;border-top:none;}
+            .line{font-size:12px; color: #ffffff; background:rgb(19, 181, 177); width:200px; padding:2px;height: 30px}
+            .hover{ color:#323232;background-color: transparent;cursor: pointer}
        </style>
         <script>
             $(document).ready(function(e) {
@@ -33,9 +37,9 @@
         <div class="div_head">
             教练添加
             <a style="text-decoration: none;color:#FA7124" href="{:U('index_list',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
-            <a href="" style="text-decoration: none;color: #646464">【刷新】</a>
+            <a href="" style="text-decoration: none;color: #323232">【刷新】</a>
         </div>
-        <div style="font-size: 12px;margin: 10px 5px">
+        <div style="margin: 10px 5px">
             <form action="{:U('Admin/Coach/add_jl')}" method="post" id="form1" enctype="multipart/form-data">
                 <input type="hidden" name="type" id="type" value="{$get['type']}" pid="{$get['pid']}" p="{$get['p']}"/>
                 <input type="hidden" name="pid" value="{$get['pid']}"/>
@@ -44,8 +48,9 @@
                     <tr style="color: #646464">
                         <td>所属驾校：</td>
                         <td>
-                            <input type="text" name="school_nickname" value="{$school_nickname}"/>
-                            <input type="button" value="选择" id="school_id"/>
+                            <input type="hidden" name="school_id" id="sid"/>
+                            <input type="text" value=""  name="school_nickname" id="search" placeholder="请输入驾校"/>
+                            <span id="searchresult" class="td"></span>
                         </td>
                     </tr>
                     <tr style="margin-top: 10px">
@@ -71,18 +76,17 @@
                     <tr>
                         <td>教练类型：</td>
                         <td>
-                            <select name="category_id" style="width: 80px;height: 20px;font-size: 11px">
-                                <option value=1 selected>普通教练</option>
-                                <option value=2>私人教练</option>
-                                <option value=3>小老板</option>
-                                <option value=4>打工教练</option>
+                            <select name="category_id" style="height: 20px;width: 100px;font-size: 12px" >
+                                <volist name="category" id="v">
+                                    <option value='{$v.id}'  >{$v.category_name}</option>
+                                </volist>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>所在城市：</td>
                         <td>
-                            <select name="cityid" style="width:80px;height: 20px;font-size: 11px" id="cityid" onchange="change(this)">
+                            <select name="cityid" style="width:100px;height: 20px;font-size: 12px" id="cityid" onchange="change(this)">
                                 <volist name="city" id='v'>
                                     <option value="{$v.id}">{$v.cityname}</option>
                                 </volist>
@@ -92,7 +96,7 @@
                     <tr>
                         <td>所属教练：</td>
                         <td>
-                            <select name="boss_id" style="width:80px;height: 20px;font-size: 11px">
+                            <select name="boss_id" style="width:100px;height: 20px;font-size: 12px">
                                 <volist name="boss" id='v'>
                                     <option value="{$v.id}" {$v['id']==3?selected:''}>{$v.boss_name}</option>
                                 </volist>
@@ -141,7 +145,7 @@
                     </tr>
                     <tr>
                         <td>驾照类型</td>
-                        <td><input type="text"  style="font-size: 10px;width: 170px" name="jtype" placeholder="例如:C(多个用英文逗号隔开)"/></td>
+                        <td><input type="text"  style="width: 170px" name="jtype" placeholder="例如:C(多个用英文逗号隔开)"/></td>
                     </tr>
                     <tr>
                         <td>计时培训：</td>
@@ -181,7 +185,7 @@
                     </tr>
                     <tr>
                         <td>总学员数：</td>
-                        <td><input type="text" name="allcount"  value="595"/></td>
+                        <td><input type="text" name="student_num"  value="595"/></td>
                     </tr>
                     <tr>
                         <td>已通过人数：</td>
@@ -189,7 +193,7 @@
                     </tr>
                     <tr>
                         <td>地&nbsp;&nbsp;址：</td>
-                        <td><input type="text" name="address"  style="font-size: 10px;width: 300px" placeholder="例如：上海市宝山区淞发路淞南五村"/>
+                        <td><input type="text" name="address"  style="width: 300px" placeholder="例如：上海市宝山区淞发路淞南五村"/>
                         </td>
                     </tr>
                     <tr>
@@ -225,23 +229,40 @@
     </body>
 </html>
 <script>
+    $(document).ready(function(){
+        $('#search').keyup(function(){
+            var search_key = $('#search').val();
+            $.post("{:U('Admin/TrainClass/search_school')}",{search_key:search_key},function(res){
+                if(res.info) {
+                    var layer;
+                    layer = "<table>";     //创建一个table
+                    for (var i in res.info) {
+                        layer += "<tr><td class='line' onclick='line("+res.info[i]['id']+',"'+res.info[i]['nickname']+'"'+")'>" + res.info[i]['nickname'] + "</td></tr>";
+                    }
+                    layer += "</table>";
+                    $('#searchresult').empty();  //先清空#searchresult下的所有子元素
+                    $('#searchresult').append(layer);//将刚才创建的table插入到#searchresult内
+                    $('.line').hover(function(){  //监听提示框的鼠标悬停事件
+                        $(this).addClass("hover");
+                    },function(){
+                        $(this).removeClass("hover");
+                    });
+                }
+            },'json');
+        });
+    });
+    function line(id,nickname){
+        $('#search').val(nickname);
+        $("#sid").val(id);
+        $('#searchresult').empty();
+    }
+</script>
+<script>
     var change=function(sel){
         var city=sel.value;
         $("#cityid").val(city);
     };
 
-    $(function(){
-        $('#school_id').click(function(){
-                layer.open({
-                    type:2,
-                    shade:true,
-                    title:"请勾选驾校",//false为不显示标题
-                    area:["600px",'600px'],
-                    content:"{:U('Admin/Coach/school')}?cityid="+$("#cityid").val()
-                    +"&pid="+$('#type').attr('pid')+"&p="+$('#type').attr('p')+"&type=jl"
-                });
-        });
-    });
     $(function(){
         var validate=$('#form1').validate({
             rules:{

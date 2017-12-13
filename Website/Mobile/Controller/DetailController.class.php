@@ -6,16 +6,22 @@ class DetailController extends Controller{
     public function index(){
         $this->assign('mobile_return',session('mobile_return'));
         $info=M('school')->where(array('id'=>I('id')))
-            ->field('id,nickname,minprice,fullname,introduction,picurl,picname,evalutioncount,phone,allcount,timing,
+            ->field('id,nickname,minprice,fullname,introduction,picurl,picname,evalutioncount,phone,student_num,timing,
             address,type,age,teachage,driverage,school_id')->find();
        if(I('type') !='jx'){
            $info['school_id']=M('school')->where(array('id'=>$info['school_id']))->getField('nickname');
        }
-        if(strlen($info['allcount'])>=5){
-            $info['allcount']=sprintf("%.1f",$info['allcount']/10000).'万';
+        if(strlen($info['student_num'])>=5){
+            $info['student_num']=sprintf("%.1f",$info['student_num']/10000).'万';
         }
         $this->assign('info',$info);//驾校
-
+//报名消息
+        $order = M('Order')->field('name,s_nickname,create_time')->where(array('school_id'=>I('id')))->select();
+        foreach($order as $k=>$v){
+            $order[$k]['day'] = intval((time()-strtotime($v['create_time']))/3600/24);
+        }
+        $this->assign('order',$order);
+//驾校课程
         $class=M('trainclass')->where(array('type_id'=>I('id')))->select();
         $this->assign('class',$class);//驾校课程
 

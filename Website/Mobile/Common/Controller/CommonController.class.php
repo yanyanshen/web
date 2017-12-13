@@ -6,6 +6,11 @@ class CommonController extends Controller{
         parent::__construct();
         if(!session('mid')){
             $this->redirect('Mobile/Login/login');
+        }else{
+            $verify = M('User')->where(array('id'=>session('mid')))->getField('verify');
+            if($verify){
+                $this->redirect('Mobile/Login/login');
+            }
         }
     }
 }

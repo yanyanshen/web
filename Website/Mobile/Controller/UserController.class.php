@@ -9,7 +9,6 @@ class UserController extends Controller{
 
     //用户中心模板渲染
     public function user_center(){
-        $html = D('Pay')->trade_query();
         $user=M('user')->where(array('id'=>session('mid')))->find();
         $this->assign('user',$user);
         $this->display();
@@ -99,42 +98,63 @@ class UserController extends Controller{
         $this->display();
     }
 
-    public function request_by_curl($remote_server, $post_string) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $remote_server);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'mypost=' . $post_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, "jb51.net's CURL Example beta");
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        return $data;
-    }
-
-    /*用户中心订单模板渲染  数据展示*/
     public function order_center(){
-        $status = $_POST['status']?$_POST['status']:0;
         if(IS_AJAX){
-            if($status == 0){
-                $order_info = session('order_info');
+           $order_info = D('Order')->order_center(session('status'),$_POST);
+            $count = count($order_info);
+            if($count < 0){
+                $evaluate[][0] = 0;//到尾页返回0
             }else{
-                $order_info = D('Order')->order_center($status);
+                echo json_encode($order_info);
             }
-            if(!empty($order_info)){
-                $order_info = json_encode($order_info);
-            }else{
-                $order_info = 0;
-            }
-            echo $order_info;
-            exit;
         }else{
-            $order_info = D('Order')->order_center($status);
-            $this->assign('order_info',$order_info);
-            session('order_info',$order_info);
+            if(!session('mid')){
+                $this->redirect('Login/login');
+            }else{
+                $verify = M('User')->where(array('id'=>session('mid')))->getField('verify');
+                if($verify){
+                    $this->redirect('Mobile/Login/login');
+                }else{
+                    session('status',I('status'));
+                    if(I('total') == 'total'){
+                        session('total','total');
+                        session('pay',null);
+                        session('already',null);
+                        session('evaluate',null);
+                        session('end',null);
+                    }elseif(I('pay') == 'pay'){
+                        session('pay','pay');
+                        session('total',null);
+                        session('already',null);
+                        session('evaluate',null);
+                        session('end',null);
+                    }elseif(I('already') == 'already'){
+                        session('already','already');
+                        session('total',null);
+                        session('pay',null);
+                        session('evaluate',null);
+                        session('end',null);
+                    }elseif(I('evaluate') == 'evaluate'){
+                        session('evaluate','evaluate');
+                        session('total',null);
+                        session('pay',null);
+                        session('already',null);
+                        session('end',null);
+                    }elseif(I('end') == 'end'){
+                        session('end','end');
+                        session('total',null);
+                        session('pay',null);
+                        session('already',null);
+                        session('evaluate',null);
+                    }
+                    $order_info = D('Order')->order_center(I('status'));
+                    $this->assign('order_info',$order_info);
+                    $this->assign('http',C('HTTP'));
+                    $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
+                    $this->display();
+                }
+            }
         }
-        $this->assign('http',C('HTTP'));
-        $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");
-        $this->display();
     }
     /*用户中心订单详情模板渲染  数据展示*/
     public function order_center_details(){
@@ -148,7 +168,7 @@ class UserController extends Controller{
     public function login_out(){
         if(IS_AJAX){
             $log['done'] = '退出网站';
-            $log['uid'] = session('mid');
+             $log['uid'] = session('mid');
             $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URL'];
             D('UserLog')->add_user_log($log);
             session('mid',null);
@@ -159,6 +179,9 @@ class UserController extends Controller{
     }
 /*预约报名记录 模板渲染*/
     public function order_apply(){
+        if(!session('mid')){
+            $this->redirect('Login/login');
+        }
         $apply_info = M('apply')->where(array('mid'=>session('mid')))->select();
         $this->assign('apply_info',$apply_info);
         $this->assign('empty',"<h1 style='font-size: 20px;text-align: center;height: 30px;padding-top: 12px'>没有查到数据</h1>");

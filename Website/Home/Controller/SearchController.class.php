@@ -6,7 +6,7 @@ class SearchController extends Controller
     public function index()
     {
         $this->assign('k', I('k'));
-        print_r(I('k'));
+//        print_r(I('k'));
         dump(I('lng'));
         dump(I('lat'));
         $this->assign('lng', I('lng'));
@@ -14,10 +14,4 @@ class SearchController extends Controller
         $this->assign('condition', I('condition'));
         $this->display();
     }
-
-
-
-
-
-
 }

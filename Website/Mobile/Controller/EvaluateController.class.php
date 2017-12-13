@@ -64,7 +64,7 @@ class EvaluateController extends CommonController{
                         M('Order')->where(array('id'=>$_POST['oid']))->save(array('status'=>6));
                         $log['done'] = '追加评价';
                         $log['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-                        $log['uid'] = session('mid');
+                         $log['uid'] = session('mid');
                         D('UserLog')->add_user_log($log);
                         $this->success('评价成功',U('Mobile/User/order_center'));
                     }else{

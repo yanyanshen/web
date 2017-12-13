@@ -14,7 +14,7 @@ class OrderController extends Controller{
         $this->assign('class_id',I('sub_button'));
         $this->display();
     }
-    public function pay(){
+    public function add_order1(){
         if(I('ordcode')){
             $order = M('Order');
             $ordcode = I('ordcode');
@@ -23,32 +23,24 @@ class OrderController extends Controller{
             $this->assign('ordcode',$ordcode);
             $this->assign('nickname',$info['s_nickname']);
             $this->assign('price',$info['price']);
+            $this->assign('url',$url);
+//            $this->assign('mid',session('mid'));
+            $this->display('add_order');
         }else{
-            $ordcode = D('order')->pay();
-            $this->assign('ordcode',$ordcode['ordcode']);
-            $this->assign('price',$ordcode['price']);
-            $url = U('Mobile/Detail/index',array('id'=>I('id')));
-            $this->assign('nickname',$ordcode['s_nickname']);
+            $order_id = D('order')->add_order();
+            $this->redirect('add_order',array('schoolid'=>I('id'),'order_id'=>$order_id,'mid'=>session('mid')));
         }
-        $this->assign('url',$url);
-        $this->display();
     }
-/*  支付类型判断  */
-    public function pay_money(){
-        switch($_POST['pay_way']){
-            case 'alipay':
-                $act = D('Pay');
-                $data['pay_type'] = 1;
-                M('order')->where(array('ordcode'=>$_POST['ordcode']))->save($data);
-                $act->pay_money($_POST);
-                break;
-            case 'weixin'://微信支付
-                $act = A('Wxpay');
-//                $_POST['price'] = $_POST['price']*100;
-                $_POST['price'] = 0.01*100;
-                $act->index($_POST);
-                break;
-        }
+
+    public function add_order(){
+        $ordcode = M('Order')->field('s_nickname,ordcode,price')->where(array('id'=>I('order_id')))->find();
+        $this->assign('ordcode',$ordcode['ordcode']);
+        $this->assign('price',$ordcode['price']);
+        $url = U('Mobile/Detail/index',array('id'=>I('schoolid')));
+        $this->assign('url',$url);
+        $this->assign('nickname',$ordcode['s_nickname']);
+        $this->assign('price',$ordcode['price']);
+        $this->display();
     }
 /*预约报名*/
     public function apply(){
@@ -74,7 +66,11 @@ class OrderController extends Controller{
             if(!session('mid')){
                 $this->redirect('Mobile/Login/login');
             }else{
-                $this->display();
+                if(M('User')->where(array('id'=>session('mid')))->getField('verify')){
+                    $this->redirect('Mobile/Login/login');
+                }else{
+                    $this->display();
+                }
             }
         }
     }
@@ -87,7 +83,7 @@ class OrderController extends Controller{
             if(I('status') == 1){//立即付款
                 $ordcode = $order->where(array('id'=>I('oid')))->getField('ordcode');
                 $res = 1;
-                $url = U('Mobile/Order/pay?ordcode='.$ordcode);
+                $url = U('Mobile/Order/add_order1?ordcode='.$ordcode);
             }elseif(I('status') == 3){//立即评价
                 $res = 1;
                 $url = U('Mobile/Evaluate/evaluate?oid='.I('oid'));

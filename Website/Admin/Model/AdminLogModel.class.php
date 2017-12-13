@@ -54,9 +54,64 @@ class AdminLogModel extends Model{
             ->join('xueches_admin a ON a.id=ol.uid')
             ->field('a.username,ol.ntime,ol.done,ol.lastip')
             ->where(array('ol.oid'=>$oid))
-            ->order('ol.ntime')
-            ->select();
+            ->order('ol.ntime')->select();
         return $order_log;
     }
+/*--------------------------2017-12-08shenyanyan------------------------*/
+//导出管理员、订单日志
+    public function push($get,$t = ''){
+        if($t){
+            $admins = M('OrderLog');
+            $table = 'xueches_admin a,xueches_order_log al,xueches_order o';
+            $where = ' al.uid=a.id and al.oid=o.id ';
+            $field = 'a.username,al.done,al.ntime,al.lastip,al.id,o.ordcode';
+        }else{
+            $admins = M('AdminLog');
+            $table = 'xueches_admin a,xueches_admin_log al';
+            $where = ' al.uid=a.id ';
+            $field = 'a.username,al.done,al.ntime,al.lastip,al.uid,al.id';
+        }
+        $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
+        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
+            $get['uid'] = session('admin_id');
+        }else{
+            $get['uid'] = I('uid');
+        }
+        if(!empty($get)){
+            if($get['stop_time']){
+                $where .=" and al.ntime < '{$get['stop_time']}' and al.uid = {$get['uid']}";
+            }else{
+                foreach($get as $key=>$val) {
+                    if($key == 'ntime' && $val != ''){
+                        $val = strtotime(trim($val));
+                        $where.="and al.ntime  >= $val ";
+                    }elseif($key == 'ntime1' && $val != ''){
+                        $val = strtotime(trim($val));
+                        $where.="and al.ntime  <= $val ";
+                    } elseif($key == 'uid' && $val != ''){
+                        $where.="and al.uid = $val ";
+                    } elseif($key == 'start_time' && $val != ''){
+                        $where.="and al.ntime >= $val ";
+                    }
+                }
+            }
+        }
+        $list = $admins->table($table)->where($where)->field($field)->select();
+        $name = 'Excelfile';    //生成的Excel文件文件名
+        if($get['stop_time']){
+            if($t){
+                M('OrderLog')->where(array('ntime'=>array('lt',$get['stop_time'])))->delete();
+            }else{
+                M('AdminLog')->where(array('ntime'=>array('lt',$get['stop_time'])))->delete();
+            }
+        }
+        if($t){
+            $res = push_data1($list,$name);
+        }else{
+            $res = push_data($list,$name);
+        }
+        return $res;
+    }
+
 }
 

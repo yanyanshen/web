@@ -51,7 +51,7 @@
                     <div class="rl-school" style="z-index: 1000">
                         <div class="rr_box" style="margin-left: 11%;">
                             <div class="rr" >
-                                <if condition="$Think.session.r eq 'recommand'">
+                                <if condition="$Think.session.r eq 1">
                                     <a style="padding: 0 6px 0 6px;" class="color" href="{:U('Mobile/List/pull',array('r'=>1))}">
                                         推荐
                                         <div class="rr_img" style="float: right">
@@ -65,19 +65,18 @@
                                         </div>
                                     </a>
                                 </if>
-
                             </div>
                         </div>
                         <div class="dr_box">
                             <div class="dr">
-                                <if condition="$Think.session.all eq 'allcount'">
+                                <if condition="$Think.session.all eq 1">
                                     <a class="color" style="padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('all'=>1))}">人气
                                         <div class="rr_img" style="float: right">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
                                     </a>
                                     <else/>
-                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('all'=>1))}">人气
+                                    <a style="color: #323232;padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('all'=>1))}">人气
                                         <div class="rr_img" style="float: right">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
@@ -88,7 +87,7 @@
                         </div>
                         <div class="mr_box" >
                             <div class="mr">
-                                <if condition="$Think.session.p eq 'minprice'">
+                                <if condition="$Think.session.p eq 1">
                                     <a class="color" style="padding: 0 6px 0 6px;"  href="{:U('Mobile/List/pull',array('p'=>1))}">
                                         价格
                                         <div style="float: right" class="rr_img">
@@ -107,7 +106,7 @@
                         </div>
                         <div class="er_box">
                             <div class="er">
-                                <if condition="$Think.session.e eq 'evalutioncount'">
+                                <if condition="$Think.session.e eq 1">
                                     <a class="color" style="padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('e'=>1))}">评价
                                         <div style="float: right" class="rr_img">
                                             <img src="__STATIC__/list/images/jt01.png">
@@ -177,7 +176,7 @@
                                     <div class="clearfix"></div>
                                     <ul id="rm">
                                         <li style="font-size: 12px" class="money">￥{$v.minprice}</li>
-                                        <li class="num" style="font-size: 10px">{$v.allcount}人已报名</li>
+                                        <li class="num" style="font-size: 10px">{$v.student_num}人已报名</li>
                                     </ul>
 			                        </a>
                                 <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}#detail" style="color: white;font-size: 11px">
@@ -348,7 +347,7 @@
                                     str += '<div class="clearfix"></div>';
                                     str += '<ul id="rm">';
                                     str += '<li class="money">￥'+array['minprice']+'</li>';
-                                    str += '<li class="num" style="font-size: 10px">'+array['allcount']+'人已报名</li>';
+                                    str += '<li class="num" style="font-size: 10px">'+array['student_num']+'人已报名</li>';
                                     str += '</ul>';
 				                    str += '</a>';
                                     str += '<a style="color:white;font-size:11px" href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'#detail">';

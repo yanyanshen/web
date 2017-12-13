@@ -16,6 +16,8 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" value="{$get['p']}" name="p"/>
+                <input type="hidden" value="{$get['pid']}" name="pid"/>
                 <div>
                     <span>
                         订单编号：<input type="text" name='ordcode' style="width: 100px"  value="{$get['ordcode']?$get['ordcode']:''}" />
@@ -77,17 +79,26 @@
                         <input type="text" style="width: 120px" value="{$get['notify_time2']?$get['notify_time2']:''}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" name="notify_time2"/>
                     </span>
                     <span style="padding-left:5px">
-                        <input value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Finance/wait_account",array('pid'=>$get['pid'],'p'=>$get['p']))}')"/>
-                        <input value="导出" type="button" id="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('flag'=>2))}')"/>
+                        <input value="查询" style="font-size: 11px" type="submit" id='btn' />
+                        <input value="导出" style="font-size: 11px" type="button" onclick="submitYouFrom('{:U("Admin/Order/push",array('order_status'=>3))}')"/>
                     </span>
                 </div>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                    }
-                </script>
             </form>
+            <script type="text/javascript" language="javascript">
+                function submitYouFrom(path){
+                    layer.msg('确定导出吗?',{
+                        time:0,
+                        btn:['确定','取消'],
+                        yes:function(){
+                            $('#form1').attr('action',path);
+                            $('#form1').submit();
+                            setTimeout(function(){
+                                location.href = '';
+                            },1000)
+                        }
+                    });
+                }
+            </script>
         </span>
     </div>
         <div style="margin-left: 6px">

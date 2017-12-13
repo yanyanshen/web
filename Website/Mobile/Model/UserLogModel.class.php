@@ -9,7 +9,7 @@ class UserLogModel extends Model{
  */
     public function add_user_log($log){
         $log['lastip'] = I("server.REMOTE_ADDR");
-        $log['ntime'] = date('Y-m-d');
+        $log['ntime'] = date('Y-m-d H:i:s',time());
         $res = $this->add($log);
         if ($res) {
             return $res;

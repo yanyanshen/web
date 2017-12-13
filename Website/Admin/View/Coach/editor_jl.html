@@ -10,6 +10,11 @@
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
         .table_a  td{text-align: left;}
+        .table_a input{font-size: 12px}
+
+        #searchresult{top:50px;left: 280px;position: absolute;z-index:5; overflow:hidden;border-top:none;}
+        .line{font-size:12px; color: #ffffff; background:rgb(19, 181, 177); width:200px; padding:2px;height: 30px}
+        .hover{ color:#323232;background-color: transparent;cursor: pointer}
     </style>
     <script>
         $(document).ready(function(e) {
@@ -49,6 +54,7 @@
     教练编辑
     <span>
         <a style="text-decoration: none;color: #fa7142" href="{$url}">【返回】</a>
+        <a style="text-decoration: none;color: #fa7142" href="">【刷新】</a>
     </span>
 </div>
 <div style="font-size: 11px;margin: 10px 5px">
@@ -58,11 +64,12 @@
         <input type="hidden" name="type" value="{$get['type']}"/>
         <input type="hidden" name="p" value="{$get['p']}"/>
         <table width="100%" class="table_a">
-            <tr style="color: #646464">
+            <tr style="color: #323232;">
                 <td>所属驾校：</td>
                 <td>
-                    <input type="text" name="school_nickname" value="{$nickname?$nickname:$school_nickname}"/>
-                    <input type="button" value="选择" id="school_id"/>
+                    <input type="hidden" name="school_id" value="{$jl.school_id}" id="sid"/>
+                    <input type="text" value="{$school_nickname?$school_nickname:''}"  name="school_nickname" id="search" placeholder="请输入驾校"/>
+                    <span id="searchresult" class="td"></span>
                 </td>
             </tr>
             <tr>
@@ -88,7 +95,7 @@
             <tr>
                 <td>教练类型：</td>
                 <td>
-                    <select name="category_id" >
+                    <select name="category_id" style="font-size: 12px;width: 80px;height: 20px">
                         <volist name="category" id="v">
                             <option value='{$v.id}' {$jl['id']==$v['id']?selected:''} >{$v.category_name}</option>
                         </volist>
@@ -98,7 +105,7 @@
             <tr>
                 <td>所在城市：</td>
                 <td>
-                    <select name="cityid" style="width:80px;" id="cityid" onchange="change(this)">
+                    <select name="cityid" style="width:80px;font-size: 12px;height: 20px" id="cityid" onchange="change(this)">
                         <volist name="city" id='v'>
                             <option value="{$v.id}" {$v['id']==$jl['cityid']?selected:''}>{$v.cityname}</option>
                         </volist>
@@ -108,7 +115,7 @@
             <tr>
                 <td>所属教练：</td>
                 <td>
-                    <select name="boss_id" style="width:80px;">
+                    <select name="boss_id" style="width:80px;font-size: 12px;height: 20px">
                         <volist name="boss" id='v'>
                             <option value="{$v.id}" {$v['id']==$jl['boss_id']?selected:''}>{$v.boss_name}</option>
                         </volist>
@@ -161,7 +168,7 @@
             </tr>
             <tr>
                 <td>总学员数：</td>
-                <td><input type="text" name="allcount"  value="{$jl.allcount}" /></td>
+                <td><input type="text" name="student_num"  value="{$jl.student_num}" /></td>
             </tr>
             <tr>
                 <td>已通过人数：</td>
@@ -181,12 +188,12 @@
             <tr>
                 <td>教练头像</td>
                 <td>
-                    <div class="usercity" style="border:3px dashed #e6e6e6;width:210px;height:200px;position: relative;margin-bottom: 15px">
+                    <div class="usercity" style="border:3px dashed #e6e6e6;width:200px;height:200px;position: relative;margin-bottom: 15px">
                         <p id="preview1" >
                             <if condition="$jl['picname'] neq ''">
-                                <img id="imghead1"  border=0 src="{$http}/Uploads/Coach_logo/{$jl['picurl']}{$jl['picname']}" width="200" height="120">
+                                <img id="imghead1"  border=0 src="{$http}/Uploads/Coach_logo/{$jl['picurl']}{$jl['picname']}" width="150" height="120">
                                 <else/>
-                                <img id="imghead1"  border=0 src="{$http}/Uploads/default_logo/517.png" width="200" height="120">
+                                <img id="imghead1"  border=0 src="{$http}/Uploads/default_logo/517.png" width="150" height="120">
                             </if>
                         </p>
                         <span></span>
@@ -212,25 +219,39 @@
 </body>
 </html>
 <script>
+    $(document).ready(function(){
+        $('#search').keyup(function(){
+            var search_key = $('#search').val();
+            $.post("{:U('Admin/TrainClass/search_school')}",{search_key:search_key},function(res){
+                if(res.info) {
+                    var layer;
+                    layer = "<table>";     //创建一个table
+                    for (var i in res.info) {
+                        layer += "<tr><td class='line' onclick='line("+res.info[i]['id']+',"'+res.info[i]['nickname']+'"'+")'>" + res.info[i]['nickname'] + "</td></tr>";
+                    }
+                    layer += "</table>";
+                    $('#searchresult').empty();  //先清空#searchresult下的所有子元素
+                    $('#searchresult').append(layer);//将刚才创建的table插入到#searchresult内
+                    $('.line').hover(function(){  //监听提示框的鼠标悬停事件
+                        $(this).addClass("hover");
+                    },function(){
+                        $(this).removeClass("hover");
+                    });
+                }
+            },'json');
+        });
+    });
+    function line(id,nickname){
+        $('#search').val(nickname);
+        $("#sid").val(id);
+        $('#searchresult').empty();
+    }
+</script>
+<script>
     var change=function(sel){
         var city=sel.value;
         $("#cityid").val(city);
     };
-
-    $(function(){
-        $('#school_id').click(function(){
-            layer.open({
-                type:2,
-                shade:true,
-                title:"请勾选驾校",//false为不显示标题
-                area:["600px",'600px'],
-                content:"{:U('Admin/Coach/edit_school')}?cityid="+$("#cityid").val()
-                +"&id="+$('#jl_id').attr('jl_id')+"&pid="+$('#jl_id').attr('pid')+"&p="+$('#jl_id').attr('p')
-                +"&type=jl"
-            });
-        });
-    });
-
 
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 200;

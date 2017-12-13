@@ -91,7 +91,7 @@ class IndexController extends Controller
         $where['_string']="c.id=s.cityid and s.show_forbid=1 and s.hot=1 and type ='jx' ";
         $where['c.cityname']=array('like',"%$city_name%");
         $info=M('School')->table('xueches_school s,xueches_citys c')
-            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.type,s.hot,c.cityname,s.minprice,s.highprice,s.allcount')
+            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.type,s.hot,c.cityname,s.minprice,s.highprice,s.student_num')
             ->where($where)->order('s.hot')->select();
         $this->assign('hot_list',$info);
     }
@@ -100,7 +100,7 @@ class IndexController extends Controller
         $where['_string']="c.id=s.cityid and s.show_forbid=1 and s.recommand=1 and s.type='jx' ";
         $where['c.cityname']=array('like',"%$city_name%");
         $info=M('School')->table('xueches_school s,xueches_citys c')
-            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.type,s.recommand,c.cityname,s.minprice,s.highprice,s.allcount')
+            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.type,s.recommand,c.cityname,s.minprice,s.highprice,s.student_num')
             ->where($where)->order('s.recommand')->select();
         $this->assign('jx_list',$info);
     }
@@ -111,7 +111,7 @@ class IndexController extends Controller
         $where['_string']="c.id=s.cityid and s.show_forbid=1 and s.week=1 and type = 'jx' ";
         $where['c.cityname']=array('like',"%$cityname%");
         $info=M('School')->table('xueches_school s,xueches_citys c')
-            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.week,s.type,c.cityname,s.minprice,s.highprice,s.allcount')
+            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.week,s.type,c.cityname,s.minprice,s.highprice,s.student_num')
             ->where($where)->order('s.week')->select();
         $this->assign('week_list',$info);
         $this->assign('week_list1',$info);

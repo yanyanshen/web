@@ -16,14 +16,12 @@ class SchoolController extends CommonController {
                 $where.=" and school.account like '%".$_GET['account']."%' ";
             }
         }
-//        $order = 'school.ntime desc';
         $field = 'school.*,city.cityname,city.id as cid';
         $count = M('School')->table('xueches_school school,xueches_citys city')->where($where)->count();
         $Page=new Page($count,14);
         $show=$Page->show();
         $data = M('School')->table('xueches_school school,xueches_citys city')
-            ->field($field)->where($where)
-//            ->order($order)
+            ->field($field)->where($where)->order('school.order desc')
             ->limit($Page->firstRow.','.$Page->listRows)->select();
 
         //城市
@@ -183,10 +181,10 @@ class SchoolController extends CommonController {
     }
 //本周驾校
     public function week_list(){
-        $where['_string']='c.id=s.cityid and s.week=1';
+        $where['_string']="c.id=s.cityid and s.week=1 and s.type='jx'";
         $info=M('School')->table('xueches_school s,xueches_citys c')
             ->field('s.id as school_id,s.nickname,s.connectteacher,s.score,s.address,s.picurl,s.picname,s.type,s.order,
-                s.class_num,s.account,c.cityname')
+                s.student_num,s.coach_num,s.class_num,s.account,c.cityname')
             ->where($where)->order('s.order')->select();
         $this->assign('week_list',$info);
         $this->assign('http',C('HTTP'));
@@ -196,11 +194,11 @@ class SchoolController extends CommonController {
     }
 //热搜驾校
     public function hot_list(){
-        $where['_string']='c.id=s.cityid and s.hot=1';
+        $where['_string']="c.id=s.cityid and s.hot=1 and s.type='jx'";
         $info=M('School')->table('xueches_school s,xueches_citys c')
             ->field('s.id as school_id,s.nickname,s.connectteacher,s.score,s.address,s.picurl,s.picname,s.type,
-                s.class_num,s.account,s.order,c.cityname')
-            ->where($where) ->order('s.order')->select();
+                s.class_num,s.student_num,s.account,s.order,c.cityname,s.coach_num')
+            ->where($where)->order('s.order')->select();
         $this->assign('jx_list',$info);
         $this->assign('count',count($info));
         $this->assign('http',C('HTTP'));
@@ -209,10 +207,10 @@ class SchoolController extends CommonController {
     }
 //推荐驾校
     public function recommand_list(){
-        $where['_string']='c.id=s.cityid and s.recommand=1';
+        $where['_string']="c.id=s.cityid and s.recommand=1 and s.type='jx'";
         $info=M('School')->table('xueches_school s,xueches_citys c')
             ->field('s.id as school_id,s.nickname,s.connectteacher,s.score,s.address,s.picurl,s.picname,
-                s.allcount,s.class_num,s.account,s.order,s.type,c.cityname')
+                s.student_num,s.coach_num,s.class_num,s.account,s.order,s.type,c.cityname')
             ->where($where)->order('s.order')->select();
         $this->assign('jx_list',$info);
         $this->assign('http',C('HTTP'));
@@ -276,6 +274,14 @@ class SchoolController extends CommonController {
             $url = 'Admin/Guider/index_list';
         }
 
+        $count = M('School')->where(array("$type"=>1))->count();
+        if($type == 'week' && $count >=3){
+            $this->redirect($url,array('pid'=>$pid,'p'=>$p),0.01,"<script>alert('添加数量已达到最大，取消后再来设置吧！')</script>");
+        }
+        if($type == 'hot' && $count >=12){
+            $this->redirect($url,array('pid'=>$pid,'p'=>$p),0.01,"<script>alert('添加数量已达到最大，取消后再来设置吧！')</script>");
+        }
+
         if($info["$type"]){
             $data["$type"]=0;
         }else{
@@ -287,5 +293,37 @@ class SchoolController extends CommonController {
         }else{
             $this->redirect($url,array('pid'=>$pid,'p'=>$p),0,'操作失败');
         }
+    }
+
+/*---------------------2017-12-07shenyanyan------------------*/
+//热搜、推荐、本周批量取消
+    public function cancel(){
+        switch(I('type')){
+            case 'hot':
+                $data['hot'] = 0;
+                $url = 'Admin/School/hot_list';
+                break;
+            case 'recommand':
+                $data['recommand'] = 0;
+                $url = 'Admin/School/recommand_list';
+                break;
+            case 'week':
+                $data['week'] = 0;
+                $url = 'Admin/School/week_list';
+                break;
+            case 'coach_top':
+                $data['recommand'] = 0;
+                $url = 'Admin/Coach/coach_top';
+                break;
+            case 'guider_top':
+                $data['recommand'] = 0;
+                $url = 'Admin/Guider/guider_top';
+                break;
+        }
+        $id_arr = explode(',',I('str'));
+        foreach($id_arr as $v){
+            M('School')->where(array('id'=>$v))->save($data);
+        }
+        $this->redirect($url,array('pid'=>I('pid')));
     }
 }

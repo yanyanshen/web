@@ -110,43 +110,43 @@ class ListController extends Controller{
                 session('k',I('k'));
             }
             if(session('k')){
-                $field='s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.allcount,s.type,s.verify';
+                $field='s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.student_num,s.type,s.verify';
                 $k = session('k');
                 $table = 'xueches_school s';
                 $where = "s.show_forbid=1 and s.cityid = $cityid and (s.nickname like '%$k%' or s.jtype like '%$k%')  and s.verify=3";
             }else{
                 $table = 'xueches_school s';
-                $field='DISTINCT s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.allcount,s.type';
+                $field='s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,s.student_num,s.type,s.minprice';
                 $where = "s.show_forbid=1 and s.cityid = $cityid  and s.verify=3 and s.type='jx'";
             }
 
             /*推荐*/
-            if(I('r')){
+            if(I('r')){session('r',1);}
+            if(session('all')){
                 session('all',null);
                 session('p',null);
                 session('e',null);
-                session('r','recommand');
                 $order = 's.recommand desc';
             }
-            if(I('all')){
-                session('all','allcount');
+            if(I('all')){session('all',1);}
+            if(session('all')){
                 session('r',null);
                 session('p',null);
                 session('e',null);
-                $order = 's.allcount desc';
+                $order = 's.student_num desc';
             }
-            if(I('e')){
+            if(I('e')){session('e',1);}
+            if(session('e')){
                 session('all',null);
                 session('p',null);
                 session('r',null);
-                session('e','evalutioncount');
                 $order = 's.evalutioncount desc';
             }
-            if(I('p')){
+            if(I('p')){session('p',1);}
+            if(session('p')){
                 session('all',null);
                 session('r',null);
                 session('e',null);
-                session('p','minprice');
                 $order = 's.minprice';
             }
             $info = $this->select_table($table,$where,$page,20,$field,$order);
@@ -163,7 +163,6 @@ class ListController extends Controller{
                 echo json_encode($info);
                 exit;//中断后面的display()
             }
-
             if(empty($info)){
                 $address = session('city');
                 $coordinate = curlGetWeb($address,$k);
@@ -174,7 +173,7 @@ class ListController extends Controller{
                     $where = "l.id in (juli.landmarkid) and juli.type_id = s.id and s.show_forbid=1  and s.cityid = $cityid  and s.verify=3 and s.type='jx' ";
                     //经纬度计算距离公
                     $field="s.id,s.minprice,s.evalutioncount,s.nickname,s.picurl,s.picname,s.recommand,l.latitude,
-                    l.longitude,s.allcount,s.type, ROUND(
+                    l.longitude,s.student_num,s.type, ROUND(
                         6378.138 * 2 * ASIN(
                             SQRT(
                                 POW(
@@ -210,24 +209,9 @@ class ListController extends Controller{
 
     public function select_table($table,$where,$page,$num,$field,$order=''){
         $info = M('school')->table("$table")
-            ->field($field)
-            ->page($page,$num)
-            ->where($where)
-            ->order($order)
+            ->field($field)->page($page,$num)
+            ->where($where)->order($order)
             ->select();
-//        S(session('k'),null);
-//        if(S(session('k'))){
-//            $info = S(session('k'));
-//        }else{
-//            $info = M('school')->table("$table")
-//                ->field($field)
-//                ->page($page,$num)
-//                ->where($where)
-//                ->order($order)
-//                ->select();
-//            S(session('k'),$info,50000);
-//        }
-
         $this->assoc_unique($info,'id');
         $info = array_reverse($info);
         return $info;
