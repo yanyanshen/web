@@ -15,16 +15,26 @@
     <div class="div_search">
         <span>
             <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
+                <input type="hidden" name="p" value="{$get['p']}"/>
                 查找内容：<input type="text" name='question' style="width: 130px;"  value="{$get['question']?$get['question']:''}" />
-                <input style="font-size: 11px" value="查询" type="submit" id='btn' onclick="submitYouFrom('{:U("Admin/Exam/exam_list",array('pid'=>$get['pid']))}')"/>
+                <input style="font-size: 11px" value="查询" type="submit" id='btn'/>
                 <input style="font-size: 11px" value="清空全部" type="reset" id="btn"/>
-                <script type="text/javascript" language="javascript">
-                    function submitYouFrom(path){
+                <input value="导出" style="font-size: 11px" type="button" onclick="submitYouFrom('{:U("Admin/Exam/push",array('question'=>$get['question']))}')"/>
+            </form>
+
+            <script type="text/javascript" language="javascript">
+                function submitYouFrom(path){
+                    layer.confirm('确定要导出吗?(注意:导出需要一点时间请耐心等待)', {
+                        btn: ['确定','关闭'] //按钮
+                    }, function(){
                         $('#form1').attr('action',path);
                         $('#form1').submit();
-                    }
-                </script>
-            </form>
+                    }, function(){
+                        location.href = '';
+                    });
+                }
+            </script>
         </span>
     </div>
     <div style="margin: 10px 5px;">

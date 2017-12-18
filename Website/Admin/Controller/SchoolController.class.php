@@ -5,7 +5,6 @@ use Think\Page;
 use Admin\Common\Controller\CommonController;
 class SchoolController extends CommonController {
     public function jx_list(){
-        $this->assign('get',$_GET);
         $where = "school.cityid=city.id and school.type='jx'";
         foreach($_GET as $k=>$v){
             if($k=='cityid' && $v != 0){

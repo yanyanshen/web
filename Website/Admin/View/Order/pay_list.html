@@ -6,6 +6,7 @@
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+    <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
 </head>
 <body>
     <div class="div_head">
@@ -120,16 +121,13 @@
             </form>
            <script type="text/javascript" language="javascript">
                function submitYouFrom(path){
-                   layer.msg('确定导出吗?',{
-                       time:0,
-                       btn:['确定','取消'],
-                       yes:function(){
-                           $('#form1').attr('action',path);
-                           $('#form1').submit();
-                           setTimeout(function(){
-                               location.href = '';
-                           },1000)
-                       }
+                   layer.confirm('确定导出吗？', {
+                       btn: ['确定','关闭'] //按钮
+                   }, function(){
+                       $('#form1').attr('action',path);
+                       $('#form1').submit();
+                   }, function(){
+                       location.href = '';
                    });
                }
            </script>

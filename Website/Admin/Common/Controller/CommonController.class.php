@@ -13,10 +13,15 @@ class CommonController extends Controller{
         if(!session('admin_id')){
             $this->redirect('Admin/Login/login');
         }else{
-            $adminInfo = M('Admin')->field('permissions')->where(array('id'=>session('admin_id')))->find();
+            $adminInfo = M('Admin')->field('permissions,online,status')->where(array('id'=>session('admin_id')))->find();
             if($adminInfo['permissions'] == 2 ){//超级管理员
                 if(!in_array($IP,$list)){
                     exit('You don\'t have permission to access!');
+                }else{
+                    if($adminInfo['online'] == 0 || $adminInfo['status'] == 0){
+                        session('admin_id',null);
+                        exit('You don\'t have permission to access!');
+                    }
                 }
             }
         }

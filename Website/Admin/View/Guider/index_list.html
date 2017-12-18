@@ -31,8 +31,10 @@
         <div class="div_search" >
             <span>
                 <form id='form' action="?">
-                        城市：<select name="cityid" style="font-size: 11px;width: 70px;height: 20px">
-                        <option value="">请选择</option>
+                    <input type="hidden" value="{$get['p']}" name="p"/>
+                    <input type="hidden" value="{$get['pid']}" name="pid"/>
+                    城市：<select name="cityid" style="font-size: 11px;width: 70px;height: 20px">
+                    <option value="">请选择</option>
                         <volist name='city' id='v'>
                             <option value="{$v.id}" {$v['id']==$get['cityid']?selected:''}>{$v.cityname}</option>
                         </volist>
@@ -138,7 +140,7 @@
                                 <a class="tablelink" href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'p'=>$get['p'],'pid'=>$get['pid']))}">{$v['class_num']}</a>
                             </td>
                             <td>{$v.category_name}</td>
-                            <td><a class="tablelink" href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
+                            <td><a class="tablelink" href="{:U('TrainAddress/train_address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                             <td>{$v.student_num}</td>
                             <td><a  class="tablelink"  href="{:U('LandMark/see_land?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                             <td>{$v.score}</td>

@@ -11,7 +11,7 @@
     <div class="div_head">
         驾校列表
         <a style="text-decoration: none;color:#FA7124;" href="{:U('Admin/School/add_jx',array('type'=>'jx','pid'=>$get['pid'],'p'=>$get['p']))}">【驾校添加】</a>
-        <a href="" style="text-decoration: none;color: #646464">【刷新】</a>
+        <a href="" style="text-decoration: none;color: #FA7124">【刷新】</a>
         <span class="span">总计：{$count}</span>
     </div>
     <div class="div_search">
@@ -116,7 +116,7 @@
                         </span>
                     </td>
                     <td>{$v.minprice}</td>
-                    <td><a  class="tablelink"  href="{:U('TrainAddress/train_Address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
+                    <td><a  class="tablelink"  href="{:U('TrainAddress/train_address?id='.$v['id'].'&type='.$v['type'].'&pid='.$get['pid'].'&p='.$get['p'])}">查看</a></td>
                     <td>
                         <a  class="tablelink"  href="{:U('Admin/TrainClass/train_class',array('id'=>$v['id'],'type'=>$v['type'],'pid'=>$get['pid'],'pp'=>$get['p']))}">{$v.class_num}</a>
                     </td>

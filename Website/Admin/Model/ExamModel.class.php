@@ -22,11 +22,8 @@ class ExamModel extends Model{
 
         $page = new \Think\Page($count,20);
         $show = $page->show();
-        $list = $this->where($where)
-            ->field('id,question')
-            ->limit($page->firstRow.','.$page->listRows)
-            ->order('id desc')
-            ->select();
+        $list = $this->where($where)->field('id,question')
+            ->limit($page->firstRow.','.$page->listRows)->order('id desc')->select();
         $arr['exam_list'] = $list;
         $arr['page'] = $show;
         $arr['firstRow'] = $page->firstRow;
@@ -81,6 +78,22 @@ class ExamModel extends Model{
             $data['image']="/$file_name/".$info['image']['savepath'].$info['image']['savename'];
             $res=M($table)->field('image')->where(array('id'=>$id))->save($data);
         }
+        return $res;
+    }
+/*-----------------------2017-12-13shenyanyan---------------------*/
+//导出试题列表
+    public function push($get){
+        $where = '';
+        if(!empty($get)){
+            foreach($get as $key=>$val){
+                if($key == 'question' && $val != ''){
+                    $where.=" question like '%".trim($val)."%' and";
+                }
+            }$where = rtrim($where,'and');
+        }
+        $list = $this->where($where)->field('*')->select();
+        $name = 'Excelfile';
+        $res = push_exam($list,$name);
         return $res;
     }
 }

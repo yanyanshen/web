@@ -11,7 +11,7 @@
 <body>
 <div class="div_head">
     管理员日志 <span style="color: #FA7124">(2个月内)</span> <a style="text-decoration: none;color:#FA7124" href="{$get['url']}">【返回】</a>
-    <a href="" style="text-decoration: none">【刷新】</a>
+    <a href="" style="text-decoration: none;color: #FA7124">【刷新】</a>
     <span class="span">总计：{$count}</span>
 </div>
 <div class="div_search" >
@@ -33,16 +33,13 @@
         </form>
         <script type="text/javascript" language="javascript">
             function submitYouFrom(path,title){
-                layer.msg(title,{
-                    time:0,
-                    btn:['确定','取消'],
-                    yes:function(){
-                        $('#form1').attr('action',path);
-                        $('#form1').submit();
-                        setTimeout(function(){
-                            location.href = '';
-                        },1000)
-                    }
+                layer.confirm(title, {
+                    btn: ['确定','关闭'] //按钮
+                }, function(){
+                    $('#form1').attr('action',path);
+                    $('#form1').submit();
+                }, function(){
+                    location.href = '';
                 });
             }
         </script>

@@ -35,13 +35,13 @@ class ExamController extends CommonController{
             }
             //把文件移到指定目录
             $tmp_name=$file['tmp_name'];
-            $result=move_uploaded_file($tmp_name,$Exceldest.'/'.$file['name'].'_'.date('Y-m-d',time()));
+            $result=move_uploaded_file($tmp_name,$Exceldest.'/'.$file['name']);
             //判断文件是否上传成功
             if(!$result){
                 $this->error('file_error',U('Admin/Exam/exam',array('pid'=>I('pid'),'type_id'=>I('type_id'))));
             }
             /*上传成功后的excel的数据*/
-            $data=ImportExcel($Exceldest.'/'.$file['name'].'_'.date('Y-m-d',time()));
+            $data=ImportExcel($Exceldest.'/'.$file['name']);
             $data=array_slice($data,1);
             $result = $this->addData($data);
             $log['done'] = '通过excel表进行交规题添加';
@@ -144,5 +144,11 @@ class ExamController extends CommonController{
         }else{
             $this->redirect('Admin/Exam/exam_list',array('pid'=>$pid,'p'=>$p),0.1,"<script>alert('操作失败')</script>");
         }
+    }
+/*---------------------2017-12-13shenyanyan-----------------*/
+//试题导出
+    public function push(){
+        $res = D('Exam')->push($_GET);
+        $this->success($res);
     }
 }

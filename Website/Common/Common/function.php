@@ -310,6 +310,55 @@ function user_log_push($data,$name='Excel'){
     $objWriter->save('php://output');
     exit;
 }
+//导出试题列表
+function push_exam($data,$name='Excel'){
+    error_reporting(E_ALL);
+    date_default_timezone_set('Europe/London');
+    $objPHPExcel = new PHPExcel();
+    /*以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
+    $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A1', 'id')
+        ->setCellValue('B1', 'question')
+        ->setCellValue('C1', 'A选项')
+        ->setCellValue('D1', 'B选型')
+        ->setCellValue('E1', 'C选项')
+        ->setCellValue('F1', 'D选项')
+        ->setCellValue('G1', '答案')
+        ->setCellValue('H1', '解析')
+        ->setCellValue('I1', '试题类型(单选0;多选1;判断2)')
+        ->setCellValue('J1', '图片路径(无图片是0)')
+        ->setCellValue('K1', '章节(科一:小客车1-4;城市5;客车、轮式6;货车7)(科四:1-7)')
+        ->setCellValue('L1', '城市id(上海1;北京2;浙江3;山东4;山西5;安徽6;黑龙江7;四川8)')
+        ->setCellValue('M1', '驾照类型(科一:城市题库0;小客车1;客车2;货车3;轮式4)(科四:0)')
+        ->setCellValue('N1', '科目类型(科一1;科四2)');
+    foreach($data as $k => $v){
+        $num=$k+2;
+        $objPHPExcel->setActiveSheetIndex(0)
+//Excel的第A列，uid是你查出数组的键值，下面以此类推
+            ->setCellValue('A'.$num, $v['id'])
+            ->setCellValue('B'.$num, $v['question'])
+            ->setCellValue('C'.$num, $v['s1'])
+            ->setCellValue('D'.$num, $v['s2'])
+            ->setCellValue('E'.$num, $v['s3'])
+            ->setCellValue('F'.$num, $v['s4'])
+            ->setCellValue('G'.$num, $v['answer'])
+            ->setCellValue('H'.$num, $v['analysis'])
+            ->setCellValue('I'.$num, $v['ifmul'])
+            ->setCellValue('J'.$num, $v['image'])
+            ->setCellValue('K'.$num, $v['chapter'])
+            ->setCellValue('L'.$num, $v['cityid'])
+            ->setCellValue('M'.$num, $v['type'])
+            ->setCellValue('N'.$num, $v['subject']);
+    }
+    $objPHPExcel->getActiveSheet()->setTitle('用户操作日志');
+    $objPHPExcel->setActiveSheetIndex(0);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$name.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    exit;
+}
 ///在线交易订单支付处理函数
 //函数功能：根据支付接口传回的数据判断该订单是否已经支付成功；
 //返回值：如果订单已经成功支付，返回true，否则返回false；
