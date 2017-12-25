@@ -92,37 +92,31 @@ class AuthGroupController extends CommonController{
     }
 //删除管理组;
     public function del(){
-        if(IS_AJAX) {
-            $url = U('Admin/AuthGroup/index',array('pid'=>I('pid')));
-            $id = I('post.id');
-            $group = M('AuthGroup');
-            $access=M('AuthGroupAccess');
-            $groupInfo=$group->where(array('id' => $id))->find();
-            $accessInfo=$access->where(array('group_id'=>$id))->select();
-            //判断管理组以及组员是否存在,然后分别删除;
-            if($groupInfo) {
-                $log['done'] = "管理组删除: =>{$groupInfo['title']}";
-                if($accessInfo) {
-                    $group->startTrans();
-                    if (!$group->where(array('id' => $id))->delete()) {
-                        $group->rollback();
-                    }
-                    if(!$access->delete(array('group_id'=>$id))->delete()){
-                        $group->rollback();
-                    }
-                    $res = $group->commit();
-                }else{
-                    $res = $group->delete($accessInfo);
-                }
-                if($res){
-                    D('AdminLog')->logout($log);
-                    $this->success('删除成功',$url);
-                }else{
-                    $this->error('删除失败',$url);
-                }
-            }else{
-                $this->error('没有查到数据',$url);
+        $id = I('get.id');
+        $group = M('AuthGroup');
+        $access=M('AuthGroupAccess');
+        $groupInfo = $group->where(array('id' => $id))->find();
+        $accessInfo = $access->where(array('group_id'=>$id))->select();
+        if($groupInfo){
+            $log['done'] = "管理组删除: =>{$groupInfo['title']}";
+            $group->startTrans();
+            if (!$group->where(array('id' => $id))->delete()) {
+                $group->rollback();
             }
+            if($accessInfo){
+                if(!$access->delete(array('group_id'=>$id))->delete()){
+                    $group->rollback();
+                }
+            }
+            $res = $group->commit();
+            if($res){
+                D('AdminLog')->logout($log);
+                $this->redirect('Admin/AuthGroup/index',array('pid'=>I('pid')));
+            }else{
+                $this->redirect('Admin/AuthGroup/index',array('pid'=>I('pid')),0.1,'<script>alert("删除失败")</script>');
+            }
+        }else{
+            $this->redirect('Admin/AuthGroup/index',array('pid'=>I('pid')),0.1,'<script>alert("未查到数据")</script>');
         }
     }
 //添加组员
@@ -130,7 +124,8 @@ class AuthGroupController extends CommonController{
         $this->assign('get',$_GET);
         $this->assign('url',U('Admin/AuthGroup/index',array('pid'=>I('pid'))));
         if(IS_AJAX){
-            $url = U('Admin/AuthGroup/add_member',array('pid'=>I('pid'),'gid'=>I('gid')));
+//            $url = U('Admin/AuthGroup/add_member',array('pid'=>I('pid'),'gid'=>I('gid')));
+            $url = U('Admin/AuthGroup/index',array('pid'=>I('pid')));
             if(trim(I('username'))){
                 $userInfo = M('admin')->where(array('username'=>trim(I('username'))))->find();
                 $gid = I('gid');

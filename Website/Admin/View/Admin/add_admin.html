@@ -27,13 +27,16 @@
 </div>
 <div style="margin: 10px 5px">
     <form action="{:U('Admin/Admin/add_admin')}" id="form1" method="post">
-        <input type="hidden" name="pid" pid="{$get['pid']}"/>
+        <input type="hidden" name="pid" value="{$get['pid']}"/>
         <ul style="margin-left: 10px;padding: 0">
             <li>
                 <label style="padding: 10px 30px 10px 0">添加类型<b>*</b></label>
                 <select class="dfinput" name="permissions" style="width: 345px">
                     <option value="1">超级管理员</option>
-                    <option value="2" selected>普通管理员</option>
+                    <option value="2" selected>员工</option>
+                    <option value="3" >主管</option>
+                    <option value="4" >总监</option>
+                    <option value="5" >财务</option>
                 </select>
             </li>
             <li><label style="padding: 10px 30px 10px 0">联系方式<b>*</b></label><input name="mobile" type="text" class="dfinput" placeholder="请填写联系方式" /></li>
@@ -52,15 +55,15 @@
 <script>
     $(function(){
         var validate=$('#form1').validate({
-            rules:{username:{required:true, rangelength:[5,12],
+            rules:{username:{required:true, rangelength:[2,18],
                     remote:{url:"{:U('chkUsername')}", type:'post'}
                 },
-                password:{required:true, rangelength:[5,12]},
+                password:{required:true, rangelength:[5,18]},
                 repwd:{required:true, equalTo:'#password'},
                 mobile:{required:true,mobile:true}
             },
             messages:{
-                username:{required:' * 必填项！', rangelength:' * 账号长度必须在5到18位之间！', remote:' * 用户名已存在！'},
+                username:{required:' * 必填项！', rangelength:' * 账号长度必须在2到18位之间！', remote:' * 用户名已存在！'},
                 password:{required:' * 必填项！', rangelength:' * 密码长度必须在5到18位之间！'},
                 repwd:{required:' * 必填项！', equalTo:' * 两次密码输入不一致!'},
                 mobile:{required:' * 必填项！'}

@@ -4,8 +4,7 @@ use Think\Model;
 class AuthRuleModel extends Model{
 //得到权限列表
     public function getRuleList(){
-        $navList=$this->order('path asc')
-            ->select();
+        $navList=$this->order('path asc')->select();
         foreach($navList as $k=>$v){
             $count=count(explode(',',$v['path']));
             $navList[$k]['level']=$count;
@@ -77,10 +76,8 @@ class AuthRuleModel extends Model{
             ->join('xueches_auth_group_access aga ON ag.id = aga.group_id')
             ->field('aga.uid,aga.group_id,ag.rules')
             ->where(array('aga.uid'=>session('admin_id')))->find();
-
         if($rule&&$rules['rules']){
             $id = M('AuthGroup')->where(array('id'=>$rules['group_id'],"{$rule['id']} in ({$rules['rules']})"))->getField('id');
-
             if($id){
                 return $rule;
             }else{

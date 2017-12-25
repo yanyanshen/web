@@ -10,8 +10,20 @@ class OrderModel extends Model {
     public function push($get){
         $where = '';
         $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
-        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
-            $get['customer'] = session('admin_name');
+        if($admin['permissions'] != 1){//1可查看所有人的订单,其他只能查看自己的订单
+            if($admin['authority'] == 0){
+                $get['customer'] = session('admin_name');
+            }elseif($admin['authority'] == 1){
+                $authGroupAccess = M('AuthGroupAccess')->field('group_id')->where(array('uid'=>session('admin_id')))->select();
+                foreach($authGroupAccess as $v){
+                    $str .= $v['group_id'].',';
+                }
+                $str = M('AuthGroupAccess')->DISTINCT(true)->field('uid')->where(array('group_id'=>array('in',$str)))->select();
+                foreach($str as $k => $v){
+                    $username .= "'".M('Admin')->where(array('id'=>$v['uid']))->getField('username')."',";
+                }
+                $get['username'] = substr($username,0,-1);
+            }
         }
         if(!empty($get)){
             foreach($get as $key=>$val) {
@@ -56,13 +68,11 @@ class OrderModel extends Model {
                 }elseif($key == 'cancel_time2' && $val != ''){
                     $where.=" o.cancel_time  < '$val' and";
                 }elseif($key == 'truename' && $val != ''){
-                    $where.=" o.name like '%".trim($val)."%'".' and';
+                    $where.=" ou.name like '%".trim($val)."%'".' and';
                 }elseif($key == 'end_time1' && $val != ''){//结算时间
                     $where.=" o.end_time  > '$val' and";
                 }elseif($key == 'end_time2' && $val != ''){//结算时间
                     $where.=" o.end_time  < '$val' and";
-                }elseif($key == 'userid' && $val != 0){//学员id
-                    $where.=" o.userid  = $val and";
                 }elseif($key == 'orderStatus' && $val != 0){
                     $where.=" o.order_status  = $val and";
                 }elseif($key == 'status' && $val == 2){//支付宝已支付未处理
@@ -80,15 +90,15 @@ class OrderModel extends Model {
                     $where.=" o.$key  = $val and";
                 }elseif($key == 'order_status' && $val == 6){//已取消订单条件
                     $where.=" o.$key  = $val and";
-                }elseif($key == 'customer' && $val != ''){//已取消订单条件
-                    $where.=" o.$key  = '$val' and";
+                }elseif($key == 'username' && $val != ''){
+                    $where.=" o.customer in ($val) and";
                 }
             }$where=rtrim($where,'and');
         }
         $list = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
             ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)
-            ->field('o.*,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
-            ->select();
+            ->field('o.*,ou.name,ou.tel,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
+            ->join('xueches_order_user ou ON ou.oid=o.id')->select();
         foreach($list as $k=>$v){
             $list[$k]['cancel_reason'] = M('OrderCancelReason')->where(array('id'=>$v['cancel_reason']))->getField('reason');
         }
@@ -134,8 +144,20 @@ class OrderModel extends Model {
     public function order_list($get){
         $where = '';
         $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
-        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
-            $get['customer'] = session('admin_name');
+        if($admin['permissions'] != 1){//1可查看所有人的订单,其他只能查看自己的订单
+            if($admin['authority'] == 0){
+                $get['customer'] = session('admin_name');
+            }elseif($admin['authority'] == 1){
+                $authGroupAccess = M('AuthGroupAccess')->field('group_id')->where(array('uid'=>session('admin_id')))->select();
+                foreach($authGroupAccess as $v){
+                    $str .= $v['group_id'].',';
+                }
+                $str = M('AuthGroupAccess')->DISTINCT(true)->field('uid')->where(array('group_id'=>array('in',$str)))->select();
+                foreach($str as $k => $v){
+                    $username .= "'".M('Admin')->where(array('id'=>$v['uid']))->getField('username')."',";
+                }
+                $get['username'] = substr($username,0,-1);
+            }
         }
         if(!empty($get)){
             foreach($get as $key=>$val) {
@@ -180,13 +202,11 @@ class OrderModel extends Model {
                 }elseif($key == 'cancel_time2' && $val != ''){
                     $where.=" o.cancel_time  < '$val' and";
                 }elseif($key == 'truename' && $val != ''){
-                    $where.=" o.name like '%".trim($val)."%' and";
+                    $where.=" ou.name like '%".trim($val)."%' and";
                 }elseif($key == 'end_time1' && $val != ''){//结算时间
                     $where.=" o.end_time  > '$val' and";
                 }elseif($key == 'end_time2' && $val != ''){//结算时间
                     $where.=" o.end_time  < '$val' and";
-                }elseif($key == 'userid' && $val != 0){//学员id
-                    $where.=" o.userid  = $val and";
                 }elseif($key == 'orderStatus' && $val != 0){
                     $where.=" o.order_status  = $val and";
                 }elseif($key == 'status' && $val == 2){//支付宝已支付未处理
@@ -204,26 +224,29 @@ class OrderModel extends Model {
                     $where.=" o.$key  = $val and";
                 }elseif($key == 'order_status' && $val == 6){//已取消订单条件
                     $where.=" o.$key  = $val and";
-                }elseif($key == 'customer' && $val != ''){//已取消订单条件
-                    $where.=" o.$key  = '$val' and";
+                }elseif($key == 'username' && $val != ''){
+                    $where.=" o.customer in ($val) and";
                 }
             }$where=rtrim($where,'and');
         }
+
         $count = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
-            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)->count();
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
+            ->join('xueches_order_user ou ON ou.oid=o.id')
+            ->where($where)->count();
         $p = new \Think\Page($count,10);
         $list = $this->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
-            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)
-            ->field('o.*,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
+            ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
+            ->join('xueches_order_user ou ON ou.oid=o.id')->where($where)
+            ->field('o.*,ou.name,ou.tel,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
             ->order('o.create_time desc')->limit($p->firstRow.','.$p->listRows)->select();
 
-        $page = $p->show();
         foreach($list as $k=>$v){
             $list[$k]['cancel_reason'] = M('OrderCancelReason')->where(array('id'=>$v['cancel_reason']))->getField('reason');
         }
         $arr['list'] = $list;
         $arr['count'] = $count;
-        $arr['page'] = $page;
+        $arr['page'] = $p->show();
         $arr['firstRow'] = $p->firstRow;
         return $arr;
     }
@@ -231,15 +254,27 @@ class OrderModel extends Model {
 //支付宝已支付未处理、待回访、待结算待回访 数量
     public function order_count(){
         $admin = M('Admin')->where(array('id'=>session('admin_id')))->find();
-        if($admin['permissions'] == 2){//超级管理员1可查看所有人的订单,普通管理员2只能查看自己的订单
-            $where['customer'] = session('admin_name');
+        if($admin['permissions'] != 1){//1可查看所有人的订单,其他只能查看自己的订单
+            if($admin['authority'] == 0){
+                $where['customer'] = session('admin_name');
+            }elseif($admin['authority'] == 1){
+                $authGroupAccess = M('AuthGroupAccess')->field('group_id')->where(array('uid'=>session('admin_id')))->select();
+                foreach($authGroupAccess as $v){
+                    $str .= $v['group_id'].',';
+                }
+                $str = M('AuthGroupAccess')->DISTINCT(true)->field('uid')->where(array('group_id'=>array('in',$str)))->select();
+                foreach($str as $k => $v){
+                    $username .= M('Admin')->where(array('id'=>$v['uid']))->getField('username').",";
+                }
+                $where['customer'] = array('in',substr($username,0,-1));
+            }
         }
         //用户在网上支付但后台客服未处理订单数量
         $where['order_status'] = 1;
         $count['count1'] = M('Order')->where(array('status'=>2,$where))->count();
         //待结算需回访
         $where['order_status'] = 3;
-        $count['count3'] = M('Order')->where($where)->count();
+        $count['count3'] = M('Order')->where($where)->sum('num');
         //待回访订单数量
         $where['return_time'] = array('elt', date('Y-m-d 22:00:00',time()));//当天晚上10点半以前的所有订单
         $where['order_status'] = 2;
@@ -261,7 +296,7 @@ class OrderModel extends Model {
         $class_name1 = M('trainclass')->where("id = {$post['class_name']}")->getField('name');
         $trainaddress1 = M('trainaddress')->where("id = {$post['trainaddress']}")->getField('trname');
 
-        $log = "意向课程:{$info['s_nickname']}-{$class_name}-{$trainaddress} => {$post['s_nickname']}-{$class_name1}-{$trainaddress1}";
+        $log = "意向课程:{$info['s_nickname']} - {$class_name} - {$trainaddress} => {$post['s_nickname']} - {$class_name1} - {$trainaddress1}";
 
         $post['lastupdate'] = session('admin_name');
         $res = $this->save($post);
@@ -291,7 +326,15 @@ class OrderModel extends Model {
         $order['cityname'] = $post['cityid'];
         $order['class_name'] = $post['class_name'];
         $order['pay_type'] = $post['pay_type'];
-        $order['order_source'] = $post['order_source'];
+        $order['order_source'] = $post['order_source'];//订单来源
+        //订单关键词  后台人工新建订单的话  关键词是 所报驾校
+        $order_keyword_id = M('OrderKeyword')->where(array('name'=>$post['s_nickname']))->getField('id');
+
+        if($order_keyword_id){
+            $order['order_keyword'] = $order_keyword_id;
+        }else{
+            $order['order_keyword'] = M('OrderKeyword')->add($post['order_source']);
+        }
         $order['customer_inform'] = $post['customer_inform'];
         $order['return_time'] = $post['return_time'];
         $order['create_time'] = date('Y-m-d H:i:s',time());
@@ -452,13 +495,14 @@ class OrderModel extends Model {
         return $order_source;
     }
 /*------------------------------------------2017-11-06shenyanyan--------------------------------*/
+//订单关键字
     public function order_keyword($get){
         if(is_array($get)){
             foreach($get as $key=>$val) {
                 if($key == 'create_time' && $val != ''){
-                    $where.="  create_time >= '$val' and";
+                    $where.=" create_time >= '$val' and";
                 }elseif($key == 'create_time1' && $val != ''){
-                    $where.="  create_time  <= '$val' and";
+                    $where.=" create_time  <= '$val' and";
                 }
             }$where=rtrim($where,'and ');
         }
@@ -468,17 +512,16 @@ class OrderModel extends Model {
             $source_id = $this->where(array('order_keyword'=>$v['id']))->getField('order_source');//订单来源
             $order_source[$k]['source'] = M('OrderSource')->where(array('id'=>$source_id))->getField('name');//订单来源
 
-            $order_source[$k]['order_num'] = $this->where(array('order_keyword'=>$v['id'], $where))->sum('num');//各个关键词订单总数量
-            //各个关键词 已完成订单数量
+            $order_source[$k]['order_num'] = $this->where(array('order_keyword'=>$v['id'], $where))->getField('num');//各个关键词订单总数量
+            //各个关键词 已付款未结算
             $order_source[$k]['completed_num'] = $this->where(array('order_keyword'=>$v['id'],"order_status = 3 and $where"))->sum('num');
-            //成单率
             if($order_source[$k]['completed_num']){
                 $order_source[$k]['completed_lv'] = sprintf('%.2f',$order_source[$k]['completed_num']/$order_source[$k]['order_num']*100).'%';
             }else{
                 $order_source[$k]['completed_lv'] = 0;
             }
             //结算量
-            $order_source[$k]['end_num'] = $this->where(array('order_source'=>$v['id'],"order_status = 4 and $where"))->sum('num');
+            $order_source[$k]['end_num'] = $this->where(array('order_keyword'=>$v['id'],"order_status = 4 and $where"))->sum('num');
             //结算率
             if($order_source[$k]['end_num']){
                 $order_source[$k]['end_lv'] = sprintf('%.2f',$order_source[$k]['end_num']/$order_source[$k]['order_num']*100).'%';

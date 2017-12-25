@@ -136,10 +136,10 @@ class TrainAddressController extends CommonController {
             D('AdminLog')->logout($log);
         }
         if($res){
-            $url=U('Admin/TrainAddress/train_Address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
+            $url=U('Admin/TrainAddress/train_address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
             $this->success('更新成功',$url);
         }else{
-            $url=U('Admin/TrainAddress/train_Address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
+            $url=U('Admin/TrainAddress/train_address?id='.$_POST['type_id'].'&type='.$_POST['type']."&pid=".$_POST['pid'].'&p='.$_POST['p']);
             $this->error('更新失败',$url);
         }
     }

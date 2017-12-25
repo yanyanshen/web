@@ -17,12 +17,30 @@ class AdminLogController extends CommonController{
             $_GET['id'] = session('admin_id');
         }
 
+        if($admin['permissions'] != 1){//1可查看所有人的订单,其他只能查看自己的订单
+            if($admin['authority'] == 0){
+                $_GET['id'] = session('admin_id');
+            }elseif($admin['authority'] == 1){
+                $authGroupAccess = M('AuthGroupAccess')->field('group_id')->where(array('uid'=>session('admin_id')))->select();
+                foreach($authGroupAccess as $v){
+                    $str .= $v['group_id'].',';
+                }
+                $str = M('AuthGroupAccess')->DISTINCT(true)->field('uid')->where(array('group_id'=>array('in',$str)))->select();
+                foreach($str as $k => $v){
+                    $id .= $v['uid'].",";
+                }
+                $_GET['idArr'] = substr($id,0,-1);
+            }
+        }
+
         if(!empty($_GET)){
             foreach($_GET as $key=>$val) {
                 if($key == 'username' && $val != ''){
                     $where .= " username like '%".trim($_GET['username'])."%' and";
                 }elseif($key == 'id' && $val != ''){
                     $where .= " id = ".urldecode($val)." and";
+                }elseif($key == 'idArr' && $val != ''){
+                    $where .= " id in ($val) and";
                 }
             }$where=rtrim($where,'and');
 
@@ -34,6 +52,9 @@ class AdminLogController extends CommonController{
         //分页展示;
         $show = $page->show();
         $adminLog = $admins->where($where)->order('lastlogin desc')->limit($page->firstRow . ',' . $page->listRows)->select();
+        foreach($adminLog as $k => $v){
+            $adminLog[$k]['permissions'] = M('Permissions')->where(array('id'=>$v['permissions']))->getField('permissions');
+        }
         $this->assign('firstRow', $page->firstRow);
         $this->assign('count',$count);
         $this->assign('adminLog', $adminLog);

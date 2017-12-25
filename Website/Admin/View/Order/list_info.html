@@ -86,7 +86,11 @@
                         </td>
                         <td style="background-color: rgb(247,247,247);width: 6%">跟单客服:</td><td width="12%">
                         {$list.customer}
-                        <a href="javascript:void(0)" onclick="update_customer({$list.id})" style="padding:5px 20px;color: #ffffff;;text-decoration:none;background-color:rgb(19, 181, 177);;border-radius: 3px;border:none" >修改</a>
+                        <if condition="$get['customer_update'] eq '0' ">
+                            <a href="javascript:alert('暂无权限')" style="padding:5px 20px;color: #ffffff;;text-decoration:none;background-color:rgb(19, 181, 177);border-radius: 3px;border:none" >修改</a>
+                            <else/>
+                            <a href="javascript:void(0)" onclick="update_customer({$list.id})" style="padding:5px 20px;color: #ffffff;;text-decoration:none;background-color:rgb(19, 181, 177);border-radius: 3px;border:none" >修改</a>
+                        </if>
                         <script>
                             function update_customer(id){
                                 layer.open({
@@ -174,8 +178,8 @@
                     <volist name="stu" id="stu" key="k">
                         <tr>
                             <td style="background-color: rgb(247,247,247);width: 6%">学员信息:</td>
-                            <td  colspan="3">
-                                <span style="color: #000000" >学员{$k}:{$stu['name']}</span>
+                            <td colspan="3">
+                                <span style="color: #000000;">学员{$k}:{$stu['name']}</span>
                                 <span style="margin: 20px;padding: 3px 0;">电话:{$stu['tel']}</span>
                             </td>
                         </tr>
@@ -425,13 +429,13 @@
             "<input type='hidden' value='{$get["pid"]}' name='pid'/>"+
             "<input type='hidden' value='{$get["p"]}' name='p'/>"+
             "<input type='hidden' value='"+id+"' name='id'/>"+
-            "<input value='' style='margin-top: 20px;margin-left: 60px;height: 25px' placeholder='请输入驾校名称'  name='s_nickname' id='search'/>"+
+            "<input value='' style='margin-top: 20px;margin-left: 10px;height: 25px;font-size: 11px' placeholder='请输入驾校名称'  name='s_nickname' id='search'/>"+
             "<span id='searchresult' style='position: absolute; overflow:hidden;border-top:none;left: 5px;top: 18px'></span>"+
-            "<select name='class_name' id='class_name' style='width: 160px;height: 30px;margin: 0 10px'>" +
+            "<select name='class_name' id='class_name' style='width: 160px;height: 30px;margin: 0 10px;font-size: 11px'>" +
             "<option value='0'>请选择课程</option></select>"+
-            "<select name='trainaddress' id='class_base' style='width: 160px;height: 30px;'>" +
+            "<select name='trainaddress' id='class_base' style='width: 160px;height: 30px;font-size: 11px'>" +
             "<option value='0'>请选择基地</option></select>"+
-            "<div><input type='submit' style='padding: 5px 15px;background-color:rgb(19, 181, 177);color: #ffffff;border-radius: 3px;border:none;margin-top: 20px' value='确定'/></div>" +
+            "<div><input type='submit' style='padding: 8px 25px;background-color:rgb(19, 181, 177);color: #ffffff;border-radius: 3px;border:none;margin-top: 20px' value='确定'/></div>" +
             "</form></div>"
         });
 

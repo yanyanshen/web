@@ -2,7 +2,7 @@
 namespace Mobile\Controller;
 use Think\Controller;
 use Mobile\Common\Controller\CommonController;
-class ExamController extends CommonController{
+class ExamController extends Controller{
 /*沈艳艳
     @从首页进入理论学习页面
 */

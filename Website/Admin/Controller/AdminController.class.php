@@ -28,6 +28,7 @@ class AdminController extends CommonController{
                     $str.=$g['title'].',';
                 }
                 $adminList[$k]['group']=substr($str,0,-1);
+                $adminList[$k]['permissions_name'] = M('Permissions')->where(array('id'=>$v['permissions']))->getField('permissions');
             }
         $this->assign('firstRow', $page->firstRow);
         $this->assign('count',$count);
@@ -173,6 +174,7 @@ class AdminController extends CommonController{
         if (IS_AJAX) {
             $username=trim(I('post.username'));
             $password=trim(I('post.password'));
+            $permissions = trim(I('post.permissions'));
             $id=I('post.id');
             if($username){
                 if($password){
@@ -183,6 +185,7 @@ class AdminController extends CommonController{
                 }
                 $data['edittime'] = time();
                 $data['id'] = $id;
+                $data['permissions'] = $permissions;
                 $row=D('Admin')->editAdmin($data);
                 if ($row) {
                     if (I('post.group_id')) {
@@ -196,7 +199,7 @@ class AdminController extends CommonController{
                     }
                     $log['done'] = '编辑管理员信息';
                     D('AdminLog')->logout($log);
-                    $this->success('用户编辑成功',  U('Admin/Admin/edit',array('id'=>I('id'),'p'=>I('p'),'pid'=>I('pid'))));
+                    $this->success('用户编辑成功',  U('Admin/Admin/index',array('pid'=>I('pid'))));
                 } else {
                     $this->error('用户编辑失败');
                 }
@@ -213,11 +216,60 @@ class AdminController extends CommonController{
             }
             $adminInfo['gid'] = $arr;
             $groupList = D('AuthGroup')->getGroupList();
+            $permissions = M('Permissions')->select();
+            $this->assign('permissions',$permissions);
             $this->assign('groupList', $groupList);
             $this->assign('adminInfo', $adminInfo);
             $this->assign('get', $_GET);
             $this->assign('url', U('Admin/Admin/index',array('id'=>I('id'),'p'=>I('p'),'pid'=>I('pid'))));
             $this->display();
+        }
+    }
+/*-----------------------2017-12-20shenyanyan-------------------*/
+//给管理员们添加和取消订单查看权限
+    public function authority(){
+        switch(I('authority')){
+            case '0'://取消
+                $data['authority'] = 0;
+                $log['done'] = '取消';
+                break;
+            case '1'://设置
+                $data['authority'] = 0;
+                $log['done'] = '赋予';
+                break;
+        }
+        $idArr = explode(',',I('str'));
+        foreach($idArr as $k => $v){
+            $username = M('Admin')->where(array('id'=>$v))->getField('username');
+            if(I('authority') == 1){
+                $data['authority'] = 1;
+                $log['done'] = "订单查看权限:{$username} => 1";
+            }else{
+                $data['authority'] = 0;
+                $log['done'] = "订单查看权限:{$username} => 0";
+            }
+            $data['id'] = $v;
+            M('Admin')->save($data);
+            D('AdminLog')->logout($log);
+        }
+        $this->redirect('Admin/index',array('pid'=>I('pid'),'p'=>I('p')));
+    }
+//给管理员们激活和取消自动分配订单的权限
+    public function allocation(){
+        $info = M('Admin')->where(array('id'=>I('id')))->find();
+        $data['id'] = I('id');
+        if($info['allocation']){
+            $data['allocation'] = 0;
+            $log['done'] = "订单分配状态: {$info['username']} => 0";
+        }else{
+            $data['allocation'] = 1;
+            $log['done'] = "订单分配状态: {$info['username']} => 1";
+        }
+        $res = M('Admin')->save($data);
+        if($res){
+            $this->redirect('Admin/Admin/index',array('pid'=>I('pid'),'p'=>I('p')));
+        }else{
+            $this->redirect('Admin/Admin/index',array('pid'=>I('pid'),'p'=>I('p')),0.1,'<script>alert("操作失败")</script>');
         }
     }
 }

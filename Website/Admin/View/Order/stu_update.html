@@ -6,8 +6,8 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        .dfinput{margin-left: 10px; border:solid 1px rgb(220,220,220);border-radius: 3px;  width: 100px;padding: 5px;background: #ffffff;}
-        .btn{text-align:center;width: 75px;height: 30px;line-height: 30px;background-color:rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff; }
+        .dfinput{margin-left: 10px;font-size: 12px; border:solid 1px rgb(220,220,220);border-radius: 3px;width: 100px;padding: 5px;background: #ffffff;}
+        .btn{text-align:center;width: 75px;height: 25px;line-height: 25px;background-color:rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff; }
         b{color: #FA7124}
     </style>
 </head>
@@ -19,27 +19,26 @@
         <input type="hidden" name="p" value="{$get['p']}"/>
         <div class="add_stu">
             <volist name="order_user" id="data">
-                <div style="margin:20px 10px">
+                <div style="margin:20px 10px;font-size: 12px">
                     <input type="hidden" name="id[]" value="{$data['id']}"/>
-                    学员姓名：<input class="dfinput" type="text" value="{$data['name']}" name="name[]"/>
-                                <select style="height: 25px" name="sex[]">
+                    学员姓名:<input class="dfinput" type="text" value="{$data['name']}" name="name[]"/>
+                                <select style="height: 25px;font-size: 12px;margin-right:10px" name="sex[]">
                                     <option value="0" {$data['sex']==0?'selected':''}>男</option>
                                     <option value="1" {$data['sex']==1?'selected':''}>女</option>
                                 </select>
-                    联系电话：<input class="dfinput" type="text" value="{$data['tel']}" name="tel[]"/>
-                    <input type="button" value="删除" id="{$data['id']}" onclick="del({$get['oid']},{$data['id']})" class="btn del"/>
+                    联系电话:<input class="dfinput" type="text" value="{$data['tel']}" name="tel[]"/>
+                    <input type="button" style="" value="删除" id="{$data['id']}" onclick="del({$get['oid']},{$data['id']})" class="btn del"/>
                 </div>
             </volist>
         </div>
-        <div style="margin-left: 10px">
+        <div style="margin-left: 10px;font-size: 12px">
             <input type="button" class="btn"  onclick="add_stu()" value="+添加学员"/>
         </div>
-        <div style="margin:10px">
+        <div style="margin:10px;font-size: 12px">
             所在位置：<input class="dfinput" value="{$info['address']}" style="width: 350px" type="text" name="address"/>
         </div>
-        <div style="margin:10px">
-            <span>备注信息：</span>
-            <textarea class="dfinput" style="width: 351px" cols="60" rows="3" name="inform">{$info['inform']}</textarea>
+        <div style="margin:10px;font-size: 12px">
+            备注信息：<textarea class="dfinput" style="width: 351px" cols="60" rows="3" name="inform">{$info['inform']}</textarea>
         </div>
         <div style="text-align: center">
             <input type="button" class="btn confirm" value="点击保存"/>
@@ -50,14 +49,14 @@
 </html>
 <script>
     function add_stu(){
-        $(".add_stu").append('<div  style="margin:20px 10px">' +
-        '学员姓名：<input class="dfinput" type="text" value="" name="username[]"/>' +
-        ' <select style="height: 25px" name="sex1[]">' +
-        '<option value="0" >男</option>' +
-        '<option value="1">女</option>' +
+        $(".add_stu").append('<div style="margin:20px 10px;font-size: 12px">' +
+        '学员姓名:<input class="dfinput" type="text" value="" name="username[]"/>' +
+        ' <select style="height: 25px;font-size: 12px;margin-right:10px" name="sex1[]">' +
+            '<option value="0" >男</option>' +
+            '<option value="1">女</option>' +
         '</select>' +
-        ' 联系电话：<input class="dfinput" type="text" value="" name="phone[]"/> ' +
-        '<input type="button" class="delete_stu btn" value="删除" class="btn" /> ' +
+        ' 联系电话:<input class="dfinput" type="text" value="" name="phone[]"/> ' +
+        '<input type="button"  class="delete_stu btn" value="删除" class="btn" /> ' +
         '</div>');
         $('.delete_stu').on('click',function(){
             var a = $(this);

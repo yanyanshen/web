@@ -14,11 +14,8 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script src="__PUBLIC__/public/js/layer_mobile/layer.js"></script>
 </head>
-
 <body>
-
 <div id="pagewrap">
-
     <div class="header_box">
         <div class="header">
             <ul>
@@ -39,27 +36,24 @@
                 </div>
             </div>
             <div class="login_out">
-                <div class="button_box"><button id="login_out">退出登录</button></div>
+                <div class="button_box"><button onclick="login_out()" id="login_out">退出登录</button></div>
             </div>
         </div>
     </div>
-
 </div>
-
 <script>
-    $("#login_out").click(function(){
+    function login_out(){
         layer.open({
             content: '您确定要退出吗？'
             ,btn: ['是', '不要']
-            ,yes: function(index){
-                $.post('{:U("Mobile/User/login_out")}','',function(res){
+            ,yes: function(index) {
+                $.post('{:U("Mobile/User/login_out")}', '', function (res) {
                     location.href = '{:U("Mobile/Index/index")}';
                     layer.close(index);
                 });
-
             }
-        });
-    });
+        })
+    }
 </script>
 </body>
 </html>

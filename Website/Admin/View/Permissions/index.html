@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>级别列表</title>
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
+</head>
+<body>
+    <div class="div_head">
+        管理员级别列表
+        <a style="text-decoration: none;color:#FA7124;" href="{:U('Admin/Permissions/add',array('pid'=>$get['pid']))}">【级别添加】</a>
+        <span class="span">总计：{$get['count']}</span>
+    </div>
+    <div style="margin-left: 6px">
+        <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #323232;width: 60px;padding: 2px 0;" type="button" value='全选' />
+        <input type="button" value='删除' onclick="batch_operate_del()" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0"/>
+        <script>
+            $("document").ready(function(){
+                $("#checkall").click(function(){
+                    if($(this).val() == '全选'){
+                        $("input[type='checkbox']").prop('checked',true);
+                        $("#checkall").val('取消全选');
+                    }else{
+                        $("input[type='checkbox']").prop('checked',false);
+                        $("#checkall").val('全选');
+                    }
+                });
+            });
+
+            function batch_operate_del(){
+                var id_arr = document.getElementsByName('id[]');
+                var flag = false;
+                for(var i in id_arr){
+                    if(id_arr[i].checked){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    $.post("{:U('Admin/Finance/batch_operate')}",$("#form2").serialize(),function(res){
+                        layer.msg('确定要删除吗？',{
+                            time:0,
+                            btn:['确定','取消'],
+                            yes:function(){
+                                location.href = "{:U('Admin/Permissions/del')}?pid={$get['pid']}&str="+res.info['str']
+                            }
+                        });
+                    },'json')
+                }else{
+                    layer.msg('请勾选后再操作',{time:2000,btn:['知道了']});
+                }
+            }
+        </script>
+    </div>
+    <div style="margin: 10px 5px;">
+    <table class="table_a" width="100%">
+        <tbody>
+            <tr style="background-color:  rgb(19, 181, 177);">
+                <th width="2%">编号ID</th>
+                <th width="2%">管理员级别</th>
+                <th width="5%">添加时间</th>
+                <th width="5%">编辑时间</th>
+                <th width="5%">操作</th>
+            </tr>
+            <form action="" id="form2">
+                <volist name='permissions'  id='v' key="k" empty="$empty">
+                    <tr>
+                        <td>
+                            <if condition="$v['id'] neq 1">
+                                <input name="id[]" type="checkbox" value="{$v.id}"/>
+                            </if>
+                            {$v.id}
+                        </td>
+                        <td>{$v.permissions}</td>
+                        <td>{$v['ntime']}</td>
+                        <td>{$v['edittime']}</td>
+                        <td>
+                            <a class="tablelink" href="{:U('add',array('id'=>$v['id'],'pid'=>$get['pid']))}">编辑</a>
+                        </td>
+                    </tr>
+                </volist>
+            </form>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

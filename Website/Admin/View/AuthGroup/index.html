@@ -15,7 +15,7 @@
     <div style="margin: 10px 5px;">
         <table class="table_a" width="100%">
             <tbody>
-                <tr style="background-color:  rgb(19, 181, 177);">
+                <tr style="background-color: rgb(19, 181, 177);">
                     <th>编号</th>
                     <th>管理组名称</th>
                     <th>成员</th>
@@ -29,8 +29,10 @@
                         <td>
                             <a href="{:U('add_member',array('gid'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">添加组员</a> ｜
                             <a href="{:U('allocaterule',array('gid'=>$value['id'],'member'=>$value['member'],'pid'=>$get['pid']))}" class="tablelink">分配权限</a> ｜
-                            <a href="{:U('add_group',array('id'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">编辑</a> ｜
-                            <a href="#" id="{$value.id}" pid="{$get['pid']}" class="tablelink del">删除</a>
+                            <a href="{:U('add_group',array('id'=>$value['id'],'pid'=>$get['pid']))}" class="tablelink">编辑</a>
+                            <if condition="$value['id'] neq 1">
+                                ｜ <a href="#" id="{$value.id}" onclick="del({$value['id']},{$get['pid']})" class="tablelink del">删除</a>
+                            </if>
                         </td>
                     </tr>
                 </volist>
@@ -40,19 +42,28 @@
 </body>
 </html>
 <script>
-    $('.del').click(function(){
-        var id = $(this).attr('id');
-        var pid = $(this).attr('pid');
-        $.post("{:U('AuthGroup/del')}",{id:id,pid:pid},function(res){
-            if(res.status==1){
-                layer.msg(res.info,{icon:6,time:2000},function(){
-                    location=res.url;
-                })
-            }else{
-                layer.msg(res.info,{icon:5,time:2000},function(){
-                    location=res.url;
-                })
+    function del(id,pid){
+        layer.msg('确定要删除吗？',{
+            time:0,
+            btn:['确定','取消'],
+            yes:function(){
+                location.href = '{:U("Admin/AuthGroup/del")}?id='+id+'&pid='+pid
             }
-        })
-    });
+        });
+    }
+//    $('.del').click(function(){
+//        var id = $(this).attr('id');
+//        var pid = $(this).attr('pid');
+//        $.post("{:U('AuthGroup/del')}",{id:id,pid:pid},function(res){
+//            if(res.status==1){
+//                layer.msg(res.info,{icon:6,time:2000},function(){
+//                    location=res.url;
+//                })
+//            }else{
+//                layer.msg(res.info,{icon:5,time:2000},function(){
+//                    location=res.url;
+//                })
+//            }
+//        })
+//    });
 </script>

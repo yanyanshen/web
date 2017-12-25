@@ -7,6 +7,10 @@
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+<form action="https://www.517xc.com/Admin/Dynamic/sendDynamic" enctype="multipart/form-data" method="post">
+    <input type="file" multiple name="file"/>
+    <input type="submit" value="提交"/>
+</form>
     <div class="div_head">
         日志管理
         <span class="span">总计：{$count}</span>
@@ -47,11 +51,7 @@
                         <a style="color:rgb(121,199,249);text-decoration: none;" href="{:U('Admin/AdminLog/admin_log_detail')}?uid={$v['id']}&t=0&pid={$get['pid']}&pp={$get['p']}">查看日志</a>
                         <a style="color:rgb(121,199,249);text-decoration: none;" href="{:U('Admin/AdminLog/admin_log_detail')}?uid={$v['id']}&t=1&pid={$get['pid']}&pp={$get['p']}">订单日志</a>
                     </td>
-                    <if condition="$v.permissions eq 1">
-                        <td>超级管理员</td>
-                        <else/>
-                        <td>普通管理员</td>
-                    </if>
+                    <td>{$v.permissions}</td>
                     <td>{:date('Y-m-d H:i:s',$v['addtime'])}</td>
                     <td>{:date('Y-m-d H:i:s',$v['edittime'])}</td>
                     <td>{:date('Y-m-d H:i:s',$v['lastlogin'])}</td>

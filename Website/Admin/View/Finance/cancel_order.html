@@ -103,7 +103,7 @@
                         "<input type='hidden' value='{$get["p"]}' name='p'/>"+
                         "<input type='hidden' value='"+res.info['str']+"' name='str'/>"+
                         "取消原因：" +
-                        "<select name='cancel_reason' style='margin-top:10px;height: 30px'>"+
+                        "<select name='cancel_reason' style='margin-top:10px;height: 30px;width: 120px;font-size: 12px'>"+
                         "<volist name='order_cancel' id='v'>"+
                         "<option value='{$v.id}'>{$v.reason}</option>"+
                         "</volist>"+
@@ -145,9 +145,9 @@
                 <th width="4%">基地</th>
                 <th width="3%">支付方式</th>
                 <th width="5%">取消时间</th>
+                <th width="3%">跟单客服</th>
                 <th width="3%">取消人</th>
                 <th width="3%">取消原因</th>
-                <th width="2%">操作</th>
             </tr>
             <form action="" id="form2">
                 <volist name='arr["list"]'  id='v' key="k" empty="$empty">
@@ -166,32 +166,9 @@
                             <elseif condition="$v.pay_type eq 5"/>驾校
                         </if></td>
                         <td>{$v.cancel_time}</td>
+                        <td>{$v.customer}</td>
                         <td>{$v.lastupdate}</td>
                         <td>{$v.cancel_reason}</td>
-                        <td><a class="tablelink" onclick="edit_reason({$v.id})" href="javascript:void(0)">修改</a> </td>
-                        <script>
-                            function edit_reason(id){
-                                layer.open({
-                                    type: 1,
-                                    title:'取消原因',
-                                    skin: 'border:1px solid #27B7F3', //加上边框
-                                    area: ['300px', '100px'], //宽高
-                                    content:"<div style='text-align: center'><form method='post' action='{:U("cancel_order")}'>" +
-                                    "<input type='hidden' value='"+id+"' name='id'/>"+
-                                    "<input type='hidden' value='{$get["pid"]}' name='pid'/>"+
-                                    "<input type='hidden' value='{$get["p"]}' name='p'/>"+
-                                    "<input type='hidden' value='1' name='t'/>"+
-                                    "取消原因：" +
-                                    "<select name='cancel_reason' style='margin-top:10px;height: 30px'>"+
-                                    "<volist name='order_cancel' id='v'>"+
-                                    "<option value='{$v.id}'>{$v.reason}</option>"+
-                                    "</volist>"+
-                                    "</select>" +
-                                    "<input type='submit' style='background-color:rgb(19, 181, 177);color: #ffffff;border-radius: 3px;border:none;padding:5px 15px;margin-left: 10px' value='确定'/>" +
-                                    "</form></div>"
-                                });
-                            }
-                        </script>
                     </tr>
             </volist>
         </form>

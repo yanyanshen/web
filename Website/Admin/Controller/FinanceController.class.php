@@ -82,39 +82,15 @@ class FinanceController extends CommonController{
         }
     }
 
-//订单取消原因修改
+//订单取消列表
     public function cancel_order(){
-        if(I('t')){//取消原因修改
-            $_POST['lastupdate'] = session('admin_name');
-            $_POST['cancel_time'] = date('Y-m-d H:i:s',time());
-            //原来的取消原因
-            $cancel_reason_id = M('Order')->where(array('id'=>I('id')))->getField('cancel_reason');
-
-            //现在的取消原因
-            $new_cancel_reason = M('order_cancel_reason')->where(array('id'=>$_POST['cancel_reason']))->getField('reason');
-
-            if($cancel_reason_id == 0){
-                $log = "订单取消原因: => $new_cancel_reason";
-            }else{
-                $old_cancel_reason = M('order_cancel_reason')->where(array('id'=>$cancel_reason_id))->getField('reason');
-                $log = "订单取消原因: $old_cancel_reason=> {$new_cancel_reason}";
-            }
-            $res = M('Order')->save($_POST);
-            if($res){
-                D('AdminLog')->addOrderLog($log,I('id'));
-                $this->redirect("cancel_order",array('pid'=>I('pid'),'p'=>I('p')),0,"<script>alert('修改成功')</script>");
-            }else{
-                $this->redirect("cancel_order",array('pid'=>I('pid'),'p'=>I('p')),0.1,"<script>alert('修改失败')</script>");
-            }
-        }else{
-            $_GET['order_status'] = 5;
-            $arr = D('order')->order_list($_GET);
-            $this->assign('arr', $arr);
-            $order_cancel = M('OrderCancelReason')->select();
-            $this->assign('order_cancel',$order_cancel);
-            $this->assign('get',$_GET);
-            $this->display();
-        }
+        $_GET['order_status'] = 5;
+        $arr = D('order')->order_list($_GET);
+        $this->assign('arr', $arr);
+        $order_cancel = M('OrderCancelReason')->select();
+        $this->assign('order_cancel',$order_cancel);
+        $this->assign('get',$_GET);
+        $this->display();
     }
 /*----------------------------------2017-11-23shenyanyan---------------------------*/
 //批量退款
@@ -130,7 +106,8 @@ class FinanceController extends CommonController{
             $_POST['lastupdate'] = session('admin_name');
             switch(I('type')){
                 case '取消':
-                    $log = '取消订单';
+                    $new_cancel_reason = M('order_cancel_reason')->where(array('id'=>$_POST['cancel_reason']))->getField('reason');
+                    $log = "订单取消原因: => {$new_cancel_reason}";
                     $_POST['status'] = 5;
                     $_POST['order_status'] = 5;
                     $_POST['cancel_time'] = date('Y-m-d H:i:s',time());
@@ -161,9 +138,20 @@ class FinanceController extends CommonController{
     function cancel_reason(){
         $_POST['lastupdate'] = session('admin_name');
         $_POST['cancel_time'] = date('Y-m-d H:i:s',time());
+
         $id_arr = explode(',',I('str'));
-        $log = '订单取消原因: => '.I('cancel_reason');
+//        $log = '订单取消原因: => '.$new_cancel_reason;
         foreach($id_arr as $v){
+            //原来的取消原因id
+            $cancel_reason_id = M('Order')->where(array('id'=>$v))->getField('cancel_reason');
+            //现在的取消原因
+            $new_cancel_reason = M('order_cancel_reason')->where(array('id'=>$_POST['cancel_reason']))->getField('reason');
+            if($cancel_reason_id == 0){
+                $log = "订单取消原因: => $new_cancel_reason";
+            }else{
+                $old_cancel_reason = M('order_cancel_reason')->where(array('id'=>$cancel_reason_id))->getField('reason');
+                $log = "订单取消原因: $old_cancel_reason=> {$new_cancel_reason}";
+            }
             $_POST['id'] = $v;
             M('Order')->save($_POST);
             D('AdminLog')->addOrderLog($log,$v);

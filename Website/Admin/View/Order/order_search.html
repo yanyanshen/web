@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>订单搜索</title>
+    <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet" />
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <script  src="__PUBLIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+    <script  src="__PUBLIC__/public/js/layer/layer.js"></script>
+</head>
+<body>
+    <div class="div_head">
+        订单搜索
+        <span class="span">总计：{$count?$count:0}</span>
+    </div>
+    <div class="div_search">
+        <span>
+            <form action="?" id='form1' method="get" name="form1">
+                <input type="hidden" name="p" value="{$get['p']}"/>
+                <input type="hidden" name="pid" value="{$get['pid']}"/>
+                <div>
+                    <span>手机号：<input type="text" name='tel' style="width:100px"  value="{$get['tel']?$get['tel']:''}"/></span>
+                    <span style="padding-left:5px;">
+                        <input value="查询" style="font-size: 11px" type="submit" id='btn' />
+                        <input value="清空" style="font-size: 11px" type="reset" id='btn' />
+                    </span>
+                </div>
+            </form>
+             <script type="text/javascript" language="javascript">
+                 function submitYouFrom(path){
+                     layer.confirm('确定导出吗？', {
+                         btn: ['确定','关闭'] //按钮
+                     }, function(){
+                         $('#form1').attr('action',path);
+                         $('#form1').submit();
+                     }, function(){
+                         location.href = '';
+                     });
+                 }
+             </script>
+        </span>
+    </div>
+    <div style="margin: 10px 5px;">
+    <table class="table_a"  width="100%">
+        <tbody>
+            <tr style="background-color:rgb(19, 181, 177);">
+                <th width="2%">编号ID</th>
+                <th width="2%">订单号</th>
+                <th width="6%">下单时间</th>
+                <th width="3%">用户名</th>
+                <th width="3%">联系电话</th>
+                <th width="2%">人数</th>
+                <th width="4%">驾校</th>
+                <th width="6%">课程</th>
+                <th width="4%">基地</th>
+                <th width="3%">支付方式</th>
+                <th width="3%">支付状态</th>
+                <th width="6%">支付时间</th>
+                <th width="3%">订单状态</th>
+                <th width="2%">跟单客服</th>
+                <th width="5%">最新备注</th>
+                <th width="6%">回访日期</th>
+                <th width="3%">最后更新人</th>
+                <th width="2%">操作</th>
+            </tr>
+            <volist name="list"  id='v' key="k" empty="$empty">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.ordcode}</td>
+                    <td>{$v['create_time']}</td>
+                    <td>{$v.name}</td>
+                    <td>{$v.tel}</td>
+                    <td>{$v.num}</td>
+                    <td>{$v.s_nickname}</td>
+                    <td>{$v.class_name}</td>
+                    <td>{$v.trname}</td>
+                    <td>
+                        <if condition="$v.pay_type eq 0">未支付</if>
+                        <if condition="$v.pay_type eq 1">支付宝</if>
+                        <if condition="$v.pay_type eq 2">微信</if>
+                        <if condition="$v.pay_type eq 4">快递</if>
+                        <if condition="$v.pay_type eq 5">驾校</if>
+                    </td>
+                    <td>
+                        <if condition="$v.status eq 1">待支付</if>
+                        <if condition="$v.status eq 2">已支付</if>
+                        <if condition="$v.status eq 3">待评价</if>
+                        <if condition="$v.status eq 4">待追加</if>
+                        <if condition="$v.status eq 5">已取消</if>
+                        <if condition="$v.status eq 6">已完成</if>
+                    </td>
+                    <td>{$v.notify_time}</td>
+                    <td> <if condition="$v['order_status'] eq 1">待处理</if>
+                        <if condition="$v['order_status'] eq 2">待回访</if>
+                        <if condition="$v['order_status'] eq 3">待结算</if>
+                        <if condition="$v['order_status'] eq 4">已完成</if>
+                        <if condition="$v['order_status'] eq 5">已取消</if>
+                        <if condition="$v['order_status'] eq 6">已退款</if></td>
+                    <td>{$v.customer}</td>
+                    <td>{$v.customer_inform}</td>
+                    <td>{$v.return_time}</td>
+                    <td>{$v.lastupdate}</td>
+                    <td>
+                        <a class="tablelink" href="{:U('Admin/Order/list_info')}?id={$v['id']}&pid=16">处理</a>　
+                    </td>
+                </tr>
+        </volist>
+        </tbody>
+    </table>
+        <div id="page">
+            {$arr['page']}
+        </div>
+</div>
+</body>
+</html>

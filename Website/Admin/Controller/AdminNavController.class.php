@@ -24,7 +24,7 @@ class AdminNavController extends CommonController{
             if($_POST){
                 $nid=$nav->add_nav($_POST);
                 if($nid){
-                    $log['done'] = "菜单信息:=>{$_POST['navname']}({$_POST['navurl']})";
+                    $log['done'] = "菜单信息: => {$_POST['navname']}({$_POST['navurl']})";
                     D('AdminLog')->logout($log);
                     $this->success('菜单添加成功',U('Admin/AdminNav/index',array('pid'=>I('ppid'))));
                 }else{

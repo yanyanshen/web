@@ -2,6 +2,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 use Admin\Common\Controller\CommonController;
+use Think\Page;
 class OrderController extends CommonController {
 /*
  * User: 沈艳艳
@@ -11,8 +12,8 @@ class OrderController extends CommonController {
    public function order_list(){
        //用户在网站上下单 并未付款 订单状态是未支付 未处理状态  系统自动 分配给  在线的 客服
        //1.先查询未支付未处理订单
-       $permissions = M('Admin')->where(array('id'=>session('admin_id')))->getField('permissions');
-       if($permissions == 2){
+       $permissions = M('Admin')->field('permissions,allocation')->where(array('id'=>session('admin_id')))->find();
+       if($permissions['permissions'] != 1 and $permissions['allocation'] == 1){
            $order = M('Order')->field('id,status,order_status,customer')->where(array("status"=>array('in',"1,2"),'order_status'=>1))->select();
            if(!empty($order)){
                //2.查询在线的客服
@@ -72,6 +73,28 @@ class OrderController extends CommonController {
         $this->assign('count',$count);
         $this->display();
     }
+/*-------------------------2017-12-21shenyanyan-----------------------*/
+//订单搜索
+    public function order_search(){
+        session('admin_return',U('Admin/Order/order_search'));
+        if(I('tel')){
+            $where = " ou.tel like '%".urldecode(I('tel'))."%'";
+            $count = M('Order')->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
+                ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')
+                ->join('xueches_order_user ou ON ou.oid=o.id')
+                ->where($where)->count();
+            $page = new Page($count,10);
+            $list = M('Order')->alias('o')->join('xueches_trainclass c ON c.id=o.class_name')
+                ->join('xueches_trainaddress ta ON ta.id=o.trainaddress')->where($where)
+                ->field('o.*,ou.name,ou.tel,c.name as class_name,c.wholeprice,c.advanceprice,c.officeprice,ta.trname')
+                ->join('xueches_order_user ou ON ou.oid=o.id')->select();
+            $this->assign('count',$count);
+            $this->assign('page',$page->show());
+            $this->assign('list',$list);
+        }
+        $this->assign('get',$_GET);
+        $this->display();
+    }
 /*
  * User: 沈艳艳
  * : 2017/08/25
@@ -121,6 +144,10 @@ class OrderController extends CommonController {
 //确认课程修改权限
         $class_update = D('AuthRule')->getRule($pid,'确认课程修改');
         $_GET['class_update'] = $class_update['name'];
+//修改客服权限
+        $customer_update = D('AuthRule')->getRule($pid,'转客服');
+        $_GET['customer_update'] = $customer_update['name'];
+        print_r($_GET);
 
 //订单详情
         $list = M('order')->field('*')->where("id=$id")->find();
@@ -235,39 +262,42 @@ class OrderController extends CommonController {
             //原有的学员信息
             $order = M('Order')->where(array('id'=>I('oid')))->find();
             $user = M('OrderUser')->where(array('oid'=>I('oid')))->select();
-            foreach($user as $v){
-                $log .= "{$v['name']}({$v['tel']}) | ";
-            }
-            //保存原有的学员信息 并添加日志
-            $tel = I('post.tel');
-            $id = I('post.id');
-            if($tel){
-                foreach(I('post.name') as $k=>$v){
-                    $OrderUser['name'] = $v;
-                    $OrderUser['tel'] = $tel[$k];
-                    $OrderUser['sex'] = I('sex')[$k];
-                    if(!M('OrderUser')->where($OrderUser)->getField('id')){
-                        M('OrderUser')->where(array('id'=>$id[$k]))->save($OrderUser);
+            if($user){
+                foreach($user as $v){
+                    $log .= "{$v['name']}({$v['tel']}) | ";
+                }
+                //保存原有的学员信息 并添加日志
+                $tel = I('post.tel');
+                $id = I('post.id');
+                if($tel){
+                    foreach(I('post.name') as $k=>$v){
+                        $OrderUser['name'] = $v;
+                        $OrderUser['tel'] = $tel[$k];
+                        $OrderUser['sex'] = I('sex')[$k];
+                        if(!M('OrderUser')->where($OrderUser)->getField('id')){
+                            M('OrderUser')->where(array('id'=>$id[$k]))->save($OrderUser);
+                        }
+                        $log1 .= " $v($tel[$k]) | ";//修改后的学员信息
                     }
-                    $log1 .= " $v($tel[$k]) | ";//修改后的学员信息
                 }
             }
 
             //添加新学员时添加日志
             $phone = I('post.phone');
+            $sex1 = I('post.sex1');
             if(!empty($phone)){
-                $userInfo = M('OrderUser')->field('price')->where(array('oid'=>I('oid')))->find();
+                $userInfo = M('trainclass')->field('wholeprice')->where(array('oid'=>$order['class_name']))->find();
                 foreach(I('post.username') as $k1=>$v1){
                     $data['oid'] = I('oid');
                     $data['name']= $v1;
                     $data['tel'] = $phone[$k1];
-                    $data['sex'] = I('sex1')[$k];
-                    $data['price'] = $userInfo['price'];
+                    $data['sex'] = $sex1[$k1];
+                    $data['price'] = $userInfo['wholeprice'];
                      M('OrderUser')->add($data);
                     $log1 .= "$v1($phone[$k1]) | ";
                 }
                 M('Order')->where(array('id'=>I('oid')))->setInc('num',count($phone));
-                M('Order')->where(array('id'=>I('oid')))->setInc('price',count($phone)*$userInfo['price']);
+                M('Order')->where(array('id'=>I('oid')))->setInc('price',count($phone)*$userInfo['wholeprice']);
             }
             //保存地址 或 备注
             if(I('address')||I('inform')){
@@ -275,8 +305,8 @@ class OrderController extends CommonController {
                     $log2 = "学员地址|备注:{$order['address']} | {$order['inform']}=>{$_POST['address']}|{$_POST['inform']}";
                 };
             }
-            $price = M('OrderUser')->field('price')->where(array('oid'=>I('oid')))->sum('price');
-            M('Order')->where(array('id'=>I('oid')))->save(array('price'=>$price));
+//            $price = M('OrderUser')->field('price')->where(array('oid'=>I('oid')))->sum('price');
+//            M('Order')->where(array('id'=>I('oid')))->save(array('price'=>$price));
             $log = "学员信息:$log => $log1";
 
             if($log||$log2){
@@ -391,9 +421,9 @@ class OrderController extends CommonController {
 
         foreach($order_source as $v){
             $data['order_num'] =  $data['order_num'] + $v['order_num'];//总单数
-            $data['completed_num'] = $data['completed_num'] + $v['completed_num'];//成单量
+            $data['completed_num'] = $data['completed_num'] + $v['completed_num'];//已付款未结算
 
-            $data['end_num'] = $data['end_num'] + $v['end_num'];//成单量
+            $data['end_num'] = $data['end_num'] + $v['end_num'];//结算订单数
 
             $data['cancel_num'] = $data['cancel_num'] + $v['cancel_num'];//取消量
         }
@@ -433,8 +463,8 @@ class OrderController extends CommonController {
 
         foreach($order_source as $v){
             $data['order_num'] = $data['order_num']  + $v['order_num'];//订单总数
-            $data['completed_num'] = $data['completed_num'] + $v['completed_num'];//承担总数
-            $data['end_num'] = $data['end_num'] + $v['end_num'];//承担总数
+            $data['completed_num'] = $data['completed_num'] + $v['completed_num'];//已付款未结算
+            $data['end_num'] = $data['end_num'] + $v['end_num'];//已结算订单量
             $data['cancel_num'] = $data['cancel_num'] + $v['cancel_num'];//取消总数
         }
         //成单率
@@ -473,9 +503,11 @@ class OrderController extends CommonController {
         $_POST['status'] = 5;
         $_POST['order_status'] = 5;
         $_POST['lastupdate'] = session('admin_name');
+        $_POST['cancel_time'] = date('Y-m-d H:i:s',time());
+        $new_cancel_reason = M('order_cancel_reason')->where(array('id'=>$_POST['cancel_reason']))->getField('reason');
+        $log = "订单取消原因: => {$new_cancel_reason}";
         $res =  M('Order')->save($_POST);
         if($res){
-            $log = '取消订单';
             D('AdminLog')->addOrderLog($log,I('id'));
             $this->redirect('list_info',array('id'=>I('id'),'pid'=>I('pid'),'p'=>I('p')));
         }else{

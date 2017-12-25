@@ -26,7 +26,7 @@ class AuthRuleController extends CommonController{
             if($data){
                 $nid=$rule->add_rule($data);
                 if($nid){
-                    $log['done'] = "权限添加: => {$data['title']}";
+                    $log['done'] = "权限添加: => {$data['title']}({$data['name']})";
                     D('AdminLog')->logout($log);
                     $this->success('权限添加成功',$url);
                 }else{

@@ -6,6 +6,7 @@
     <link href="__STATIC__/ment/css/style.css" rel="stylesheet" type="text/css" />
     <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
+    <script src="__PUBLIC__/public/js/jquery.form.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
         input{margin-bottom: 8px;}
@@ -21,14 +22,14 @@
             });
             var validate=$('#form1').validate({
                 rules:{
-                    username:{required:true, rangelength:[5,12],
+                    username:{required:true, rangelength:[2,12],
                         remote:{url:"{:U('chkAdmin')}", type:'post'}
                     },
                     password:{required:true, rangelength:[5,12]},
                     verify:{required:true, remote:{url:"{:U('chkVerify')}", type:'post'}}
                 },
                 messages:{
-                    username:{required:'用户名不能为空！', rangelength:'用户名长度必须在5到12位之间！', remote:'用户名不存在！'
+                    username:{required:'用户名不能为空！', rangelength:'用户名长度必须在2到12位之间！', remote:'用户名不存在！'
                     },
                     password:{required:'密码不能为空！', rangelength:'密码长度必须在5到12位之间！'},
                     verify:{required:'验证码不能为空!', remote:'验证码不正确!'}
@@ -41,27 +42,28 @@
             });
             $(window).keydown(function(event){
                 if(event.keyCode==13){
-                    $('#form1').submit();
+                    $(".loginbtn").click();
                 }
             });
             $('#form1').submit();
-            $('#form1').submit(function(){
+            $(".loginbtn").click(function(){
                 $('.loginbtn').attr('disabled',true);
                 if(validate.form()){
                     $.post("{:U('Admin/Login/login')}",$('#form1').serialize(),function(res){
                         if(res.status==1){
-                            layer.msg('登陆成功',{time:2000,icon:6},function(){
-                                window.location.href="{:U('Admin/Index/index')}";
+                            layer.msg(res.info,{time:2000,icon:6},function(){
+                                window.location.href=res.url;
                             })
                         }else{
                             layer.msg(res.info,{time:2000,icon:5},function() {
-                                window.location.href="{:U('Admin/Login/login')}";
+                                window.location.href=res.url;
                             })
                         }
                     },'json');
                     return false;
                 }
-            })
+            });
+
         });
     </script>
 </head>

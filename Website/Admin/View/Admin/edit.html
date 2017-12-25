@@ -9,7 +9,7 @@
     <script src="__PUBLIC__/public/js/jquery.validate.js"></script>
     <script src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style>
-        label{padding: 10px 10px 10px 0}
+        label{padding: 10px 20px 10px 0}
         li{ margin-top: 15px;list-style: none}
         b{color: #FA7124}
 
@@ -43,11 +43,18 @@
             <li><label>用户名<b>*</b></label>
                 <input name="username" value="{$adminInfo.username}" type="text" class="dfinput" placeholder="请填写用户名"/>
             </li>
+            <li><label style="padding-right: 10px">用户级别<b>*</b></label>
+                <select class="dfinput" name="permissions" style="width: 345px">
+                <volist name="permissions" id="data">
+                <option value="{$data.id}" {$adminInfo['permissions'] == $data['id']?'selected':''}>{$data.permissions}</option>
+                </volist>
+                </select>
+            </li>
             <li><label>密　码<b>*</b></label>
                 <input name="password" type="password" class="dfinput" value="" placeholder="不填写则保持原密码不变"/>
             </li>
             <li>
-                <label style="padding: 10px 62px 10px 0"></label>
+                <label style="padding: 10px 72px 10px 0"></label>
                 <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
             </li>
         </ul>

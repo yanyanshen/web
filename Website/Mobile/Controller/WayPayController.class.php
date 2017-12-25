@@ -9,7 +9,6 @@ class WayPayController extends Controller{
         vendor('wap.wappay.service.AlipayTradeService');
         vendor('wap.aop.request.AlipayTradeWapPayRequest');
         vendor('wap.aop.AopClient');
-//        vendor('wap.aop.AopEncrypt');
     }
      public function _empty($name){
             //把所有城市的操作解析到city方法
@@ -28,8 +27,7 @@ class WayPayController extends Controller{
             $subject = '517驾校';
 
             //付款金额，必填
-//            $total_amount = $_POST['WIDtotal_amount'];
-            $total_amount = 0.01;
+            $total_amount = $_POST['WIDtotal_amount'];
 
             //商品描述，可空
             $body = $_POST['WIDbody'];

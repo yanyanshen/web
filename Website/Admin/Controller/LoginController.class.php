@@ -25,7 +25,7 @@ class LoginController extends Controller{
                     session('admin_name', $info['username']);
                     $log['done'] = session('admin_name').'登录';
                     D('AdminLog')->logout($log);
-                    $this->success('登陆成功');
+                    $this->success('登陆成功',U('Admin/Index/index'));
                 }else{
                     $this->error('你的账号被停权');
                 }

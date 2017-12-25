@@ -27,43 +27,114 @@
             </form>
         </span>
     </div>
+    <div style="margin-left: 6px">
+        <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #323232;width: 60px;padding: 2px 0;" type="button" value='全选' />
+        <input type="button" value='订单查看权限' onclick="authority(1,'确定设置吗？')" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 100px;padding: 2px 0"/>
+        <input type="button" value='取消查看权限' onclick="authority(0,'确定取消吗？')" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 100px;padding: 2px 0"/>
+        <script>
+            $("document").ready(function(){
+                $("#checkall").click(function(){
+                    if($(this).val() == '全选'){
+                        $("input[type='checkbox']").prop('checked',true);
+                        $("#checkall").val('取消全选');
+                    }else{
+                        $("input[type='checkbox']").prop('checked',false);
+                        $("#checkall").val('全选');
+                    }
+                });
+            });
+
+            function authority(authority,title){
+                var id_arr = document.getElementsByName('id[]');
+                var flag = false;
+                for(var i in id_arr){
+                    if(id_arr[i].checked){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    $.post("{:U('Admin/Finance/batch_operate')}",$("#form2").serialize(),function(res){
+                        layer.msg(title,{
+                            time:0,
+                            btn:['确定','取消'],
+                            yes:function(){
+                                location.href = "{:U('Admin/Admin/authority')}?pid={$get['pid']}&p={$get['p']}&str="+res.info['str']+"&authority="+authority
+                            }
+                        });
+                    },'json')
+                }else{
+                    layer.msg('请勾选后再操作',{time:2000,btn:['知道了']});
+                }
+            }
+        </script>
+    </div>
     <div style="margin: 10px 5px;">
     <table class="table_a" width="100%">
         <tbody>
             <tr style="background-color:  rgb(19, 181, 177);">
                 <th width="2%">编号</th>
                 <th width="2%">管理员</th>
+                <th width="5%">身份</th>
                 <th width="5%">添加时间</th>
                 <th width="5%">编辑时间</th>
                 <th width="5%">最近的登录</th>
-                <th width="5%">身份</th>
                 <th width="5%">所属组</th>
+                <th width="3%">订单分配状态</th>
                 <th width="5%">登录状态</th>
-                <th width="4%">账号状态</th>
+                <th width="3%">账号状态</th>
                 <th width="5%">操作</th>
             </tr>
-            <volist name='adminList'  id='v' key="k" empty="$empty">
-                <tr>
-                    <td>{$k+$firstRow}</td>
-                    <td>{$v.username}</td>
-                    <td>{:date('Y-m-d H:i:s',$v['addtime'])}</td>
-                    <td>{:date('Y-m-d H:i:s',$v['edittime'])}</td>
-                    <td>{:date('Y-m-d H:i:s',$v['lastlogin'])}</td>
-                    <if condition="$v.permissions eq 1">
-                        <td>超级管理员</td>
-                        <else/>
-                        <td>普通管理员</td>
-                    </if>
-                    <td>{$v.group}</td>
-                    <td>{$v['online']==0?'未登录':'在线'}</td>
-                    <td>{$v['status']==0?'禁用':'激活'}</td>
-                    <td>
-                        <a class="tablelink" href="{:U('edit',array('id'=>$v['id'],'p'=>$get['p'],'pid'=>$get['pid']))}">编辑</a>&nbsp;&nbsp;
-                        <a class="tablelink status" href="#" id="{$v.id}" p="{$get['p']}" pid="{$get['pid']}">{$v['status']==0?'激活':'禁用'}</a>&nbsp;&nbsp;
-                        <a id="{$v.id} " class="tablelink online" p="{$get['p']}" pid="{$get['pid']}">{$v['online']==0?'':'下线'}</a>
-                    </td>
-                </tr>
-        </volist>
+            <form action="" id="form2">
+                <volist name='adminList'  id='v' key="k" empty="$empty">
+                    <tr>
+                        <td>
+                            <if condition="$v['permissions'] neq 1">
+                                <input name="id[]" type="checkbox" value="{$v.id}"/>
+                            </if>
+                            {$k+$firstRow}
+                        </td>
+                        <td>
+                            <if condition="$v['authority'] eq 1">
+                                <img style="vertical-align: middle;width: 20px" src="__STATIC__/default_img/abcd_06.png" alt=""/>
+                            </if>
+                            {$v.username}
+                        </td>
+                        <td>{$v.permissions_name}</td>
+                        <td>{:date('Y-m-d H:i:s',$v['addtime'])}</td>
+                        <td>{:date('Y-m-d H:i:s',$v['edittime'])}</td>
+                        <td>
+                            <if condition="$v['lastlogin'] neq ''">
+                                {:date('Y-m-d H:i:s',$v['lastlogin'])}
+                            </if>
+                        </td>
+                        <td>{$v.group}</td>
+                        <td>
+                            <if condition="$v['permissions'] neq 1">
+                                <a class="tablelink" onclick="allocation({$v['id']})" href="javascript:void(0)">{$v['allocation']==0?'激活':'取消'}</a>
+                            </if>
+                            <script>
+                                function allocation(id){
+                                    layer.msg('确定此操作吗?',{
+                                        time:0,
+                                        btn:['确定','取消'],
+                                        yes:function(){
+                                            location.href = '{:U("Admin/Admin/allocation")}?id='+id+"&pid={$get['pid']}&p={$get['p']}"
+                                        }
+                                    })
+                                }
+                            </script>
+                        </td>
+                        <td>{$v['online']==0?'未登录':'在线'}</td>
+                        <td>{$v['status']==0?'禁用':'激活'}</td>
+                        <td>
+                            <a class="tablelink" href="{:U('edit',array('id'=>$v['id'],'p'=>$get['p'],'pid'=>$get['pid']))}">编辑</a>&nbsp;&nbsp;
+                            <a class="tablelink status" href="#" id="{$v.id}" p="{$get['p']}" pid="{$get['pid']}">{$v['status']==0?'激活':'禁用'}</a>&nbsp;&nbsp;
+                            <a id="{$v.id} " class="tablelink online" p="{$get['p']}" pid="{$get['pid']}">{$v['online']==0?'':'下线'}</a>
+                        </td>
+                    </tr>
+                </volist>
+            </form>
         </tbody>
     </table>
     <div id="page">

@@ -175,7 +175,13 @@
             <volist name="arr['list']"  id='v' key="k" empty="$empty">
                 <tr>
                     <td>{$k+$arr['firstRow']}</td>
-                    <td>{$v.ordcode}</td>
+                    <td>
+                        <if condition="$v['num'] neq 1">
+                            <div style="border:1px solid #FA7124">{$v.ordcode}</div>
+                            <else/>
+                            {$v.ordcode}
+                        </if>
+                    </td>
                     <td>{$v['create_time']}</td>
                     <td>{$v.name}</td>
                     <td>{$v.tel}</td>
@@ -211,9 +217,7 @@
                     <td>{$v.lastupdate}</td>
                     <td>
                         <if condition="$list_info neq '0'" >
-                            <a class="tablelink" href="{:U($list_info)}?id={$v['id']}&pid={$get['pid']}&p={$get['p']}">
-                                处理
-                            </a>　
+                            <a class="tablelink" href="{:U($list_info)}?id={$v['id']}&pid={$get['pid']}&p={$get['p']}">处理</a>　
                             <else/>
                             <a class="tablelink" href="javascript:alert('暂无权限');">处理</a>　
                         </if>
