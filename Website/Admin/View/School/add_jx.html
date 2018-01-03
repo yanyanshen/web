@@ -10,10 +10,10 @@
         <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
         <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style type="text/css">
-            span.error{ font-size: 12px;color: #FA7124;}
-            span.ok{font-size: 12px; color: #38D63B;}
+            span.error{ font-size: 10px;color: #FA7124;}
+            span.ok{font-size: 10px; color: #38D63B;}
             .table_a  td{text-align: left}
-            .table_a  input{font-size: 11px}
+            .table_a  input{font-size: 10px}
         </style>
         <script>
             $(document).ready(function(e) {
@@ -84,12 +84,12 @@
                 <table width="100%" class="table_a">
                     <tr>
                         <td width="7%" style="color: #646464">驾校账号</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px;" name="account" /></td>
+                        <td><input type="text" style="width: 200px;" name="account" /></td>
                     </tr>
                     <tr>
                         <td>所在城市</td>
                         <td>
-                            <select name="cityid" style="font-size: 12px;width: 70px"  onchange="change(this)">
+                            <select name="cityid" style="width: 100px;height:20px;font-size: 10px"  onchange="change(this)">
                                 <volist name="city" id='v'>
                                     <option value="{$v.cityname}">{$v.cityname}</option>
                                 </volist>
@@ -98,26 +98,26 @@
                     </tr>
                     <tr>
                         <td>驾校简称</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="nickname" placeholder="例如:市中心驾校"/></td>
+                        <td><input type="text" style="width: 200px" name="nickname" placeholder="例如:市中心驾校"/></td>
                     </tr>
                     <tr>
                         <td>驾校全称</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" id="keyword" name="fullname" placeholder="例如:上海市机动车驾驶员培训中心"/>
+                        <td><input type="text" style="width: 200px" id="keyword" name="fullname" placeholder="例如:上海市机动车驾驶员培训中心"/>
                         </td>
                     </tr>
                     <tr>
                         <td>地址</td>
                         <td>
-                            <input type="text" style="font-size: 10px;width: 200px" name="address" value="" id="address"/>
+                            <input type="text" style="width: 200px" name="address" value="" id="address"/>
                         </td>
                     </tr>
                     <tr>
                         <td>驾校电话</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="phone" value="400-8040-517" /></td>
+                        <td><input type="text" style="width: 200px" name="phone" value="400-8040-517" /></td>
                     </tr>
                     <tr>
                         <td>优先级</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="order" value="0" />(数字，优先级越大排名越靠前)</td>
+                        <td><input type="text" style="width: 200px" name="order" value="0" />(数字，优先级越大排名越靠前)</td>
                     </tr>
                     <tr>
                         <td>驾校logo</td>
@@ -159,35 +159,35 @@
                     </tr>
                     <tr>
                         <td>最低价格</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="minprice"  placeholder="例如:4900"/></td>
+                        <td><input type="text" style="width: 200px" name="minprice"  placeholder="例如:4900"/></td>
                     </tr>
                     <tr>
                         <td>原价</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="highprice"  placeholder="例如:7800"/></td>
+                        <td><input type="text" style="width: 200px" name="highprice"  placeholder="例如:7800"/></td>
                     </tr>
                     <tr>
                         <td>评分</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="score" placeholder="例如:5(限制：1-5)"/></td>
+                        <td><input type="text" style="width: 200px" name="score" placeholder="例如:5(限制：1-5)"/></td>
                     </tr>
                     <tr>
                         <td>评论数</td>
-                        <td><input type="text"  style="font-size: 10px;width: 200px" name="evalutioncount"  value="329"/></td>
+                        <td><input type="text"  style="width: 200px" name="evalutioncount"  value="329"/></td>
                     </tr>
                     <tr>
                         <td>驾照类型</td>
-                        <td><input type="text" name="jtype" style="font-size: 10px;width: 200px" placeholder="例如:C(多个用英文逗号隔开)"/></td>
+                        <td><input type="text" name="jtype" style="width: 200px" placeholder="例如:C(多个用英文逗号隔开)"/></td>
                     </tr>
                     <tr>
                         <td>总学员数</td>
-                        <td><input type="text"  style="font-size: 10px;width: 200px" name="student_num"  value="211"/></td>
+                        <td><input type="text"  style="width: 200px" name="student_num"  value="211"/></td>
                     </tr>
                     <tr>
                         <td>已通过人数</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px"  name="passedcount" value="322"/></td>
+                        <td><input type="text" style="width: 200px"  name="passedcount" value="322"/></td>
                     </tr>
                     <tr>
                         <td>联系人/联系方式</td>
-                        <td><input type="text" style="font-size: 10px;width: 200px" name="connectteacher" />（姓名 空格 手机号）</td>
+                        <td><input type="text" style="width: 200px" name="connectteacher" />（姓名 空格 手机号）</td>
                     </tr>
                     <tr>
                         <td>驾校简介</td>

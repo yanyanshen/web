@@ -1,10 +1,12 @@
 <?php
 namespace Admin\Controller;
+use Org\Util\Pinyin;
 use Think\Controller;
 use Think\Page;
 use Admin\Common\Controller\CommonController;
 class GuiderController extends CommonController {
     function index_list(){
+
         $Dao = M("school");
         $where = "s.boss_id=b.id and ca.id=s.category_id and city.id=s.cityid and s.type='zd'";
         foreach($_GET as $k=>$v){
@@ -37,18 +39,26 @@ class GuiderController extends CommonController {
     }
     public function add_zd(){
         if(IS_AJAX){
-            $_POST['type']='zd';
-            $_POST['ntime']=time();
-            $_POST['lastupdate'] = session('admin_name');
-            $id=M('school')->add($_POST);
-            if($id){
-                $log['done'] = "指导员添加: => {$_POST['nickname']}";
-                D('AdminLog')->logout($log);
+            $_POST['short_name'] = $_POST['nickname'];
+            $pinyin = new Pinyin();
+            $_POST['pinyin'] = $pinyin->qupinyin($_POST['short_name']);
+            $where['pinyin']=$_POST['pinyin'];
+            $data=D('School')->school_list($where,'id');
+            if($data){
+                $this->error('姓名或者简称拼音重复，请加以区分');
+            }else{
+                $_POST['ntime']=time();
+                $_POST['lastupdate'] = session('admin_name');
+                $id=M('school')->add($_POST);
+                if($id){
+                    $log['done'] = "指导员添加: => {$_POST['nickname']}";
+                    D('AdminLog')->logout($log);
 
-                M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('guider_num',1);
-                $res=UploadPic('School','guider_logo',$id);
+                    M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('guider_num',1);
+                    $res=UploadPic('School','guider_logo',$id);
+                }
+                $this->success('添加成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
             }
-            $this->success('添加成功',U('Admin/Guider/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
         }else{
             $category=M('GuiderCategory')->field('id,category_name')->select();
             $this->assign('category', $category);

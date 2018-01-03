@@ -1,5 +1,6 @@
 <?php
 namespace Admin\Controller;
+use Org\Util\Pinyin;
 use Think\Controller;
 use Think\Page;
 use Admin\Common\Controller\CommonController;
@@ -40,19 +41,28 @@ class CoachController extends CommonController {
     }
     public function add_jl(){
         if(IS_AJAX){
-            $_POST['ntime']=time();
-            $_POST['lastupdate']=session('admin_name');
-            $id=M('School')->add($_POST);
-            if($id){
-                $log['done'] = '教练添加: => '.$_POST['nickname'];
-                D('AdminLog')->logout($log);
-                M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('coach_num',1);
-            }
-            $res=UploadPic('School','Coach_logo',$id);
-            if($res){
-                $this->success('添加成功',U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+            $_POST['short_name'] = $_POST['nickname'];
+            $pinyin = new Pinyin();
+            $_POST['pinyin'] = $pinyin->qupinyin($_POST['short_name']);
+            $where['pinyin']=$_POST['pinyin'];
+            $data=D('School')->school_list($where,'id');
+            if($data){
+                $this->error('姓名或者简称拼音重复，请加以区分');
             }else{
-                $this->success('添加失败',U('Admin/Coach/add_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'type'=>I('type'))));
+                $_POST['ntime']=time();
+                $_POST['lastupdate']=session('admin_name');
+                $id=M('School')->add($_POST);
+                if($id){
+                    $log['done'] = '教练添加: => '.$_POST['nickname'];
+                    D('AdminLog')->logout($log);
+                    M('School')->where(array('id'=>$_POST['school_id'],'type'=>'jx'))->setInc('coach_num',1);
+                }
+                $res=UploadPic('School','Coach_logo',$id);
+                if($res){
+                    $this->success('添加成功',U('Admin/Coach/index_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+                }else{
+                    $this->success('添加失败',U('Admin/Coach/add_jl',array('p'=>$_POST['p'],'pid'=>$_POST['pid'],'type'=>I('type'))));
+                }
             }
         }else{
             $category=M('CoachCategory')->field('id,category_name')->select();

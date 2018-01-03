@@ -11,9 +11,9 @@
         <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
         <style>
             .table_a td{text-align: left}
-            span.error{font-size: 12px;color: #FA7124;}
-            span.ok{font-size: 12px;color: #38D63B;}
-            .table_a  input{font-size: 12px}
+            span.error{font-size: 10px;color: #FA7124;}
+            span.ok{font-size: 10px;color: #38D63B;}
+            .table_a input{font-size: 10px}
 
             #searchresult{top:50px;left: 280px;position: absolute;z-index:5; overflow:hidden;border-top:none;}
             .line{font-size:12px; color: #ffffff; background:rgb(19, 181, 177); width:200px; padding:2px;height: 30px}
@@ -37,7 +37,7 @@
         <div class="div_head">
             指导员添加
             <a style="text-decoration: none;color: #FA7124" href="{$url}">【返回】</a>
-            <a href="" style="text-decoration: none;color: #646464">【刷新】</a>
+            <a href="" style="text-decoration: none;color: #FA7124">【刷新】</a>
         </div>
         <div style="font-size: 12px;margin: 10px 5px">
             <form action="{:U('Admin/Guider/add_zd')}" method="post" id="form1" enctype="multipart/form-data">
@@ -49,29 +49,29 @@
                     <td>所属驾校：</td>
                     <td>
                         <input type="hidden" name="school_id" id="sid"/>
-                        <input type="text" value=""  name="school_nickname" id="search" placeholder="请输入驾校"/>
+                        <input type="text" value="" style="width: 200px"  name="school_nickname" id="search" placeholder="请输入驾校"/>
                         <span id="searchresult" class="td"></span>
                     </td>
                 </tr>
                 <tr style="margin-top: 10px">
                     <td width="6%x">指导员账号：</td>
                     <td>
-                        <input type="text" name="account"/>
+                        <input type="text" style="width: 200px" name="account"/>
                     </td>
                 </tr>
                 <tr>
                     <td>指导员姓名：</td>
                     <td>
-                        <input type="text" name="nickname"/>
+                        <input type="text" style="width: 200px" name="nickname"/>
                     </td>
                 </tr>
                 <tr>
                     <td>驾校电话</td>
-                    <td><input type="text" name="phone" value="400-8040-517" /></td>
+                    <td><input type="text" name="phone" style="width: 200px" value="400-8040-517" /></td>
                 </tr>
                 <tr>
                     <td>联系电话：</td>
-                    <td><input type="text" name="connectteacher" /></td>
+                    <td><input type="text" style="width: 200px" name="connectteacher" /></td>
                 </tr>
                 <tr>
                     <td>性&nbsp;&nbsp;别：</td>
@@ -84,7 +84,7 @@
                 <tr>
                     <td>指导员类型：</td>
                     <td>
-                        <select name="category_id" style="height: 20px;width: 70px;font-size: 12px" >
+                        <select name="category_id" style="height: 20px;width:100px;font-size: 10px" >
                             <volist name="category" id="v">
                                 <option value='{$v.id}'  >{$v.category_name}</option>
                             </volist>
@@ -94,7 +94,7 @@
                 <tr>
                     <td>所在城市：</td>
                     <td>
-                        <select name="cityid" style="width:80px;font-size: 12px;height: 20px" id="cityid" onchange="change(this)">
+                        <select name="cityid" style="width:100px;font-size: 10px;height: 20px" id="cityid" onchange="change(this)">
                             <volist name="city" id='v'>
                                 <option value="{$v.id}">{$v.cityname}</option>
                             </volist>
@@ -104,7 +104,7 @@
                 <tr>
                     <td>所属指导员：</td>
                     <td>
-                        <select name="boss_id" style="width:80px;font-size: 12px;height: 20px">
+                        <select name="boss_id" style="width:100px;font-size: 10px;height: 20px">
                             <volist name="boss" id='v1'>
                                 <option value="{$v1.id}" >{$v1.boss_name}</option>
                             </volist>
@@ -113,59 +113,59 @@
                 </tr>
                  <tr>
                     <td>身份证号：</td>
-                    <td><input type="text" name="numberId"/></td>
+                    <td><input type="text" style="width: 200px" name="numberId"/></td>
                 </tr>
                  <tr>
                     <td>驾驶证号：</td>
-                    <td><input type="text" name="driverId" /></td>
+                    <td><input type="text" style="width: 200px" name="driverId" /></td>
                 </tr>
                 <tr>
                     <td>车牌号：</td>
-                    <td><input type="text" name="carnumber"/></td>
+                    <td><input type="text" style="width: 200px" name="carnumber"/></td>
                 </tr>
                  <tr>
                     <td>教练证号：</td>
-                    <td><input type="text" name="serialid" /></td>
+                    <td><input type="text" style="width: 200px" name="serialid" /></td>
                 </tr>
                 <tr>
                     <td>年&nbsp;&nbsp;龄：</td>
-                    <td><input type="text" name="age" ></td>
+                    <td><input type="text" style="width: 200px" name="age" ></td>
                 </tr>
                 <tr>
                     <td>驾&nbsp;&nbsp;龄：</td>
-                    <td><input type="text" name="driverage" value="" ></td>
+                    <td><input type="text" style="width: 200px" name="driverage" value="" ></td>
                 </tr>
                 <tr>
                     <td>教&nbsp;&nbsp;龄：</td>
-                    <td><input type="text" name="teachage" value="" /></td>
+                    <td><input type="text" style="width: 200px" name="teachage" value="" /></td>
                 </tr>
                  <tr>
                     <td>评论数：</td>
-                    <td><input type="text" name="evalutioncount" value="219"/></td>
+                    <td><input type="text" style="width: 200px" name="evalutioncount" value="219"/></td>
                 </tr>
                 <tr>
                     <td>驾照类型</td>
-                    <td><input type="text" style="font-size: 10px;width: 170px" name="jtype" placeholder="例如:C(多个用英文逗号隔开)"/></td>
+                    <td><input type="text"  style="width: 200px" name="jtype" placeholder="例如:C(多个用英文逗号隔开)"/></td>
                 </tr>
                  <tr>
                     <td>最低价：</td>
-                    <td><input type="text" name="minprice"  placeholder="例如：5900"/></td>
+                    <td><input type="text" style="width: 200px" name="minprice"  placeholder="例如：5900"/></td>
                 </tr>
                 <tr>
                     <td>原价</td>
-                    <td><input type="text" name="highprice"  placeholder="例如:7800"/></td>
+                    <td><input type="text" style="width: 200px" name="highprice"  placeholder="例如:7800"/></td>
                 </tr>
                  <tr>
                     <td>总学员数：</td>
-                    <td><input type="text" name="student_num"  value="332" /></td>
+                    <td><input type="text" style="width: 200px" name="student_num"  value="332" /></td>
                 </tr>
                  <tr>
                     <td>已通过人数：</td>
-                    <td><input type="text" name="passedcount"  value="229"/></td>
+                    <td><input type="text" style="width: 200px" name="passedcount"  value="229"/></td>
                 </tr>
                 <tr>
                     <td>地&nbsp;&nbsp;址：</td>
-                    <td><input type="text" name="address" style="font-size: 10px;width: 200px"  placeholder="例如：上海市宝山区淞发路淞南五村"/>
+                    <td><input type="text" name="address" style="width: 200px"   placeholder="例如：上海市宝山区淞发路淞南五村"/>
                     </td>
                 </tr>
                 <tr>

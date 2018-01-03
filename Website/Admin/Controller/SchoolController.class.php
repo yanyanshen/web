@@ -1,5 +1,6 @@
 <?php
 namespace Admin\Controller;
+use Org\Util\Pinyin;
 use Think\Controller;
 use Think\Page;
 use Admin\Common\Controller\CommonController;
@@ -123,14 +124,19 @@ class SchoolController extends CommonController {
 //添加驾校
     function add_jx(){
         if(!empty($_POST)){
-             
-            exit;
             $where['nickname']=$_POST['nickname'];
-            $field='id';
-            $data=D('School')->school_list($whree,$field);
+            $data=D('School')->school_list($where,'id');
             if($data){
                 $this->error('此驾校已存在');
             }else{
+                $_POST['short_name'] = substr($_POST['nickname'],0,-6);
+                $pinyin = new Pinyin();
+                $_POST['pinyin'] = $pinyin->qupinyin($_POST['short_name']);
+                $info = M('School')->where(array('pinyin'=>$_POST['pinyin'],'type'=>'jx'))->find();
+                if($info){
+                    $_POST['pinyin'] = $pinyin->qupinyin($_POST['cityid']).$_POST['pinyin'];
+                }
+
                 $where['cityname']=$_POST['cityid'];
                 $city_list=D('Citys')->city_one($where);
                 $_POST['cityid']=$city_list['id'];

@@ -105,7 +105,7 @@ class TrainClassController extends CommonController {
 /*----------------------------------2017-11-14shenyanyan----------------------------*/
 //后台客服新建订单时  在意向课程里  在文本框中输入驾校 关键词 然后匹配数据库里的数据并显示
     public function search_school(){
-        $where = "nickname like '%{$_POST['search_key']}%'";
+        $where = "type = 'jx' and nickname like '%{$_POST['search_key']}%'";
         $school = M('School')->where($where)->field('id,nickname')->select();
         $this->success($school);
     }
