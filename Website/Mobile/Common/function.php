@@ -118,39 +118,7 @@ function remove_string($string,$str){
 //php获取从百度搜索进入网站的关键词
 
 
-function search_word_from() {
-    $referer = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
-    if(strstr( $referer, 'baidu.com')){ //百度
-        preg_match( "|baidu.+wo?r?d=([^\\&]*)|is", $referer, $tmp );
-        $keyword = urldecode( $tmp[1] );
-        $from = '百度'; //
-    }elseif(strstr( $referer, 'google.com') or strstr( $referer, 'google.cn')){ //谷歌
-        preg_match( "|google.+q=([^\\&]*)|is", $referer, $tmp );
-        $keyword = urldecode( $tmp[1] );
-        $from = '谷歌';
-    }elseif(strstr( $referer, 'so.com')){ //360搜索
-        preg_match( "|so.+q=([^\\&]*)|is", $referer, $tmp );
-        $keyword = urldecode( $tmp[1] );
-        $from = '360';
-    }elseif(strstr( $referer, 'sogou.com')){ //搜狗
-        preg_match( "|sogou.com.+query=([^\\&]*)|is", $referer, $tmp );
-        $keyword = urldecode( $tmp[1] );
-        $from = '搜狗';
-    }elseif(strstr( $referer, 'soso.com')){ //搜搜
-        preg_match( "|soso.com.+w=([^\\&]*)|is", $referer, $tmp );
-        $keyword = urldecode( $tmp[1] );
-        $from = '搜搜';
-    }else {
-        $keyword ='';
-        $from = '';
-    }
-    return array('keyword'=>$keyword,'from'=>$from);
-    /*
-     *  $word = search_word_from();
-        if(!empty($word['keyword'])) {
-            echo '关键字：' . $word['keyword'] . ' 来自：' . $word['from'];
-        }*/
-}
+
 
 
 

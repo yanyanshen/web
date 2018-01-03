@@ -18,7 +18,7 @@
         li{ margin-top: 15px;list-style: none;}
         .dfinput{margin-left: 10px;  border:rgb(220,220, 220) solid 1px;border-radius: 3px;
             width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
-        #progressbar{ width:343px;  height:20px;  border:1px solid darkgray;  background-color: rgb(19, 181, 177);  }
+        #progressbar{ width:450px;  height:20px;  border:1px solid darkgray;  background-color: rgb(19, 181, 177);  }
         /*在进度条元素上调用动画*/
         #fill{  animation: move 2s;  text-align: center;  background-color:  rgb(19, 181, 177);  }
         /*实现元素宽度的过渡动画效果*/
@@ -47,15 +47,16 @@
     <form action="{:U('Admin/Cyclope/add_video')}" method="post" id="form1" enctype="multipart/form-data">
         <input type="hidden" value="{$get['pid']}" name="pid"/>
         <input type="hidden" value="{$get['p']}" name="p"/>
+        <input type="hidden" value="{$get['pp']}" name="pp"/>
         <input type="hidden" value="{$get['type_id']}" name="type_id"/>
         <ul style="margin-left: 15px;padding: 0">
             <li>
                 <label style="padding: 10px 5px 10px 0">内容标题<b>*</b></label>
-                <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value=""/>
+                <input class="dfinput" placeholder="注意不能超过30字哦" style="width: 500px" type="text" name="title" value=""/>
             </li>
             <li>
                 <label style="padding: 10px 0px 10px 0">视频封面<b>*</b></label>
-                <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:340px;height:100px;position: relative;
+                <div class="usercity" style="margin-left:70px;border:3px dashed #e6e6e6;width:500px;height:100px;position: relative;
                 margin-bottom: 15px">
                     <p id="preview1" >
                         <if condition="$cyclope['id'] neq 0">
@@ -72,7 +73,7 @@
             </li>
             <li>
                 <label>视频<b>*</b></label>
-                <div style="border:3px dashed #e6e6e6;height: 150px;width:340px;margin-left: 70px">
+                <div style="border:3px dashed #e6e6e6;height: 150px;width:500px;margin-left: 70px">
                     <input id="test" type="file" multiple="multiple" class="dfinput" name='video' style="display: none"/>
                     <video id="audio" controls="" style="display: none;width:220px;height: 150px"></video>
                     <label for="test"  style="float:right;color:#fff;text-align:center;

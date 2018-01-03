@@ -47,7 +47,7 @@
                 <td width="5%">点击量</td>
                 <td width="10%">添加时间</td>
                 <td width="8%">最后更新人</td>
-                <td width="30%">操作</td>
+                <td width="20%">操作</td>
             </tr>
             <volist name="info" id="v" key="k" empty="$empty">
                 <tr>
@@ -63,15 +63,16 @@
                            href="{:U('Admin/Cyclope/set_header',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
                             {$v['set_header']?'取消置顶':'置顶'}
                         </a>
-                        <span>|</span>
+                        <span> | </span>
                         <a class="tablelink"  onclick="if(confirm('确认要操作吗？')==false)  return false;"
-                           href="{:U('Admin/Cyclope/Hnew',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
+                           href="{:U('Admin/Cyclope/hnew',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">
                             {$v['hnew']?'取消热门资讯':'热门资讯'}
                         </a>
-                        <span>|</span>
+                        <span> | </span>
                         <a class="tablelink"
-                           href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">内容</a>
-                        <span>|</span>
+                           href="{:U('Admin/Cyclope/content_index',array('id'=>$v['id'],'pid'=>$get['pid'],'pp'=>$get['p']))}">内容</a>
+                        <span> | </span>
+                        <a class="tablelink" href="{:U('Admin/Cyclope/edit',array('id'=>$v['id'],'p'=>$get['p'],'t'=>0,'pid'=>$get['pid']))}">编辑</a><span> | </span>
                         <a class="tablelink"   id="del" href="javascript:void(0);"
                            onclick="del({$v['id']},{$get['pid']},'cyclope',{$get['p']?$get['p']:1})">删除</a>
                     </td>

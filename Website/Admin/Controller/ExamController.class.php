@@ -3,7 +3,6 @@ namespace Admin\Controller;
 use Think\Controller;
 use Admin\Common\Controller\CommonController;
 use Think\Upload;
-
 class ExamController extends CommonController{
 //后台试题excel表导入数据
     public function exam(){

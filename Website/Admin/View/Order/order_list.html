@@ -175,13 +175,7 @@
             <volist name="arr['list']"  id='v' key="k" empty="$empty">
                 <tr>
                     <td>{$k+$arr['firstRow']}</td>
-                    <td>
-                        <if condition="$v['num'] neq 1">
-                            <div style="border:1px solid #FA7124">{$v.ordcode}</div>
-                            <else/>
-                            {$v.ordcode}
-                        </if>
-                    </td>
+                    <td>{$v.ordcode}</td>
                     <td>{$v['create_time']}</td>
                     <td>{$v.name}</td>
                     <td>{$v.tel}</td>

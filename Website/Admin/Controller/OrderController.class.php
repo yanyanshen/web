@@ -14,7 +14,7 @@ class OrderController extends CommonController {
        //1.先查询未支付未处理订单
        $permissions = M('Admin')->field('permissions,allocation')->where(array('id'=>session('admin_id')))->find();
        if($permissions['permissions'] != 1 and $permissions['allocation'] == 1){
-           $order = M('Order')->field('id,status,order_status,customer')->where(array("status"=>array('in',"1,2"),'order_status'=>1))->select();
+           $order = M('Order')->field('id,status,order_status,customer')->where(array("status"=>array('in',"1,2"),'order_status'=>1,'customer'=>''))->select();
            if(!empty($order)){
                //2.查询在线的客服
                $admin = M('Admin')->where(array('permissions'=>2,'online'=>1))->select();
@@ -48,7 +48,6 @@ class OrderController extends CommonController {
 //支付宝已支付未处理、待回访、待结算待回访 数量
        $count = D('Order')->order_count();
        $this->assign('count',$count);
-
        $this->assign('arr', $arr);
        $this->assign('get',$_GET);
        $this->assign('url',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
@@ -147,11 +146,11 @@ class OrderController extends CommonController {
 //修改客服权限
         $customer_update = D('AuthRule')->getRule($pid,'转客服');
         $_GET['customer_update'] = $customer_update['name'];
-        print_r($_GET);
-
 //订单详情
         $list = M('order')->field('*')->where("id=$id")->find();
-
+//订单来源
+        $list['order_source'] = M('OrderSource')->where(array('id'=>$list['order_source']))->find();
+        $list['order_keyword'] = M('OrderKeyword')->where(array('id'=>$list['order_keyword']))->getField('name');
 //课程信息
         $class = M('trainclass')->field('wholeprice,name,officeprice,advanceprice,(wholeprice-advanceprice) as whole1')->where(array('id'=>$list['class_name']))->find();
         $this->assign('class',$class);
@@ -167,9 +166,6 @@ class OrderController extends CommonController {
 //跟单客服
         $customer = M('Admin')->select();
         $this->assign('customer',$customer);
-
-        $_GET['order_source'] = M('OrderSource')->where(array('id'=>$list['order_source']))->getField('name');
-        $_GET['order_keyword'] = M('OrderKeyword')->where(array('id'=>$list['order_keyword']))->getField('name');
 
         //订单取消原因
         $order_cancel = M('OrderCancelReason')->select();

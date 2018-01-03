@@ -340,11 +340,11 @@
 						<td colspan=10  style="color: #323232">来源信息</td>
 					</tr>
 					<tr>
-						<td  style="background-color: rgb(247,247,247);width: 6%">来源:</td><td  width="12%">{$get['order_source']}</td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">竞价关键字:</td><td  width="16%"></td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">搜索词:</td><td>{$get['order_keyword']}</td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">referee:</td><td  width="12%"></td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">下单站点:</td><td></td>
+						<td  style="background-color: rgb(247,247,247);width: 6%">来源:</td><td  width="5%">{$list['order_source']['name']}</td>
+						<td  style="background-color: rgb(247,247,247);width: 6%">竞价关键字:</td><td  width="5%"></td>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">搜索词:</td><td width="5%">{$list['order_keyword']}</td>
+						<td  style="background-color: rgb(247,247,247);width: 6%">referrer:</td><td width="12%">{$list['order_source']['referer']}</td>
+						<td  style="background-color: rgb(247,247,247);width: 6%">下单站点:</td><td width="12%">内页：{$list['url']}</td>
 					</tr>
 				</table>
 			</form>

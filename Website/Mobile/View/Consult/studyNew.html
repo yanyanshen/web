@@ -13,9 +13,8 @@
     <link href="__STATIC__/consult/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/consult/css/studyNew.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
 <body>
-
-
 <div class="login_box">
     <div class="header_box" style="z-index: 3000">
         <div class="header">
@@ -31,17 +30,17 @@
                 <div class="studyNew">
                     <div class="new">
                         <volist name="info" id="data" empty="$empty">
-                            <a href="{:U('Mobile/Consult/studyNew_detail',array('id'=>$data['id']))}">
+                            <a href="{:U('Mobile/Consult/studynew_detail',array('id'=>$data['id']))}">
                                 <div id="n_box1">
-                                    <div class="n_img">
-                                        <img style="border-radius: 3px" src="{$data.picurl}" width=""/>
+                                    <div class="n_img" style="overflow: hidden;height: 90px">
+                                        <img style="border-radius: 3px;height: auto" src="{$data.picurl}"  width=""/>
                                     </div>
                                     <div class="n_main">
-                                        {$data.title|mb_substr=0,12,utf8}...
+                                        {$data.title|mb_substr=0,10,utf8}...
                                         <ul id="nm">
-                                            <li class="date">{:date('Y/m/d',$data['ntime'])}</li>
+                                            <li class="date">{$data['ntime']}</li><br>
                                             <li class="num">{$data.touch_count}</li>
-                                            <li class="eye"><img src="__STATIC__/consult/images/eye.png"></li>
+                                            <li class="eye"><img style="margin-top: 11px" src="__STATIC__/consult/images/eye.png"></li>
                                             <div class="clearfix"></div>
                                         </ul>
                                     </div>
@@ -92,20 +91,20 @@
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: '{:U("Mobile/Consult/studyNew")}',
+                url: '{:U("Mobile/Consult/studynew")}',
                 data: {page: ys},
                 success: function (data) {
                     var str = "";//定义变量保存内容
                     $.each(data, function (index, array) {
                         if(array['id']){
                             str += '<div id="n_box1">';
-                            str += '<a href="'+"{:U('Mobile/Consult/studyNew_detail')}?id="+array['id']+'">';
+                            str += '<a href="'+"{:U('Mobile/Consult/studynew_detail')}?id="+array['id']+'">';
                                 str += '<div class="n_img">';
                                 str += '<img style="border-radius: 3px" src="'+array['picurl']+'"/>';
                                 str += '</div>';
                             str += '</a>';
                             str += '<div class="n_main">';
-                            str += '<a href="'+"{:U('Mobile/Consult/studyNew_detail')}?id="+array['id']+'">'+array['title']+'</a>';
+                            str += '<a href="'+"{:U('Mobile/Consult/studynew_detail')}?id="+array['id']+'">'+array['title']+'</a>';
                             str += '<ul id="nm">';
                             str += '<li class="date">'+array['ntime']+'</li>';
                             str += '<li class="num">'+array['touch_count']+'</li>';

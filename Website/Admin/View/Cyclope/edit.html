@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>百科</title>
+    <title>百科管理</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
     <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
@@ -10,11 +10,11 @@
     <script type="text/javascript" src="__PUBLIC__/public/kindeditor/kindeditor-all.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/layer/layer.js"></script>
     <style type="text/css">
-        div.error{  font-size: 12px;display: inline-block;color: #FA7124;  }
-        div.ok{  font-size: 12px;display: inline-block;  color:rgb(19, 181, 177);  }
+        div.error{font-size: 12px;display: inline-block;color: #FA7124;}
+        div.ok{font-size: 12px; display: inline-block;color: #38D63B;}
 
         label{padding: 10px 20px 10px 0;}
-        b{color: #fa7142}
+        b{color: #FA7124}
         li{ margin-top: 15px;list-style: none;}
         .dfinput{margin-left: 10px;border:rgb(220,220,220) solid 1px;border-radius: 3px;
             width: 340px;padding: 10px 0 10px 5px;background: #ffffff;}
@@ -35,62 +35,43 @@
 </head>
 <body>
 <div class="div_head">
-   子内容添加
-    <a style="text-decoration: none;font-weight: bold;color: #FA7124"
-       href="{$url}">【返回】</a>
+    内容编辑
+    <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{$url}">【返回】</a>
 </div>
-<div style="margin: 10px 5px ;" >
-    <form action="{:U('Admin/Cyclope/content_add')}" method="post" id="form1" enctype="multipart/form-data">
-        <input type="hidden" value="{$get['type_id']}" name="type_id"/>
-        <input type="hidden" value="{$get['pid']}" name="pid"/>
-        <input type="hidden" value="{$get['pp']}" name="pp"/>
-        <input type="hidden" value="{$get['p']}" name="p"/>
-        <ul style="padding: 0;margin-left: 15px">
-            <li>
-                <label>咨询标题<b>*</b></label>
-                <input class="dfinput" placeholder="注意不能超过30字哦" style="width: 500px" type="text" name="title" value="{$cyclope['title']?$cyclope['title']:''}"/>
-            </li>
-            <li>
-                <label>图片<b>*</b></label>
-                <div class="usercity" style="margin-left:80px;border:3px dashed #e6e6e6;width:500px;height:200px;position: relative;margin-bottom: 15px">
-                    (无图片则不选即可)
-                    <p id="preview1" >
-                        <if condition="$cyclope['id'] neq 0">
-                            <img id="imghead1"  border=0 src='{$cyclope["picurl"]}'  height="200" width="200"/>
-                        </if>
-                    </p>
-                    <span></span>
-                    <input type="file" id="image1" name="image" onchange="previewImage(this,'preview1','imghead1')" style="display:none;" >
-                    <label for="image1"  style="margin:80px 180px;color:#fff;text-align:center;border-radius:4px;width:110px;height:30px;
-                    line-height:30px;font-size:13px;background:rgb(19, 181, 177);padding:6px 10px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
-                </div>
-            </li>
-            <li>
-                <label>内容<b>*</b></label>
-                <div style="margin-left: 75px">
-                    <textarea name="content"  id="content7" style="width:700px;height:250px;visibility:hidden;">{$cyclope['content']?$cyclope['content']:''}</textarea>
-                </div>
-            </li>
-            <li>
-                <label style="padding: 10px 75px 10px 0"></label>
-                <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="submit" id="submit" value="{$btn?$btn:'添加'}"/>
-            </li>
-        </ul>
-    </form>
-</div>
+    <div >
+        <form action="{:U('Admin/Cyclope/edit')}" method="post" id="form1" enctype="multipart/form-data">
+            <input type="hidden" value="{$get['pid']}" name="pid"/>
+            <input type="hidden" value="{$get['p']}" name="p"/>
+            <input type="hidden" value="{$get['pp']}" name="pp"/>
+            <input type="hidden" value="{$get['id']}" name="id"/>
+            <input type="hidden" value="{$get['type_id']}" name="type_id"/>
+            <input type="hidden" value="{$get['t']}" name="t"/>
+            <ul style="margin-left: 15px;padding: 0">
+                <li>
+                    <label style="padding: 10px 5px 10px 0">内容标题<b>*</b></label>
+                    <input class="dfinput" style="width: 500px" placeholder="注意不能超过30字哦" type="text" name="title" value="{$info['title']}"/>
+                </li>
+                <li>
+                    <label>内容<b>*</b></label>
+                    <div style="margin-left: 68px">
+                        <textarea name="content"  id="content7" class="dfinput" style="padding-left:70px;width:600px;height:400px;visibility:hidden;">{$info['content']}</textarea>
+                    </div>
+                </li>
+                <li>
+                    <label style="padding: 10px 70px 10px 0"></label>
+                    <input style="width: 137px;height: 35px;line-height: 35px;background-color:rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff "
+                           type="submit" id="submit" value="编辑"/>
+                </li>
+            </ul>
+        </form>
+    </div>
 </body>
 </html>
 <script>
     $(function(){
         var validate=$('#form1').validate({
-            rules:{
-                content:{required:true},
-                title:{required:true}
-            },
-            messages:{
-                content:{required:' * 必填项！'},
-                title:{required:' * 必填项！'}
-            },
+            rules:{content:{required:true},title:{required:true}},
+            messages:{content:{required:' * 必填项！'}, title:{required:' * 必填项！'}},
             success:function(div){
                 div.addClass('ok').text(' * ok')
             },
@@ -98,6 +79,7 @@
             errorElement:'div'
         });
         $("#submit").click(function(){
+            $(this).attr('disabled',true);
             if(validate.form()){
                 $('#form1').ajaxSubmit(function(res){
                     if(res.status==1){
@@ -114,9 +96,11 @@
             }
         });
     });
+
+
     function previewImage(file,pre,imag) {
         var MAXWIDTH  = 200;
-        var MAXHEIGHT =150;
+        var MAXHEIGHT = 150;
         var div = document.getElementById(pre);
         if( !file.value.match( /.jpg|.gif|.png|.bmp/i ) ){
             $('#'+pre).next('span').css({"color":"red","font-weight":"bold"}).text('图片类型无效！');

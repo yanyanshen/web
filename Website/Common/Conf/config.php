@@ -17,9 +17,8 @@ return array(
 //    'DB_DSN'                =>  'sqlserver:host=SqlServer;port=3306;dbname=xueche3;charset=utf8',
     'HTTP'                  =>  'http://'.$_SERVER['HTTP_HOST'],
 
-    'URL_MODEL'             => 2,//设置REWRITE模式
-
-    'SHOW_PAGE_TRACE'       =>  false,
+    'SHOW_PAGE_TRACE'      => false,
+    'URL_MODEL'            => '2',//设置重写模式
 
     //关闭数据字段缓存
     'DB_FIELD_CACHE' => false,
@@ -33,7 +32,10 @@ return array(
     ),
 //设置可访问的模块和默认的模块
     'MODULE_ALLOW_LIST' => array('Admin','Home','Mobile'),
-//    'DEFAULT_MODULE' => 'Mobile',
+    'DEFAULT_MODULE'       =>    'Home',  // 默认模块
+    'DEFAULT_CONTROLLER'    =>  'Index', // 默认控制器名称
+    'DEFAULT_ACTION'        =>  'index', // 默认操作名称
+
 );
 
 

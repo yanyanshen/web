@@ -6,12 +6,17 @@
         <link href="__STATIC__/ment/css/mine.css" type="text/css" rel="stylesheet">
         <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
         <script src="__PUBLIC__/public/js/layer/layer.js"></script>
+        <style>
+            .div{height: 100px;width:500px;overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis; }
+        </style>
     </head>
     <body>
     <div class="div_head">
         子内容列表
-        <a  href="{:U('Admin/Cyclope/content_add')}?type_id={$get['id']}&p={$get['p']}&pid={$get['pid']}" style="text-decoration: none;color:#FA7124;">【子内容添加】</a>
-        <a  href="{:U('Admin/Cyclope/add_video')}?type_id={$get['id']}&p={$get['p']}&pid={$get['pid']}" style="text-decoration: none;color:#FA7124;">【视频添加】</a>
+        <a  href="{:U('Admin/Cyclope/content_add')}?type_id={$get['id']}&pp={$get['pp']}&pid={$get['pid']}" style="text-decoration: none;color:#FA7124;">【子内容添加】</a>
+        <a  href="{:U('Admin/Cyclope/add_video')}?type_id={$get['id']}&pp={$get['pp']}&pid={$get['pid']}" style="text-decoration: none;color:#FA7124;">【视频添加】</a>
         <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{$url}">【返回】</a>
         <span class="span">总计：{$count}</span>
     </div>
@@ -48,32 +53,35 @@
                 <td width="5%">序号ID</td>
                 <td width="6%">图片</td>
                 <td width="15%">标题</td>
-                <td width="40%">内容</td>
+                <td width="30%">内容</td>
                 <td width="8%">添加时间</td>
                 <td width="5%">最后更新人</td>
-                <td width="2%">操作</td>
+                <td width="10%">操作</td>
             </tr>
             <volist name="info" id="v" key="k" empty="$empty">
                 <tr>
                     <td>{$v.id}</td>
                     <td>
-                        <img src="{$v.picurl}" alt="" width="100" height="40"/>
+                        <div style="overflow: hidden;height: 50px" >
+                            <img src="{$v.picurl}" alt=""  width="50"/>
+                        </div>
                     </td>
                     <td>{$v['title']}</td>
-                    <td>{$v['content']}</td>
+                    <td><div class="div">{$v['content']}</div> </td>
                     <td>{:date('Y-m-d H:i:s',$v['ntime'])}</td>
                     <td>{$v['username']}</td>
                     <td>
                         <a class="tablelink" id="del" href="javascript:void(0);"
-                           onclick="del({$v['id']},{$get['pid']},'cyclope_content',{$get['id']},{$get['p']?$get['p']:1})">删除</a>
+                           onclick="del({$v['id']},{$get['pid']},'cyclope_content',{$get['id']},{$get['p']?$get['p']:1},{$get['pp']?$get['pp']:1})">删除</a> |
+                        <a class="tablelink"  href="{:U('Admin/Cyclope/edit',array('id'=>$v['id'],'type_id'=>$get['id'],'pp'=>$get['pp'],'p'=>$get['p'],'pid'=>$get['pid'],'t'=>1))}">编辑</a>
                     </td>
                     <script>
-                        function del(id,pid,type,tid,p){
+                        function del(id,pid,type,tid,p,pp){
                             layer.msg('确定要删除吗？', {
                                 time: 0, //不自动关闭
                                 btn: ["确定", '取消'],
                                 yes: function(){
-                                    location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&tid='+tid+'&p='+p; //此处只是为了演示，实际使用可以剔除
+                                    location.href='{:U("Admin/cyclope/del")}?id='+id+'&pid='+pid+'&type='+type+'&tid='+tid+'&p='+p+'&pp='+pp; //此处只是为了演示，实际使用可以剔除
                                 }
                             });
                         }
@@ -81,6 +89,7 @@
                 </tr>
             </volist>
         </table>
+        <div id="page">{$page}</div>
     </div>
     </body>
 </html>

@@ -35,7 +35,7 @@ class ClientIpsController extends CommonController{
             $this->display();
         }
     }
-//批量删除
+//删除
     public function batch_operate_del(){
         $id_arr = explode(',',I('str'));
         foreach($id_arr as $v){

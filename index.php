@@ -36,7 +36,7 @@ define('APP_PATH','./Website/');
 //define('BIND_MODULE','Mobile');//设置默认模块 如果该模块不存在则自动创建模块
 
 
-//if($_SERVER['HTTP_HOST'] == 'm.517xc.cn'){
+//if($_SERVER['HTTP_HOST'] == 'www.517xc.cn'){
 //    define('BIND_MODULE','Mobile');//设置默认模块 如果该模块不存在则自动创建模块
 //}else{
 //    define('BIND_MODULE','Home');//设置默认模块 如果该模块不存在则自动创建模块

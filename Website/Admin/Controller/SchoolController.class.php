@@ -123,9 +123,11 @@ class SchoolController extends CommonController {
 //添加驾校
     function add_jx(){
         if(!empty($_POST)){
+             
+            exit;
             $where['nickname']=$_POST['nickname'];
             $field='id';
-            $data=D('School')->school_list($where,$field);
+            $data=D('School')->school_list($whree,$field);
             if($data){
                 $this->error('此驾校已存在');
             }else{

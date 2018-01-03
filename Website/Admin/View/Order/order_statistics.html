@@ -41,6 +41,10 @@
                 <th width="6%">结算量</th>
                 <th width="6%">结算率</th>
                 <th width="6%">支付宝</th>
+                <th width="6%">微信</th>
+                <th width="6%">门店</th>
+                <th width="6%">快递</th>
+                <th width="6%">驾校</th>
             </tr>
             <tr>
                 <td style="text-align: center">{$create_time} ~ {$create_time1}</td>
@@ -50,7 +54,11 @@
 
                 <td>{$order_statistics['end_num']}</td>
                 <td>{$order_statistics['end_lv']}</td>
-                <td>{$order_statistics['pay_type']}</td>
+                <td>{$order_statistics['zhifu']}</td>
+                <td>{$order_statistics['weixin']}</td>
+                <td>{$order_statistics['mendian']}</td>
+                <td>{$order_statistics['kuaidi']}</td>
+                <td>{$order_statistics['jiaxiao']}</td>
             </tr>
             <tr style="height: 20px"><td colspan="7"></td></tr>
         <tr style="height: 20px;border: 1px solid rgb(129, 191, 249)">
@@ -60,7 +68,11 @@
             <td>成单转化率：{$order_statistics['completed_lv']?$order_statistics['completed_lv']:0}</td>
             <td>结算总数：{$order_statistics['end_num']?$order_statistics['end_num']:0}</td>
             <td>结算转化率：{$order_statistics['end_lv']?$order_statistics['end_lv']:0}</td>
-            <td>支付宝支付订单数：{$order_statistics['pay_type']?$order_statistics['pay_type']:0}</td>
+            <td>支付宝支付数：{$order_statistics['zhifu']?$order_statistics['zhifu']:0}</td>
+            <td>微信支付数：{$order_statistics['weixin']?$order_statistics['weixin']:0}</td>
+            <td>门店支付数：{$order_statistics['mendian']?$order_statistics['mendian']:0}</td>
+            <td>快递支付数：{$order_statistics['kuaidi']?$order_statistics['kuaidi']:0}</td>
+            <td>驾校支付数：{$order_statistics['jiaxiao']?$order_statistics['jiaxiao']:0}</td>
         </tr>
         </tbody>
     </table>

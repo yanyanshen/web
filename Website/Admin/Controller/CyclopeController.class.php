@@ -24,7 +24,7 @@ class CyclopeController extends CommonController{
             }
         }
         $count = M('cyclope')->where($where)->count();
-        $page = new Page($count,7);
+        $page = new Page($count,100);
         $info = M('cyclope')->where($where)->order('set_header desc,ntime desc')
             ->limit($page->firstRow.','.$page->listRows)->select();
         $show = $page->show();
@@ -89,9 +89,11 @@ class CyclopeController extends CommonController{
                 $where .= "  and a.username like '%".$_GET['update']."%'";
             }
         }
+        $count = M('CyclopeContent')->table('xueches_admin a,xueches_cyclope_content c')->where($where)->count();
+        $page = new Page($count,10);
         $info = M('CyclopeContent')->table('xueches_admin a,xueches_cyclope_content c')
             ->field('a.username,c.id,c.title,c.content,c.ntime,c.picurl,c.type,c.type_id')
-            ->where($where)->select();
+            ->where($where)->limit($page->firstRow.','.$page->listRows)->select();
         $citys_list = D('citys')->city_one("flag = 1",'id,cityname',1);
         $this->assign('citys',$citys_list);
         $this->assign('info',$info);
@@ -99,7 +101,8 @@ class CyclopeController extends CommonController{
         $this->assign('res',$res);
         $this->assign('count',count($info));
         $this->assign('get',$_GET);
-        $this->assign('url',U('Admin/Cyclope/index',array('p'=>$_GET['p'],'pid'=>$_GET['pid'])));
+        $this->assign('page',$page->show());
+        $this->assign('url',U('Admin/Cyclope/index',array('p'=>$_GET['pp'],'pid'=>$_GET['pid'])));
         $this->display();
     }
     /*子内容添加*/
@@ -127,16 +130,16 @@ class CyclopeController extends CommonController{
                 if($res){
                     $log['done'] = "百科添加: => {$_POST['title']}";
                     D('AdminLog')->logout($log);
-                    $url = U('Admin/Cyclope/content_index?id='.I('type_id').'&pid='.I('pid').'&p='.I('p'));
+                    $url = U('Admin/Cyclope/content_index?id='.I('type_id').'&pid='.I('pid').'&pp='.I('pp').'&p='.I('p'));
                     $this->success('添加成功',$url);
                 }else{
-                    $url = U('Admin/Cyclope/content_index?type_id='.I('type_id').'&pid='.I('pid').'&p='.I('p'));
+                    $url = U('Admin/Cyclope/content_index?type_id='.I('type_id').'&pid='.I('pid').'&pp='.I('pp').'&p='.I('p'));
                     $this->error('添加失败',$url);
                 }
             }
         }else{
             $this->assign('get',$_GET);
-            $this->assign('url',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
+            $this->assign('url',U('Admin/Cyclope/content_index',array('pp'=>I('pp'),'p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
             $this->display();
         }
     }
@@ -169,7 +172,7 @@ class CyclopeController extends CommonController{
                             if($res){
                                 $log['done'] = "百科视频添加: => {$_POST['tile']}";
                                 D('AdminLog')->logout($log);
-                                $this->success('上传成功！',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
+                                $this->success('上传成功！',U('Admin/Cyclope/content_index',array('pp'=>I('pp'),'p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
                             }else{
                                 $this->error('上传失败');
                             }
@@ -180,12 +183,42 @@ class CyclopeController extends CommonController{
                 }
             }
         }else{
-            $this->assign('url',U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
+            $this->assign('url',U('Admin/Cyclope/content_index',array('pp'=>I('pp'),'p'=>I('p'),'pid'=>I('pid'),'id'=>I('type_id'))));
             $this->assign('get',$_GET);
             $this->display();
         }
     }
-
+/*----------------------2017-12-26shenyanyan-----------------------*/
+//百科主内容编辑、子内容编辑
+    public function edit(){
+        if(IS_AJAX){
+            if(I('t') == 0){
+                $table = "Cyclope";
+                $url = U('Admin/Cyclope/index',array('p'=>I('p'),'pid'=>I('pid')));
+            }else{
+                $table = "CyclopeContent";
+                $url = U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'pp'=>I('pp'),'id'=>I('type_id')));
+            }
+            $res = M($table)->save($_POST);
+            if($res){
+                $this->success('编辑成功',$url);
+            }else{
+                $this->error('编辑失败');
+            }
+        }else{
+            if(I('t') == 0){//主内容
+                $info = M('Cyclope')->where(array('id'=>I('id')))->field('title,content')->find();
+                $url = U('Admin/Cyclope/index',array('p'=>I('p'),'pid'=>I('pid')));
+            }else{//子内容
+                $info = M('CyclopeContent')->where(array('id'=>I('id')))->field('title,content')->find();
+                $url = U('Admin/Cyclope/content_index',array('p'=>I('p'),'pid'=>I('pid'),'pp'=>I('pp'),'id'=>I('type_id')));
+            }
+            $this->assign('get',$_GET);
+            $this->assign('url',$url);
+            $this->assign('info',$info);
+            $this->display();
+        }
+    }
 /*-------------------------------2017-10-19百科置顶操作shenyanyan---------------------------------------------*/
     public function set_header(){
         $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('set_header');
@@ -204,7 +237,7 @@ class CyclopeController extends CommonController{
     }
 
 /*-------------------------------2017-10-23百科热门资讯shenyanyan---------------------------------------------*/
-    public function Hnew(){
+    public function hnew(){
         $set_header = M('Cyclope')->where(array('id'=>I('id')))->getField('Hnew');
         if($set_header == 0){
             $log['done'] = "热门百科设置:$set_header => 1";

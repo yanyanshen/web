@@ -3,7 +3,34 @@ header('Content-type:text/html;charset=utf-8');
 import('Org.PHPExcel.PHPExcel');
 import('Think.Image');
 import('Think.Upload');
-
+function search_word_from() {
+    $referer = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+    if(strstr( $referer, 'baidu.com')){ //百度
+        preg_match( "|baidu.+wo?r?d=([^\\&]*)|is", $referer, $tmp );
+        $keyword = urldecode( $tmp[1] );
+        $from = '百度'; //
+    }elseif(strstr( $referer, 'google.com') or strstr( $referer, 'google.cn')){ //谷歌
+        preg_match( "|google.+q=([^\\&]*)|is", $referer, $tmp );
+        $keyword = urldecode( $tmp[1] );
+        $from = '谷歌';
+    }elseif(strstr( $referer, 'so.com')){ //360搜索
+        preg_match( "|so.+q=([^\\&]*)|is", $referer, $tmp );
+        $keyword = urldecode( $tmp[1] );
+        $from = '360搜索';
+    }elseif(strstr( $referer, 'sogou.com')){ //搜狗
+        preg_match( "|sogou.com.+query=([^\\&]*)|is", $referer, $tmp );
+        $keyword = urldecode( $tmp[1] );
+        $from = '搜狗';
+    }elseif(strstr( $referer, 'soso.com')){ //搜搜
+        preg_match( "|soso.com.+w=([^\\&]*)|is", $referer, $tmp );
+        $keyword = urldecode( $tmp[1] );
+        $from = '搜搜';
+    }else {
+        $keyword ='';
+        $from = '';
+    }
+    return array('keyword'=>$keyword,'from'=>$from);
+}
 /*
  * 获取 IP  地理位置
  * 新浪 IP接口  可直接获取  但是不如淘宝的信息全面

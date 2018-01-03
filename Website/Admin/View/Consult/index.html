@@ -28,21 +28,21 @@
                 <td width="5%">城市</td>
                 <td width="8%">添加时间</td>
                 <td width="5%">最后更新人</td>
-                <td width="30%">操作</td>
+                <td width="10%">操作</td>
             </tr>
             <volist name="info" id="v" key="k" empty="$empty">
                 <tr>
                     <td>{$k+$firstRow}</td>
-                    <td><img src="{$v.picurl}" alt="" width="50" height="40" align="center"/></td>
+                    <td><div style="overflow: hidden;height: 50px"><img src="{$v.picurl}" alt="" width="100"  align="center"/></div></td>
                     <td>{$v['title']}</td>
-                    <td>{$v['content']}</td>
+                    <td><div style="height: 100px;width: 500px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">{$v['content']}</div></td>
                     <td>{$v['touch_count']}</td>
                     <td>{$v['cityname']}</td>
                     <td>{$v['ntime']}</td>
                     <td>{$v['update_people']}</td>
                     <td>
-                        <input class="consult"  type="button" gid="{$v['id']}" pid="{$get['pid']}" p="{$get['p']}" value="激活"/>
-                        <a class="tablelink" href="{:U('Admin/Consult/consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">编辑</a>
+                        <input class="consult"  type="button" gid="{$v['id']}" pid="{$get['pid']}" p="{$get['p']}" value="激活"/> |
+                        <a class="tablelink" href="{:U('Admin/Consult/consult',array('id'=>$v['id'],'pid'=>$get['pid'],'p'=>$get['p']))}">编辑</a> |
                         <a class="tablelink" href="javascript:void(0);" onclick="del({$v['id']},{$get['pid']},{$get['p']?$get['p']:1})">删除</a>
                     </td>
                     <script>

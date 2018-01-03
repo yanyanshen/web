@@ -12,6 +12,7 @@
     <link href="__STATIC__/consult/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/consult/css/studyNew.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
     <style type="text/css">
         .bdsharebuttonbox a { width: 30px!important; height: 30px!important; margin: 0 auto 10px!important; float: none!important; padding: 0!important; display: block; }
         .bdsharebuttonbox a img { width: 30px; height: 30px; }
@@ -43,11 +44,11 @@
                 <div class="new">
                     <h1 class="title">{$info.title}</h1>
                     <ul>
-                        <li class="dates">{:date('Y.m.d',$info.ntime)}</li>
+                        <li class="dates">{$info['ntime']}</li>
                         <li class="view">浏览量：{$info.touch_count}</li>
                         <div class="clearfix"></div>
                     </ul>
-                    <img src="{$info.picurl}" width="80%" height="200">
+                    <img src="{$info.picurl}" width="90%">
                     <p>
                         {$info.content}
                     </p>

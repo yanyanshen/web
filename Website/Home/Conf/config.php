@@ -11,5 +11,6 @@ return array(
         'KEY'                => 'jhasdhjbasxxxxxwqe465w54', // 微信支付KEY
         'APPSECRET'          => 'd7f8bf269c4xxxxx0889d18d0678',  //公众帐号secert
         'NOTIFY_URL'         => 'http://sc1212.com/Api/Weixinpay/notify/', // 接收支付状态的连接
-    )
+    ),
+    'URL_MODEL'            => '2',//设置PATH_INFO模式
 );

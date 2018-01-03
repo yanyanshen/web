@@ -89,7 +89,7 @@
 
 
 /****************************************************
-¼Ý¿¼×ÊÑ¶ÏêÇéÒ³
+ï¿½Ý¿ï¿½ï¿½ï¿½Ñ¶ï¿½ï¿½ï¿½ï¿½Ò³
 ****************************************************/
 .title{
     font-family: "Microsoft YaHei";
@@ -114,7 +114,6 @@
 .new img{
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
 }
 .new>p{
     font-family: "Microsoft YaHei";
@@ -127,7 +126,7 @@
 
 
 /****************************************************
-×ÔÊÊÓ¦¼Ý¿¼×ÊÑ¶ÏêÇéÒ³·ÖÏí
+ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ý¿ï¿½ï¿½ï¿½Ñ¶ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
 ****************************************************/
 a { outline-style: none; color: #494949; text-decoration: none }
 a, area { blr:expression(this.onFocus=this.blur())
@@ -141,7 +140,7 @@ a, area { blr:expression(this.onFocus=this.blur())
 .fline { float: left; display: inline }
 .clearfix:after { clear: both; content: "."; height: 0; display: block; visibility: hidden }
 
-/*µ¯³ö²ã CSS*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CSS*/
 .gb_resLay { background: #FFFFFF; height: 170px; width: 100%; max-width: 800px; margin: 0 auto; }
 .gb_res_t { line-height: 58px; height: 58px; position: relative; font-size: 18px; text-align: center; }
 .gb_res_t i { background: #ddd; height: 1px; overflow: hidden; left: 32px; top: 30px; right: 32px; position: absolute; }
@@ -167,7 +166,7 @@ a, area { blr:expression(this.onFocus=this.blur())
 
 
 /****************************************************
-×ÔÊÊÓ¦
+ï¿½ï¿½ï¿½ï¿½Ó¦
 ****************************************************/
 @media screen and (max-width: 1000px) {
     .header {

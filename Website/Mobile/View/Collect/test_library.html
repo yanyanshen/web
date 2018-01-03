@@ -13,7 +13,7 @@
     <link href="__STATIC__/theory_study/css/initialize.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/theory_study/css/theory_study.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-
+    <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                             <if condition="$sub.chapter lt 5">
                                 <li>
                                     <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
-                                            <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}é¢?</h2>
+                                            <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}ï¿½?</h2>
                                         <div class="clearfix"></div>
                                     </a>
                                 </li>
@@ -49,7 +49,7 @@
                             <if condition="$sub.chapter eq 5 and $sub.num neq 0 and $sub.subject eq 1">
                                 <li>
                                     <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
-                                        <h2 class="chapter_h" >{$sub.chapter}. {$Think.session.city}{$sub.title}({$sub.num}é¢?</h2>
+                                        <h2 class="chapter_h" >{$sub.chapter}. {$Think.session.city}{$sub.title}({$sub.num}ï¿½?</h2>
                                         <div class="clearfix"></div>
                                     </a>
                                 </li>
@@ -58,7 +58,7 @@
                             <if condition="$sub.chapter eq 5 and $sub.num neq 0 and $sub.subject eq 2">
                                 <li>
                                     <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
-                                        <h2 class="chapter_h" >{$sub.chapter}.{$sub.title}({$sub.num}é¢?</h2>
+                                        <h2 class="chapter_h" >{$sub.chapter}.{$sub.title}({$sub.num}ï¿½?</h2>
                                         <div class="clearfix"></div>
                                     </a>
                                 </li>
@@ -67,7 +67,7 @@
                             <if condition="$sub.chapter eq 6 and $sub.num neq 0">
                                 <li>
                                     <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
-                                        <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}é¢?</h2>
+                                        <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}ï¿½?</h2>
                                         <div class="clearfix"></div>
                                     </a>
                                 </li>
@@ -75,7 +75,7 @@
                             <if condition="$sub.chapter eq 7 and $sub.num neq 0">
                                 <li>
                                     <a href="{:U('Mobile/Exam/chapter_practice',array('mt'=>$sub['type'],'ms'=>$sub['subject'],'mp'=>$sub['chapter']))}"><div class="chapter_img"></div>
-                                        <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}é¢?</h2>
+                                        <h2 class="chapter_h" >{$sub.chapter}. {$sub.title}({$sub.num}ï¿½?</h2>
                                         <div class="clearfix"></div>
                                     </a>
                                 </li>

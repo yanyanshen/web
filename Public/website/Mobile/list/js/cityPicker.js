@@ -141,7 +141,7 @@ var provinces = {
         var cities = this.provinces[letter][pro];
         var ul, li = "";
         cities.forEach(function (city, i) {
-            li += '<a  href="http://www.517xc.cn/index.php/List/pull?city='+city+'"><li>'+city+'</li></a>';
+            li += '<a  href="http://www.517xc.cn/shanghai/jiaxiao/list'+city+'"><li>'+city+'</li></a>';
         });
 
         ul = "<ul class='city-picker'>" + li + "</ul>";

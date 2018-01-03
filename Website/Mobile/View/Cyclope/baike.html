@@ -12,6 +12,7 @@
     <link href="__STATIC__/cyclope/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/cyclope/css/initialize.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/cyclope/css/baike.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
 </head>
 <body>
 <div id="pagewrap">
@@ -38,7 +39,7 @@
                     <volist name="info" id="v">
                         <a href="{:U('Mobile/Cyclope/baike_detail',array('id'=>$v['id'],'kemu'=>$v['type']))}">
                             <div class="topic1">
-                                <div class="topic-img"><img src="{$v['picurl']}"></div>
+                                <div class="topic-img"  style="overflow: hidden;height: 70px"><img src="{$v['picurl']}"></div>
                                 <p style="text-align: center">{$v['title']|mb_substr=0,8,utf8}...</p>
                             </div>
                         </a>
@@ -96,7 +97,7 @@
                         <div class="Hnew">
                             <a href="{:U('Mobile/Cyclope/baike_detail',array('id'=>$v['id'],'kemu'=>$v['type']))}">
                                 <ul>
-                                    <li class="new-img">
+                                    <li class="new-img"  style="overflow: hidden;height: 70px">
                                         <img src="{$v['picurl']}" alt=""/>
                                     </li>
                                     <li class="new-title">

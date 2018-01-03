@@ -3,6 +3,9 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
     public function index(){
+        $word = search_word_from($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_REFERER']);
+        session('mobile_order_source', $word['form']);
+        session('mobile_order_keyword',$word['keyword']);//还没有办法获得关键字
         if(I('city')){
             session('city',I('city'));
         }else{

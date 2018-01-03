@@ -38,7 +38,7 @@
     内容添加
     <a style="text-decoration: none;font-weight: bold;color: #FA7124" href="{:U('index',array('pid'=>$get['pid'],'p'=>$get['p']))}">【返回】</a>
 </div>
-    <div >
+    <div>
         <form action="{:U('Admin/Cyclope/add')}" method="post" id="form1" enctype="multipart/form-data">
             <input type="hidden" value="{$get['pid']}" name="pid"/>
             <input type="hidden" value="{$get['p']}" name="p"/>
@@ -62,7 +62,7 @@
                 </li>
                 <li>
                     <label style="padding: 10px 5px 10px 0">内容标题<b>*</b></label>
-                    <input class="dfinput" placeholder="注意不能超过30字哦" type="text" name="title" value=""/>
+                    <input class="dfinput" placeholder="注意不能超过30字哦" style="width: 500px" type="text" name="title" value=""/>
                 </li>
                 <li>
                     <label style="padding: 10px 0 10px 0">展示图片<b>*</b></label>

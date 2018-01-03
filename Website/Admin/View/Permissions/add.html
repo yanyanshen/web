@@ -31,14 +31,6 @@
         <input type="hidden" name="pid" value="{$get['pid']}"/>
         <input type="hidden" name="id" value="{$get['id']}"/>
         <ul style="margin-left: 10px;padding: 0">
-            <!--<li>-->
-                <!--<label style="padding: 10px 30px 10px 0">添加类型<b>*</b></label>-->
-                <!--<select class="dfinput" name="permissions" style="width: 345px">-->
-                    <!--<volist name="permissions" id="data">-->
-                        <!--<option value="{$data.id}">{$data.permissions}</option>-->
-                    <!--</volist>-->
-                <!--</select>-->
-            <!--</li>-->
             <li><label>级别名称<b>*</b></label><input name="permissions" type="text" class="dfinput" value="{$permissions['permissions']|default=''}" placeholder="请填写级别名称" /></li>
             <li>
                 <label style="padding: 10px 80px 10px 0"></label>

@@ -29,7 +29,7 @@
                 <td>
                     <input type="text" value="{$v.order1}" id="pri{$v.id}" onchange="setPriority(this,{$v.id},{$get['pid']},{$get['p']?$get['p']:1})" style="width: 50px;"/>
                 </td>
-                <td><img src="{$v.picurl}" alt="" width="50" height="40" align="center"/></td>
+                <td><div style="overflow: hidden;height: 80px;"><img src="{$v.picurl}" width="100" alt="" align="center"/></div> </td>
                 <td>{$v['title']}</td>
                 <td>{$v['content']}</td>
                 <td>{$v['touch_count']}</td>
@@ -46,8 +46,6 @@
 </div>
 </body>
 </html>
-
-
 <script>
     $(".consult").click(function(){
         $(this).attr('disabled',true);

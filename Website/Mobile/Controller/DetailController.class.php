@@ -4,34 +4,35 @@ use Think\Controller;
 class DetailController extends Controller{
     //驾校详情页
     public function index(){
-        $this->assign('mobile_return',session('mobile_return'));
-        $info=M('school')->where(array('id'=>I('id')))
-            ->field('id,nickname,minprice,fullname,introduction,picurl,picname,evalutioncount,phone,student_num,timing,
+        $info = M('school')->where(array('pinyin'=>I('pinyin')))
+            ->field('id,cityid,nickname,minprice,fullname,introduction,picurl,picname,evalutioncount,phone,student_num,timing,
             address,type,age,teachage,driverage,school_id')->find();
-       if(I('type') !='jx'){
+       if($info['type'] !='jx'){
            $info['school_id']=M('school')->where(array('id'=>$info['school_id']))->getField('nickname');
        }
         if(strlen($info['student_num'])>=5){
             $info['student_num']=sprintf("%.1f",$info['student_num']/10000).'万';
         }
+        $city_pin = M('citys')->where(array('id'=>$info['cityid']))->getField('pinyin');
+        $info['url'] = "/$city_pin/jiaxiao/list";
         $this->assign('info',$info);//驾校
 //报名消息
-        $order = M('Order')->field('name,s_nickname,create_time')->where(array('school_id'=>I('id')))->select();
+        $order = M('Order')->field('name,s_nickname,create_time')->where(array('school_id'=>$info['id']))->select();
         foreach($order as $k=>$v){
             $order[$k]['day'] = intval((time()-strtotime($v['create_time']))/3600/24);
         }
         $this->assign('order',$order);
 //驾校课程
-        $class=M('trainclass')->where(array('type_id'=>I('id')))->select();
+        $class=M('trainclass')->where(array('type_id'=>$info['id']))->select();
         $this->assign('class',$class);//驾校课程
 
-        $abstract_pic=M('Pic')->field('picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>I('type')))->select();
+        $abstract_pic=M('Pic')->field('picurl,picname,type')->where(array('type_id'=>$info['id'],'type'=>$info['type']))->select();
         $this->assign('abstract_pic',$abstract_pic);//驾校简介图片
 
-        $picinfo=M('environment')->field('id,picurl,picname,type')->where(array('type_id'=>I('id'),'type'=>$info['type']))->select();
+        $picinfo=M('environment')->field('id,picurl,picname,type')->where(array('type_id'=>$info['id'],'type'=>$info['type']))->select();
         $this->assign('picinfo',$picinfo);//驾校环境图片
 //评价展示
-        $evaluate = D('Evaluate')->index(I('id'),5);
+        $evaluate = D('Evaluate')->index($info['id'],5);
         $this->assign('evaluate',$evaluate);
         $this->assign('evaluate_count',count($evaluate));
 
@@ -42,11 +43,13 @@ class DetailController extends Controller{
 
     //课程详情页
     public function course_details(){
-        $cid=I('id');
-        $info=M('trainclass')->where(array('id'=>$cid))->find();
+        $cid = I('id');
+        $info = M('trainclass')->where(array('id'=>$cid))->find();
         $info['jztype']=M('type')->where(array('id'=>$info['jztype']))->getField('jztype');
+        $school_info = M('School')->field('cityid,pinyin')->where(array('id'=>$info['type_id']))->find();
+        $city_pin = M('citys')->where(array('id'=>$school_info['cityid']))->getField('pinyin');
+        $info['url'] = "/$city_pin/jiaxiao/list/{$school_info['pinyin']}";
         $this->assign('info',$info);
-
         $this->display();
     }
 

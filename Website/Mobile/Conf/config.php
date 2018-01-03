@@ -32,8 +32,15 @@ return array(
         //支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
         'alipay_public_key' => "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhYfr6vdpMewx9HO5sJP3LXGIzwuN954AW5v38R5Jh7cLZ4zfSOSlvKElBjGhIJrKiLvT1iqFUeTq0fYw06isafsdSpMsM6zjWgvBHHVKlq6MecLFgahAzZMK1NIKWjbKdVsZESrFeo7ey2T8MvfHPL8D7SgdOKbG1LBpzONcwPGkW744osMEP0ZzsbIAbWrqc3beMkvQ/DvN8rVglYt40evv+Vz8PIy8/lWvpqfrKvf6m5QMRXRLVZKQKewwadjY1tDQHGwo4Ms2ZaJK1DfSrzvHrxTeaVDNfx4ig6zOiBtK76tou4+Cfe2SNYksEY8CYMmIJKtv5+FYlUWv4ZT33QIDAQAB",
 
-    )
-
-
-
+    ),
+// 开启路由
+    'URL_ROUTER_ON'   => true,
+    'URL_ROUTER_ON '=>true,
+    'URL_ROUTE_RULES'=>array(
+        "/^[^A-Z]+(jiaxiao\/list)$/"        => 'List/pull',//列表页
+        ":name\w/jiaxiao/list/:pinyin"        => 'Detail/index',//详情页
+        ':name\w/jiaxiao/list/:r$'          =>  'List/pull/r/1',//推荐筛选
+        ':name\w/jiaxiao/list/:all$'          =>  'List/pull/all/1',//推荐
+        ":name\w/jiaxiao/list/:pinyin\w#detail"        => 'Detail/index',//详情页
+    ),
 );

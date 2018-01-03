@@ -327,13 +327,13 @@ class OrderModel extends Model {
         $order['class_name'] = $post['class_name'];
         $order['pay_type'] = $post['pay_type'];
         $order['order_source'] = $post['order_source'];//订单来源
+        $order['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//下单链接;
         //订单关键词  后台人工新建订单的话  关键词是 所报驾校
         $order_keyword_id = M('OrderKeyword')->where(array('name'=>$post['s_nickname']))->getField('id');
-
         if($order_keyword_id){
             $order['order_keyword'] = $order_keyword_id;
         }else{
-            $order['order_keyword'] = M('OrderKeyword')->add($post['order_source']);
+            $order['order_keyword'] = M('OrderKeyword')->add($post['s_nickname']);
         }
         $order['customer_inform'] = $post['customer_inform'];
         $order['return_time'] = $post['return_time'];
@@ -576,7 +576,11 @@ class OrderModel extends Model {
             $order_statistics['end_lv'] = 0;
         }
 
-        $order_statistics['pay_type'] = $this->where("status != 1 and status != 5 and pay_type = 1 and $where")->count('num');
+        $order_statistics['zhifu'] = $this->where("status != 1 and status != 5 and pay_type = 1 and $where")->count('num');
+        $order_statistics['weixin'] = $this->where("status != 1 and status != 5 and pay_type = 2 and $where")->count('num');
+        $order_statistics['mendian'] = $this->where("status != 1 and status != 5 and pay_type = 3 and $where")->count('num');
+        $order_statistics['kuaidi'] = $this->where("status != 1 and status != 5 and pay_type = 4 and $where")->count('num');
+        $order_statistics['jiaxiao'] = $this->where("status != 1 and status != 5 and pay_type = 5 and $where")->count('num');
         return $order_statistics;
     }
 }

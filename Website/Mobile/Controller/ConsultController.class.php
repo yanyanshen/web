@@ -3,7 +3,7 @@ namespace Mobile\Controller;
 use Think\Controller;
 class ConsultController extends Controller{
     public function studynew(){
-        session('mobile_return',U('Mobile/Consult/studyNew'));
+        session('mobile_return',U('Mobile/Consult/studynew'));
         $num = 4;//请求条数
         $page = $_POST['page']?$_POST['page']:1;
         $cityid = M('citys')->where(array('cityname'=>session('city')))->getField('id');

@@ -14,7 +14,9 @@
         <link href="__STATIC__/list/css/list.css" rel="stylesheet" type="text/css">
         <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script src="__PUBLIC__/public/js/banner/banner.js"></script>
-        <script type="text/javascript" charset="utf-8" src="__STATIC__/list/js/cityPicker.js"></script>
+        <link rel="stylesheet" href="__STATIC__/list/js/city/cityselect.css">
+        <script type="text/javascript" src="__STATIC__/list/js/city/cityselect.js"></script>
+        <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
         <style>
             .mui-pull-caption{margin: auto 0;text-align: center;font-size: 15px;display: none}
             .mask{  width:100%;  height:120%;overflow-x: hidden;  position: absolute;;  top:0;  z-index:1;  background-color:#000;  opacity: 0.2;  margin:0;padding:0;  }
@@ -33,10 +35,10 @@
 <body>
     <div id="pagewrap">
         <div style="background: #fff;border-bottom: 2px;height: 51px;margin: 0;border-bottom: 1px solid #efefef;" >
-                <input type="text" class="city"  style="margin-top: 6px;line-height: 10px;width: 24%;height: 30px;padding: 0;
-                    font-size: 14px;color:red;border:none" id="cityname"  value="{$Think.session.city}">
+                <input type="text" class="city" id="cityname" style="margin-top: 6px;line-height: 10px;width: 24%;height: 30px;padding: 0;
+                    font-size: 14px;color:red;border:none"  value="{$Think.session.city}">
                 <script type="text/javascript">
-                    $(".city").CityPicker();
+                    var test=new Vcity.CitySelector({input:'cityname'});
                 </script>
                 <div class="search_box" style="float: right;margin-right: 3%">
                     <form action="{:U('Mobile/List/pull')}" method="get" style="margin: 0;padding: 0">
@@ -52,14 +54,14 @@
                         <div class="rr_box" style="margin-left: 11%;">
                             <div class="rr" >
                                 <if condition="$Think.session.r eq 1">
-                                    <a style="padding: 0 6px 0 6px;" class="color" href="{:U('Mobile/List/pull',array('r'=>1))}">
+                                    <a style="padding: 0 6px 0 6px;" class="color" href="{:U('shanghai/jiaxiao/list')}?r=1">
                                         推荐
                                         <div class="rr_img" style="float: right">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
                                     </a>
                                     <else/>
-                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('r'=>1))}">推荐
+                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('shanghai/jiaxiao/list')}?r=1">推荐
                                         <div class="rr_img" style="float: right">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
@@ -70,13 +72,13 @@
                         <div class="dr_box">
                             <div class="dr">
                                 <if condition="$Think.session.all eq 1">
-                                    <a class="color" style="padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('all'=>1))}">人气
+                                    <a class="color" style="padding: 0 6px 0 6px;" href="{:U('shanghai/jiaxiao/list')}?all=1">人气
                                         <div class="rr_img" style="float: right">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
                                     </a>
                                     <else/>
-                                    <a style="color: #323232;padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('all'=>1))}">人气
+                                    <a style="color: #323232;padding: 0 6px 0 6px;" href="{:U('shanghai/jiaxiao/list')}?all=1">人气
                                         <div class="rr_img" style="float: right">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
@@ -88,14 +90,14 @@
                         <div class="mr_box" >
                             <div class="mr">
                                 <if condition="$Think.session.p eq 1">
-                                    <a class="color" style="padding: 0 6px 0 6px;"  href="{:U('Mobile/List/pull',array('p'=>1))}">
+                                    <a class="color" style="padding: 0 6px 0 6px;"  href="{:U('shanghai/jiaxiao/list')}?p=1">
                                         价格
                                         <div style="float: right" class="rr_img">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
                                     </a>
                                     <else/>
-                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('p'=>1))}">
+                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('shanghai/jiaxiao/list')}?p=1">
                                         价格
                                         <div style="float: right" class="rr_img">
                                             <img src="__STATIC__/list/images/jt01.png">
@@ -107,13 +109,13 @@
                         <div class="er_box">
                             <div class="er">
                                 <if condition="$Think.session.e eq 1">
-                                    <a class="color" style="padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('e'=>1))}">评价
+                                    <a class="color" style="padding: 0 6px 0 6px;" href="{:U('shanghai/jiaxiao/list')}?e=1}">评价
                                         <div style="float: right" class="rr_img">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
                                     </a>
                                     <else/>
-                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('Mobile/List/pull',array('e'=>1))}">评价
+                                    <a style="color: #646464;padding: 0 6px 0 6px;" href="{:U('shanghai/jiaxiao/list')}?e=1">评价
                                         <div style="float: right" class="rr_img">
                                             <img src="__STATIC__/list/images/jt01.png">
                                         </div>
@@ -121,11 +123,6 @@
                                 </if>
                             </div>
                         </div>
-                        <!--<div class="er_box">-->
-                            <!--<div class="er">-->
-                                <!--<button type="button" id="select" style="padding: 5px;background: #fff;color:#646464;border:none " data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">筛选</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -172,14 +169,14 @@
                     <volist name="info" id="v" empty="$empty">
                         <li style="width: 96%;padding: 3% 0;margin: 0;" class="mui-table-view-cell">
                             <div id="r_main" style="border-bottom: none">
-                                <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">{$v.nickname}
+                                <a href="{$v['url']}">{$v.nickname}
                                     <div class="clearfix"></div>
                                     <ul id="rm">
                                         <li style="font-size: 12px" class="money">￥{$v.minprice}</li>
                                         <li class="num" style="font-size: 10px">{$v.student_num}人已报名</li>
                                     </ul>
 			                        </a>
-                                <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}#detail" style="color: white;font-size: 11px">
+                                <a href="{$v['url']}#detail" style="color: white;font-size: 11px">
                                     <button style="margin-right: 0">
                                         马上报名
                                     </button>
@@ -188,17 +185,17 @@
                             </div>
                             <div id="r_img" style="border:1px solid #eee;border-radius: 3px">
                                 <if condition="$v['type'] eq 'jx'">
-                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">
+                                    <a href="{$v['url']}">
                                         <img src="{$http}/Uploads/School_logo/{$v.picurl}{$v.picname}">
                                     </a>
                                 </if>
                                 <if condition="$v['type'] eq 'jl'">
-                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">
+                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">
                                         <img src="{$http}/Uploads/coach_logo/{$v.picurl}{$v.picname}">
                                     </a>
                                 </if>
                                 <if condition="$v['type'] eq 'zd'">
-                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id'],'type'=>$v['type']))}">
+                                    <a href="{:U('Mobile/Detail/index',array('id'=>$v['id']))}">
                                         <img src="{$http}/Uploads/guider_logo/{$v.picurl}{$v.picname}">
                                     </a>
                                 </if>
@@ -251,55 +248,7 @@
                 </a>
             </ul>
     </footer>
-    <!--<div class="tan">-->
-        <!--<div class="mask" style="display:none;"></div>-->
-        <!--<div ></div>-->
-        <!--<ul class="font" style="z-index: 1000">-->
-        <!--</ul>-->
-    <!--</div>-->
     <script src="__PUBLIC__/public/mui/js/mui.min.js"></script>
-  <!--  <script>
-            var btn = document.getElementById("select");
-            //监听点击事件
-            btn.addEventListener("tap",function () {
-                $.post("{:U('Mobile/List/select')}",'',function(res){
-                    var str='';
-                    if(res.status==1){
-                        str += '<form action="'+"{:U('Mobile/List/pull')}"+'" method="post" >';
-                        str += '<li id="header" style="width: 100%;height: 2%;background-color: rgb(246, 244, 244);color: rgb(179, 179, 179);padding:1% 3% 1% 6%;border-bottom:none;">';
-                        str += '筛选</li>';
-                        str += '<li>当前城市';
-                        str += '<p style="background-color: rgb(246, 244, 244); border-radius: 3px;padding:1%;width: 25%;text-align: left;">';
-                        str += "{$Think.session.city}"+'</p></li>';
-                        str += '<li>' +
-                        '<span style="margin-left: 1%;color: rgb(102, 102, 102);width: 100%">区/县</span><br>';
-                        for(var i in res.info['countys']){
-                            str += '<div class="countys"><input type="radio" name="countyid" value="'+res.info['countys'][i]['id']+'"/>'
-                            + "&nbsp;"+res.info['countys'][i]['countyname']+'</div>'
-                        }
-                        str +=  '</li><li>' +
-                        '<span style="margin-left: 1%;color: rgb(102, 102, 102)">小车(通车)</span><br>';
-                        for(var y in res.info['xc']){
-                            str += '<div class="countys common"><input type="radio" name="jztype" value="'+res.info['xc'][y]['id']+'"/>'
-                            + "&nbsp;"+res.info['xc'][y]['jztype']+'</div>' ;
-                        }
-                        str += '</li><li class="kc"><span style="margin-left: 1%;color: rgb(102, 102, 102)">客车/货车</span><br>'
-
-                        for(var o in res.info['kc']){
-                            str += '<div class="countys common"><input type="radio" name="jztype" value="'+res.info['kc'][o]['id']+'"/>'
-                            + "&nbsp;"+res.info['kc'][o]['jztype']+'</div>' ;
-                        }
-                        str += "</li><li style='margin-left: 0px;position: fixed;bottom: 0px;width: 100%;'>" +
-                        "<input  style='z-index:3000;background-color:red ;padding:1px 50% 3px 39%;border:1px solid red;height: 45px;font-size: 17px;text-align: left;color: white;' type='submit' value='完成'/></li>";
-                        str += "</li></form>";
-                        $(".font").html(str);
-                    }
-                },'json');
-                $(".mask").show();
-                $(".font").animate({'right':'85%'},500);
-            });
-
-        </script>-->
     <script>
 			mui.init({
 				pullRefresh: {
@@ -343,10 +292,10 @@
                                 if(array['id']){
                                     str += '<li style="width: 96%;padding: 3% 0;margin: 0;" class="mui-table-view-cell">';
                                     str += ' <div id="r_main" style="border-bottom: none">';
-                                    str += '<a  href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'&type='+array['type']+'">'+array['nickname'];
+                                    str += '<a href="'+array['url']+'">'+array['nickname'];
                                     str += '<div class="clearfix"></div>';
                                     str += '<ul id="rm">';
-                                    str += '<li class="money">￥'+array['minprice']+'</li>';
+                                    str += '<li class="money"  style="font-size: 12px" >￥'+array['minprice']+'</li>';
                                     str += '<li class="num" style="font-size: 10px">'+array['student_num']+'人已报名</li>';
                                     str += '</ul>';
 				                    str += '</a>';
@@ -356,7 +305,7 @@
                                     str += '</div>';
                                     str += '<div id="r_img" style="border:1px solid #eee;border-radius: 3px">';
                                     if(array['type'] == 'jx'){
-                                        str += '<a href="'+"{:U('Mobile/Detail/index')}?id="+array['id']+'&type='+array['type']+'#detail">';
+                                        str += '<a href="'+array['url']+'">';
                                         str += '<img src="{$http}/Uploads/School_logo/'+array['picurl']+array['picname']+'">';
                                         str += '</a>';
                                     }

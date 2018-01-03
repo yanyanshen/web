@@ -88,12 +88,14 @@ class OrderModel extends Model{
         $data['sex'] = I('sex');
         $data['name'] = I('account');
         $data['s_nickname'] = $info['nickname'];
-        $where = session('mobile_order_source');
-        $mobile_order_source_id = M('OrderSource')->where(array('name' => array('like',"%$where%")))->getField('id');
-        if(!$mobile_order_source_id){
-            $mobile_order_source_id = 17;
+
+        if(!session('mobile_order_source')){
+            $data['order_source'] = 17;//订单来源;
+        }else{
+            $data['order_source'] = session('mobile_order_source');//订单来源;
         }
-        $data['order_source'] = $mobile_order_source_id;//订单来源
+
+        $data['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//下单链接
         $data['status']=1;//付款状态
         $data['order_type']=2;//订单类型：在线订单
         $data['type']=trim(I('type'));//类型

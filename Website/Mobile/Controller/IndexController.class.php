@@ -1,28 +1,38 @@
 <?php
 namespace Mobile\Controller;
 use Think\Controller;
-class IndexController extends Controller
-{
+class IndexController extends Controller{
     public function index(){
-//        $word = search_word_from();
-//
-//        if(!empty($word['keyword'])){
-//            echo '关键字：'.$word['keyword'].' 来自：'.$word['from'];
-//        }
-//        print_r($word);
-//        exit;
         //网站 进入 来源网站
         $word = search_word_from();
-        session('mobile_order_source', $word['form']);
-//        session('mobile_order_keyword',$word['keyword']);//还没有办法获得关键字
+        if($word){
+            if($id = M('OrderSource')->where(array('name'=>array('like',"%{$word['form']}%")))->getField('id')){
+                $data['id'] = $id;
+                $data['referer'] = $_SERVER["HTTP_REFERER"];
+                M('OrderSource')->save($data);
+                $order_source = $id;
+            }else{
+                $id = M('OrderSource')->add(array('name'=>$word['form'],'referer'=>$_SERVER["HTTP_REFERER"]));
+                $order_source = $id;
+            }
+            session('mobile_order_source', $order_source);
+            session('mobile_order_keyword',$word['keyword']);//还没有办法获得关键字
+            session('mobile_referer',$_SERVER["HTTP_REFERER"]);
+        }
+
         session('k', null);
         if (!session('city')) {
             $citysInfo = getCity();
-            session('city', substr($citysInfo, 0, 9));
+            if(strripos($citysInfo,'省')){
+                session('city', substr($citysInfo,strripos($citysInfo,'省')+3));
+            }else{
+                session('city',$citysInfo);
+            }
         } else {
             session('city', I('city'));
         }
-
+        $city_pinyin = M('citys')->where(array('cityname'=>session('city')))->getField('pinyin');
+        $this->assign('url',C('HTTP')."/$city_pinyin/jiaxiao/list");
         $city_name = session('city');
         $this->hot_list($city_name);
         $this->recommand_list($city_name);
@@ -36,63 +46,19 @@ class IndexController extends Controller
     }
 
 
-    function search_word_from() {
-        $referer = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
-        if(strstr( $referer, 'baidu.com')){ //百度
-            preg_match( "|baidu.+wo?r?d=([^\\&]*)|is", $referer, $tmp );
-            $keyword = urldecode( $tmp[1] );
-            $from = 'baidu';
 
-            }elseif(strstr( $referer, 'google.com') or strstr( $referer, 'google.cn')){ //谷歌
-
-            preg_match( "|google.+q=([^\\&]*)|is", $referer, $tmp );
-
-            $keyword = urldecode( $tmp[1] );
-
-            $from = 'google'; //www.jbxue.com
-
-        }elseif(strstr( $referer, 'so.com')){ //搜索
-
-            preg_match( "|so.+q=([^\\&]*)|is", $referer, $tmp );
-
-            $keyword = urldecode( $tmp[1] );
-
-            $from = '';
-
-            }elseif(strstr( $referer, 'sogou.com')){ //搜狗
-
-            preg_match( "|sogou.com.+query=([^\\&]*)|is", $referer, $tmp );
-
-            $keyword = urldecode( $tmp[1] );
-
-            $from = 'sogou';
-
-            }elseif(strstr( $referer, 'soso.com')){ //搜搜
-
-            preg_match( "|soso.com.+w=([^\\&]*)|is", $referer, $tmp );
-
-            $keyword = urldecode( $tmp[1] );
-
-            $from = 'soso';
-
-            }else {
-
-            $keyword ='';
-
-            $from = '';
-
-            }
-
-        return array('keyword'=>$keyword,'from'=>$from);
-
-    }
     //获取首页热门驾校数据
     public function hot_list($city_name){
         $where['_string']="c.id=s.cityid and s.show_forbid=1 and s.hot=1 and type ='jx' ";
         $where['c.cityname']=array('like',"%$city_name%");
         $info=M('School')->table('xueches_school s,xueches_citys c')
-            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.type,s.hot,c.cityname,s.minprice,s.highprice,s.student_num')
+            ->field('s.id as school_id,s.pinyin,s.cityid,s.nickname,s.picurl,s.picname,s.type,s.hot,
+            c.cityname,s.minprice,s.highprice,s.student_num')
             ->where($where)->order('s.hot')->select();
+        foreach($info as $k=>$v){
+            $city_pin = M('citys')->where(array('id'=>$v['cityid']))->getField('pinyin');
+            $info[$k]['url'] = "/$city_pin/jiaxiao/list/{$v['pinyin']}";
+        }
         $this->assign('hot_list',$info);
     }
     //首页驾校推荐
@@ -100,8 +66,13 @@ class IndexController extends Controller
         $where['_string']="c.id=s.cityid and s.show_forbid=1 and s.recommand=1 and s.type='jx' ";
         $where['c.cityname']=array('like',"%$city_name%");
         $info=M('School')->table('xueches_school s,xueches_citys c')
-            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.type,s.recommand,c.cityname,s.minprice,s.highprice,s.student_num')
+            ->field('s.id as school_id,s.pinyin,s.cityid,s.nickname,s.picurl,
+            s.picname,s.type,s.recommand,c.cityname,s.minprice,s.highprice,s.student_num')
             ->where($where)->order('s.recommand')->select();
+        foreach($info as $k=>$v){
+            $city_pin = M('citys')->where(array('id'=>$v['cityid']))->getField('pinyin');
+            $info[$k]['url'] = "/$city_pin/jiaxiao/list/{$v['pinyin']}";
+        }
         $this->assign('jx_list',$info);
     }
 
@@ -111,8 +82,13 @@ class IndexController extends Controller
         $where['_string']="c.id=s.cityid and s.show_forbid=1 and s.week=1 and type = 'jx' ";
         $where['c.cityname']=array('like',"%$cityname%");
         $info=M('School')->table('xueches_school s,xueches_citys c')
-            ->field('s.id as school_id,s.nickname,s.picurl,s.picname,s.week,s.type,c.cityname,s.minprice,s.highprice,s.student_num')
+            ->field('s.id as school_id,s.pinyin,s.cityid,s.nickname,s.picurl,s.picname,
+            s.week,s.type,c.cityname,s.minprice,s.highprice,s.student_num')
             ->where($where)->order('s.week')->select();
+        foreach($info as $k=>$v){
+            $city_pin = M('citys')->where(array('id'=>$v['cityid']))->getField('pinyin');
+            $info[$k]['url'] = "/$city_pin/jiaxiao/list/{$v['pinyin']}";
+        }
         $this->assign('week_list',$info);
         $this->assign('week_list1',$info);
     }

@@ -9,7 +9,10 @@ class OrderController extends Controller{
 
         $this->assign('name',$name);
         $this->assign('nickname',$info['nickname']);
-        $url=U('Mobile/Detail/index',array('id'=>$name['type_id'])).'#detail';
+
+        $school_info = M('School')->field('cityid,pinyin')->where(array('id'=>$name['type_id']))->find();
+        $city_pin = M('citys')->where(array('id'=>$school_info['cityid']))->getField('pinyin');
+        $url = "/$city_pin/jiaxiao/list/{$school_info['pinyin']}#detail";
         $this->assign('url',$url);
         $this->assign('class_id',I('sub_button'));
         $this->display();
@@ -24,7 +27,6 @@ class OrderController extends Controller{
             $this->assign('nickname',$info['s_nickname']);
             $this->assign('price',$info['price']);
             $this->assign('url',$url);
-//            $this->assign('mid',session('mid'));
             $this->display('add_order');
         }else{
             $order_id = D('order')->add_order();
@@ -36,7 +38,9 @@ class OrderController extends Controller{
         $ordcode = M('Order')->field('s_nickname,ordcode,price')->where(array('id'=>I('order_id')))->find();
         $this->assign('ordcode',$ordcode['ordcode']);
         $this->assign('price',$ordcode['price']);
-        $url = U('Mobile/Detail/index',array('id'=>I('schoolid')));
+        $info = M('school')->field('cityid,pinyin')->where(array('id'=>I('schoolid')))->find();
+        $city_pin = M('citys')->where(array('id'=>$info['cityid']))->getField('pinyin');
+        $url = "/$city_pin/jiaxiao/list/{$info['pinyin']}";
         $this->assign('url',$url);
         $this->assign('nickname',$ordcode['s_nickname']);
         $this->assign('price',$ordcode['price']);
