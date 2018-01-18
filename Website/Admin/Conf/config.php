@@ -7,9 +7,9 @@ return array(
 /*------------------2017-10-13腾讯云COS存储文件 配置信息--------------------------*/
     'cos_domain' => array(
         'cos' => array(
-            'app_id' => '1254542315',
-            'secret_id' => 'AKID394nKjC20mMm39NmHepnYCw3zjIetumS',
-            'secret_key' => 'c1Or7A2zqVxHPPFuOgszveDgrrfGfsuk',
+            'app_id' => '?',
+            'secret_id' => '?',
+            'secret_key' => '?',
             'region' => 'sh',   // bucket所属地域：华北 'tj' 华东 'sh' 华南 'gz'
             'timeout' => 60
         ),
