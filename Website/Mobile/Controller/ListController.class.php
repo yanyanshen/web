@@ -4,13 +4,12 @@ use Think\Controller;
 class ListController extends Controller{
     public function pull(){
         $url = $_SERVER['REQUEST_URI'];
-        $this->assign('url',$url);
         preg_match ("/(\/jiaxiao\/list)/",$url,$matches,PREG_OFFSET_CAPTURE);
         $city = substr($url,0,$matches[0][1]);
         $city_pinyin = substr($city,1);
         $city_info = M('citys')->field('cityname,id')->where(array('pinyin'=>$city_pinyin))->find();
         session('mobile_return',C('HTTP').$_SERVER['REQUEST_URI']);
-
+        $this->assign('url',U($city_pinyin.'/jiaxiao/list/'));
         session('city', $city_info['cityname']);
         $this->slideshow();
         $city_name = session('city');
@@ -135,11 +134,10 @@ class ListController extends Controller{
     public function select_table($table,$where,$page,$num,$field,$order=''){
         $info = M('school')->table("$table")
             ->field($field)->page($page,$num)
-            ->where($where)->order($order)
-            ->cache(20)->select();
+            ->where($where)->order($order)->select();
         foreach($info as $k=>$v){
             $city_pin = M('citys')->where(array('id'=>$v['cityid']))->getField('pinyin');
-            $info[$k]['url'] = "/$city_pin/jiaxiao/list/{$v['pinyin']}";
+            $info[$k]['url'] = "/$city_pin/jiaxiao/list/{$v['pinyin']}/";
         }
         $this->assoc_unique($info,'id');
         $info = array_reverse($info);

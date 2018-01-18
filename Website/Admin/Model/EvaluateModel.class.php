@@ -13,27 +13,27 @@ class EvaluateModel extends Model{
         if(!empty($get)){
             foreach($get as $key=>$val) {
                 if($key == 'create_time1' && $val != ''){
-                    $where.=" e.ntime  > $val  and  ";
+                    $where.=" ntime > $val and ";
                 }elseif($key == 'create_time2' && $val != ''){
-                    $where.=" e.ntime  < $val  and  ";
+                    $where.=" ntime < $val and ";
                 }elseif($key == 'flag'){
-                    $where.=" e.$key  = 0  and  ";
+                    $where.=" $key = 0  and  ";
                 }elseif($key == 'nickname'){
                     $info = M('school')->field('id')->where(array('nickname'=>array('like',"%$val%")))->select();
                     foreach($info as $v){
                         $str .= $v['id'].',';
                     }
                     $id = substr($str,0,-1);
-                    $where.=" e.sid in ($id)  and  ";
+                    $where.=" sid in ($id)  and  ";
                 }elseif($key == 'id'){
-                    $where.=" e.id = $val";
+                    $where.=" id = $val";
                 }
             }$where = rtrim($where,'and ');
         }
-        $count = M('Evaluate')->alias('e')->join('xueches_user u ON u.id=e.uid')->where($where)->count();
+        $count = M('Evaluate')->where($where)->count();
         $page = new \Think\Page($count,10);
-        $evaluate = $this->alias('e')->join('xueches_user u ON u.id=e.uid')->where($where)->field($field)
-            ->order('e.ntime desc')->limit($page->firstRow.','.$page->listRows)->select();//用户评价
+        $evaluate = $this->where($where)->field($field)->limit($page->firstRow.','.$page->listRows)
+            ->order('ntime desc')->select();//用户评价
         foreach($evaluate as $k=>$v){
             $evaluate[$k]['untime'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('ntime');
             $evaluate[$k]['ucontent'] = M('EvaluateUntil')->where(array('eid'=>$v['id']))->getField('content');

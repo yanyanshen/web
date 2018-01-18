@@ -8,9 +8,7 @@ class AuthRuleController extends CommonController{
         //判断是否有管理组添加的权限
         $pid = I('pid');
         $add_group = D('AuthRule')->getRule($pid,'权限添加');
-
         $_GET['add_rule'] = $add_group['name'];
-
         $this->assign('get',$_GET);
         $rule=D('AuthRule');
         $ruleList=$rule->getRuleList();

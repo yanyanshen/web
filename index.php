@@ -26,7 +26,7 @@ if (preg_match("/(".implode('|',$mobile_agents).")/i",strtolower($_SERVER['HTTP_
 }
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG',true);
+define('APP_DEBUG',false);
 
 // 定义应用目录
 define('APP_PATH','./Website/');
@@ -37,9 +37,9 @@ define('APP_PATH','./Website/');
 
 
 //if($_SERVER['HTTP_HOST'] == 'www.517xc.cn'){
-//    define('BIND_MODULE','Mobile');//设置默认模块 如果该模块不存在则自动创建模块
+//
 //}else{
-//    define('BIND_MODULE','Home');//设置默认模块 如果该模块不存在则自动创建模块
+//    define('BIND_MODULE','Mobile');//设置默认模块 如果该模块不存在则自动创建模块
 //}
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';

@@ -25,7 +25,6 @@
         <div class="div_head">
             教练列表
             <a style="text-decoration: none;color: #FA7124" href="{:U('add_jl',array('type'=>'jl','pid'=>$get['pid'],'p'=>$get['p']))}">【教练添加】</a>
-            <a href="" style="text-decoration: none;color: #FA7124">【刷新】</a>
             <span class="span">总计：{$count}</span>
         </div>
         <div class="div_search">
@@ -33,7 +32,7 @@
                 <form action="?" id='form' method="get">
                     <input type="hidden" value="{$get['p']}" name="p"/>
                     <input type="hidden" value="{$get['pid']}" name="pid"/>
-                    城市：<select name="cityid" style="font-size: 12px;width: 70px;height: 20px">
+                    城市：<select name="cityid" style="font-size: 10px;width: 100px;height: 20px">
                         <option value="">请选择</option>
                         <volist name='city' id='v'>
                             <option value="{$v.id}" {$v['id']==$get['cityid']?selected:''}>{$v.cityname}</option>
@@ -90,7 +89,7 @@
         <div style="margin: 10px 5px;">
             <table class="table_a"  width="100%" >
                 <tbody>
-                    <tr style="background-color:  rgb(19, 181, 177);">
+                    <tr style="background-color:rgb(19, 181, 177);">
                         <th width="3%">ID</th>
 						<th width="3%">账号</th>
 						<th width="1%">头像</th>
@@ -115,7 +114,7 @@
                     </tr>
                     <form action="" id="form2">
                         <volist name='list'  id='v' key='k'>
-                            <tr>
+                            <tr  style="color: #323232;font-weight: normal ">
                                 <td><input type="checkbox" name="id[]" value="{$v.id}"/> {$v.id}</td>
                                 <td>{$v.account}</td>
                                 <td>
@@ -178,7 +177,6 @@
                                                 }
                                             });
                                         }
-
                                         function status_update(id,pid,type,p){
                                             layer.msg('确定要这样吗？',{
                                                 time:0,

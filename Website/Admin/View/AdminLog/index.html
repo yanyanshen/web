@@ -37,7 +37,6 @@
                 <th width="5%">编辑时间</th>
                 <th width="5%">最后登录时间</th>
                 <th width="3%">lastip</th>
-                <th width="2%">登录次数</th>
             </tr>
             <volist name='adminLog'  id='v' key="k" empty="$empty">
                 <tr>
@@ -52,7 +51,6 @@
                     <td>{:date('Y-m-d H:i:s',$v['edittime'])}</td>
                     <td>{:date('Y-m-d H:i:s',$v['lastlogin'])}</td>
                     <td>{$v['lastip']}</td>
-                    <td>{$v['login_num']}</td>
                 </tr>
         </volist>
         </tbody>

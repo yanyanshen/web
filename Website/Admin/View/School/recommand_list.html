@@ -81,7 +81,7 @@
             </tr>
             <form action="" id="form2">
                 <volist name='jx_list'  id='v' key="k" empty="$empty">
-                    <tr>
+                    <tr  style="color: #323232;font-weight: normal ">
                         <td><input type="checkbox" name="id[]" value="{$v.school_id}"/></td>
                         <td>
                             <input type="text" value="{$v.order}" id="pri{$v.school_id}" onchange="setPriority(this,{$v.school_id})" style="width: 30px;text-align: center"/>

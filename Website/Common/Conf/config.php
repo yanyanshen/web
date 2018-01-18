@@ -16,7 +16,7 @@ return array(
     'DB_CHARSET'            => 'utf8', // 字符集*/
 //    'DB_DSN'                =>  'sqlserver:host=SqlServer;port=3306;dbname=xueche3;charset=utf8',
     'HTTP'                  =>  'http://'.$_SERVER['HTTP_HOST'],
-
+    'URL_HTML_SUFFIX'=>'',//伪静态设置
     'SHOW_PAGE_TRACE'      => false,
     'URL_MODEL'            => '2',//设置重写模式
 
@@ -26,8 +26,7 @@ return array(
     'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名或者IP配置
     'APP_SUB_DOMAIN_RULES'    =>    array(
         /* 域名部署配置*/
-        'm.517xc.cn'=> 'Mobile',
-        'a.517xc.cn'=> 'Admin',
+        'www.517xc.cn'=> 'Mobile',
         /*格式2: '子域名或泛域名或IP'=> array('模块名[/控制器名]','var1=a&var2=b&var3=*');*/
     ),
 //设置可访问的模块和默认的模块
@@ -35,7 +34,6 @@ return array(
     'DEFAULT_MODULE'       =>    'Home',  // 默认模块
     'DEFAULT_CONTROLLER'    =>  'Index', // 默认控制器名称
     'DEFAULT_ACTION'        =>  'index', // 默认操作名称
-
 );
 
 

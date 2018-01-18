@@ -133,7 +133,7 @@ class StudentController extends CommonController {
         $this->assign('create_time2',$_GET['create_time2']);
         $this->assign('nickname',$_GET['nickname']);
 
-        $field = 'e.id,e.lastip,e.content,e.ntime,e.score,e.sid,u.truename,u.phone,e.flag';
+        $field = 'id,truename,lastip,content,ntime,score,sid,flag';
         $evaluate = D('Evaluate')->evaluate_list($_GET,$field);
         $this->assign('evaluate',$evaluate[0]);
 
@@ -159,7 +159,7 @@ class StudentController extends CommonController {
             $last_id = M('EvaluateReply')->add($_POST);
             if($last_id){
                 M('evaluate')->where(array('id'=>$_POST['eid']))->save(array('flag'=>1));
-                $log['done'] = "【添加评价回复】ID_$last_id  {$_POST['content']}";
+                $log['done'] = "【添加评价回复】{$_POST['content']}";
                 D('AdminLog')->logout($log);
                 $this->success('回复成功',U('evaluate_list',array('p'=>I('p'),'pid'=>I('pid'))));
             }else{
@@ -235,8 +235,7 @@ class StudentController extends CommonController {
         $_GET['page'] = $Page->show();
         $_GET['firstRow'] = $Page->firstRow;
         $_GET['info'] = M('Apply')->limit($Page->firstRow.','.$Page->listRows)
-            ->order('ntime desc')->field('*')
-            ->where($where)->select();
+            ->order('ntime desc')->field('*')->where($where)->select();
         $_GET['count'] = $count;
         $_GET['count1'] = M('Apply')->where("flag = 0")->count();
         $_GET['count2'] = M('Apply')->where("visit = 0")->count();
@@ -285,6 +284,28 @@ class StudentController extends CommonController {
                 ->find();
             $this->assign('get',$_GET);
             $this->assign('info',$info);
+            $this->display();
+        }
+    }
+/*---------------------2017-01-12shenyanyan-------------------*/
+//添加评价功能
+    public function add_evaluate(){
+        if(IS_AJAX){
+            $_POST['content'] = filter_string($_POST['content']);
+            $_POST['ntime'] = date('Y-m-d');
+            $_POST['lastip'] = I("server.REMOTE_ADDR");
+            if(!$_POST['content'] || !$_POST['truename']){
+                $this->error('内容或评价人不能为空');
+            }else{
+                $res = M('evaluate')->add($_POST);
+                if($res){
+                    $this->success('添加成功',U('School/jx_list',array('pid'=>I('pid'),'p'=>I('p'))));
+                }else{
+                    $this->error('添加失败');
+                }
+            }
+        }else{
+            $this->assign('get',$_GET);
             $this->display();
         }
     }

@@ -5,14 +5,14 @@ class IndexController extends Controller{
     public function index(){
         //网站 进入 来源网站
         $word = search_word_from();
-        if($word){
-            if($id = M('OrderSource')->where(array('name'=>array('like',"%{$word['form']}%")))->getField('id')){
+        if($word['from']){
+            if($id = M('OrderSource')->where(array('name'=>array('like',"%{$word['from']}%")))->getField('id')){
                 $data['id'] = $id;
                 $data['referer'] = $_SERVER["HTTP_REFERER"];
                 M('OrderSource')->save($data);
                 $order_source = $id;
             }else{
-                $id = M('OrderSource')->add(array('name'=>$word['form'],'referer'=>$_SERVER["HTTP_REFERER"]));
+                $id = M('OrderSource')->add(array('name'=>$word['from'],'referer'=>$_SERVER["HTTP_REFERER"]));
                 $order_source = $id;
             }
             session('mobile_order_source', $order_source);
@@ -29,7 +29,10 @@ class IndexController extends Controller{
                 session('city',$citysInfo);
             }
         } else {
-            session('city', I('city'));
+            if(I('city')){
+                $city = M('citys')->where(array('pinyin'=>I('city')))->getField('cityname');
+                session('city', $city);
+            }
         }
         $city_pinyin = M('citys')->where(array('cityname'=>session('city')))->getField('pinyin');
         $this->assign('url',C('HTTP')."/$city_pinyin/jiaxiao/list");

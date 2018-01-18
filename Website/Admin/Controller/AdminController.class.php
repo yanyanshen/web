@@ -58,6 +58,8 @@ class AdminController extends CommonController{
                 }
             }
         }else{
+            $permissions = M('Permissions')->select();
+            $this->assign('permissions',$permissions);
             $this->assign('get',$_GET);
             $this->display();
         }

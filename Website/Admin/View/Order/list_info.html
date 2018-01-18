@@ -19,7 +19,7 @@
         <div class="div_head">
             订单详情
             <a style="text-decoration: none;color: #FA7124;font-weight: bold" href="{$url}">【返回】</a>
-            <a href="" style="text-decoration: none;color: #FA7124">【刷新】</a>
+            <a href="{:U('Admin/Order/list_info',array('pid'=>$get['pid'],'p'=>$get['p'],'id'=>$get['id']))}" style="text-decoration: none;color: #FA7124">【刷新】</a>
         </div>
         <div style="margin: 10px 5px">
             <form action="{:U('cancel_order')}" method="post">
@@ -163,7 +163,7 @@
  <!-- ------------------------------------form2------------------------------------------------ -->
             <form action="{:U('stu_update')}" method="post">
                 <table class="table_a">
-                    <tr style="color: #323232">
+                    <tr>
                         <input type="hidden" name="id" value="{$get['id']}"/>
                         <input type="hidden" name="pid" value="{$get['pid']}"/>
                         <input type="hidden" name="p" value="{$get['p']}"/>
@@ -333,23 +333,38 @@
                     </tr>
 				</table>
 			</form><br/>
-			<!-- ------------------------------------form5------------------------------------------------ -->
-        	<form action="{:U('#')}" method="post">
+
+        <!---------------------------------------form5-------------------------------------------------->
+            <form action="{:U('#')}" method="post">
                 <table class="table_a">
-					<tr>
-						<td colspan=10  style="color: #323232">来源信息</td>
-					</tr>
-					<tr>
-						<td  style="background-color: rgb(247,247,247);width: 6%">来源:</td><td  width="5%">{$list['order_source']['name']}</td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">竞价关键字:</td><td  width="5%"></td>
+                    <tr>
+                        <td colspan=10  style="color: #323232">来源信息</td>
+                    </tr>
+                    <tr>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">来源:</td><td  width="5%">{$list['order_source']['name']}</td>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">竞价关键字:</td><td  width="5%"></td>
                         <td  style="background-color: rgb(247,247,247);width: 6%">搜索词:</td><td width="5%">{$list['order_keyword']}</td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">referrer:</td><td width="12%">{$list['order_source']['referer']}</td>
-						<td  style="background-color: rgb(247,247,247);width: 6%">下单站点:</td><td width="12%">内页：{$list['url']}</td>
-					</tr>
-				</table>
-			</form>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">referrer:</td><td width="12%">
+                        <a style="overflow-wrap: break-word" href="{$list['order_source']['referer']}">{$list['order_source']['referer']}...</a></td>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">下单站点:</td><td width="12%">内页：{$list['url']}</td>
+                    </tr>
+                </table>
+            </form>
             <br>
-		<!-- ------------------------------------form6------------------------------------------------ -->
+            <!-- ------------------------------------form6------------------------------------------------ -->
+            <form action="{:U('#')}" method="post">
+                <table class="table_a">
+                    <tr>
+                        <td colspan=12  style="color: #323232">电话回访量</td>
+                    </tr>
+                    <tr>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">电话接通量:</td><td  width="5%"></td>
+                        <td  style="background-color: rgb(247,247,247);width: 6%">未接通量:</td><td width="5%">{$list['order_keyword']}</td>
+                    </tr>
+                </table>
+            </form>
+            <br>
+		<!-- ------------------------------------form7------------------------------------------------ -->
 			<form action="{:U('returndate')}" method="post">
                 <input type="hidden" name="ordcode" value="{$list.ordcode}"/>
                 <input type="hidden" name="id" value="{$get['id']}"/>
@@ -374,21 +389,40 @@
 			</form>
 			<div class="right1" style="width: 66%">
                 <table class="table_a">
-                    <tr><td colspan=5 style="color: #323232">全部跟单记录</td></tr>
+                    <tr><td colspan=6 style="color: #323232">全部跟单记录</td></tr>
                     <tr>
-                        <td width="4%">序号</td>
-                        <td width="10%">跟单时间</td>
-                        <td width="20%">详情</td>
-                        <td width="10%">下次回访日期</td>
-                        <td width="6%">回访人</td>
+                        <td width="3%">序号</td>
+                        <td width="5%">跟单时间</td>
+                        <td width="18%">详情</td>
+                        <td width="5%">下次回访日期</td>
+                        <td width="3%">回访人</td>
+                        <td width="8%">电话是否接通</td>
                     </tr>
                     <volist name='jilu' id='v'>
                         <tr>
-                            <td>{$v.id}</td>
+                            <td>
+                                {$v.id}
+                                <if condition="$v['flag'] eq 0">未记录
+                                    <elseif condition="$v['flag'] eq 1"/>
+                                    <img style="vertical-align: middle;width: 20px" src="__PUBLIC__/public/images/abcd_06.png" alt=""/>
+                                    <elseif condition="$v['flag'] eq 2"/>
+                                    <img style="vertical-align: middle;width: 20px" src="__PUBLIC__/public/images/abcd_07.png" alt=""/>
+                                </if>
+                            </td>
                             <td>{$v.create_time}</td>
                             <td>{$v.content}</td>
                             <td>{$v.return_time}</td>
                             <td>{$v.operator}</td>
+                            <td>
+                                <if condition="$v['flag'] eq 0">
+                                    <a class="tablelink" href="javascript:void (0)" onclick="">标记为接通</a> |
+                                    <a class="tablelink" href="javascript:void (0)">标记为未接通</a>
+                                    <elseif condition="$v['flag'] eq 1"/>
+                                    <a class="tablelink" href="javascript:void (0)">标记为未接通</a> |
+                                    <elseif condition="$v['flag'] eq 2"/>
+                                    <a class="tablelink" href="javascript:void (0)">标记为接通</a>
+                                </if>
+                            </td>
                         </tr>
                     </volist>
                 </table>

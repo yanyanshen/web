@@ -40,10 +40,11 @@ class LoginController extends Controller{
     public function  verify(){
         $config=array(
             'fontSize'=>80,
-            'length'  =>2,
-            'useCurve'=>false,
-            'useNoise'=>false,
-            'codeSet' =>'123456789'
+            'length'  =>4,
+            'useCurve'=>true,
+            'useNoise'=>true,
+            'expire'=>20,
+//            'codeSet' =>'123456789'
         );
         $verify=new Verify($config);
         $verify->entry();

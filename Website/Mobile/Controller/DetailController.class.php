@@ -26,10 +26,9 @@ class DetailController extends Controller{
         $class=M('trainclass')->where(array('type_id'=>$info['id']))->select();
         $this->assign('class',$class);//驾校课程
 
-        $abstract_pic=M('Pic')->field('picurl,picname,type')->where(array('type_id'=>$info['id'],'type'=>$info['type']))->select();
+        $abstract_pic=M('Pic')->field('picurl,picname,type,ntime')->order('ntime')->where(array('type_id'=>$info['id'],'type'=>$info['type']))->select();
         $this->assign('abstract_pic',$abstract_pic);//驾校简介图片
-
-        $picinfo=M('environment')->field('id,picurl,picname,type')->where(array('type_id'=>$info['id'],'type'=>$info['type']))->select();
+        $picinfo=M('environment')->field('id,picurl,picname,type')->order('ntime')->where(array('type_id'=>$info['id'],'type'=>$info['type']))->select();
         $this->assign('picinfo',$picinfo);//驾校环境图片
 //评价展示
         $evaluate = D('Evaluate')->index($info['id'],5);
@@ -59,6 +58,10 @@ class DetailController extends Controller{
  * 评论页面
  */
     public function evaluate(){
+        $school_info = M('School')->field('cityid,pinyin')->where(array('id'=>I('id')))->find();
+        $city_pin = M('citys')->where(array('id'=>$school_info['cityid']))->getField('pinyin');
+        $url = "/$city_pin/jiaxiao/list/{$school_info['pinyin']}";
+        $this->assign('url',$url);
         if(IS_AJAX){
             $_POST['id'] = session('sid');
             if(session('total')){

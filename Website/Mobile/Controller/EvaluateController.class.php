@@ -16,7 +16,7 @@ class EvaluateController extends CommonController{
                     $this->error('此订单已评价',U('Mobile/User/order_center'));
                 }else{
                     $_POST['content'] = filter_string($_POST['content']);
-                    $_POST['uid'] = session('mid');
+                    $_POST['truename'] = M('user')->where(array('id'=>session('mid')))->getField('truename') ;
                     $_POST['ntime'] = date('Y-m-d');
                     $_POST['sid'] = M('order')->where(array('id'=>$_POST['oid']))->getField('school_id');
                     $_POST['lastip'] = I("server.REMOTE_ADDR");

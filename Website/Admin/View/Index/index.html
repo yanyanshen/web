@@ -5,6 +5,7 @@
         <meta http-equiv=pragma content=no-cache />
         <meta http-equiv=cache-control content=no-cache />
         <meta http-equiv=expires content=-1000 />
+        <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
         <title>管理中心 v1.0</title>
     </head>
     <frameset border=0 framespacing=0 rows="60, *" frameborder=0>
@@ -17,3 +18,16 @@
     <noframes>
     </noframes>
 </html>
+<script language="javascript">
+    var myTime = setTimeout("Timeout()", 60000);
+    function resetTime() {
+        clearTimeout(myTime);
+        myTime = setTimeout('Timeout()', 60000);
+    }
+    function Timeout() {
+        alert("您的登录已超时, 请点确定后重新登录!");
+        document.location.href='login.jsp';
+    }
+    document.documentElement.onkeydown=resetTime;
+    document.doocumentElement.onclick=resetTime;
+</script>

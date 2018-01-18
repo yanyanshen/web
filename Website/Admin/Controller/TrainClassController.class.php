@@ -2,8 +2,6 @@
 namespace Admin\Controller;
 use Think\Controller;
 use Admin\Common\Controller\CommonController;
-use Think\Crypt\Driver\Think;
-
 class TrainClassController extends CommonController {
     //课程管理
     public function train_class(){
@@ -14,7 +12,7 @@ class TrainClassController extends CommonController {
         $where['_string']="tr.jztype=jztype.id and tr.type = '$type' and tr.type_id = {$_GET['id']}";
         $count=M('trainclass')->table('xueches_trainclass tr,xueches_type jztype')
             ->where($where)->count();
-        $page = new \Think\Page($count,4);
+        $page = new \Think\Page($count,10);
         $_GET['page'] = $page->show();
         $class=M('trainclass')->table('xueches_trainclass tr,xueches_type jztype')
             ->field($field)->limit($page->firstRow.','.$page->listRows)->where($where)->select();

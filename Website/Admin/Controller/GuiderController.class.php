@@ -6,7 +6,6 @@ use Think\Page;
 use Admin\Common\Controller\CommonController;
 class GuiderController extends CommonController {
     function index_list(){
-
         $Dao = M("school");
         $where = "s.boss_id=b.id and ca.id=s.category_id and city.id=s.cityid and s.type='zd'";
         foreach($_GET as $k=>$v){
@@ -73,7 +72,6 @@ class GuiderController extends CommonController {
             $this->assign('get',$_GET);
             $this->display();
         }
-
     }
     //对教练进行编辑
     public function editor_zd(){
@@ -116,7 +114,7 @@ class GuiderController extends CommonController {
 /*
  * User：沈艳艳
  * Date：2017/09/04
- * 教练分类列表/编辑教练分类/添加教练分类
+ * 指导员分类列表/编辑指导员分类/添加指导员分类
  */
     public function category_index(){
         if(IS_AJAX){

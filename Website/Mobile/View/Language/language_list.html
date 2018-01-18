@@ -14,7 +14,8 @@
         <link href="__STATIC__/list/css/list.css" rel="stylesheet" type="text/css">
         <script src="__PUBLIC__/public/js/jquery.min.1.8.2.js"></script>
         <script src="__PUBLIC__/public/js/banner/banner.js"></script>
-        <script type="text/javascript" charset="utf-8" src="__STATIC__/language/cityPicker.js"></script>
+        <link rel="stylesheet" href="__STATIC__/language/city/cityselect.css">
+        <script type="text/javascript" src="__STATIC__/language/city/cityselect.js"></script>
         <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
         <style>
             .mui-pull-caption{margin: auto 0;text-align: center;font-size: 15px;display: none}
@@ -31,11 +32,12 @@
 <body>
     <div id="pagewrap">
         <div style="background: #fff;border-bottom: 2px;height: 51px;margin: 0;border-bottom: 1px solid #efefef;" >
-                <input type="text" class="city"  style="margin-top: 6px;line-height: 10px;width: 24%;height: 30px;padding: 0;
+                <input type="text" class="city" style="margin-top: 6px;line-height: 10px;width: 24%;height: 30px;padding: 0;
                     font-size: 14px;color:red;border:none" id="cityname"  value="{$Think.session.city}">
-                <script type="text/javascript">
-                    $(".city").CityPicker();
-                </script>
+
+            <script type="text/javascript">
+                var test=new Vcity.CitySelector({input:'cityname'});
+            </script>
                 <div class="search_box" style="float: right;margin-right: 3%">
                     <form action="{:U('Mobile/Language/language_list')}" method="get" style="margin: 0;padding: 0">
                         <input type="text" name="language_keyword" value="{$get['language_keyword']?$get['language_keyword']:''}" placeholder="请输入名称" id="language_keyword" style='background: #fff;width: 81%;height: 26px;font-size:15px;border-radius: 5px;font-family: "Microsoft yahei" '  />
@@ -78,11 +80,15 @@
 			</div>
 		</div>
     </div>
+    <div class="call_box" style="margin-bottom: 55px;z-index: 1000">
+        <a class="anniu1" href="http://p.qiao.baidu.com/im/mapi?app_id=10052&unq_id=6777831&qrcodeid=99336780" target="_blank">
+            <img src="__PUBLIC__/public/images/shangqiao.png"></a>
+    </div>
     <div class="call_box" style="z-index: 1000">
         <a href="tel:4008040517"><img src="__PUBLIC__/public/images/phone.png"></a>
     </div>
     <div class="sms_box" style="z-index: 1000">
-        <a href="sms:18688888888"><img src="__PUBLIC__/public/images/sms.png"></a>
+        <a href="sms:13761342004"><img src="__PUBLIC__/public/images/sms.png"></a>
     </div>
     <footer id="footer" style="z-index: 3">
         <ul>
@@ -98,7 +104,7 @@
                         <p  style="color: #fa7124; font-weight: bold;">语言</p>
                     </li>
                 </a>
-                <a href="{:U('Mobile/List/pull')}">
+                <a href="{$url}">
                     <li class="foot">
                         <img src="__PUBLIC__/public/images/icon-footer3-a.png">
                         <p>驾校</p>

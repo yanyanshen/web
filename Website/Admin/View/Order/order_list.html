@@ -149,6 +149,58 @@
              </script>
         </span>
     </div>
+    <div style="margin-left: 6px">
+        <input id="checkall" style="font-size: 12px;font-weight: bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 60px;padding: 2px 0;" type="button" value='全选' />
+        <input type="button" value='转客服' onclick="batch_operate()" style="font-size: 12px;font-weight:bold;background-color:rgb(247, 247, 247);border-radius: 3px;border:none;color: #646464;width: 70px;padding: 2px 0"/>
+        <script>
+            function batch_operate(){
+                var id_arr = document.getElementsByName("id[]");
+                var flag = false ;
+                for(var i in id_arr){
+                    if(id_arr[i].checked){
+                        flag = true ;
+                        break ;
+                    }
+                }
+                if(flag){
+                    $.post("{:U('Admin/Finance/batch_operate')}",$("#form2").serialize(),function(res){
+                        layer.open({
+                            type: 1,
+                            title:'跟单客服修改',
+                            skin: 'border:1px solid #27B7F3', //加上边框
+                            area: ['400px', '100px'], //宽高
+                            content:"<div style='text-align: center'><form method='post' action='{:U("transfer_customer")}'>" +
+                            "<input type='hidden' value='{$get["pid"]}' name='pid'/>"+
+                            "<input type='hidden' value='{$get["p"]}' name='p'/>"+
+                            "<input type='hidden' value='"+res.info['str']+"' name='str'/>"+
+                            "跟单客服：<select style='margin-top:10px;height: 30px;width: 100px' name='customer'>"+
+                            "<volist name='customer' id='v'>"+
+                            "<option value='{$v.username}'>{$v.username}</option>" +
+                            "</volist></select>"+
+                            "<input type='submit' style='background-color:rgb(19, 181, 177);padding:5px 15px;color: #ffffff;border-radius: 3px;border:none;margin-left: 10px' value='确定'/>" +
+                            "</form></div>"
+                        });
+                    },'json');
+                }else{
+                    layer.msg('请勾选后再操作', {
+                        time: 2000, //20s后自动关闭
+                        btn: ['知道了']
+                    });
+                }
+            }
+            $("document").ready(function(){
+                $("#checkall").click(function(){
+                    if($(this).val()=='全选'){
+                        $("input[type='checkbox']").prop('checked', true);
+                        $("#checkall").val("取消全选");
+                    }else{
+                        $("input[type='checkbox']").prop('checked', false);
+                        $("#checkall").val("全选");
+                    }
+                });
+            });
+        </script>
+    </div>
     <div style="margin: 10px 5px;">
     <table class="table_a"  width="100%">
         <tbody>
@@ -172,52 +224,54 @@
                 <th width="3%">最后更新人</th>
                 <th width="2%">操作</th>
             </tr>
-            <volist name="arr['list']"  id='v' key="k" empty="$empty">
-                <tr>
-                    <td>{$k+$arr['firstRow']}</td>
-                    <td>{$v.ordcode}</td>
-                    <td>{$v['create_time']}</td>
-                    <td>{$v.name}</td>
-                    <td>{$v.tel}</td>
-                    <td>{$v.num}</td>
-                    <td>{$v.s_nickname}</td>
-                    <td>{$v.class_name}</td>
-                    <td>{$v.trname}</td>
-                    <td>
-                        <if condition="$v.pay_type eq 0">未支付</if>
-                        <if condition="$v.pay_type eq 1">支付宝</if>
-                        <if condition="$v.pay_type eq 2">微信</if>
-                        <if condition="$v.pay_type eq 4">快递</if>
-                        <if condition="$v.pay_type eq 5">驾校</if>
-                    </td>
-                    <td>
-                        <if condition="$v.status eq 1">待支付</if>
-                        <if condition="$v.status eq 2">已支付</if>
-                        <if condition="$v.status eq 3">待评价</if>
-                        <if condition="$v.status eq 4">待追加</if>
-                        <if condition="$v.status eq 5">已取消</if>
-                        <if condition="$v.status eq 6">已完成</if>
-                    </td>
-                    <td>{$v.notify_time}</td>
-                    <td> <if condition="$v['order_status'] eq 1">待处理</if>
-                        <if condition="$v['order_status'] eq 2">待回访</if>
-                        <if condition="$v['order_status'] eq 3">待结算</if>
-                        <if condition="$v['order_status'] eq 4">已完成</if>
-                        <if condition="$v['order_status'] eq 5">已取消</if>
-                        <if condition="$v['order_status'] eq 6">已退款</if></td>
-                    <td>{$v.customer}</td>
-                    <td>{$v.customer_inform}</td>
-                    <td>{$v.return_time}</td>
-                    <td>{$v.lastupdate}</td>
-                    <td>
-                        <if condition="$list_info neq '0'" >
-                            <a class="tablelink" href="{:U($list_info)}?id={$v['id']}&pid={$get['pid']}&p={$get['p']}">处理</a>　
-                            <else/>
-                            <a class="tablelink" href="javascript:alert('暂无权限');">处理</a>　
-                        </if>
-                    </td>
-                </tr>
-        </volist>
+            <form action="" id="form2">
+                <volist name="arr['list']"  id='v' key="k" empty="$empty">
+                    <tr style="color: #323232;font-weight: normal">
+                        <td> <input  type="checkbox" name="id[]" value="{$v.id}" />{$k+$arr['firstRow']}</td>
+                        <td>{$v.ordcode}</td>
+                        <td>{$v['create_time']}</td>
+                        <td>{$v.name}</td>
+                        <td>{$v.tel}</td>
+                        <td>{$v.num}</td>
+                        <td>{$v.s_nickname}</td>
+                        <td>{$v.class_name}</td>
+                        <td>{$v.trname}</td>
+                        <td>
+                            <if condition="$v.pay_type eq 0">未支付</if>
+                            <if condition="$v.pay_type eq 1">支付宝</if>
+                            <if condition="$v.pay_type eq 2">微信</if>
+                            <if condition="$v.pay_type eq 4">快递</if>
+                            <if condition="$v.pay_type eq 5">驾校</if>
+                        </td>
+                        <td>
+                            <if condition="$v.status eq 1">待支付</if>
+                            <if condition="$v.status eq 2">已支付</if>
+                            <if condition="$v.status eq 3">待评价</if>
+                            <if condition="$v.status eq 4">待追加</if>
+                            <if condition="$v.status eq 5">已取消</if>
+                            <if condition="$v.status eq 6">已完成</if>
+                        </td>
+                        <td>{$v.notify_time}</td>
+                        <td> <if condition="$v['order_status'] eq 1">待处理</if>
+                            <if condition="$v['order_status'] eq 2">待回访</if>
+                            <if condition="$v['order_status'] eq 3">待结算</if>
+                            <if condition="$v['order_status'] eq 4">已完成</if>
+                            <if condition="$v['order_status'] eq 5">已取消</if>
+                            <if condition="$v['order_status'] eq 6">已退款</if></td>
+                        <td>{$v.customer}</td>
+                        <td>{$v.customer_inform}</td>
+                        <td>{$v.return_time}</td>
+                        <td>{$v.lastupdate}</td>
+                        <td>
+                            <if condition="$list_info neq '0'" >
+                                <a class="tablelink" href="{:U($list_info)}?id={$v['id']}&pid={$get['pid']}&p={$get['p']}">处理</a>　
+                                <else/>
+                                <a class="tablelink" href="javascript:alert('暂无权限');">处理</a>　
+                            </if>
+                        </td>
+                    </tr>
+                </volist>
+            </form>
         </tbody>
     </table>
     <div id="page">

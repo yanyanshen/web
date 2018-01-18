@@ -11,9 +11,12 @@
 <link href="__STATIC__/detail/css/media-queries.css" rel="stylesheet" type="text/css">
 <link href="__STATIC__/detail/css/initialize.css" rel="stylesheet" type="text/css">
 <link href="__STATIC__/detail/css/details.css" rel="stylesheet" type="text/css">
-    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
-    <script src="__PUBLIC__/public/js/banner/Marquee.js"></script>
-    <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
+<script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+<link href="__PUBLIC__/public/js/banner/banner.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/public/js/banner/cityPicker.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/public/js/banner/banner.js"></script>
+<script type="text/javascript" src="__PUBLIC__/public/js/banner/Marquee.js"></script>
+<link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
     <script type="text/javascript">
         $(function(){
             $('#marquee_information2').kxbdSuperMarquee({
@@ -25,10 +28,10 @@
 <body>
 
 <div id="pagewrap">
-    <div class="header_box1">
+    <div class="header_box1" style="z-index: 1">
         <div class="header2">
             <ul>
-                <a href="{$info['url']}">
+                <a href="{$info['url']}/">
                     <li class="header_back" style="padding-right: 50px">
                         <img src="__PUBLIC__/public/images/back.png">
                     </li>
@@ -52,21 +55,15 @@
     <div id="content_moble">
         <div id="content_mt">
             <div id="top_m1">
-                <div class="top_m1_img">
+                <div class="top_m1_img" >
                     <if condition="$info.type eq 'jx' and $info['picname'] neq ''">
-                        <img style="border-radius: 3px" src="{$http}/Uploads/School_logo/{$info.picurl}/{$info.picname}"/>
-                        <else/>
-                        <img class="img1" style="width: 80px;height: 60px" src="{$http}/Uploads/default_logo/517.png"/>
-                    </if>
-                    <if condition="$info.type eq 'zd' and $info['picname'] neq ''">
+                        <img src="{$http}/Uploads/School_logo/{$info.picurl}/{$info.picname}"/>
+                        <elseif condition="$info.type eq 'zd' and $info['picname'] neq ''"/>
                         <img style="border-radius: 3px" src="{$http}/Uploads/guider_logo/{$info.picurl}/{$info.picname}"/>
-                        <else/>
-                        <img class="img1" style="width: 80px;height: 60px" src="{$http}/Uploads/default_logo/517.png"/>
-                    </if>
-                    <if condition="$info.type eq 'jl' and $info['picname'] neq ''">
+                        <elseif condition="$info.type eq 'jl' and $info['picname'] neq ''"/>
                         <img style="border-radius: 3px" src="{$http}/Uploads/Coach_logo/{$info.picurl}/{$info.picname}"/>
                         <else/>
-                        <img class="img1" style="width: 80px;height: 60px" src="{$http}/Uploads/default_logo/517.png"/>
+                        <img style="border-radius: 3px" src="{$http}/Uploads/defautl_logo/{$info.picurl}/{$info.picname}"/>
                     </if>
                 </div>
                 <ul class="top_m1_text">
@@ -77,9 +74,13 @@
                 <div class="clearfix"></div>
             </div>
             <div id="top_m2">
-                <p style="font-weight: normal;color: #646464;margin-left: 10px">地址：{$info.address}</p>
+                <p style="font-weight: normal;color: #646464;margin-left: 10px">
+                    <if condition="$info['address'] neq ''">
+                        地址：{$info.address}
+                    </if>
+                </p>
                 <div class="topm2">
-                    <span>驾校</span>官方报名电话：{$info.phone}
+                    <span>驾校</span>官方报名电话：<a href="tel:{$info.phone}">{$info.phone}</a>
                 </div>
                 <if condition="$info.type neq 'jx'">
                     <ul  style="width: 240px;margin-left: auto;margin-right: auto;">
@@ -192,31 +193,24 @@
                     <div id="introduce_tm">
                         <div id="introduce_m">
                             <p>{$info.introduction}</p>
-                            <volist name="abstract_pic" id="data">
-                                <if condition="$data['type'] eq 'jx' and $data['picname'] neq ''">
-                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
-                                </if>
-                                <if condition="$data.type eq 'zd' and $data.picname neq ''">
-                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/guider_logo/{$data.picurl}{$data.picname}"/>
-                                </if>
-                                <if condition="$data.type eq 'jl' and $data.picname neq ''">
-                                    <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/Coach_logo/{$data.picurl}{$data.picname}"/>
-                                </if>
-                            </volist>
-                            <script type="text/javascript">
-                                $(function(){
-                                    $(".img1").click(function(){
-                                        var width = $(this).width();
-                                        if(width==250) {
-                                            $(this).width(300);
-                                            $(this).height(200);
-                                        } else {
-                                            $(this).width(250);
-                                            $(this).height(150);
-                                        }
-                                    });
-                                });
-                            </script>
+                            <empty name="abstract_pic">
+                                <img  src="{$http}/Uploads/default_logo/abstract_1.jpg"/>
+                                <img  src="{$http}/Uploads/default_logo/abstract_2.jpg"/>
+                                <img  src="{$http}/Uploads/default_logo/abstract_3.jpg"/>
+                                <img  src="{$http}/Uploads/default_logo/abstract_4.jpg"/>
+                                <else/>
+                                <volist name="abstract_pic" id="data">
+                                    <if condition="$data['type'] eq 'jx' and $data['picname'] neq ''">
+                                        <img  src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
+                                    </if>
+                                    <if condition="$data.type eq 'zd' and $data.picname neq ''">
+                                        <img  src="{$http}/Uploads/guider_logo/{$data.picurl}{$data.picname}"/>
+                                    </if>
+                                    <if condition="$data.type eq 'jl' and $data.picname neq ''">
+                                        <img  src="{$http}/Uploads/Coach_logo/{$data.picurl}{$data.picname}"/>
+                                    </if>
+                                </volist>
+                            </empty>
                         </div>
                     </div>
                 </div>
@@ -231,30 +225,61 @@
                 </div>
                 <div id="introduce_tm">
                     <div id="introduce_m">
-                        <volist name="picinfo" id="data">
-                            <if condition="$data.type eq 'jx'  and $data.picname neq ''">
-                                <img class="img1" style="width: 250px;height: 150px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}"/>
-                            </if>
-
-                            <if condition="$data.type eq 'zd' and $data.picname neq ''">
-                                <img class="img2" style="width: 250px;height: 150px" src="{$http}/Uploads/guider_logo/{$data.picurl}{$data.picname}"/>
-                            </if>
-                            <if condition="$data.type eq 'jl' and $data.picname neq ''">
-                                <img class="img2" style="width: 250px;height: 150px" src="{$http}/Uploads/Coach_logo/{$data.picurl}{$data.picname}"/>
-                            </if>
-                        </volist>
+                        <div class="addWrap">
+                            <div class="swipe" id="mySwipe">
+                                <div class="swipe-wrap">
+                                    <empty name="picinfo">
+                                        <div>
+                                            <a href="javascript:void(0)">
+                                                <img class="img-responsive" src="{$http}/Uploads/default_logo/environment_1.jpg" width="400" height="120.75"/>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)">
+                                                <img class="img-responsive" src="{$http}/Uploads/default_logo/environment_2.jpg" width="400" height="120.75"/>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)">
+                                                <img class="img-responsive" src="{$http}/Uploads/default_logo/environment_3.jpg" width="400" height="120.75"/>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0)">
+                                                <img class="img-responsive" src="{$http}/Uploads/default_logo/environment_4.jpg" width="400" height="120.75"/>
+                                            </a>
+                                        </div>
+                                        <else/>
+                                        <volist name="picinfo" id="v">
+                                            <div>
+                                                <a href="javascript:void(0)">
+                                                    <img class="img-responsive" src="{$http}/Uploads/School_logo/{$v.picurl}{$v.picname}" width="400" height="120.75"/>
+                                                </a>
+                                            </div>
+                                        </volist>
+                                    </empty>
+                                </div>
+                            </div>
+                            <ul id="position">
+                                <li class="cur"></li>
+                                <li class=""></li>
+                                <li class=""></li>
+                                <li class=""></li>
+                            </ul>
+                        </div>
                         <script type="text/javascript">
-                            $(function(){
-                                $(".img2").click(function(){
-                                    var width = $(this).width();
-                                    if(width==250) {
-                                        $(this).width(300);
-                                        $(this).height(200);
-                                    } else {
-                                        $(this).width(250);
-                                        $(this).height(150);
+                            var bullets = document.getElementById('position').getElementsByTagName('li');
+                            var banner = Swipe(document.getElementById('mySwipe'), {
+                                auto: 2000,
+                                continuous: true,
+                                disableScroll:false,
+                                callback: function(pos) {
+                                    var i = bullets.length;
+                                    while (i--) {
+                                        bullets[i].className = ' ';
                                     }
-                                });
+                                    bullets[pos].className = 'cur';
+                                }
                             });
                         </script>
                     </div>
@@ -304,25 +329,30 @@
                                 </div>
                                 <notempty name="data['reply']">
                                     <div class="eval_text">
+                                        <p style="border: none;padding:0;color: #323232;font-size: 12px">{$data['content']}</p>
                                         <if condition="$data['append'] eq 1">
-                                            <p style="border-bottom: none;padding:0">{$data['content']}</p>
-                                            <p style="border-bottom: 0;padding:0"> <span style="color: #FA7124">追加内容【{$data['untime']}】</span> {$data['ucontent']}</p>
-                                            <else/>
-                                            <p style="border-bottom: none;margin: 0">内容:{$data['content']}</p>
+                                            <p style="padding:0">
+                                                <span style="color: #FA7124">追加内容【{$data['untime']}】</span>
+                                                <span style="color: #323232;font-size: 12px">{$data['ucontent']}</span>
+                                            </p>
                                         </if>
-                                        <div style="border-bottom: 1px solid #eee;">
+                                        <div style="border-bottom: 1px solid #eee;margin: 0;padding: 0">
                                             <volist name="data['reply']" id="v">
-                                                <p style="border: 0;margin:0"><span style="color: #FA7124">驾校回复【{$v['ntime']}】</span> {$v['content']}</p>
+                                                <p style="border: 0;margin:0;">
+                                                    <span style="color: #FA7124">驾校回复【{$v['ntime']}】</span>
+                                                    <span style="color: #323232;font-size: 12px">{$v['content']}</span>
+                                                </p>
                                             </volist>
                                         </div>
                                     </div>
                                     <else/>
-                                    <div class="eval_text">
+                                    <div class="eval_text" style="border-bottom: 1px solid #eee;">
+                                        <p style="border-bottom: none;padding:0;color: #323232;font-size: 12px">{$data['content']}</p>
                                         <if condition="$data['ucontent'] neq ''">
-                                            <p style="border-bottom: none;padding:0">{$data['content']}</p>
-                                            <p><span style="color:#fa7124">追加内容【{$data['untime']}】</span>{$data['ucontent']}</p>
-                                            <else/>
-                                            <p>{$data['content']}</p>
+                                            <p>
+                                                <span style="color:#fa7124">追加内容【{$data['untime']}】</span>
+                                                <span style="color: #323232;font-size: 12px">{$data['ucontent']}</span>
+                                            </p>
                                         </if>
                                     </div>
                                 </notempty>
@@ -337,7 +367,7 @@
                 </div>
             </div>
     </div>
-    <footer id="footer">
+    <footer id="footer" style="z-index: 1000">
         <ul>
             <a href="#detail">
                 <li class="foot_box">
@@ -345,7 +375,7 @@
                 </li>
             </a>
             <li class="foot_box">
-                <a href="">
+                <a class="anniu1" href="http://p.qiao.baidu.com/im/mapi?app_id=10052&unq_id=6777831&qrcodeid=99336780" target="_blank">
                     <p>免费咨询</p>
                 </a>
             </li>
@@ -357,8 +387,7 @@
         </a>
     </div>
     <div class="sms_box">
-        <a href="sms:17752364125"><img src="__PUBLIC__/public/images/sms.png"></a>
-        <!--<a href="sms:18688888888">发短信</a>-->
+        <a href="sms:13761342004"><img src="__PUBLIC__/public/images/sms.png"></a>
     </div>
     <include file="public/footer"/>
 </div>

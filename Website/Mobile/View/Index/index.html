@@ -11,10 +11,11 @@
     <link href="__STATIC__/Index/css/main.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/Index/css/media-queries.css" rel="stylesheet" type="text/css">
     <link href="__STATIC__/Index/css/initialize.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="__STATIC__/Index/js/city/cityselect.css">
     <link href="__PUBLIC__/public/js/banner/banner.css" rel="stylesheet" type="text/css">
     <link href="__PUBLIC__/public/js/banner/cityPicker.css" rel="stylesheet" type="text/css">
     <script src="__PUBLIC__/public/js/banner/banner.js"></script>
-    <script src="__PUBLIC__/public/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/public/js/banner/Marquee.js"></script>
     <link rel="shortcut icon" href="__PUBLIC__/public/images/favicon.ico"/>
 </head>
@@ -57,12 +58,12 @@
 
     <div id="header_box2">
         <div id="header2">
-            <input type="text" class="city" style="" value="{$Think.session.city}" readonly>
-            <script type="text/javascript" src="__STATIC__/Index/js/cityPicker.js"></script>
+            <input type="text" class="city" id="cityname" style="" value="{$Think.session.city}" readonly>
+            <script type="text/javascript" src="__STATIC__/Index/js/city/cityselect.js"></script>
             <script type="text/javascript">
-                $(".city").CityPicker();
+                var test=new Vcity.CitySelector({input:'cityname'});
             </script>
-            <div class="search_box" onclick="search_box('{$url}')" style="border-radius: 5px;margin-right: 5%;width:55%">
+            <div class="search_box" onclick="search_box('{$url}/')" style="border-radius: 5px;margin-right: 5%;width:55%">
                 <if condition="$Think.session.k eq ''">
                     <input class="search" type="text" name="k" value="" placeholder="请输入驾校或街道" />
                     <else/>
@@ -82,13 +83,13 @@
 
     <div id="content">
         <div id="options">
-            <a href="{$url}">
+            <a href="{$url}/">
                 <div class="option1">
                     <img src="__STATIC__/Index/images/index_icon01.png">
                     <p>驾考全包</p>
                 </div>
             </a>
-            <a href="{$url}">
+            <a href="{$url}/">
                 <div class="option1">
                     <img src="__STATIC__/Index/images/index_icon02.png">
                     <p>计时培训</p>
@@ -156,7 +157,7 @@
             </div>
             <div id="weekPrice_box">
                 <volist name="week_list" id="v" offset="0" length="1" empty="$empty">
-                    <a href="{$v['url']}">
+                    <a href="{$v['url']}/">
                         <div id="weekPrice_box1"  style="padding-bottom:30px;width: 47%;margin-right: 0px">
                             <ul>
                                     <li>{$v.nickname}</li>
@@ -177,7 +178,7 @@
                     <div id="weekPrice_box2" style="height: 260px">
                         <volist name="week_list1" id="data2" offset="1"  empty="$empty">
                             <div class="wp_school1" style="height: 105px;margin-bottom: 10px">
-                                <a href="{$data2['url']}">
+                                <a href="{$data2['url']}/">
                                     <ul class="wps_ul">
                                         <li>{$data2.nickname}</li>
                                         <li><h1>￥{$data2.minprice}</h1></li>
@@ -185,7 +186,7 @@
                                         <span>价格优惠，42小时实车训..</span>
                                     </ul>
                                 </a>
-                                <a  href="{$data2['url']}" class="wps_img">
+                                <a  href="{$data2['url']}/" class="wps_img">
                                     <img height="50" src="{$http}/Uploads/School_logo/{$data2.picurl}{$data2.picname}">
                                 </a>
                                 <div class="clearfix"></div>
@@ -195,8 +196,8 @@
                 <div class="clearfix"></div>
             </div>
             <div id="more-school" style="margin:0">
-                <div class="more" style="border:1px solid #ececec;width: 100%;">
-                    <a style="padding:2% 38%;text-align: center" href="{$url}">
+                <div class="more" style="border-bottom:1px solid #ececec;border-top:1px solid #ececec;width: 100%;">
+                    <a style="padding:2% 38%;text-align: center" href="{$url}/">
                         更多驾校<img style="float: right" src="__STATIC__/Index/images/more.png">
                     </a>
                     <div class="clearfix"></div>
@@ -215,7 +216,7 @@
             </div>
             <div id="hot_box">
                 <volist name="hot_list" id="data" empty="$empty">
-                    <a href="{$data['url']}">
+                    <a href="{$data['url']}/">
                         <div id="hot_box1" style="border-radius: 10px">
                             <if condition="$data['picname'] neq ''">
                                 <img style="margin-top: 10px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}" alt=""/>
@@ -233,8 +234,8 @@
                 <div class="clearfix"></div>
             </div>
             <div id="more-school">
-                <div class="more" style="border:1px solid #ececec;width: 100%;text-align: center">
-                    <a  style="padding:2% 38%;text-align: center" href="{$url}">
+                <div class="more" style="border-bottom:1px solid #ececec;border-top:1px solid #ececec;width: 100%;text-align: center">
+                    <a  style="padding:2% 38%;text-align: center" href="{$url}/">
                         更多驾校<img style="float: right" src="__STATIC__/Index/images/more.png">
                     </a>
                     <div class="clearfix"></div>
@@ -255,7 +256,7 @@
                 <volist name="jx_list" id="data" empty="$empty">
                     <div id="r_box1">
                         <div id="r_main">
-                            <a href="{$data['url']}">
+                            <a href="{$data['url']}/">
                                 {$data.nickname}
                                 <div class="clearfix"></div>
                                 <ul id="rm">
@@ -263,12 +264,12 @@
                                     <li class="num" style="font-size: 10px">{$data.student_num}人已报名</li>
                                 </ul>
                             </a>
-                            <a style="" href="{$data['url']}#detail#detail">
+                            <a style="" href="{$data['url']}/#detail">
                                 <button style="padding: 4px 8px;color:#ffffff;font-size: 11px;">马上报名</button>
                             </a>
                             <div class="clearfix"></div>
                         </div>
-                        <a href="{$data['url']}">
+                        <a href="{$data['url']}/">
                             <div id="r_img">
                                 <if condition="$data.picname neq ''">
                                     <img style="border-radius: 3px" src="{$http}/Uploads/School_logo/{$data.picurl}{$data.picname}">
@@ -282,8 +283,8 @@
                 </volist>
             </div>
             <div id="more-school">
-                <div class="more" style="border:1px solid #ececec;width: 100%;text-align: center">
-                    <a style="padding:2% 38%;text-align: c" href="{$url}">
+                <div class="more" style="border-bottom:1px solid #ececec;border-top:1px solid #ececec;width: 100%;text-align: center">
+                    <a style="padding:2% 38%;text-align: c" href="{$url}/">
                         更多驾校<img style="float: right" src="__STATIC__/Index/images/more.png">
                     </a>
                     <div class="clearfix"></div>
@@ -324,7 +325,7 @@
                 </volist>
             </div>
             <div id="more-school">
-                <div class="more" style="border:1px solid #ececec;width: 100%;text-align: center">
+                <div class="more" style="border-bottom:1px solid #ececec;border-top:1px solid #ececec;width: 100%;text-align: center">
                     <a style="padding:2% 38%" href="{:U('Consult/studynew')}">
                         更多资讯<img style="float: right" src="__STATIC__/Index/images/more.png">
                     </a>
@@ -348,7 +349,7 @@
                 </li>
             </a>
 
-            <a href="{$url}">
+            <a href="{$url}/">
                 <li class="foot">
                     <img src="__PUBLIC__/public/images/icon-footer3-a.png">
                     <p>驾校</p>
@@ -366,16 +367,23 @@
                     <p>我的</p>
                 </li>
             </a>
-
         </ul>
     </footer>
+    <div class="call_box" style="margin-bottom: 55px">
+        <a class="anniu1" href="http://p.qiao.baidu.com/im/mapi?app_id=10052&unq_id=6777831&qrcodeid=99336780" target="_blank">
+            <img src="__PUBLIC__/public/images/shangqiao.png"></a>
+    </div>
     <div class="call_box">
         <a href="tel:4008040517"><img src="__PUBLIC__/public/images/phone.png"></a>
     </div>
     <div class="sms_box">
-        <a href="sms:18688888888"><img src="__PUBLIC__/public/images/sms.png"></a>
+        <a href="sms:13761342004"><img src="__PUBLIC__/public/images/sms.png"></a>
     </div>
     <include file="public/footer"/>
 </div>
+<!--<script type="text/javascript">-->
+    <!--var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");-->
+    <!--document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5ee6637f5a7edfc9880ca397dcfe0eea' type='text/javascript'%3E%3C/script%3E"))-->
+<!--</script>-->
 </body>
 </html>

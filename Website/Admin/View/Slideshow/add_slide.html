@@ -28,11 +28,19 @@
         <input type="hidden" name='pid' value="{$get['pid']?$get['pid']:''}"/>
         <ul style="margin-left: 10px;padding: 0">
             <li>
+                <label style="padding-right: 32px">城市<b>*</b></label>
+                <select name="city_pinyin" id="" class="dfinput" style="width: 347px">
+                    <volist name="citys" id="v">
+                        <option value="{$v['pinyin']}">{$v.cityname}</option>
+                    </volist>
+                </select>
+            </li>
+            <li>
                 <label>简单描述<b>*</b></label>
                 <input name="describe" type="text" class="dfinput" value="{$info['describe']?$info['describe']:''}" placeholder="请输入描述内容" />
             </li>
             <li>
-                <label style='padding-right: 42px;'>设置<b>*</b></label>
+                <label style='padding-right: 40px;'>设置<b>*</b></label>
                 <span style="color: #fa7124;"> 不设置则不用勾选</span>
                 <div class="dfinput" style="margin-left: 75px">
                     <div>
@@ -47,7 +55,7 @@
             <div id="url" style="display: none">
                 <li>
                     <label>链接规则<b>*</b></label>
-                    <input name="url" type="text" class="dfinput" placeholder="请输入模块/控制器/方法即可 例如Admin/Rule/index" />
+                    <input name="url" type="text" class="dfinput" placeholder="例如jiaxiao/list/" />
                 </li>
                 <li>
                     <label>链接类型<b>*</b></label>

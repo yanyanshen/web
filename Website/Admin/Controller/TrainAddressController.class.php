@@ -114,7 +114,7 @@ class TrainAddressController extends CommonController {
         $this->display();
     }
 //更新驾校基地
-    function trainsave(){
+    public function trainsave(){
         $trainaddress_id=$_POST['trainaddress_id'];
         $strId='';
         foreach($trainaddress_id as $v){

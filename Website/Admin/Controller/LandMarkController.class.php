@@ -149,8 +149,6 @@ class LandMarkController extends CommonController{
 //            M('landsjuli')->add($data);
         }
         $str=substr($idstr,0,-1);
-//        print_r($str);
-//        exit;
         if(M('lands')->where($where)->find()){
             $res = M('lands')->where($where)->save(array('landmarkid'=>$str));
             $log['done'] .= $str;

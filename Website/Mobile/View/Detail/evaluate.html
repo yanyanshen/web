@@ -23,7 +23,7 @@
     <div class="header_box" style="z-index: 3000">
         <div class="header">
             <ul>
-                <a href="{:U('Mobile/Detail/index',array('id'=>$get['id']))}">
+                <a href="{$url}">
                     <li class="back">
                         <img src="__PUBLIC__/public/images/back.png">
                     </li>
@@ -84,16 +84,19 @@
                                 </div>
                             </div>
                             <div>
+                                <p style="border-bottom: none;padding:0;color: #323232;font-size: 12px">{$data['content']}</p>
                                 <if condition="$data['ucontent'] neq ''">
-                                    <p style="border-bottom: none;padding:0">{$data['content']}</p>
-                                    <p style="border-bottom: 0;padding:0"> <span style="color: #FA7124">追加内容【{$data['untime']}】</span> {$data['ucontent']}</p>
-                                    <else/>
-                                    <p style="border-bottom: none;margin: 0">{$data['content']}</p>
+                                    <p style="border-bottom: 0;padding:0">
+                                        <span style="color: #FA7124">追加内容【{$data['untime']}】</span>
+                                        <span style="color: #323232;font-size: 12px"></span>{$data['ucontent']}
+                                    </p>
                                 </if>
                             </div>
                             <div>
                                 <volist name="data['reply']" id="v">
-                                    <p><span style="color: #FA7124;border-top: none;">驾校回复【{$v['ntime']}】</span> {$v['content']}</p>
+                                    <p><span style="color: #FA7124;border-top: none;">驾校回复【{$v['ntime']}】</span>
+                                        <span style="color: #323232;font-size: 12px">{$v['content']}</span>
+                                    </p>
                                 </volist>
                             </div>
                         </div>

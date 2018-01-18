@@ -5,12 +5,15 @@ class LanguageController extends Controller{
 /*------------------2017-10-26shenyanyan------------------*/
 //语言教育列表
     public function language_list(){
-        session('mobile_return',U('Mobile/Language/language_list'));
-
-        $this->assign('get',$_GET);
-        if (I('city')) {
-            session('city', I('city'));
+        if(I('city')){
+            $city = M('citys')->where(array('pinyin'=>I('city')))->getField('cityname');
+            session('city', $city);
         }
+        $city_pinyin = M('citys')->where(array('cityname'=>session('city')))->getField('pinyin');
+        $this->assign('url',C('HTTP')."/$city_pinyin/jiaxiao/list");
+        session('mobile_return',U('Mobile/Language/language_list'));
+        $this->assign('get',$_GET);
+
         $city_name = session('city');
         $cityid = M('citys')->where(array('cityname'=>array('like',"%$city_name%")))->getField('id');
         $where = "cityid = $cityid";
@@ -127,7 +130,7 @@ class LanguageController extends Controller{
             ->select();//用户评价
         return $info;
     }
-/*--------------------------2017-10-27shnayanyan---------------------------*/
+/*--------------------------2017-10-27shenyanyan---------------------------*/
 //语言教育课程详情页面
     public function language_class_detail(){
         //课程数据查询

@@ -29,6 +29,7 @@ class OrderController extends Controller{
             $this->assign('url',$url);
             $this->display('add_order');
         }else{
+            dump($_GET);
             $order_id = D('order')->add_order();
             $this->redirect('add_order',array('schoolid'=>I('id'),'order_id'=>$order_id,'mid'=>session('mid')));
         }

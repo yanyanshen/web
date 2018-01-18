@@ -1,5 +1,6 @@
 <?php
 namespace Admin\Controller;
+use Org\Util\Pinyin;
 use Think\Controller;
 use Think\Upload;
 use Admin\Common\Controller\CommonController;
@@ -18,6 +19,16 @@ class SlideshowController extends CommonController{
     public function add_slide(){
         if(IS_AJAX){
             $_POST['lastupdate'] = session('admin_name');
+            if($_POST['param']){
+                //城市id
+                $cityid = M('Citys')->where(array('pinyin'=>$_POST['city_pinyin']))->getField('id');
+                if(M('School')->where(array('short_name'=>$_POST['param'],'cityid'=>$cityid))->find()){
+                    $pinyin = new Pinyin();
+                    $_POST['param'] = $pinyin->qupinyin($_POST['param']);
+                }else{
+                    $this->error('请检查关键词是否正确');
+                }
+            }
             $id = M('slideshow')->add($_POST);
             $res = UploadPic('slideshow','Slideshow_logo',$id);
             if($res){
@@ -28,6 +39,8 @@ class SlideshowController extends CommonController{
                 $this->error('操作失败',U('Admin/Slideshow/add_slide',array('pid'=>I('pid'))));
             }
         }else{
+            $citys = M('citys')->field('cityname,pinyin')->where(array('flag'=>1))->select();
+            $this->assign('citys',$citys);
             $this->assign('get',$_GET);
             $this->display();
         }
@@ -39,12 +52,6 @@ class SlideshowController extends CommonController{
  */
     public function edit_slide(){
         if(IS_AJAX){
-            if(!$_POST['flag']){
-                $_POST['flag'] = 1;
-            }
-            if(!$_POST['list_flag']){
-                $_POST['list_flag'] = 0;
-            }
             $_POST['lastupdate'] = session('admin_name');
             $info = M('slideshow')->save($_POST);
             $res = editorPic('slideshow','Slideshow_logo',$_POST['id']);

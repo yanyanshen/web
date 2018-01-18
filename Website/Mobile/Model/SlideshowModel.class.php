@@ -12,12 +12,7 @@ class SlideshowModel extends Model{
         $info = $this->where($where)->select();
         foreach($info as $k=>$v){
             if($v['type'] == 1){
-                $id = M('school')->where(array('nickname'=>array('like',"%{$v['param']}%")))->getField('id');
-                if($id){
-                    $info[$k]['href'] = $info[$k]['url'].'?id='.$id;
-                }else{
-                    $info[$k]['href'] = '';
-                }
+                $info[$k]['href'] = "{$v['city_pinyin']}/{$v['url']}{$v['param']}";
             }else{
                 $info[$k]['href'] = '';
             }

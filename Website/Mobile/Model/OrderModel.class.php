@@ -93,6 +93,7 @@ class OrderModel extends Model{
             $data['order_source'] = 17;//订单来源;
         }else{
             $data['order_source'] = session('mobile_order_source');//订单来源;
+            $data['referer'] = session('mobile_referer');//订单来源;
         }
 
         $data['url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//下单链接

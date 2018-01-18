@@ -13,7 +13,7 @@
 <body>
     <div class="div_head">
         权限列表
-        <if condition="get['add_rule'] eq '0'">
+        <if condition="$get['add_rule'] eq '0'">
             <a style="text-decoration: none;color:#fa7124;" href="javascript:alert('暂无权限')">【权限添加】</a>
             <else/>
             <a style="text-decoration: none;color:#fa7124;" href="{:U($get['add_rule'],array('ppid'=>$get['pid']))}">【权限添加】</a>

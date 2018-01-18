@@ -308,9 +308,8 @@ class LanguageController extends CommonController{
         $Page = new Page($count,10);
         $_GET['page'] = $Page->show();
         $_GET['firstRow'] = $Page->firstRow;
-        $_GET['info'] = M('LanguageApply')
-            ->limit($Page->firstRow.','.$Page->listRows)->order('ntime desc')
-            ->where($where)->select();
+        $_GET['info'] = M('LanguageApply')->limit($Page->firstRow.','.$Page->listRows)
+            ->order('ntime desc')->where($where)->select();
         $_GET['count'] = $count;
         $_GET['count1'] = M('LanguageApply')->where("flag = 0")->count();
         $_GET['count2'] = M('LanguageApply')->where("visit = 0")->count();

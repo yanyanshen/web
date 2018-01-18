@@ -38,7 +38,7 @@
             <li>
                 <label style='padding-right: 53px;'>设置<b>*</b></label>
                 <span style="color: #fa7124;font-weight: bold"> 不设置则不用勾选</span>
-                <div class="dfinput" style="margin-left: 90px">
+                <div class="dfinput" style="margin-left: 87px">
                     <div>
                         <input type="checkbox" value="true" disabled  {$info['url']?checked:''}/>设置链接url
                         <input style="margin-left: 50px" class="list_flag" type="checkbox" name="list_flag" value="{$info['list_flag']}"   {$info['list_flag']==1?checked:''}/>设为列表轮播图
@@ -117,15 +117,15 @@
                         str += '</div>';
                         $('.keyword').html(str);
                     }else{
-                        str += '<label  style="padding: 10px 8px 10px 0">参数关键词<b>*</b></label>';
-                        str += '<input name="param" type="text" class="dfinput" placeholder="请填写关键词" />';
+                        str += '<label  style="padding: 10px 11px 10px 0">参数关键词<b>*</b></label>';
+                        str += '<input name="param" type="text" class="dfinput" placeholder="例如:517驾校就填写517" />';
                         $('.keyword').html(str);
                     }
                 })
             </script>
             <li>
                 <label>轮播图<b>*</b></label>
-                <div class="usercity dfinput" style="width:345px;height:150px;position: relative;margin-left: 90px">
+                <div class="usercity dfinput" style="width:344px;height:150px;position: relative;margin-left: 87px">
                     <label for="image1"  style="position: relative;margin-left:10px;color:#fff;text-align:center;border-radius:4px;height:26px;line-height:26px;font-size:14px;background:rgb(19, 181, 177);padding:8px;cursor:pointer;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);">点击选择主图</label>
                     <p id="preview1">
                         <img id="imghead1" width="150"  border=0 src='{$http}/Uploads/Slideshow_logo/{$info["picurl"]}{$info["picname"]}'>
@@ -134,7 +134,7 @@
                 </div>
             </li>
             <li>
-                <label style="padding: 10px 90px 10px 0"></label>
+                <label style="padding: 10px 88px 10px 0"></label>
                 <input style="width: 137px;height: 35px;line-height: 35px;background-color: rgb(19, 181, 177);border: none;border-radius: 4px;color: #ffffff " type="button" class="btn" value="确定"/>
             </li>
         </ul>

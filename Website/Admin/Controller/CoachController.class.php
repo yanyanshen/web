@@ -165,7 +165,7 @@ class CoachController extends CommonController {
 /*
  * User：沈艳艳
  * Date：2017/09/04
- * 删除教练分类
+ * 删除教练、指导员分类
  */
     public function del_category($id,$pid,$type){
         switch($type){

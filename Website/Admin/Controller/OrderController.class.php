@@ -51,6 +51,11 @@ class OrderController extends CommonController {
        $this->assign('arr', $arr);
        $this->assign('get',$_GET);
        $this->assign('url',U('Admin/Order/order_list',array('pid'=>I('pid'),'p'=>I('p'))));
+       //订单批量取消
+       $reason = M('OrderCancelReason')->select();
+       $this->assign('reason',$reason);
+       $customer = M('Admin')->where(array('permissions'=>array('neq',1),'allocation'=>1))->select();
+       $this->assign('customer',$customer);
        $this->display();
    }
 /*
@@ -152,7 +157,8 @@ class OrderController extends CommonController {
         $list['order_source'] = M('OrderSource')->where(array('id'=>$list['order_source']))->find();
         $list['order_keyword'] = M('OrderKeyword')->where(array('id'=>$list['order_keyword']))->getField('name');
 //课程信息
-        $class = M('trainclass')->field('wholeprice,name,officeprice,advanceprice,(wholeprice-advanceprice) as whole1')->where(array('id'=>$list['class_name']))->find();
+        $class = M('trainclass')->field('wholeprice,name,officeprice,advanceprice,(wholeprice-advanceprice) as whole1')
+            ->where(array('id'=>$list['class_name']))->find();
         $this->assign('class',$class);
 //基地名称
         $list['trainaddress'] = M('trainaddress')->where(array('id'=>$list['trainaddress']))->getField('trname');
@@ -162,9 +168,9 @@ class OrderController extends CommonController {
         $stu = M('OrderUser')->field('id,name,tel,sex')->where("oid = $id")->select();
         $this->assign('stu',$stu);
 //跟单记录
-        $jilu = M('customer')->where("ordcode='{$list['ordcode']}'")->limit(5)->select();
+        $jilu = M('customer')->where("ordcode='{$list['ordcode']}'")->order('create_time asc')->select();
 //跟单客服
-        $customer = M('Admin')->select();
+        $customer = M('Admin')->where(array('permissions'=>array('neq',1),'allocation'=>1))->select();
         $this->assign('customer',$customer);
 
         //订单取消原因
@@ -301,8 +307,7 @@ class OrderController extends CommonController {
                     $log2 = "学员地址|备注:{$order['address']} | {$order['inform']}=>{$_POST['address']}|{$_POST['inform']}";
                 };
             }
-//            $price = M('OrderUser')->field('price')->where(array('oid'=>I('oid')))->sum('price');
-//            M('Order')->where(array('id'=>I('oid')))->save(array('price'=>$price));
+
             $log = "学员信息:$log => $log1";
 
             if($log||$log2){
@@ -510,12 +515,24 @@ class OrderController extends CommonController {
             echo 'false';
         }
     }
+/*---------------------2018-1-9shenyanyan------------------*/
+//订单列表的批量取消订单按钮
+    public function batch_operate(){
+        print_r($_GET);
+    }
+//订单列表的批量转客服按钮
+    public function transfer_customer(){
+        $arrId = explode(',',I('str'));
+        $_POST['lastupdate'] = session('admin_name');
 
-/*-------------------------------2017-11-23shenyanyan--------------------------*/
-//查询到所有的待回访订单 将其时间与现在的时间相对比 如果大于现在的时间则 记录条数并异步返回到订单页面
-    public function timing(){
-        $now_time = date('Y-m-d H:i:s',time());
-        $count = M('Order')->where(array('order_status'=>2,'return_time'=>array('elt',$now_time)))->count();
-        $this->success($count);
+        foreach($arrId as $v){
+            //原来的跟单客服
+            $customer = M('Order')->where(array('id'=>$v))->getField('customer');
+            $_POST['id'] = $v;
+            M('Order')->save($_POST);
+            $log = "客服信息: $customer => {$_POST['customer']}";
+            D('AdminLog')->addOrderLog($log,$v);
+        }
+        $this->redirect('order_list',array('pid'=>I('pid'),'p'=>I('p')));
     }
 }

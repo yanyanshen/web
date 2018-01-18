@@ -53,7 +53,6 @@ class FinanceController extends CommonController{
             $_GET['order_status'] = 4;
             $arr = D('Order')->order_list($_GET);
             $this->assign('arr', $arr);
-
             $this->assign('get',$_GET);
             $this->display();
         }

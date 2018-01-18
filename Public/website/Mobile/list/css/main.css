@@ -485,14 +485,14 @@
 }
 #r_img{
     width:130px;
-    height:75px;
+    height:90px;
     margin-left: 5%;
     overflow: hidden;
     float: left;
 }
 #r_img img{
     width:100%;
-    height:auto;
+    height:80px;
     display: block;
 }
 #r_main{

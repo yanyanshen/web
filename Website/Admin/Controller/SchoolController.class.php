@@ -23,7 +23,9 @@ class SchoolController extends CommonController {
         $data = M('School')->table('xueches_school school,xueches_citys city')
             ->field($field)->where($where)->order('school.order desc')
             ->limit($Page->firstRow.','.$Page->listRows)->select();
-
+        foreach($data as $k=>$v){
+            $data[$k]['evaluate'] = M('Evaluate')->where(array('sid'=>$v['id']))->count();
+        }
         //城市
         $citys=M('citys')->field('id,cityname')->where("flag=1")->select();
         $this->assign('page',$show);// 赋值分页输出
@@ -37,7 +39,7 @@ class SchoolController extends CommonController {
         $this->display();
     }
 //删除驾校
-    function del_school($id,$pid,$type,$p){
+    public function del_school($id,$pid,$type,$p){
         //要删除的驾校
         $school_name = M('School')->where(array('id'=>$id))->getField('nickname');
         M('school')->startTrans();
@@ -83,7 +85,7 @@ class SchoolController extends CommonController {
         }
         $this->redirect($url,array('p'=>$p,'pid'=>$pid),$tt,$message);
     }
-//批量删除驾校
+//批量删除驾校、教练、指导员
     public function batch_operate_del(){
         switch(I('type')){
             case 'jx':
@@ -122,35 +124,32 @@ class SchoolController extends CommonController {
         $this->redirect($url,array('pid'=>I('pid'),'p'=>I('p')));
     }
 //添加驾校
-    function add_jx(){
+    public function add_jx(){
         if(!empty($_POST)){
             $where['nickname']=$_POST['nickname'];
-            $data=D('School')->school_list($where,'id');
-            if($data){
-                $this->error('此驾校已存在');
+            $data = D('School')->school_list($where,'id');
+            $_POST['short_name'] = substr($_POST['nickname'],0,-6);
+            $pinyin = new Pinyin();
+            $_POST['pinyin'] = $pinyin->qupinyin($_POST['short_name']);
+            $where1['pinyin'] = $_POST['pinyin'];
+            $pin = D('School')->school_list($where1,'pinyin');
+            if($data || $pin){
+                $this->error('驾校名称或简称拼音重复，请加以区分');
             }else{
-                $_POST['short_name'] = substr($_POST['nickname'],0,-6);
-                $pinyin = new Pinyin();
-                $_POST['pinyin'] = $pinyin->qupinyin($_POST['short_name']);
-                $info = M('School')->where(array('pinyin'=>$_POST['pinyin'],'type'=>'jx'))->find();
-                if($info){
-                    $_POST['pinyin'] = $pinyin->qupinyin($_POST['cityid']).$_POST['pinyin'];
-                }
-
-                $where['cityname']=$_POST['cityid'];
+                $where['cityname'] = $_POST['cityid'];
                 $city_list=D('Citys')->city_one($where);
                 $_POST['cityid']=$city_list['id'];
                 $_POST['ntime']=time();
                 $_POST['lastupdate']=session('admin_name');
                 $id=D('School')->add_jx($_POST);
-            }
-            $res=UploadPic('School','School_logo',$id);
-            if($res){
-                $log['done'] = "驾校添加: => {$_POST['nickname']}";
-                D('AdminLog')->logout($log);
-                $this->success('添加成功',U('Admin/School/jx_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
-            }else{
-                $this->error('添加失败',U('Admin/School/add_jx',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+                $res=UploadPic('School','School_logo',$id);
+                if($res){
+                    $log['done'] = "驾校添加: => {$_POST['nickname']}";
+                    D('AdminLog')->logout($log);
+                    $this->success('添加成功',U('Admin/School/jx_list',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+                }else{
+                    $this->error('添加失败',U('Admin/School/add_jx',array('p'=>$_POST['p'],'pid'=>$_POST['pid'])));
+                }
             }
         }else{
             $city=M('citys')->field("id,cityname")->where("flag=1")->select();

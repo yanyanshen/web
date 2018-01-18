@@ -31,8 +31,8 @@
         </div>
     </div>
     <form action="{:U('Mobile/WayPay/pay_money')}" method="post" id="form1" onsubmit ="getElementById('btn2').disabled=true;return true;">
-        <input type="hidden" name="WIDout_trade_no" value="{$ordcode}"/>
-        <input type="hidden" name="price" value="{$price}"/>
+        <input type="text" name="WIDout_trade_no" value="{$ordcode}"/>
+        <input type="text" name="WIDtotal_amount" value="{$price}"/>
         <div class="main_box">
             <div class="main">
                 <div class="pay_box">

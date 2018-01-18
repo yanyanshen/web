@@ -105,9 +105,9 @@
 }
 .eval_text p{
     line-height: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    margin-top: 6px;
 }
+
 .look_more{
     width: 100%;
 }
@@ -138,7 +138,7 @@
 .top_m1_img{
     float: left;
     width:100px;
-    height:58px;
+    height:85px;
     overflow: hidden;
     margin-top: 10px;
     margin-left: 10px;
@@ -308,12 +308,7 @@
     width: 94%;
     margin: 0 auto;
 }
-.eval_text p{
-    line-height: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    margin-top: 6px;
-}
+
 .eval_name{
     width: 94%;
     margin: 0 auto;
