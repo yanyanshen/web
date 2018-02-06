@@ -14,7 +14,7 @@ return array(
             'timeout' => 60
         ),
         'domain' => array(
-            'domain_name' => 'www517xccnvideo'
+            'domain_name' => '?'
         ),
     ),
 /*------------------2017-10-13腾讯云COS存储文件 配置信息--------------------------*/
